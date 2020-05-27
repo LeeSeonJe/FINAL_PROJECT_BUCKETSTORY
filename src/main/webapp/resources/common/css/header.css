@@ -40,7 +40,7 @@
 	font-family: -webkit-pictograph;
 	line-height: 40px;
 }
-#logoutBtn{
+#menuBtn{
 	background-image: url('../images/menu.png');
 	background-size: cover;
 }
@@ -48,11 +48,11 @@
 	background-image: url('../images/알림.png');
 	background-size: cover;
 }
-#menuBtn{
-	background-image: url(../images/로그아웃.png');
+#logoutBtn{
+	background-image: url('../images/로그아웃.png');
 	background-size: cover;
 }	
-#menuBtn:hover{
-	background-image: url(../images/로그아웃호버.png');
+#logoutBtn:hover{
+	background-image: url('../images/로그아웃호버.png');
 	background-size: cover;
 }
