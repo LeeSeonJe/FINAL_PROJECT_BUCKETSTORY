@@ -1,0 +1,28 @@
+@charset "UTF-8";
+#page{width:90%; margin:0 auto;}
+	li { list-style: none; float:left; } 
+	div#requestMember {
+    width: 720px;
+    margin: 0 auto;
+    height: 165px;
+    margin-top: 24px;
+}
+	#requestImage {
+    width: 120px;
+    height: 120px;
+    margin-right: 28px;
+}
+	#requestMember>table>tbody>tr>td:nth-child(3){
+		    width: 100px;
+	}
+	#bucketListDetail {
+    text-align: center;
+    background: lightgray;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+	#ListArea{
+	width:50px; background:lightgray;margin:0 auto;
+	cursor:pointer;
+	}

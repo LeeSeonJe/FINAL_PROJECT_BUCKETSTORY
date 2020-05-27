@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+#facebookBtn{
+	background-image: url('../images/facebook.png');
+	background-size: cover;	
+}
+#instaBtn{
+	background-image: url('../images/instagram.png');
+	background-size: cover;
+}	
+.snsLink{
+	margin:5px;
+	background:white;
+	float:left;
+	height:35px;
+	width:35px;
+	cursor: pointer;
+}
+.Rmenu{
+	margin:5px;
+	background:white;
+	float:right;
+	height:35px;
+	width:35px;
+	cursor: pointer;
+}
+#logo-wrap{
+	background:white;
+	margin:0 auto;
+	width:200px;
+	height:100%;
+}
+#logo{
+    margin-left: 20px;
+    width: 160px;
+    height: 100%;
+    text-align: center;
+    font-size: 28px;
+	font-weight: 500;
+	font-family: -webkit-pictograph;
+	line-height: 40px;
+}
+#logoutBtn{
+	background-image: url('../images/menu.png');
+	background-size: cover;
+}
+#alertBtn{
+	background-image: url('../images/알림.png');
+	background-size: cover;
+}
+#menuBtn{
+	background-image: url(../images/로그아웃.png');
+	background-size: cover;
+}	
+#menuBtn:hover{
+	background-image: url(../images/로그아웃호버.png');
+	background-size: cover;
+}

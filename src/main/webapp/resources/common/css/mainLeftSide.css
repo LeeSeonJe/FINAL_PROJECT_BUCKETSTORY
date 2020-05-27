@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+#leftSideBar{
+	border: 1px solid gray;
+    border-radius: 10px;
+    position: fixed;
+    z-index: 2;
+    top: 200px;
+    left: 0;
+    width: 0px;
+    overflow: hidden;
+    min-height: 500px;
+    text-align: -webkit-center;
+    font-size: 15px;
+    font-family: -webkit-pictograph;
+    background:white;
+}
+.category{
+	border:1px solid gray;
+	border-radius: 50px;
+	width:60px;
+	height:60px;
+	cursor: pointer;
+}
+.categoryImg{
+	width:40px;
+	height:40px;
+	margin-top: 10px;
+}
+#category1:hover{
+	background:silver;
+}
+#category2:hover{
+	background:#D4F4FA;
+}
+#category3:hover{
+	background:#FF4848;
+}
+#category4:hover{
+	background:#FFCD12;
+}
+#category5:hover{
+	background:#FFF612;
+}
+#category6:hover{
+	background:#2FED28;
+}
+#category7:hover{
+	background:#1266FF;
+}
+#category8:hover{
+	background:#4D48E1;
+}
+#category9:hover{
+	background:#B95AFF;
+}
+#sidemenuhoverbar{
+	width: 30px;
+    height: 110px;
+    background: green;
+    position: fixed;
+    top: 500px;
+    z-index: 1;
+	left:0;
+}
+.categoryname{
+	width:70px;
+}
