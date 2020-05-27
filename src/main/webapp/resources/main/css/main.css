@@ -1,0 +1,440 @@
+@charset "UTF-8";
+
+body{
+	min-width:1200px;
+	margin:0;
+}
+header{
+	min-width:1200px;
+	border-bottom:1px solid rgba(var(--b38,219,219,219),1);
+	width:100%;
+	height:60px;
+	position: fixed;
+	z-index: 100;
+	background:white;
+}
+nav{
+	min-width: 1200px;
+    width: 100%;
+    height: 47.5px;
+    position: fixed;
+    z-index: 100;
+    top: 60px;
+    background: white;
+    overflow: hidden;
+}
+#extra{
+	min-width:1200px;
+	height:110px;
+}
+/* 검색버튼 */
+#search{
+	min-width:1200px;
+	height:70px;
+	overflow:hidden;
+}
+#search-wrap{
+	width:680px;
+	height:100%;
+	margin:0 auto;
+}
+#search-img{
+	margin-top: 10px;
+    margin-left: 41px;
+    width: 580px;
+    height: 50px;
+    cursor: pointer;
+}
+
+
+/* 섹션 */
+section{
+	min-width:1200px;
+	min-height:70px;
+	overflow:hidden;
+	background:blue;
+}
+.bucket{
+	transform-origin: 50% 50%;
+    transform: translate(0px, 0px);
+    opacity: 1;
+	position: relative;
+    float: left;
+    width: 20%;
+    overflow: hidden;
+    cursor: pointer;
+    background-image: url('../images/loginback.jpg');
+    background-size:cover;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: block;
+}
+.bucketContent{
+	position:absolute;
+	width:100%;
+	bottom: 0;
+	text-align: center;
+}
+.c-category{
+	width: 100%;
+    height: 20px;
+    font-weight: 800;
+    color: orange;
+}
+.c-bucket{
+	width: 100%;
+   	height: 60px;
+    font-size: 20px;
+    color: white;
+    font-weight: 700;
+}
+.c-bucket-1{
+	width:240px;
+	height:100%;
+	margin:0 auto;
+}
+.c-Add{
+	width: 100%;
+    height: 40px;
+}
+.c-addBtn{
+	width:76px;
+	height:30px;
+	border:1px solid white;
+	color:white;
+	border-radius: 20px;
+	margin:0 auto;
+	line-height: 27.3px;
+	font-weight: 700;
+}
+.c-addBtn:hover{
+	color:black;
+	background:#10ccc3;
+	border:1px solid #10ccc3;
+}
+.c-likewish{
+	display:none;
+	width:100%;
+	height:40px;
+}
+.c-likeBtn{
+	width:50%;
+	height:100%;
+	float:left;
+	color:white;
+}
+.c-wishBtn{
+	width:50%;
+	height:100%;
+	float:left;
+	color:white;
+}
+
+/* 버킷 디테일 */
+
+#FullOverLay{
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 1200px;
+    z-index: 300;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: none;
+    background:rgb(0,0,0,0.3);
+}
+
+#bucketDatail{
+	position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 71.8%;
+    min-height: 100px;
+    z-index: 301;
+    margin-left: 3.9%;
+    margin-bottom: 5%;
+    background:white;
+}
+#bucketexit{
+	position: absolute;
+    width: 50px;
+    height: 50px;
+    color: rgb(91, 90, 255);
+    top: 10px;
+    right: 0px;
+    font-size: 35px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+#bucketimg{
+	width:100%;
+	background:skyblue;
+}
+#bucketcate{
+	position: absolute;
+    bottom: 420px;
+    left: 20px;
+    width: 100px;
+    height: 20px;
+    font-weight: 800;
+    color: orange;
+    font-family: -webkit-pictograph;
+}
+#buckettitle{
+	position: absolute;
+    bottom: 320px;
+    left: 10px;
+    width: 500px;
+    height: 90px;
+    font-size: 30px;
+    color: white;
+    font-weight: 700;
+    font-family: cursive;
+}
+#bucketleft{
+	position: absolute;
+    top: 230px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 30px;
+    font-weight: 700;
+    background: rgb(0,0,0,0.3);
+    text-align: center;
+    line-height: 46.3px;
+}
+#bucketleft:hover{
+	color:#36FFFF;
+}
+#bucketright{
+	position: absolute;
+    top: 230px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 30px;
+    font-weight: 700;
+    background: rgb(0,0,0,0.3);
+    text-align: center;
+    line-height: 46.3px;
+}
+#bucketright:hover{
+	color:#36FFFF;
+}
+#bucketAdd{
+	position: absolute;
+    width: 141px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 50px;
+    line-height: 43.5px;
+    font-weight: 700;
+    bottom: 320px;
+    right: 170px;
+    text-align: center;
+    font-size: 25px;
+}
+#bucketAdd:hover{
+	color:black;
+	background:#10ccc3;
+	border:1px solid #10ccc3;
+}
+#bucketlike{
+	position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 50px;
+    bottom: 320px;
+    right: 100.9px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 43.5px;
+}
+#bucketlike:hover{
+	color:#10ccc3;
+}
+#bucketwish{
+	position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 50px;
+    bottom: 320px;
+    right: 32.1px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 43.5px;
+    font-weight: 700;
+}
+#bucketwish:hover{
+	color:#10ccc3;
+}
+
+#bucketcp{
+	float:left;
+	height:300px;
+}
+#bucketTag{
+	width: 90%;
+    height: 26px;
+    margin-left: 5%;
+    margin-top: 22px;
+}
+#bucketTag1{
+	display: inline-block;
+    padding: 1px 2px;
+    margin-right: 2px;
+    margin-bottom: 4px;
+    border: 1px solid #dddada;
+    border-radius: 30px;
+    font-size: 11px;
+    color: #666666;
+    transition: border-color 0.3s;
+}
+#bucketTag1>span{
+	color: #10c5bc;
+}
+#bucketexplain{
+	width: 90%;
+    font-size: 13px;
+    color: #666666;
+    margin-left:5%;
+    line-height: 24px;
+    max-height: 90px;
+    overflow: auto;
+}
+#bucketcompany{
+	width: 90%;
+    margin-left: 5%;
+    overflow: auto;
+    max-height: 103.4px;
+    margin-top: 15px;
+}
+#bucketcompany>ul>li{
+	font-size: 15px;
+	margin-bottom: 2px;
+}
+#bucketcompany>ul>li:nth-child(n+2){
+	border-top: 1px solid gray;
+}
+#bucketcompany button{
+	float: right;
+    height: 20px;
+    line-height: 16.9px;
+}
+#bucketcpeventD{
+	width: 90%;
+    margin-left: 5%;
+    height: 24.6px;
+    margin-top: 5px;
+}
+#bucketcpeventD>button{
+	float:right;
+}
+
+#bucketwith{
+	width:410px;
+	float:left;
+	height:300px;
+	border-left: 1px solid gray;
+}
+#bucketwithCount{
+	width:80%;
+	height:18px;
+	margin-left: 10%;
+	margin-top:40px;
+}
+#bucketwithCount>span{
+	color:rgb(91, 90, 255);
+}
+#bucketwithPro{
+	width:90%;
+	margin-left: 5%;
+	margin-top:20px;
+	height:18px;
+}
+#profile1{
+	margin-top:15px;
+	margin-left: 6px;
+    margin-right: 6px;
+    float: left;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    background-image: url(../images/프로필.png);
+    background-size: cover;
+}
+#bucketwithBN{
+	position: absolute;
+    bottom: 0px;
+    width: 410px;
+    height: 50px;
+    border-top: 1px solid gray;
+    text-align: center;
+}
+#bucketwithBN-a1{
+	left: 30px;
+	position: absolute;
+    top: 16px;
+    display: inline-block;
+    font-size: 12px;
+    color: #666666;
+}
+#bucketwithBN-Count{
+	display: inline-block;
+    width: 61px;
+    height: 21px;
+    font-size: 14px;
+    color: #797979;
+    border: 1px solid #e0e0e0;
+    border-radius: 30px;
+    line-height: 24px;
+    margin-top: 12px;
+    font-weight: bold;
+    font-family: 'Myriad Pro', sans-serif;
+}
+#bucketwithBN-a2{
+	right: 30px;
+	position: absolute;
+    top: 16px;
+    display: inline-block;
+    font-size: 12px;
+    color: #666666;
+}
+
+#bucketcpEvent{
+	width:410px;
+	float:left;
+	height:300px;
+	background:black;
+	display:none;
+}
+
+
+
+/* 스크롤 */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(91, 90, 255);
+}
+
+::-webkit-scrollbar-track {
+    background-color: #eaeaea;
+    border-left: 1px solid #ccc;
+}

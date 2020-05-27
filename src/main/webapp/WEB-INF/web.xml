@@ -45,6 +45,7 @@
 		<url-pattern>*.me</url-pattern>
 	</servlet-mapping>
 	
+	
 	<servlet>
 		<servlet-name>expertServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -56,6 +57,19 @@
 	<servlet-mapping>
 		<servlet-name>expertServlet</servlet-name>
 		<url-pattern>*.ex</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MainServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/main-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MainServlet</servlet-name>
+		<url-pattern>*.ho</url-pattern>
 	</servlet-mapping>
 
 </web-app>
