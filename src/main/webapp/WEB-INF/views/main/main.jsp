@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,21 +11,21 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-	<c:set var="contextPath" value="${ pageContext.request.contextPath }" scope="application"/>
+	
 	<header>
-		<c:import url="${ contextPath }/WEB-INF/views/common/header.jsp"/>
+		<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>				
 	</header>
-	<nav><jsp:include page="${ contextPath }/webapp/views/common/mainNav.jsp"/></nav>
-	<jsp:include page="${ contextPath }/webapp/views/common/mainRightSide.jsp"/>
+	<nav><jsp:include page="/WEB-INF/views/common/mainNav.jsp"/></nav>
+	<jsp:include page="/WEB-INF/views/common/mainRightSide.jsp"/>
 	<div id="extra"></div>
 	<div id="search">
 		<div id="search-wrap">
-			<img id="search-img" src="resources/main/images/검색창버튼.png">
+			<img id="search-img" src="resources/common/images/검색창버튼.png">
 		</div>
 	</div>
 	<%@ include file="searchscreen.jsp" %>
 	<section>
-		<jsp:include page="${ contextPath }/views/common/mainLeftSide.jsp"/>
+		<jsp:include page="/WEB-INF/views/common/mainLeftSide.jsp"/>
 		<div class="bucket">
 			<div class="bucketContent">
 				<div class="c-category">FOOD</div>
