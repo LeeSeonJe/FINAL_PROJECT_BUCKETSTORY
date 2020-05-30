@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="resources/common/css/mainNav.css">
+	<link rel="stylesheet" href="resources/layout/css/mainNav.css">
 </head>
 <body>
 	<div id='cssmenu'>
