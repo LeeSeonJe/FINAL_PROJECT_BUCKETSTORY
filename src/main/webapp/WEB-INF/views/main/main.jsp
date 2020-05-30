@@ -13,19 +13,19 @@
 <body>
 	
 	<header>
-		<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>				
+		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
-	<nav><jsp:include page="/WEB-INF/views/common/mainNav.jsp"/></nav>
-	<jsp:include page="/WEB-INF/views/common/mainRightSide.jsp"/>
+	<nav><jsp:include page="/WEB-INF/views/layout/mainNav.jsp"/></nav>
+	<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"/>
 	<div id="extra"></div>
 	<div id="search">
 		<div id="search-wrap">
-			<img id="search-img" src="resources/common/images/검색창버튼.png">
+			<img id="search-img" src="resources/layout/images/검색창버튼.png">
 		</div>
 	</div>
 	<%@ include file="searchscreen.jsp" %>
 	<section>
-		<jsp:include page="/WEB-INF/views/common/mainLeftSide.jsp"/>
+		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 		<div class="bucket">
 			<div class="bucketContent">
 				<div class="c-category">FOOD</div>
