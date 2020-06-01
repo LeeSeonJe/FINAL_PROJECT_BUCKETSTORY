@@ -11,9 +11,9 @@
 	<header>
 		<div id="facebookBtn" class="snsLink"></div>
 		<div id="instaBtn" class="snsLink"></div>
-		<div id="logoutBtn" class="Rmenu"></div>
-		<div id="alertBtn" class="Rmenu"></div>
 		<div id="menuBtn" class="Rmenu"></div>
+		<div id="alertBtn" class="Rmenu"></div>
+		<div id="logoutBtn" class="Rmenu"></div>
 		<div id="logo-wrap">
 			<div id="logo">Bucket Story</div>
 		</div>
