@@ -15,12 +15,12 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-<a href="main.ho">메인 이동</a>
+<a href="main.ho?menuNum=1&category=1">메인 이동</a>
 
 <a href="writer.me">멤버이동</a>
 
 
-<a href="info.ex?coid=test">전문가이동</a>
+<a href="info.ex?coid=TEST">전문가이동</a>
 
 </body>
 </html>
