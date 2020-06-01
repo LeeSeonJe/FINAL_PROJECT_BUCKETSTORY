@@ -80,7 +80,7 @@
 	
 	.gnb_menu .gnb_menu_ul li a:hover .text {color:#fff;}
 	.gnb_menu .gnb_menu_ul li a.gnb1:hover {background:url('../images/bg01_on.jpg') no-repeat 0 center #f3f2f3;}
-	.gnb_menu .gnb_menu_ul li a.gnb1:hover .ico {background:url('../images/gnb/ico01_on.png') no-repeat 0 0;}
+	.gnb_menu .gnb_menu_ul li a.gnb1:hover .ico {background:url('../images/ico01_on.png') no-repeat 0 0;}
 	.gnb_menu .gnb_menu_ul li a.gnb1:hover .text span {color:#fff;}
 	.gnb_menu .gnb_menu_ul li a.gnb2:hover {background:url('../images/bg02_on.jpg') no-repeat 0 center #f6f6f6;}
 	.gnb_menu .gnb_menu_ul li a.gnb2:hover .ico {background:url('../images/ico02_on.png') no-repeat 0 0;}

@@ -108,10 +108,15 @@
 <script>
 	$(function(){
 		// --현재 카테고리 표시
-		$('#cssmenu>ul>li:eq(1)>a').css({'color':'#5B5AFF','border-bottom':'2px solid #3a7af8'});
+		$('#cssmenu>ul>li:eq(2)>a').css({'color':'#CB6CFF','border-bottom':'2px solid #a047c0'});
 		//console.log($(window).width());
 		
 		$('.searchdiv').css('opacity', '1');
+		
+		// 카테고리 종류
+		$('#categoryImg4').prop('src','resources/layout/images/foodhover.png');
+		$('#category4').css('background','#FFCD12');
+		$('#category4').unbind('mouseover mouseout');
 		
 		// --section 버킷들 width에 따라 height변화
 		var hg = $('.bucket').css('width');

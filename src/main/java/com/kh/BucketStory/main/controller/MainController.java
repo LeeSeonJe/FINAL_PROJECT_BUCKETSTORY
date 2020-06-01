@@ -8,6 +8,6 @@ public class MainController {
 	
 	@RequestMapping("main.ho")
 	public String Main() {
-		return "main";
+		return "mainList";
 	}
 }
