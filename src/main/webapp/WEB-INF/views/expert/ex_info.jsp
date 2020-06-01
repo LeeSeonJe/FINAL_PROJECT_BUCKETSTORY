@@ -12,9 +12,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="../common/header.jsp"/>
-<c:import url="../common/mainNav.jsp"/>
-<c:import url="../common/mainLeftSide.jsp"/>
+<c:import url="../layout/header.jsp"/>
+<c:import url="../layout/mainNav.jsp"/>
+<c:import url="../layout/mainLeftSide.jsp"/>
 <div id="page">
 	<div id="page-1">
 		<div id="inputPhoto">
@@ -104,15 +104,17 @@
 			<li><a href="">버킷리스트</a></li>
 		</ul>
 		
+		<c:url var="estimate" value="estimate.ex">
+			<c:param name="coid" value="${ coid }"/>
+		</c:url>
+		
 		<div id="subBtn">
-			맞춤견적 신청
+			<button onclick="location.href='${ estimate }'">맞춤견적 신청</button>
 		</div>
 	</div>
 	<script>
 	var currentPosition = parseInt($("#page-2").css("top")); $(window).scroll(function() { var position = $(window).scrollTop(); $("#page-2").stop().animate({"top":position+currentPosition+"px"},1000); });
-	$('#subBtn').on('click',function(){
-		location.href="estimate.ex";
-	});
+
 	</script>
 </div>
 </body>
