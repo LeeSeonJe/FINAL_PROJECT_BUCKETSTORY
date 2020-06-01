@@ -20,7 +20,7 @@
 <a href="writer.me">멤버이동</a>
 
 
-<a href="info.ex">전문가이동</a>
+<a href="info.ex?coid=test">전문가이동</a>
 
 </body>
 </html>
