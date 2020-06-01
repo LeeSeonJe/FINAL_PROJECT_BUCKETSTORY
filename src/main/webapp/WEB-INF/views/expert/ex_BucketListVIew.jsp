@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -28,17 +28,17 @@
 			<img class="category" src="">
 		</div>
 		
-		<h2 style="text-align: center;">�Բ��ϴ� ��Ŷ����Ʈ</h2>
+		<h2 style="text-align: center;">함께하는 버킷리스트</h2>
 		
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile"src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile"src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -47,12 +47,12 @@
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -61,12 +61,12 @@
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -75,12 +75,12 @@
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -89,12 +89,12 @@
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -103,12 +103,12 @@
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -117,12 +117,12 @@
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -131,12 +131,12 @@
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -145,12 +145,12 @@
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -159,12 +159,12 @@
 		<div class="content_box">
 			<table class="bucketList">
 				<tr>
-					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/������.png">
-					<td><h5>��Ŷ����Ʈ �̸�</h5>
+					<td><img class="bucketList_profile" src="<%=request.getContextPath() %>/views/프로필.png">
+					<td><h5>버킷리스트 이름</h5>
 				</tr>
 				<tr>
 					<td colspan="2">
-					õ���� �󸶳� ��ڸ� �󸶳� �Ƹ��ٿ��? �̰��� ���� �ӿ���
+					천지는 얼마나 기쁘며 얼마나 아름다우냐? 이것을 얼음 속에서
 					</td>
 				</tr>
 			</table>
@@ -172,17 +172,17 @@
 		<div id="modal">
 					   
 			<div class="modal_content">
-				<img id="bucketImage" src="<%=request.getContextPath()%>/views/���-1.jpg">
+				<img id="bucketImage" src="<%=request.getContextPath()%>/views/배경-1.jpg">
 					       
 				<div id="area1">
-					<h2 style="display:inline;">��Ŷ����Ʈ �̸�</h2>
+					<h2 style="display:inline;">버킷리스트 이름</h2>
 					<textarea id="bucketContent" readonly>
-						��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ
-						��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ��Ŷ����Ʈ
+						버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트
+						버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트
 					</textarea>
 				</div>
 					       
-				<button type="button" id="modal_close_btn">��� â �ݱ�</button>
+				<button type="button" id="modal_close_btn">모달 창 닫기</button>
 					       
 			</div>
 					   

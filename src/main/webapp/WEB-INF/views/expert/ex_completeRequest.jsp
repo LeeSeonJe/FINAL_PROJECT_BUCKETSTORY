@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -15,50 +15,50 @@
 	<div id="page">
 		<div id="submenu">
 			<ul>
-				<li>¹ÞÀº¿äÃ» &nbsp</li>
-				<li>ÁøÇàÁß &nbsp</li>
-				<li><h3 style="display: inline;">¿Ï·á¿äÃ»</h3></li>
+				<li>ë°›ì€ìš”ì²­ &nbsp</li>
+				<li>ì§„í–‰ì¤‘ &nbsp</li>
+				<li><h3 style="display: inline;">ì™„ë£Œìš”ì²­</h3></li>
 			</ul>
 		</div>
 		
 		<br clear="left">
-		<h2 style="text-align:center;margin-bottom: 73px;margin-top: 76px;">¸ÅÄª¿Ï·á °ßÀû¼­ È­¸é ÀÔ´Ï´Ù.</h2>		
+		<h2 style="text-align:center;margin-bottom: 73px;margin-top: 76px;">ë§¤ì¹­ì™„ë£Œ ê²¬ì ì„œ í™”ë©´ ìž…ë‹ˆë‹¤.</h2>		
 		
 		<div id="requestMember">
 			<table style="width: 780px;">
 				<tr>
 					<td rowspan="4" style="width:100px;">
-						<img id="requestImage" src="<%=request.getContextPath() %>/views/ÇÁ·ÎÇÊ.png" id="profileImage">
+						<img id="requestImage" src="<%=request.getContextPath() %>/views/í”„ë¡œí•„.png" id="profileImage">
 					</td>
 					<td>
-						<h3 style="display:inline">¿äÃ»º¸³½»ç¶÷ ´Ð³×ÀÓ</h3>
+						<h3 style="display:inline">ìš”ì²­ë³´ë‚¸ì‚¬ëžŒ ë‹‰ë„¤ìž„</h3>
 					</td>
 					<td>
-						¿äÃ»ÀÏ 2020-05-06
+						ìš”ì²­ì¼ 2020-05-06
 					</td>
 				</tr>
 				<tr>
 					<td>
-						¿äÃ»º¸³½»ç¶÷ÀÇ ¹öÅ¶¸®½ºÆ® Ä«Å×°í¸®
+						ìš”ì²­ë³´ë‚¸ì‚¬ëžŒì˜ ë²„í‚·ë¦¬ìŠ¤íŠ¸ ì¹´í…Œê³ ë¦¬
 					</td>
 					<td>
-						¸¶°¨ÀÏ 2020-05-10
+						ë§ˆê°ì¼ 2020-05-10
 					</td>
 				</tr>
 				<tr>
-					<td><h3 style="display:inline;">¹öÅ¶¸®½ºÆ®: ¹öÅ¶¸®½ºÆ®ÀÌ¸§</h3></td>
-					<td style="width: 183px;"><h3>ÆòÁ¡: ¡Ú¡Ú¡Ú¡Ú¡Ú(5.0)</h3></td>
+					<td><h3 style="display:inline;">ë²„í‚·ë¦¬ìŠ¤íŠ¸: ë²„í‚·ë¦¬ìŠ¤íŠ¸ì´ë¦„</h3></td>
+					<td style="width: 183px;"><h3>í‰ì : â˜…â˜…â˜…â˜…â˜…(5.0)</h3></td>
 				</tr>
 				<tr>
-					<td><h3 style="display:inline;">ÃÑ °ßÀû ºñ¿ë: 1,200,000 ¿ø</h3></td>
+					<td><h3 style="display:inline;">ì´ ê²¬ì  ë¹„ìš©: 1,200,000 ì›</h3></td>
 					<td></td>
 				</tr>
 					<td></td>
 					<td>
-						<div id="bucketListDetail">ÀÛ¼ºÁßÀÎ °ßÀû¼­ Á¶È¸</div>
+						<div id="bucketListDetail">ìž‘ì„±ì¤‘ì¸ ê²¬ì ì„œ ì¡°íšŒ</div>
 					</td>
 					<td>
-						<div id="delete">»èÁ¦</div>
+						<div id="delete">ì‚­ì œ</div>
 					</td>
 				<tr>
 				</tr>
@@ -69,37 +69,37 @@
 			<table style="width: 780px;">
 				<tr>
 					<td rowspan="4" style="width:100px;">
-						<img id="requestImage" src="<%=request.getContextPath() %>/views/ÇÁ·ÎÇÊ.png" id="profileImage">
+						<img id="requestImage" src="<%=request.getContextPath() %>/views/í”„ë¡œí•„.png" id="profileImage">
 					</td>
 					<td>
-						<h3 style="display:inline">¿äÃ»º¸³½»ç¶÷ ´Ð³×ÀÓ</h3>
+						<h3 style="display:inline">ìš”ì²­ë³´ë‚¸ì‚¬ëžŒ ë‹‰ë„¤ìž„</h3>
 					</td>
 					<td>
-						¿äÃ»ÀÏ 2020-05-06
+						ìš”ì²­ì¼ 2020-05-06
 					</td>
 				</tr>
 				<tr>
 					<td>
-						¿äÃ»º¸³½»ç¶÷ÀÇ ¹öÅ¶¸®½ºÆ® Ä«Å×°í¸®
+						ìš”ì²­ë³´ë‚¸ì‚¬ëžŒì˜ ë²„í‚·ë¦¬ìŠ¤íŠ¸ ì¹´í…Œê³ ë¦¬
 					</td>
 					<td>
-						¸¶°¨ÀÏ 2020-05-10
+						ë§ˆê°ì¼ 2020-05-10
 					</td>
 				</tr>
 				<tr>
-					<td><h3 style="display:inline;">¹öÅ¶¸®½ºÆ®: ¹öÅ¶¸®½ºÆ®ÀÌ¸§</h3></td>
-					<td style="width: 183px;"><h3>ÆòÁ¡: ¡Ú¡Ú¡Ú¡Ú¡Ú(5.0)</h3></td>
+					<td><h3 style="display:inline;">ë²„í‚·ë¦¬ìŠ¤íŠ¸: ë²„í‚·ë¦¬ìŠ¤íŠ¸ì´ë¦„</h3></td>
+					<td style="width: 183px;"><h3>í‰ì : â˜…â˜…â˜…â˜…â˜…(5.0)</h3></td>
 				</tr>
 				<tr>
-					<td><h3 style="display:inline;">ÃÑ °ßÀû ºñ¿ë: 1,200,000 ¿ø</h3></td>
+					<td><h3 style="display:inline;">ì´ ê²¬ì  ë¹„ìš©: 1,200,000 ì›</h3></td>
 					<td></td>
 				</tr>
 					<td></td>
 					<td>
-						<div id="bucketListDetail">ÀÛ¼ºÁßÀÎ °ßÀû¼­ Á¶È¸</div>
+						<div id="bucketListDetail">ìž‘ì„±ì¤‘ì¸ ê²¬ì ì„œ ì¡°íšŒ</div>
 					</td>
 					<td>
-						<div id="delete">»èÁ¦</div>
+						<div id="delete">ì‚­ì œ</div>
 					</td>
 				<tr>
 				</tr>
@@ -109,8 +109,8 @@
 		
 		<div id="ListAdd">
 			<div id="ListArea">
-				<h4 style="display:inline">´õº¸±â</h4>
-				&nbsp;&nbsp;&nbsp;¡å
+				<h4 style="display:inline">ë”ë³´ê¸°</h4>
+				&nbsp;&nbsp;&nbsp;â–¼
 			</div>
 		</div>
 	</div>

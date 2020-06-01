@@ -6,4 +6,6 @@ public interface ExpertService {
 
 	Company selectCompanyInfo(String coId);
 
+	int updateExInfo(Company com);
+
 }

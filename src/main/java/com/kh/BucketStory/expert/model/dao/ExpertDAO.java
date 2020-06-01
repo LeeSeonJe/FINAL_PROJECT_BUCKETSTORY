@@ -12,4 +12,9 @@ public class ExpertDAO {
 		return sqlSession.selectOne("exMapper.selectCompanyInfo", coId);
 	}
 
+	public int updateExInfo(SqlSessionTemplate sqlSession, Company com) {
+		System.out.println(com.getCoId());
+		return sqlSession.update("exMapper.updateExInfo", com);
+	}
+
 }
