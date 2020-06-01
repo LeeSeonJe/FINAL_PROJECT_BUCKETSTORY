@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+
+/* 메뉴 목록 전체 틀*/
+#adw_menu,
+#adw_menu>ul,
+#adw_menu>ul>li,
+#adw_menu>ul>li>a {
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#adw_menu:after,
+#adw_menu>ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+#adw_menu {
+  width: auto;
+  font-family: Raleway, sans-serif;
+  line-height: 1;
+  margin-top: 40px;
+}
+
+#adw_menu>ul {
+  background: #ffffff;
+  width: 900px;
+}
+
+#adw_menu>ul>li {
+  float: left;
+  width: 150px;
+  text-align: center;
+}
+
+#adw_menu.align-center>ul {
+  font-size: 0;
+  text-align: center;
+}
+#adw_menu.align-center>ul>li {
+  display: inline-block;
+  float: none;
+}
+
+#adw_menu.align-right>ul>li {
+  float: right;
+}
+
+#adw_menu.align-right>ul>li>a {
+  margin-right: 0;
+  margin-left: -4px;
+}
+
+#adw_menu>ul>li>a {
+  z-index: 2;
+  padding: 18px 25px 12px 25px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #444444;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  border-right: 1px solid rgba(var(--b38,219,219,219),1);
+}
+
+#adw_menu>ul>li:nth-child(1)>a{
+	border-left: 1px solid rgba(var(--b38,219,219,219),1);
+}
+
+#adw_menu>ul>li:nth-child(1)>a:hover{
+	color:#18dfd3;
+	border-bottom: 2px solid #10ccc3;
+}
+
+#adw_menu>ul>li:nth-child(2)>a:hover{
+	color:#5B5AFF;
+	border-bottom: 2px solid #3a7af8;
+}
+
+#adw_menu>ul>li:nth-child(3)>a:hover{
+	color:#CB6CFF;
+	border-bottom: 2px solid #a047c0;
+}
+
+#adw_menu>ul>li:nth-child(4)>a:hover{
+	color:#FF7E7E;
+	border-bottom: 2px solid #f861a2;
+}
+
+#adw_menu>ul>li:nth-child(5)>a:hover{
+	color:#000000;
+	border-bottom: 2px solid #000000;
+}
+
+#adw_menu>ul>li:nth-child(6)>a:hover{
+	color:#20da1d;
+	border-bottom: 2px solid #20da1d;
+}
+
+form{
+ 	border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    height: 900px;
+    margin-top: 45px;
+}
+
+form>div>img {
+	background-color:black;
+	min-width:950px;
+	min-height:350px;
+	
+}
+
+form>#adw_formimg{
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+form>div>ul>li{
+	list-style: none;
+	font-size: 15px;
+    height: 65px;
+}
+
+.adw_formDiv{
+	display: inline-flex;
+}
+
+#adw_textarea{
+    resize: none;
+    width: 650px;
+    height: 150px;
+    margin-left: 35px;
+	
+}
+
+.adw_button{
+    text-align: center;
+    margin-top: 40px;
+}
+
+#adw_body>nav{
+	width: 100%;
+	height:30px;
+	
+}
+
+
+
+
+

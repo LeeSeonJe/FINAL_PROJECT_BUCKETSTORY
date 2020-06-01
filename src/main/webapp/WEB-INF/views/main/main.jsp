@@ -10,8 +10,8 @@
 	<link rel="stylesheet" href="resources/main/css/main.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+
 <body>
-	
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
