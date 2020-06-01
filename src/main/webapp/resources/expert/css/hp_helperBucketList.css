@@ -1,0 +1,208 @@
+@charset "UTF-8";
+
+ .section{
+        position: relative;
+    }
+    .wraper{
+        margin: 0 auto;
+        width: 1200px;
+    }
+
+    /* 사이드바 */
+    .side-bar{
+        float: left;
+        background: linear-gradient(rgba(14, 63, 199, 0.637),
+                                    rgba(14, 63, 199, 0.35)
+                                               );
+        margin-top: 300px;
+        height: 400px;
+        width: 70px;
+        position: fixed;
+        text-align: center;
+        border-radius: 10px;
+    }
+    .side-bar .side-header{
+        padding-top: 10px;
+        color: white;
+    }
+    .side-bar .side-item{
+        background: white;
+        width: 50px;
+        height: 50px;
+        margin: 8px auto;
+        border-radius: 10px;
+    }
+    .side-bar .side-item:hover{
+        cursor: pointer;
+    }
+    .side-bar .side-item p{
+       
+    }
+
+    /* 이너 */
+    .inner{
+        margin: 0 auto;
+        background: whitesmoke;
+        width: 980px;
+        text-align: center;
+        position: relative;
+        
+    }
+    .inner .inner-title{
+        padding: 10px;
+        background: white;
+    }
+    .inner .inner-title p{
+        font-size: 30px;
+        font-weight: bolder;
+        color: #333;
+        text-shadow: rgb(14, 63, 199) 1px 0 100px;
+    }
+
+    /* 이너-컨테이너*/
+    .inner .container{
+        margin:0 auto;
+        border-radius: 10px;
+        border: 1px solid rgb(14, 63, 199);
+        background: whitesmoke;
+        position: relative;
+    }
+    .inner .container .content{
+        background: #fff;
+        width: 400px;
+        height: 220px;
+    
+    }
+    .inner .content__title{
+        background: #fff;
+        width: auto;
+        margin-top: 10px;
+        padding:10px;
+    
+    }
+    .inner .content__title p{
+        font-size: 18px;
+        font-weight: bolder;
+        
+    }
+    .inner .content__detail{
+        background: white; /*rgb(233, 237, 250)*/;
+        clear: both;
+        border-top: 10px solid rgba(0, 0, 0, 0.26);
+        padding: 10px;
+        height: 100px;
+    }
+
+    .inner .content__detail p{
+        color: #333;
+    }
+    .inner .inner__bottom{
+        background: #fff;
+        width:auto;
+        height: 100px;
+        display: block;    
+    }
+    /* 공통 */
+    .clearfix::after{
+        content:"";
+        clear: both;
+        display:block;
+      }
+    .content:hover{
+        cursor: pointer;
+    }
+    .content__left{
+        float: left;
+        margin: 30px 0;
+        margin-left: 50px;
+    }
+    .content__right{
+        float: right;
+        margin: 30px 0;
+        margin-right: 50px;
+        
+    }
+    .content__img, .content__img img{
+        float: left;
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        background-size: cover;
+       /* background-image: url("../image/test.jpg");*/
+    }
+
+    /* 모달 */
+    #overlay{
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        background: rgba(0,0,0,0.75);
+        z-index: 1;
+    }
+
+    #content-detail-modal{
+        left: 0;
+        top: 0;
+
+        position: fixed;
+
+        z-index: 3;
+
+        width: 900px;
+        height: 500px;
+        border-radius: 10px;
+        background: rgba(245, 244, 244, 0.975);
+    }
+
+    #modal-close-Btn{
+        width: 50px;
+        height: 50px;
+        background: rgb(87, 86, 86);
+        color: #fff;
+        font-size: 30px;
+        border: 1px solid #333;
+        border-radius: 5px;
+        cursor: pointer;
+        float: right;
+        margin-right: 10px;
+    }
+
+    .content .content__center{
+        float: left;
+        margin: 30px 0;
+        margin-left: 50px;
+    }
+  
+
+    .content__img-c, .content__img-c img{
+        float: left;
+        width: 300px;
+        height: 300px;
+        padding: 10px;
+        border-radius: 20px;
+        background-size: cover;
+    
+    }
+    .content .content__title-c{
+        background: #fff;
+        width: auto;
+    
+        margin-top: 10px;
+        padding:10px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    .content .content__title-c p{
+        font-size: 18px;
+        font-weight: bolder;
+    }
+    .content .content__detail-c{
+        background: white; /*rgb(233, 237, 250)*/;
+     
+        border-top: 10px solid rgba(0, 0, 0, 0.26);
+        padding: 10px;
+        height: 300px;
+        text-align: center;
+    }
