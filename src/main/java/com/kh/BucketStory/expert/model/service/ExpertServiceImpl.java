@@ -20,4 +20,8 @@ public class ExpertServiceImpl implements ExpertService {
 	public Company selectCompanyInfo(String coId) {
 		return exDAO.selectCompanyInfo(sqlSession,coId);
 	}
+	@Override
+	public int updateExInfo(Company com) {
+		return exDAO.updateExInfo(sqlSession,com);
+	}
 }

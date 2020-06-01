@@ -26,7 +26,12 @@
 		<result property="cateNum" column="CATENUM"/>
 		<result property="coIntro" column="COINTRO"/>
 		<result property="coInfo" column="COINFO"/>
-		
 	</resultMap>
+
+	<update id="updateExInfo">
+		update company 
+		set cointro=#{coIntro}, coinfo=#{coInfo}
+		where coid=#{coId}
+	</update>
 	
 </mapper>

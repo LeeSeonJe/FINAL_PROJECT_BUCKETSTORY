@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -7,38 +7,35 @@
 <meta charset="EUC-KR">
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<link rel="stylesheet" href="resources/expert/css/ex_infoUpdateForm.css">
+<link rel="stylesheet" href="resources/expert/css/infoUpdateForm.css">
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="../common/header.jsp"/>
-<c:import url="../common/mainNav.jsp"/>
-<c:import url="../common/mainLeftSide.jsp"/>
+<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 <div id="page">
+<form action="expertUpdate.ex">
 	<div id="page-1">
 		<div id="inputPhoto">
-			<img src="<%=request.getContextPath() %>/views/¹è°æ-1.jpg" id="mainPhoto" name="mainPoto">
+			<img src="resources/expert/images/ë°°ê²½-1.jpg" id="mainPhoto" name="mainPoto">
 		</div>
 		
 		<div id="sum-upPage">
-			<ul id="submenubar">
-				<li>¿ä¾à &nbsp</li>
-				<li>¼Ò°³ &nbsp</li>
-				<li>¸®ºä</li>
-			</ul>
-			
+
 			<hr style="clear:left;">
+			
 			
 			<table id="helperProfile" style="border:1px solid black; width:600px;height:200px;">
 				<tr>
-					<td rowspan="2"><img src="<%=request.getContextPath() %>/views/ÇÁ·ÎÇÊ.png" id="profileImage" ></td>
-					<td><input type="text" id="helperName" placeholder="¾÷Ã¼ÀÌ¸§ ÀÔ·Â"></td>
-					<td></td>
+					<td rowspan="2"><img src="resources/expert/images/photo.jpg" id="profileImage" ></td>
+					<td><h2>${ company.compaName }</h2></td>
+					<td><input type="hidden" id="coId" name="coId" value="${ company.coId }"></td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<div>
-						<textarea style="width: 396px;height: 100px;"placeholder="°£´Ü¼Ò°³ ÀÔ·Â"></textarea>
+						<textarea id="coIntro" name="coIntro" style="width: 396px;height: 100px;"placeholder="ê°„ë‹¨ì†Œê°œ ìž…ë ¥"></textarea>
 						</div>
 					</td>
 				</tr>
@@ -46,32 +43,56 @@
 			
 			<hr>
 			
-			<h2><input type="text" name="helperInfo" placeholder="¾÷Ã¼Á¤º¸"></h2>
-			<textarea style="width: 600px;height: 100px;"placeholder="»ó¼¼¼Ò°³ ÀÔ·Â"></textarea>
+			<h2>ì—…ì²´ì •ë³´</h2>
+			<textarea id="coInfo" name="coInfo" style="width: 600px;height: 100px;"placeholder="ìƒì„¸ì†Œê°œ ìž…ë ¥"></textarea>
+
 			<hr>
 			
 			<div id="categorybar">
-				<img class="category" src="">
-				<img class="category" src="">
-				<img class="category" src="">
-				<img class="category" src="">
-				<img class="category" src="">
-				<img class="category" src="">
-				<img class="category" src="">
-				<img class="category" src="">
-				<img class="category" src="">
+				<div id="category2" class="category1">
+					<img id="categoryImg2" class="categoryImg1" src="resources/layout/images/ì—¬í–‰.png">
+					<h5 style="display:inline">ì—¬í–‰</h5>
+				</div>
+				<div id="category3" class="category1">
+					<img id="categoryImg3" class="categoryImg1" src="resources/layout/images/ìš´ë™.png">
+					<h5 style="display:inline">ìš´ë™</h5>
+				</div>
+				<div id="category4" class="category1">
+					<img id="categoryImg4" class="categoryImg1" src="resources/layout/images/food.png">
+					<h5 style="display:inline">ìŒì‹</h5>
+				</div>
+				<div id="category5" class="category1">
+					<img id="categoryImg5" class="categoryImg1" src="resources/layout/images/skill.png">
+					<h5 style="display:inline">ê¸°ìˆ </h5>
+				</div>
+				<div id="category6" class="category1">
+					<img id="categoryImg6" class="categoryImg1" src="resources/layout/images/culture.png">
+					<h5 style="display:inline">ë¬¸í™”</h5>
+				</div>
+				<div id="category7" class="category1">
+					<img id="categoryImg7" class="categoryImg1" src="resources/layout/images/camping.png">
+					<h5 style="display:inline">ìº í•‘</h5>
+				</div>
+				<div id="category8" class="category1">
+					<img id="categoryImg8" class="categoryImg1" src="resources/layout/images/shopping.png">
+					<h5 style="display:inline">ì‡¼í•‘</h5>
+				</div>
+				<div id="category9" class="category1">
+					<img id="categoryImg9" class="categoryImg1" src="resources/layout/images/lifestyle.png">
+					<h5 style="display:inline">style</h5>
+				</div>
 			</div>
 			<br clear="left">
 			<div class="bucketList" style="margin-top:30px;">
 				<table>
 					<tr>
-						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="<%=request.getContextPath()%>/views/ÇÁ·ÎÇÊ.png"></td>
-						<td>¹öÅ¶¸®½ºÆ® ÀÌ¸§</td>
+						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="resources/expert/images/photo.jpg"></td>
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ì´ë¦„</td>
 					</tr>
 					<tr>
-						<td>¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
 						</td>
 					</tr>
 				</table>
@@ -79,13 +100,13 @@
 			<div class="bucketList" style="margin-top:30px;">
 				<table>
 					<tr>
-						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="<%=request.getContextPath()%>/views/ÇÁ·ÎÇÊ.png"></td>
-						<td>¹öÅ¶¸®½ºÆ® ÀÌ¸§</td>
+						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="resources/expert/images/photo.jpg"></td>
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ì´ë¦„</td>
 					</tr>
 					<tr>
-						<td>¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
 						</td>
 					</tr>
 				</table>
@@ -93,13 +114,13 @@
 		<div class="bucketList" style="margin-top:30px;">
 				<table>
 					<tr>
-						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="<%=request.getContextPath()%>/views/ÇÁ·ÎÇÊ.png"></td>
-						<td>¹öÅ¶¸®½ºÆ® ÀÌ¸§</td>
+						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="resources/expert/images/photo.jpg"></td>
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ì´ë¦„</td>
 					</tr>
 					<tr>
-						<td>¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
 						</td>
 					</tr>
 				</table>
@@ -107,13 +128,13 @@
 		<div class="bucketList" style="margin-top:30px;">
 				<table>
 					<tr>
-						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="<%=request.getContextPath()%>/views/ÇÁ·ÎÇÊ.png"></td>
-						<td>¹öÅ¶¸®½ºÆ® ÀÌ¸§</td>
+						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="resources/expert/images/photo.jpg"></td>
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ì´ë¦„</td>
 					</tr>
 					<tr>
-						<td>¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
 						</td>
 					</tr>
 				</table>
@@ -121,13 +142,13 @@
 		<div class="bucketList" style="margin-top:30px;">
 				<table>
 					<tr>
-						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="<%=request.getContextPath()%>/views/ÇÁ·ÎÇÊ.png"></td>
-						<td>¹öÅ¶¸®½ºÆ® ÀÌ¸§</td>
+						<td rowspan="2"><img style="width: 90px;"id="bucketListImage" src="resources/expert/images/photo.jpg"></td>
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ì´ë¦„</td>
 					</tr>
 					<tr>
-						<td>¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
-							¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í ¹öÅ¶¸®½ºÆ® °£´Ü ¼³¸í
+						<td>ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
+							ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª… ë²„í‚·ë¦¬ìŠ¤íŠ¸ ê°„ë‹¨ ì„¤ëª…
 						</td>
 					</tr>
 				</table>
@@ -136,37 +157,37 @@
 </div>
 	<div id="page-2">
 		<ul style="padding-inline-start: 0px;">
-			<li><h5>ÇÔ²²ÇÏ´Â ¹öÅ¶¸®½ºÆ®</h5></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
+			<li><h5>í•¨ê»˜í•˜ëŠ” ë²„í‚·ë¦¬ìŠ¤íŠ¸</h5></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
 		</ul>
 		
 		<div id="subBtn">
-			¸ÂÃã°ßÀû ½ÅÃ»
+			<button id="sub">ì €ìž¥í•˜ê¸°</button>
 		</div>
 	</div>
 		<div id="modal">
 					   
 			<div class="modal_content">
-				<img id="bucketImage" src="<%=request.getContextPath()%>/views/¹è°æ-1.jpg">
+				<img id="bucketImage" src="resources/expert/images/ë°°ê²½-1.jpg">
 					       
 				<div id="area1">
-					<h2 style="display:inline;">¹öÅ¶¸®½ºÆ® ÀÌ¸§</h2>
+					<h2 style="display:inline;">ë²„í‚·ë¦¬ìŠ¤íŠ¸ ì´ë¦„</h2>
 					<textarea id="bucketContent" readonly>
-						¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®
-						¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®¹öÅ¶¸®½ºÆ®
+						ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸
+						ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸ë²„í‚·ë¦¬ìŠ¤íŠ¸
 					</textarea>
 				</div>
 					       
-				<button type="button" id="modal_close_btn">¸ð´Þ Ã¢ ´Ý±â</button>
+				<button type="button" id="modal_close_btn">ëª¨ë‹¬ ì°½ ë‹«ê¸°</button>
 					       
 			</div>
 					   
@@ -185,6 +206,7 @@
         document.getElementById("modal").style.display="none";
     }   
 	</script>
+</form>
 </div>
 </body>
 </html>
