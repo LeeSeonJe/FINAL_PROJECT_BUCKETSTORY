@@ -17,7 +17,7 @@
 <body>
 	
 	<header>
-		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+		<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	</header>
 	
 	<nav>
@@ -38,6 +38,6 @@
 		</ul>
 	</div>
 	</nav>
-	<jsp:include page="/WEB-INF/views/common/mainRightSide.jsp"/>
+	<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"/>
 </body>
 </html>
