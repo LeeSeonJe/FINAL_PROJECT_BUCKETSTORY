@@ -1,0 +1,79 @@
+@charset "UTF-8";
+  #title{
+        font-size: 24px;
+        font-weight: bolder;
+    }
+    #board-area{
+        align-items: center;
+        padding-top:50px;
+    }
+    table.board {
+        border-collapse: collapse;
+        text-align: center;
+        line-height: 1.5;
+        width: 900px;
+        /* 가운데 정렬 */
+        margin:auto; 
+    }
+    table.board thead th {
+        padding: 10px;
+        font-weight: bold;
+        vertical-align: top;
+        color: black; /*#369*/
+        border-bottom: 8px solid #036;
+    }
+    table.board tbody{
+        background: whitesmoke;
+    }
+    table.board tbody th {
+        width: 150px;
+        padding: 10px;
+        font-weight: bold;
+        vertical-align: top;
+        border-bottom: 1px solid #ccc;
+        background: #f3f6f7;
+    }
+    table.board td {
+        width: 350px;
+        padding: 10px;
+        vertical-align: top;
+        border-bottom: 1px solid #ccc;
+    }
+    
+    #board-paging{
+        margin-top: 20px;   
+    }
+    #board-paging div{
+        display: inline-block;  
+    }
+    #board-filter{
+    }
+    #searchBtn{
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 10px;
+        background: whitesmoke;
+      
+        color: #036;
+    }
+    #prev, #next{
+        padding: 5px;
+        background:#036;
+        border-radius: 5px;
+        color: white;
+    }
+    .sBtn{
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background:whitesmoke;
+        border-radius: 5px;
+    }
+
+
+    .p-section{
+    	text-align: center;
+    	padding-top: 50px;
+    	z-index:-1;
+    }

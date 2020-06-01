@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+ .inner{
+        width: 960px;
+        margin: 0 auto;
+        background-color: rgba(0,0,0,0.025);
+        padding : 20px;
+    }
+
+    .title{
+        font-size: 20px;
+        padding: 10px;
+        color: #333;
+        background-color:rgba(0,0,0,0.075);
+        border-radius: 5px;
+    }
+    table.et{
+        margin: 0 auto;
+        background:#fff;
+        border-radius: 5px;
+        width: 600px;
+    }
+    table.op{
+        
+    }
+    table.et.th1{
+    }
+    table.et.th2{
+    }
+    .rown{
+        font-weight: 500x;
+        font-size: 17px;
+        padding: 5px;
+        width: 140px;
+    
+    }
+    #textArea{
+        width: 450px;
+        height: 200px;
+        resize: none;
+    }
+
+    input{
+        width: 160px;
+        height: 22px;
+        border-radius: 4px;
+    }
+    textarea{
+        border-radius: 4px;
+    }
+    #submitform{
+
+    }
+    #submitBtn-Area{text-align: center;}
+    #submitBtn{ margin:0 auto; }
+    
+    #img-area, img{
+        width: 360px;
+        height: 250px;
+        background-size: cover;
+        border-radius: 4px;
+    }
