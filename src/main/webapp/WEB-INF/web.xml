@@ -72,4 +72,19 @@
 		<url-pattern>*.ho</url-pattern>
 	</servlet-mapping>
 
+	<!-- 관리자 Servlet -->
+	<servlet>
+		<servlet-name>AdminServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/admin-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>*.ad</url-pattern>
+	</servlet-mapping>
+
+
 </web-app>
