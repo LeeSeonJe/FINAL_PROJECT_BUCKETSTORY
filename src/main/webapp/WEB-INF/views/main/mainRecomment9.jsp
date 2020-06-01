@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,21 +11,21 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-	<c:set var="contextPath" value="${ pageContext.request.contextPath }" scope="application"/>
+	<c:set var="menuNum" value="3" scope="application"/>
 	<header>
-		<c:import url="${ contextPath }/WEB-INF/views/common/header.jsp"/>
+		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
-	<nav><jsp:include page="${ contextPath }/webapp/views/common/mainNav.jsp"/></nav>
-	<jsp:include page="${ contextPath }/webapp/views/common/mainRightSide.jsp"/>
+	<nav><jsp:include page="/WEB-INF/views/layout/mainNav.jsp"/></nav>
+	<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"/>
 	<div id="extra"></div>
 	<div id="search">
 		<div id="search-wrap">
-			<img id="search-img" src="resources/main/images/검색창버튼.png">
+			<img id="search-img" src="resources/layout/images/검색창버튼.png">
 		</div>
 	</div>
 	<%@ include file="searchscreen.jsp" %>
 	<section>
-		<jsp:include page="${ contextPath }/views/common/mainLeftSide.jsp"/>
+		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 		<div class="bucket">
 			<div class="bucketContent">
 				<div class="c-category">FOOD</div>
@@ -107,10 +108,15 @@
 <script>
 	$(function(){
 		// --현재 카테고리 표시
-		$('#cssmenu>ul>li:eq(1)>a').css({'color':'#5B5AFF','border-bottom':'2px solid #3a7af8'});
+		$('#cssmenu>ul>li:eq(2)>a').css({'color':'#CB6CFF','border-bottom':'2px solid #a047c0'});
 		//console.log($(window).width());
 		
 		$('.searchdiv').css('opacity', '1');
+		
+		// 카테고리 종류
+		$('#categoryImg9').prop('src','resources/layout/images/lifestylehover.png');
+		$('#category9').css('background','#B95AFF');
+		$('#category9').unbind('mouseover mouseout');
 		
 		// --section 버킷들 width에 따라 height변화
 		var hg = $('.bucket').css('width');

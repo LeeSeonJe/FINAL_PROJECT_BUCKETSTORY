@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -12,13 +12,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="../common/header.jsp"/>
-<c:import url="../common/mainNav.jsp"/>
-<c:import url="../common/mainLeftSide.jsp"/>
+<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 <div id="page">
 	<div id="page-1">
 		<div id="inputPhoto">
-			<img src="resources/expert/images/¹è°æ-1.jpg" id="mainPhoto" name="mainPoto">
+			<img src="resources/expert/images/ë°°ê²½-1.jpg" id="mainPhoto" name="mainPoto">
 		</div>
 		
 		<div id="sum-upPage">
@@ -28,13 +28,18 @@
 			<table id="helperProfile" style="border:1px solid black; width:600px;height:200px;">
 				<tr>
 					<td rowspan="2"><img src="resources/expert/images/photo.jpg" id="profileImage" ></td>
-					<td><h1>¾÷Ã¼ÀÌ¸§</h1></td>
-					<td><div class="likebtn"><button>¢¾ÁÁ¾Æ¿ä</button></div></td>
+					<td><h1>${ company.coId }</h1></td>
+					<td><div class="likebtn"><button>â™¥ì¢‹ì•„ìš”</button></div></td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<div>
-						¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³¾÷Ã¼ ¼Ò°³
+							<c:if test="${ company.coIntro != null }">
+								${ company.coIntro }
+							</c:if>
+							<c:if test="${ company.coIntro eq null }">
+								ì—…ì²´ ê°„ë‹¨ ì†Œê°œê°€ ì—†ìŠµë‹ˆë‹¤.
+							</c:if>
 						</div>
 					</td>
 				</tr>
@@ -42,20 +47,20 @@
 			
 			<hr>
 			
-			<h2>¾÷Ã¼Á¤º¸</h2>
-			¼ö ÀÖ´Â °ÍÀÌ´Ù Ã»ÃáÀº ÀÎ»ýÀÇ È²±Ý½Ã´ë´Ù ¿ì¸®´Â ÀÌ È²±Ý½Ã´ëÀÇ °¡Ä¡¸¦ ÃæºÐÈ÷ ¹ßÈÖÇÏ±â À§ÇÏ¿© ÀÌ È²±Ý½Ã´ë¸¦ ¿µ¿øÈ÷
-
-			»ê¾ß¿¡ ÇÇ¾î³ª´Â ±º¿µ°ú °°ÀÌ ÀÌ»óÀº ½Ç·Î ÀÎ°£ÀÇ ºÎÆÐ¸¦ ¹æÁöÇÏ´Â ¼Ò±ÝÀÌ¶ó ÇÒÁö´Ï ÀÎ»ý¿¡ °¡Ä¡¸¦ ÁÖ´Â ¿øÁúÀÌ µÇ´Â °ÍÀÌ´Ù ±×µéÀº ¾ÕÀÌ ±äÁö¶ó Âø¸ñÇÑ´Â °÷ÀÌ ¿ø´ëÇÏ°í ±×µéÀº ÇÇ°¡ ´õ¿îÁö¶ó ½ÇÇö¿¡ ´ëÇÑ ÀÚ½Å°ú ¿ë±â°¡ ÀÖ´Ù ±×·¯¹Ç·Î ±×µéÀº ÀÌ»óÀÇ º¸¹è¸¦ ´ÉÈ÷ Ç°À¸¸ç ±×µéÀÇ ÀÌ»óÀº ¾Æ¸§´ä°í ¼Ò´ã½º·¯¿î ¿­¸Å¸¦
-
-			Âø¸ñÇÑ´Â °÷ÀÌ ¿ø´ëÇÏ°í ±×µéÀº ÇÇ°¡ ´õ¿îÁö¶ó ½ÇÇö¿¡ ´ëÇÑ ÀÚ½Å°ú ¿ë±â°¡ ÀÖ´Ù ±×·¯¹Ç·Î ±×µéÀº ÀÌ»óÀÇ º¸¹è¸¦ ´ÉÈ÷ Ç°À¸¸ç ±×µéÀÇ ÀÌ»óÀº ¾Æ¸§´ä°í ¼Ò´ã½º·¯¿î ¿­¸Å¸¦ ¸Î¾î ¿ì¸® ÀÎ»ýÀ» Ç³ºÎÇÏ°Ô ÇÏ´Â °ÍÀÌ´Ù
-		
+			<h2>ì—…ì²´ì •ë³´</h2>
+				<c:if test="${ company.coInfo != null }">
+					${ company.coInfo }
+				</c:if>
+				<c:if test="${ company.coInfo eq null }">
+					ì—…ì²´ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.
+				</c:if>
 			<hr>
 			
 			<div>
-				<h2>¸®ºä(°³¼ö)</h2>
+				<h2>ë¦¬ë·°(ê°œìˆ˜)</h2>
 				<div id="reviewavgview">
-					<h4>¸®ºä ÆòÁ¡</h4>
-					<h4>¡Ú¡Ú¡Ú¡Ú¡Ú</h4>
+					<h4>ë¦¬ë·° í‰ì </h4>
+					<h4>â˜…â˜…â˜…â˜…â˜…</h4>
 					<h4>(5.0)</h4>
 				</div>
 				
@@ -64,12 +69,12 @@
 						<tr>
 							<td style="width:86px; height:77px">
 								<img src="resources/expert/images/photo.jpg" id="reviewprofile">
-								<h5>´Ð³×ÀÓ</h5>
+								<h5>ë‹‰ë„¤ìž„</h5>
 							</td>
 							<td rowspan="2">
-								³¯Ä«·Î¿ì³ª °© ¼Ó¿¡ µç Ä®ÀÌ´Ù Ã»ÃáÀÇ ²ú´Â ÇÇ°¡ ¾Æ´Ï´õ¸é ÀÎ°£ÀÌ ¾ó¸¶³ª ¾µ¾µÇÏ·ª? ¾óÀ½¿¡ ½ÎÀÎ ¸¸¹°Àº ¾óÀ½ÀÌ ÀÖÀ» »ÓÀÌ´Ù ±×µé¿¡°Ô »ý¸íÀ» ºÒ¾î ³Ö´Â °ÍÀº µû¶æÇÑ º½¹Ù¶÷ÀÌ´Ù Ç®¹ç¿¡ ¼ÓÀÙ³ª°í °¡Áö¿¡ ½ÏÀÌ Æ®°í ²É ÇÇ°í
-								³¯Ä«·Î¿ì³ª °© ¼Ó¿¡ µç Ä®ÀÌ´Ù Ã»ÃáÀÇ ²ú´Â ÇÇ°¡ ¾Æ´Ï´õ¸é ÀÎ°£ÀÌ ¾ó¸¶³ª ¾µ¾µÇÏ·ª? ¾óÀ½¿¡ ½ÎÀÎ ¸¸¹°Àº ¾óÀ½ÀÌ ÀÖÀ» »ÓÀÌ´Ù ±×µé¿¡°Ô »ý¸íÀ» ºÒ¾î ³Ö´Â °ÍÀº µû¶æÇÑ º½¹Ù¶÷ÀÌ´Ù Ç®¹ç¿¡ ¼ÓÀÙ³ª°í °¡Áö¿¡ ½ÏÀÌ Æ®°í ²É ÇÇ°í
-								³¯Ä«·Î¿ì³ª °© ¼Ó¿¡ µç Ä®ÀÌ´Ù Ã»ÃáÀÇ ²ú´Â ÇÇ°¡ ¾Æ´Ï´õ¸é ÀÎ°£ÀÌ ¾ó¸¶³ª ¾µ¾µÇÏ·ª? ¾óÀ½¿¡ ½ÎÀÎ ¸¸¹°Àº ¾óÀ½ÀÌ ÀÖÀ» »ÓÀÌ´Ù ±×µé¿¡°Ô »ý¸íÀ» ºÒ¾î ³Ö´Â °ÍÀº µû¶æÇÑ º½¹Ù¶÷ÀÌ´Ù Ç®¹ç¿¡ ¼ÓÀÙ³ª°í °¡Áö¿¡ ½ÏÀÌ Æ®°í ²É ÇÇ°í
+								ë‚ ì¹´ë¡œìš°ë‚˜ ê°‘ ì†ì— ë“  ì¹¼ì´ë‹¤ ì²­ì¶˜ì˜ ë“ëŠ” í”¼ê°€ ì•„ë‹ˆë”ë©´ ì¸ê°„ì´ ì–¼ë§ˆë‚˜ ì“¸ì“¸í•˜ëž´? ì–¼ìŒì— ì‹¸ì¸ ë§Œë¬¼ì€ ì–¼ìŒì´ ìžˆì„ ë¿ì´ë‹¤ ê·¸ë“¤ì—ê²Œ ìƒëª…ì„ ë¶ˆì–´ ë„£ëŠ” ê²ƒì€ ë”°ëœ»í•œ ë´„ë°”ëžŒì´ë‹¤ í’€ë°­ì— ì†ìžŽë‚˜ê³  ê°€ì§€ì— ì‹¹ì´ íŠ¸ê³  ê½ƒ í”¼ê³ 
+								ë‚ ì¹´ë¡œìš°ë‚˜ ê°‘ ì†ì— ë“  ì¹¼ì´ë‹¤ ì²­ì¶˜ì˜ ë“ëŠ” í”¼ê°€ ì•„ë‹ˆë”ë©´ ì¸ê°„ì´ ì–¼ë§ˆë‚˜ ì“¸ì“¸í•˜ëž´? ì–¼ìŒì— ì‹¸ì¸ ë§Œë¬¼ì€ ì–¼ìŒì´ ìžˆì„ ë¿ì´ë‹¤ ê·¸ë“¤ì—ê²Œ ìƒëª…ì„ ë¶ˆì–´ ë„£ëŠ” ê²ƒì€ ë”°ëœ»í•œ ë´„ë°”ëžŒì´ë‹¤ í’€ë°­ì— ì†ìžŽë‚˜ê³  ê°€ì§€ì— ì‹¹ì´ íŠ¸ê³  ê½ƒ í”¼ê³ 
+								ë‚ ì¹´ë¡œìš°ë‚˜ ê°‘ ì†ì— ë“  ì¹¼ì´ë‹¤ ì²­ì¶˜ì˜ ë“ëŠ” í”¼ê°€ ì•„ë‹ˆë”ë©´ ì¸ê°„ì´ ì–¼ë§ˆë‚˜ ì“¸ì“¸í•˜ëž´? ì–¼ìŒì— ì‹¸ì¸ ë§Œë¬¼ì€ ì–¼ìŒì´ ìžˆì„ ë¿ì´ë‹¤ ê·¸ë“¤ì—ê²Œ ìƒëª…ì„ ë¶ˆì–´ ë„£ëŠ” ê²ƒì€ ë”°ëœ»í•œ ë´„ë°”ëžŒì´ë‹¤ í’€ë°­ì— ì†ìžŽë‚˜ê³  ê°€ì§€ì— ì‹¹ì´ íŠ¸ê³  ê½ƒ í”¼ê³ 
 							</td>
 						</tr>
 						<tr>
@@ -91,28 +96,33 @@
 	</div>
 	<div id="page-2">
 		<ul style="padding-inline-start: 0px;">
-			<li><h5>ÇÔ²²ÇÏ´Â ¹öÅ¶¸®½ºÆ®</h5></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
-			<li><a href="">¹öÅ¶¸®½ºÆ®</a></li>
+			<li><h5>í•¨ê»˜í•˜ëŠ” ë²„í‚·ë¦¬ìŠ¤íŠ¸</h5></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
+			<li><a href="">ë²„í‚·ë¦¬ìŠ¤íŠ¸</a></li>
 		</ul>
 		
+		<c:url var="estimate" value="estimate.ex">
+			<c:param name="coid" value="${ company.coId }"/>
+		</c:url>
+		<c:url var="ex_infoUpdate" value="ex_infoUpdateForm.ex">
+			<c:param name="coid" value="${ company.coId }"/>
+		</c:url>
 		<div id="subBtn">
-			¸ÂÃã°ßÀû ½ÅÃ»
+			<button onclick="location.href='${ estimate }'">ë§žì¶¤ê²¬ì  ì‹ ì²­</button>
+			<button onclick="location.href='${ ex_infoUpdate }'">ì •ë³´ìˆ˜ì •</button>
 		</div>
 	</div>
 	<script>
 	var currentPosition = parseInt($("#page-2").css("top")); $(window).scroll(function() { var position = $(window).scrollTop(); $("#page-2").stop().animate({"top":position+currentPosition+"px"},1000); });
-	$('#subBtn').on('click',function(){
-		location.href="estimate.ex";
-	});
+
 	</script>
 </div>
 </body>

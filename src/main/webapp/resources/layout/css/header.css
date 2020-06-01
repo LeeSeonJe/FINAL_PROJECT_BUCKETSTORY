@@ -1,13 +1,10 @@
 @charset "UTF-8";
 
-#facebookBtn{
-	background-image: url('../images/facebook.png');
-	background-size: cover;	
+#facebookBtn>a>img,
+#instaBtn>a>img{
+	width:35px;
+	height:35px;
 }
-#instaBtn{
-	background-image: url('../images/instagram.png');
-	background-size: cover;
-}	
 .snsLink{
 	margin:5px;
 	background:white;

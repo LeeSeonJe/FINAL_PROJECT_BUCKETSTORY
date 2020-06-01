@@ -11,9 +11,9 @@
 <link rel="stylesheet" href="resources/expert/css/estimate.css">
 </head>
 <body>
-<c:import url="../common/header.jsp"/>
-<c:import url="../common/mainNav.jsp"/>
-<c:import url="../common/mainLeftSide.jsp"/>
+<c:import url="../layout/header.jsp"/>
+<c:import url="../layout/mainNav.jsp"/>
+<c:import url="../layout/mainLeftSide.jsp"/>
 	<div id="page">
 		<h1 style="text-align:center;">견적서 작성</h1>
 		<br><br>

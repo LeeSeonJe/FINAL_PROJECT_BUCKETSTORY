@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<link rel="stylesheet" href="resources/common/css/mainRightSide.css">
+	<link rel="stylesheet" href="resources/layout/css/mainRightSide.css">
 </head>
 <body>
 	<div id="overlay"></div>
