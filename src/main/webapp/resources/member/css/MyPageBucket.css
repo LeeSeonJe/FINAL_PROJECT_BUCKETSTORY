@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+body{
+	min-width:1200px;
+	margin:0;
+}
+header{
+	min-width:1200px;
+	border-bottom:1px solid rgba(var(--b38,219,219,219),1);
+	width:100%;
+	height:60px;
+	position: fixed;
+	z-index: 100;
+	background:white;
+}
+#extra{
+	width:100%;
+	height:60px;
+}
+#body-wrap{
+	width:1000px;
+	min-height:500px;
+	margin:0 auto;
+}
+#Myheader{
+	width:100%;
+	height: 225px;
+	background:yellow;
+}
+section{
+	width:100%;
+	min-height:1000px;
+	background:green;	
+}
+
+

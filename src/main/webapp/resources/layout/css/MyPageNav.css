@@ -20,7 +20,7 @@ nav>a:hover{
 	border-top:3px solid rgba(var(--b38,219,219,219),1);
 }
 nav>a:first-of-type{
-	margin-left: 390px;
+	margin-left: 200px;
 }
 nav>a span{
 	font-family: serif;
