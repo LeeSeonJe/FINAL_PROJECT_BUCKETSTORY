@@ -22,5 +22,8 @@
 
 <a href="info.ex?coid=test">전문가이동</a>
 
+
+<a href="login.co">로그인 이동</a>
+
 </body>
 </html>
