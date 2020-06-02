@@ -28,4 +28,9 @@ public class MemberController {
 		model.addAttribute("ir1", ir1);
 		return "update";
 	}
+	
+	@RequestMapping("myBucket.me")
+	public String MyPageBucket() {
+		return "MyPageBucket";
+	}
 }

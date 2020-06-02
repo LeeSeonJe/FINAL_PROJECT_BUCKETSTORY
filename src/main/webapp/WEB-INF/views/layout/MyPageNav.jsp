@@ -28,9 +28,4 @@
 		</a>
 	</nav>
 </body>
-<script>
-	$(function(){
-		$('nav>a:eq(1)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
-	});
-</script>
 </html>

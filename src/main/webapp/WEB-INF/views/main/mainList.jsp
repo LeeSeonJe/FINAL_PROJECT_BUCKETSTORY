@@ -205,7 +205,6 @@
 				$('#bucketwith').show();
 				$('#bucketcpeventD>button').text("행사 펼치기");
 			}
-			
 		});
 		
 	});
