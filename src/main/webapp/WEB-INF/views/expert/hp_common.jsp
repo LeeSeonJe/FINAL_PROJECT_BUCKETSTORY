@@ -6,12 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="resources/common/css/mainNav.css">
+	<link rel ="stylesheet" href ="resources/expert/css/hp_nav.css">
 	<link rel ="stylesheet" href ="resources/expert/css/hp_common.css">
 <style>
 	.p-section{
 		
 	}
+
 </style>
 </head>
 <body>
@@ -24,8 +25,11 @@
 	<div id='cssmenu'>
 		<ul>
            	<li>
-           		<a href='helperEdit.ex'>헬퍼작성</a>
-           	</li>
+           		<a href='helperEdit.ex'>헬퍼마이페이지</a>
+           	</li>        
+            <li>
+                <a href='helperBucketList.ex'>헬퍼버킷리스트</a>
+            </li>
            	<li>
                 <a href='#'>견적서 관리</a>
             </li>
@@ -35,6 +39,7 @@
             <li>
                 <a href='#'>Q & A</a>
             </li>
+   
 		</ul>
 	</div>
 	</nav>
