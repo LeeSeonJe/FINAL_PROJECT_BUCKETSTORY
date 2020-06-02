@@ -1,9 +1,12 @@
 package com.kh.BucketStory.expert.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.expert.model.dao.ExpertDAO;
 import com.kh.BucketStory.expert.model.vo.Company;
 
@@ -23,5 +26,9 @@ public class ExpertServiceImpl implements ExpertService {
 	@Override
 	public int updateExInfo(Company com) {
 		return exDAO.updateExInfo(sqlSession,com);
+	}
+	@Override
+	public ArrayList<BucketList> selectCateList(int catenum) {
+		return exDAO.selectCateList(sqlSession,catenum);
 	}
 }

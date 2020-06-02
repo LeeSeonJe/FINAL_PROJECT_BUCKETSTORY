@@ -34,4 +34,22 @@
 		where coid=#{coId}
 	</update>
 	
+	<select id="selectCateList" resultMap="BucketResultSet">
+		select *
+		from bucketlist
+		where catenum = #{catenum}
+	
+	</select>
+	
+	<resultMap type="Bucket" id="BucketResultSet">
+		<id property="bkNo" column="BKNO"/>
+		<result property="bkName" column="BKNAME"/>
+		<result property="bkContent" column="BKCONTENT"/>
+		<result property="tag" column="TAG"/>
+		<result property="enrolldate" column="ENROLLDATE"/>
+		<result property="bkLike" column="BKLIKE"/>
+		<result property="userId" column="USERID"/>
+		<result property="complete" column="COMPLETE"/>
+		<result property="cateNum" column="CATENUM"/>
+	</resultMap>
 </mapper>
