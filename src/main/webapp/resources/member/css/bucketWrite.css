@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+body {
+	min-width: 1200px;
+	margin: 0;
+}
+
+header {
+	min-width: 1200px;
+	border-bottom: 1px solid rgba(var(- -b38, 219, 219, 219), 1);
+	width: 100%;
+	height: 60px;
+	position: fixed;
+	z-index: 100;
+	background: white;
+}
+
+#extra {
+	width: 100%;
+	height: 60px;
+}
+
+#body-wrap {
+	width: 1000px;
+	min-height: 500px;
+	margin: 0 auto;
+}
+
+#Myheader {
+	width: 100%;
+	height: 225px;
+}
+
+section {
+	width: 100%;
+	min-height: 100px;
+/* 	background: green; */
+	margin-top: 5px;
+}
+
+#profileImg {
+	width: 166px;
+	height: 166px;
+	border-radius: 100px;
+}
+
+#table_area {
+	margin: 0 auto;
+}
+
+#table_area>tbody>tr>td {
+	width: 180px;
+	height: 70px;
+}
+
+#img_area {
+	cursor: pointer;
+	border: 1px solid #c4c4c4;
+	width: 600px;
+	height: 337.5px;
+	margin: 0 auto;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#img_area>img {
+	width: auto;
+	height: auto;
+	max-width: 600px;
+	max-height: 337.5px;
+}
+
+#content_area {
+	margin-left: 197px;
+	font-size: 20px;
+}
+
+h2 {
+	margin: 0 auto;
+	text-align: center;
+	border-bottom: 1px solid #dbdbdb;
+    margin-bottom: 20px;
+    height: 50px;
+    width: 600px;
+}
+
+textarea {
+	outline: none;
+	resize: none;
+	margin-top: 15px;
+	width: 600px;
+	min-height: 200px;
+}
+
+input {
+	border: none;
+    border-bottom: 1px solid black;
+    background: #fafafa;
+    outline: none;
+    padding: 3px;
+    width: 600px;
+    font-size: 18px;
+    height: 30px;
+}
+
+select {
+    font-size: 18px;
+    outline: none;
+    width: 152px;
+    margin-left: 22px;
+}
+
+.tag_input {
+	width: 94px;
+    margin-right: 5px;
+}
+
+#content_area>span {
+	color: blue;
+}
