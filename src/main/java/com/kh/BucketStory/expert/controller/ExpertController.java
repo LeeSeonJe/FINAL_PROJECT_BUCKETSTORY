@@ -1,5 +1,10 @@
 package com.kh.BucketStory.expert.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -7,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
+import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.vo.Company;
@@ -36,11 +45,9 @@ public class ExpertController {
 	
 	@RequestMapping("expertUpdate.ex")
 	public ModelAndView expertInfoUpdate(@ModelAttribute Company com,ModelAndView mv) {
-		System.out.println(com.getCoId());
-		System.out.println(com.getCoInfo());
-		System.out.println(com.getCoIntro());
+
 		int result = ExService.updateExInfo(com);
-		System.out.println(result);
+		
 		if(result>0) {
 			mv.setViewName("redirect:info.ex?coid="+com.getCoId());
 		}else {
@@ -49,6 +56,22 @@ public class ExpertController {
 		return mv;
 	}
 	
+	@RequestMapping("cateList.ex")
+	public void selectCateList(@RequestParam("catenum") int catenum,HttpServletResponse response) {
+		
+		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<BucketList> list = ExService.selectCateList(catenum);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		try {
+			gson.toJson(list,response.getWriter());
+		} catch(JsonIOException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@RequestMapping("estimate.ex")
 	public String extrimateView() {
 		return "estimate";

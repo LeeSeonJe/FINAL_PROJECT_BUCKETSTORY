@@ -7,7 +7,7 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.Company" alias="Company"/>
-
+		<typeAlias type="com.kh.BucketStory.bucket.model.vo.BucketList" alias="Bucket"/>
 	</typeAliases>
 	
 	<mappers>
