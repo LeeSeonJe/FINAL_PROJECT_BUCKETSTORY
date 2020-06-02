@@ -1,0 +1,515 @@
+@charset "UTF-8";
+
+body{
+		margin:0;
+		padding: 0;
+	}
+	
+/* ---------------------------------------- */
+	
+	#loginback{
+		width: 1900px;
+		height:1200px;
+		background-image:url("../images/girl_mountain.jpg");
+		background-size: 100% 100%;
+		margin:0 auto;
+		padding:0;
+		/* filter: blur(4px);
+ 		-webkit-filter: blur(4px); */
+	}
+	
+/* 	#loginback.background-image {
+		filter: blur(4px);
+ 		-webkit-filter: blur(4px); 
+	}*/
+	
+	/* #leftForm{
+	float: left;
+    width: 320px;
+    height: 300px;
+    margin-top: 140px;
+    margin-left: 480px;
+	} */
+	
+/*-------------------------------------  */
+	
+	#modal1 { /* 누르면 나타나는 회원가입 투명창 */
+		border-radius: 3px;
+        background-color: rgba( 255, 255, 255, 0.4 );
+		float: left;
+	    margin-top: 140px;
+	    margin-left: 320px;
+	    width: 600px;
+	    height: 780px;
+	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75); /* 서서히 나타남 */
+	    display: none;
+	    /* filter: blur(4px);
+ 		-webkit-filter: blur(4px); */
+	 } 
+	
+	#modal1-wrapper.open {
+	  opacity: 0.4;
+	  display: block;
+	}
+	#modal1-wrapper.open #modal1 {
+	  margin-top: -200px;
+	  opacity: 0.4;
+	  
+	}
+	
+	#User{
+		/* display: none;  */
+	}
+	#Company{
+		display: none;
+	}
+	
+	#modal2 { /* 누르면 나타나는 아이디찾기 투명창 */
+		border-radius: 3px;
+        background-color: rgba( 255, 255, 255, 0.4 );
+		float: left;
+	    margin-top: 220px;
+	    margin-left: 320px;
+	    width: 600px;
+	    height: 240px;
+	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75); /* 서서히 나타남 */
+	    display: none;
+	   /*  filter: blur(4px);
+ 		-webkit-filter: blur(4px); */
+	 } 
+	#modal2-wrapper.open {
+	  opacity: 0.4;
+	  display: block;;
+	}
+	#modal2-wrapper.open #modal2 {
+	  margin-top: -200px;
+	  opacity: 0.4;
+	}
+	
+	#modal3 { /* 누르면 나타나는 비밀번호찾기 투명창 */
+		border-radius: 3px;
+        background-color: rgba( 255, 255, 255, 0.4 );
+		float: left;
+	    margin-top: 220px;
+	    margin-left: 320px;
+	    width: 600px;
+	    height: 240px;
+	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75); /* 서서히 나타남 */
+	    display: none;
+	    /* filter: blur(4px);
+ 		-webkit-filter: blur(4px); */
+	 } 
+	#modal3-wrapper.open {
+	  opacity: 0.4;
+	  display: none;
+	}
+	#modal3-wrapper.open #modal3 {
+	  margin-top: -200px;
+	  opacity: 0.4;
+	}
+
+/* ---------------------------------------- */
+	
+	
+	#rightForm{ /* 오른쪽 로그인폼 */
+	float: right;
+    width: 320px;
+    height: 300px;
+    margin-top: 140px;
+    margin-right: 240px;
+	}
+	#login{
+	    width: 350px;
+	    height: 130px;
+	}
+	#idPwdInput{
+		float: left;
+	    width: 220px;
+	    margin-bottom: 10px;
+	}
+	#loginlogo{
+		font-size: 30px;
+    	text-align: right;
+	}
+	.idPwd{
+		height:40px;
+		width:210px;
+		margin-top:5px;
+		font-size:20px;
+	}
+	
+	#subbtn {
+	  height:100px;
+	  width:100px;
+	  margin-top: 43.9px;
+	  background: none;
+	  border: 3px solid #fff;
+	  border-radius: 5px;
+	  color: #fff;
+	  display: block;
+	  font-size: 1.6em;
+	  font-weight: bold;
+	  position: relative;
+	  text-transform: uppercase;
+	}
+	#subbtn:hover {
+		color: #3f4c5fd4;
+	    text-decoration: none;
+	    text-decoration-line: none;
+	    text-decoration-style: initial;
+	    text-decoration-color: initial;
+	    background-color: white;
+	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+	    /* background-color: rgba(255, 0, 0, 0.3);
+        background-color: rgba(0, 255, 0, 0.3);
+        background-color: rgba(0, 0, 255, 0.3); */
+	    
+	}
+	
+	#subbtn:after {
+	  -webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+	  -o-transition: all 0.3s;
+		transition: all 0.3s;
+	}
+	
+	#subbtn:before,
+	#subbtn:after {
+	  background: #fff;
+	  content: '';
+	  position: absolute;
+	  z-index: -1;
+	}
+	#subbtn:after {
+	  height: 0;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	}
+	
+	#subbtn:hover:after {
+	  height: 100%;
+	}
+	
+	.joinBtn3, .joinBtn4{
+		width: 157.2px;
+    	height: 40px;
+    .joinBtn:after 
+	}
+	.joinBtn3, .joinBtn4 {
+	  margin-top: 43.9px;
+	  background: none;
+	  border: 3px solid #fff;
+	  border-radius: 5px;
+	  color: #fff;
+	  display: block;
+	  font-size: 1.0em;
+	  font-weight: bold;
+	  position: relative;
+	  text-transform: uppercase;
+	}
+	
+	.joinBtn3:before,
+	.joinBtn3:after,
+	.joinBtn4:before,
+	.joinBtn4:after {
+	  background: #fff;
+	  content: '';
+	  position: absolute;
+	  z-index: -1;
+	}
+	.joinBtn3:after, .joinBtn4:after {
+	  height: 0;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	}
+	
+	.joinBtn3:hover:after, .joinBtn4:hover:after {
+	  height: 100%;
+	}
+	.joinBtn3:hover, .joinBtn4:hover{
+		color: #3f4c5fd4;
+	    text-decoration: none;
+	    text-decoration-line: none;
+	    text-decoration-style: initial;
+	    text-decoration-color: initial;
+	    background-color: white;
+	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+	}
+	.joinBtn2{
+		width: 315px;
+    	height: 40px;
+    	}
+    .joinBtn2:after { 
+    height: 0;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	}
+	.joinBtn2 {
+	  margin-top: 43.9px;
+	  background: none;
+	  border: 3px solid #fff;
+	  border-radius: 5px;
+	  color: #fff;
+	  display: block;
+	  font-size: 1.0em;
+	  font-weight: bold;
+	  position: relative;
+	  text-transform: uppercase;
+	}
+	
+	.joinBtn2:before,
+	.joinBtn2:after {
+	  background: #fff;
+	  content: '';
+	  position: absolute;
+	  z-index: -1;
+	}
+	.joinBtn2:after {
+	  height: 0;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	}
+	
+	.joinBtn2:hover:after {
+	  height: 100%;
+	}
+	.joinBtn2:hover {
+		color: #3f4c5fd4;
+	    text-decoration: none;
+	    text-decoration-line: none;
+	    text-decoration-style: initial;
+	    text-decoration-color: initial;
+	    background-color: white;
+	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+	}
+	
+	#cancel:hover, #reset:hover, #finish:hover {
+		color: #3f4c5fd4;
+	    text-decoration: none;
+	    text-decoration-line: none;
+	    text-decoration-style: initial;
+	    text-decoration-color: initial;
+	    background-color: white;
+	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+	    /* background-color: rgba(255, 255, 255, 0.3); */
+	}
+	
+	#cancel:after, #reset:after,  #finish:after {
+	  -webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+	  -o-transition: all 0.3s;
+		transition: all 0.3s;
+	}
+	#cancel, #reset, #finish {
+	  height:40px;
+	  width:157.2px;
+	  margin-top: 43.9px;
+	  background: none;
+	  border: 3px solid #fff;
+	  border-radius: 5px;
+	  color: #fff;
+	  display: block;
+	  font-size: 1.0em;
+	  font-weight: bold;
+	  position: relative;
+	  text-transform: uppercase;
+	}
+	
+	#cancel:before, #reset:before,  #finish:before,
+	#cancel:after, #reset:after, #finish:after {
+	  background: #fff;
+	  content: '';
+	  position: absolute;
+	  z-index: -1;
+	}
+	#cancel:after, #cancel:reset, #finish:after {
+	  height: 0;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	}
+	
+	#cancel:hover:after, #reset:hover:after, #finish:hover:after {
+	  height: 100%;
+	}
+	#facebookBtn{
+		width: 320px;
+    	height: 40px;
+	    border-radius: 5px;
+	    margin-bottom: 5px;
+	    text-align: center;
+	    font-weight: bold;
+	    font-size: 1.0em;
+	    color: white;
+	    background-color: #3b5998;
+	    position: relative;
+	    /* text-transform: uppercase; */
+	}
+   #facebookBtn:hover {
+	  	color: #3b5998;
+	    background-color: white;
+	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+	}
+	
+	/* 기업 화원 변경 토글 */
+	.toggleBG{background: #CCCCCC; width: 70px; height: 30px; border: 1px solid #CCCCCC; border-radius: 15px;}
+    .toggleFG{background: #FFFFFF; width: 30px; height: 30px; border: none; border-radius: 15px; position: relative; left: 0px;}
+    #buttonID{
+    	
+    	
+    }
+
+.switch { /* 회원, 기업 변경 스위치 */
+	  position: relative;
+	  display: inline-block;
+	  width: 60px;
+	  height: 34px;
+	  vertical-align:middle;
+	}
+	
+	/* Hide default HTML checkbox */
+	.switch input {display:none;}
+	
+	/* The slider */
+	.slider {
+	  position: absolute;
+	  cursor: pointer;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  background-color: hsla(0,0%,0%,.2);
+	  
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+	
+	.slider:before {
+	  position: absolute;
+	  content: "";
+	  height: 26px;
+	  width: 26px;
+	  left: 4px;
+	  bottom: 4px;
+	  background-color: hsla(0,0%,0%,.2);
+	  background-image: -webkit-radial-gradient( hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 40%, hsla(200,100%,60%,.3) 60%, hsla(200,100%,30%,0) 110% );
+	  background-repeat: no-repeat;
+	  -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
+	    -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
+	  outline: none;
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+	
+	input:checked + .slider {
+	  background-color: hsla(0,0%,0%,.2);
+	}
+	
+	input:focus + .slider {
+	  box-shadow: 0 0 1px #2196F3;
+	}
+	
+	input:checked + .slider:before {
+	  -webkit-transform: translateX(26px);
+	  -ms-transform: translateX(26px);
+	  transform: translateX(26px);
+	}
+	
+	/* Rounded sliders */
+	.slider.round {
+	  border-radius: 34px;
+	  
+	}
+	
+	.slider.round:before {
+	  border-radius: 50%;
+	}
+	
+	p {
+		margin:0px;
+		display:inline-block;
+		font-size:15px;
+		font-weight:bold;
+	}
+	
+/*-------------------------------------  */
+	
+	/* ---------------라디오버튼------------------------------ */
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  height: 100%;
+	}
+	
+	
+	body {
+	  background-color: hsl(0,0%,20%);
+	}
+	
+	input {
+	  -webkit-appearance: none; /* remove default */
+	  display: inline-block; 
+	/*  margin: 10px; */
+	/*  width: 24px; */
+	  height: 24px;
+	  border-radius: 12px;
+	  vertical-align: middle;
+	  box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+	  background-color: hsla(0,0%,0%,.2);
+	  background-image: -webkit-radial-gradient( hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 15%, hsla(200,100%,60%,.3) 28%, hsla(200,100%,30%,0) 70% );
+	  background-repeat: no-repeat;
+	  -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
+	    -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
+	  outline: none;
+	}
+	
+	#gender_F, #gender_M{
+	  width: 24px;	
+	  height: 24px;
+	}
+	input:checked {
+	  -webkit-transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1),
+	    -webkit-transform .25s cubic-bezier(0, 0, .2, 1);
+	}
+	input:active {
+	  -webkit-transform: scale(1.5);
+	  -webkit-transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
+	}
+	
+	
+	/* The up/down direction logic */
+	input,
+	input:active {
+	  background-position: 24px 24px;
+	}
+	input:checked {
+	  background-position: 0 0;
+	}
+	input:checked ~ input,
+	input:checked ~ input:active {
+	  background-position: -24px 24px;
+	}
+/* 	input{
+	  	background-position: 24px 24px;
+	}
+	input:checked {
+	  background-position: 0 0;
+	}
+	input:active{
+		background-position: 24px -24px
+/* 	}
+	#gender_M:active{
+		background-position: -24px 24px; 
+	} 
+	
+	input:checked ~ input,
+	input:checked ~ input:active {
+	  background-position: -24px 24px;
+	} */
+	/* ------------------------------------- */
+
+	
