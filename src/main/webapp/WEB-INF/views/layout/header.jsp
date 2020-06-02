@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 	<link rel="stylesheet" href="resources/layout/css/header.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background: #fafafa">
 	<header>
 		<div id="facebookBtn" class="snsLink"><a href="https://www.facebook.com" target="_blank"><img src="resources/layout/images/facebook.png"></a></div>
 		<div id="instaBtn" class="snsLink"><a href="https://www.instagram.com" target="_blank"><img src="resources/layout/images/instagram.png"></a></div>

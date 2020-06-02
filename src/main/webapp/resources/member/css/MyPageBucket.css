@@ -1,36 +1,154 @@
 @charset "UTF-8";
 
-body{
-	min-width:1200px;
-	margin:0;
+body {
+	min-width: 1200px;
+	margin: 0;
 }
-header{
-	min-width:1200px;
-	border-bottom:1px solid rgba(var(--b38,219,219,219),1);
-	width:100%;
-	height:60px;
+
+header {
+	min-width: 1200px;
+	border-bottom: 1px solid rgba(var(- -b38, 219, 219, 219), 1);
+	width: 100%;
+	height: 60px;
 	position: fixed;
 	z-index: 100;
-	background:white;
+	background: white;
 }
-#extra{
-	width:100%;
-	height:60px;
+
+#extra {
+	width: 100%;
+	height: 60px;
 }
-#body-wrap{
-	width:1000px;
-	min-height:500px;
-	margin:0 auto;
+
+#body-wrap {
+	width: 1000px;
+	min-height: 500px;
+	margin: 0 auto;
 }
-#Myheader{
-	width:100%;
+
+#Myheader {
+	width: 100%;
 	height: 225px;
-	background:yellow;
-}
-section{
-	width:100%;
-	min-height:1000px;
-	background:green;	
 }
 
+section {
+	width: 100%;
+	min-height: 100px;
+/* 	background: green; */
+	margin-top: 5px;
+}
 
+#profileImg {
+	width: 166px;
+	height: 166px;
+	border-radius: 100px;
+}
+
+#table_area {
+	margin: 0 auto;
+}
+
+#table_area>tbody>tr>td {
+	width: 180px;
+	height: 70px;
+}
+
+.bucket {
+	transform-origin: 50% 50%;
+	transform: translate(0px, 0px);
+	opacity: 1;
+	position: relative;
+	float: left;
+	width: 300px;
+	height: 300px;
+	overflow: hidden;
+	cursor: pointer;
+	background: skyblue;
+	background-image: url('../images/loginback.jpg');
+	background-size: cover;
+	margin: 16px;
+	padding: 0;
+	border: 0;
+	display: block;
+}
+
+.bucketContent {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	text-align: center;
+}
+
+.c-category {
+	width: 100%;
+	height: 20px;
+	font-weight: 800;
+	color: orange;
+}
+
+.c-bucket {
+	width: 100%;
+	height: 60px;
+	font-size: 20px;
+	color: white;
+	font-weight: 700;
+}
+
+.c-bucket-1 {
+	width: 240px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.c-Add {
+	width: 100%;
+	height: 40px;
+}
+
+.c-addBtn {
+	width: 76px;
+	height: 30px;
+	border: 1px solid white;
+	color: white;
+	border-radius: 20px;
+	margin: 0 auto;
+	line-height: 27.3px;
+	font-weight: 700;
+}
+
+.c-addBtn:hover {
+	color: black;
+	background: #10ccc3;
+	border: 1px solid #10ccc3;
+}
+
+.c-likewish {
+	display: none;
+	width: 100%;
+	height: 40px;
+}
+
+.c-likeBtn {
+	width: 50%;
+	height: 100%;
+	float: left;
+	color: white;
+}
+
+.c-wishBtn {
+	width: 50%;
+	height: 100%;
+	float: left;
+	color: white;
+}
+
+#bucketAddBtn {
+	position: fixed;
+    background-image: url(../images/plus.png);
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    bottom: 20px;
+	margin-left: 875.8px;
+    cursor: pointer;
+}

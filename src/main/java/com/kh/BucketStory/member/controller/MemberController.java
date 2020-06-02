@@ -33,4 +33,11 @@ public class MemberController {
 	public String MyPageBucket() {
 		return "MyPageBucket";
 	}
+	
+	@RequestMapping("bucketWrite.me")
+	public String BucketWrite() {
+		return "bucketWrite";
+	}
+	
+	
 }

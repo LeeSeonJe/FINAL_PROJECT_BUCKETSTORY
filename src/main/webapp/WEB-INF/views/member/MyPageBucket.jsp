@@ -16,15 +16,130 @@
 	<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"/>
 	<div id="extra"></div>
 	<div id="body-wrap">
-		<div id="Myheader"></div>
+		<div id="Myheader">
+			<table id="table_area">
+				<tr>
+					<td rowspan="4" style="width: 250px;">
+						<img id="profileImg" src="resources/member/images/123.jpg" alt="프로필 사진" />					
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" style="font-size: 30px;">Seonxi_l</td>
+				</tr>
+				<tr>
+					<td colspan="3" style="font-size: 20px;">이선제</td>
+				</tr>
+				<tr>
+					<td>게시물수 199</td>
+					<td>팔로워 40</td>
+					<td>팔로우 30</td>
+				</tr>
+			</table>
+		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
+			<div class="bucket">
+				<div class="bucketContent">
+					<div class="c-category">FOOD</div>
+					<div class="c-bucket">
+						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
+					</div>
+					<div class="c-Add">
+						<div class="c-addBtn"> + ADD</div>
+					</div>
+					<div class="c-likewish">
+						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+					</div>
+				</div>
+			</div>
+			<div class="bucket">
+				<div class="bucketContent">
+					<div class="c-category">FOOD</div>
+					<div class="c-bucket">
+						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
+					</div>
+					<div class="c-Add">
+						<div class="c-addBtn"> + ADD</div>
+					</div>
+					<div class="c-likewish">
+						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+					</div>
+				</div>
+			</div>
+			<div class="bucket">
+				<div class="bucketContent">
+					<div class="c-category">FOOD</div>
+					<div class="c-bucket">
+						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
+					</div>
+					<div class="c-Add">
+						<div class="c-addBtn"> + ADD</div>
+					</div>
+					<div class="c-likewish">
+						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+					</div>
+				</div>
+			</div>
+			<div class="bucket">
+				<div class="bucketContent">
+					<div class="c-category">FOOD</div>
+					<div class="c-bucket">
+						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
+					</div>
+					<div class="c-Add">
+						<div class="c-addBtn"> + ADD</div>
+					</div>
+					<div class="c-likewish">
+						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+					</div>
+				</div>
+			</div>
+			<div class="bucket">
+				<div class="bucketContent">
+					<div class="c-category">FOOD</div>
+					<div class="c-bucket">
+						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
+					</div>
+					<div class="c-Add">
+						<div class="c-addBtn"> + ADD</div>
+					</div>
+					<div class="c-likewish">
+						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+					</div>
+				</div>
+			</div>
+			<div class="bucket">
+				<div class="bucketContent">
+					<div class="c-category">FOOD</div>
+					<div class="c-bucket">
+						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
+					</div>
+					<div class="c-Add">
+						<div class="c-addBtn"> + ADD</div>
+					</div>
+					<div class="c-likewish">
+						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+					</div>
+				</div>
+			</div>
+			
+			<div id="bucketAddBtn"></div>
 		</section>
 	</div>
 </body>
 <script>
+	$('#bucketAddBtn').on('click', function(){
+		location.href="bucketWrite.me";
+	});
+	
 	$('#overlay').css('top','-2px');
-	$('#sidewrap').css('top','61.4px');
+	$('#sidewrap').css('top','60.3px');
 	$('nav>a:eq(0)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
 </script>
 </html>
