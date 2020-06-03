@@ -39,5 +39,10 @@ public class MemberController {
 		return "bucketWrite";
 	}
 	
+	@RequestMapping("myBlog.me")
+	public String BucketBlog() {
+		return "bucketBlog";
+	}
+	
 	
 }
