@@ -38,16 +38,16 @@
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
 			<h2>버킷리스트 작성</h2>
-			<form action="" method="post" enctype="multipart/form-data">
-				<input type='file' id="imgInput"/>
+			<form action="bInsert.me" method="post" enctype="multipart/form-data">
+				<input type='file' id="imgInput" name="uploadFile"/>
 				<div id="img_area">
 					<img/>
 				</div>
 				<div id="content_area">
 					제목<br>
-					<input type="text" /><br><br>
+					<input type="text" name="bkName"/><br><br>
 					카테고리
-					<select name="" id="">
+					<select name="cateNum">
 						<option value="1">Travel</option>
 						<option value="2">Sport</option>
 						<option value="3">Food</option>
@@ -58,14 +58,15 @@
 						<option value="8">Lifestyle</option>
 					</select><br><br>
 					설명<br>
-					<textarea type="text"></textarea><br><br>
+					<textarea name="bkContent"></textarea><br><br>
 					태그<br>
-					<span>#</span><input type="text" class="tag_input" />
-					<span>#</span><input type="text" class="tag_input" />
-					<span>#</span><input type="text" class="tag_input" />
-					<span>#</span><input type="text" class="tag_input" />
-					<span>#</span><input type="text" class="tag_input" />
+					<span>#</span><input type="text" class="tag_input" name="tags"/>
+					<span>#</span><input type="text" class="tag_input" name="tags"/>
+					<span>#</span><input type="text" class="tag_input" name="tags"/>
+					<span>#</span><input type="text" class="tag_input" name="tags"/>
+					<span>#</span><input type="text" class="tag_input" name="tags"/>
 					<br><br><br><br>
+					<input type="submit">
 				</div>
 			</form>
 		</section>

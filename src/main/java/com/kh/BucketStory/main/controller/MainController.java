@@ -1,6 +1,7 @@
 package com.kh.BucketStory.main.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -8,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
 	
 	@RequestMapping("main.ho")
-	public String Main(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category) {
+	public String Main(Model model, @RequestParam("menuNum") int menuNum, @RequestParam("category") int category) {
+		
 		
 		if(menuNum == 1) {
 			switch(category) {
