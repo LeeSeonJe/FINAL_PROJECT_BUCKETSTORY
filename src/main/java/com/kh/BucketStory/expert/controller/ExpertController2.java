@@ -9,7 +9,7 @@ public class ExpertController2 {
 	// 테스트
 	@RequestMapping("gogo.ex")
 	public String expertInfo2() {
-		return "gogo";
+		return "hp_common";
 	}
 	
 	// 전문가 메인페이지
