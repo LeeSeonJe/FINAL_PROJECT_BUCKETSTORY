@@ -10,7 +10,7 @@
 </head>
 <body>
 	<nav>
-		<a class="myPagemenu">
+		<a class="myPagemenu" href="myBucket.me">
 			<span>&nbsp;♡</span>
 			<span>버킷리스트&nbsp;&nbsp;</span>
 		</a>
@@ -18,7 +18,7 @@
 			<span>&nbsp;&nbsp;★</span>
 			<span>위시리스트&nbsp;&nbsp;</span>
 		</a>
-		<a class="myPagemenu">
+		<a class="myPagemenu" href="myBlog.me">
 			<span>&nbsp;♬</span>
 			<span>블로그&nbsp;</span>
 		</a>
