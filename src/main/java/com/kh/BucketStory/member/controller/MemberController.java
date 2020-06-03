@@ -1,12 +1,30 @@
 package com.kh.BucketStory.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.kh.BucketStory.bucket.model.vo.BucketList;
+import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.member.model.service.MemberService;
 
 @Controller
 public class MemberController {
+	
+	@Autowired
+	private MemberService mService;
 	
 	@RequestMapping("writer.me")
 	public String writer() {
@@ -42,6 +60,63 @@ public class MemberController {
 	@RequestMapping("myBlog.me")
 	public String BucketBlog() {
 		return "bucketBlog";
+	}
+	
+	@RequestMapping("bInsert.me")
+	public String BucketInsert(@ModelAttribute BucketList BL, @RequestParam("uploadFile") MultipartFile uploadFile,
+								@RequestParam("tags") List<String> tags, HttpServletRequest request ) {
+		
+		Media m = new Media();
+		String tag = String.join(",", tags);
+		BL.setTag(tag);
+		BL.setUserId("hanho");
+		
+		if(uploadFile != null && !uploadFile.isEmpty()) {
+			String mweb = saveFile(uploadFile, request);
+			
+			if(mweb != null) {
+				m.setMorigin(uploadFile.getOriginalFilename());
+				m.setMweb(mweb);
+			}
+		}
+		
+		int result = mService.bucketInsert(m, BL);
+		
+		if(result > 0) {
+			return "MyPageBucket";
+		} else {
+			return "bucketWrite";
+		}
+		
+		
+	}
+	
+	public String saveFile(MultipartFile file, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\muploadFiles";
+		
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originFileName = file .getOriginalFilename();
+		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))
+								+"."
+								+ originFileName.substring(originFileName.lastIndexOf(".") + 1);
+		String renamePath = folder + "//" + renameFileName;
+		
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return renameFileName;
 	}
 	
 	
