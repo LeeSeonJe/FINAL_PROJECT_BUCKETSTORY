@@ -8,11 +8,13 @@
 	<typeAliases>
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.Company" alias="Company"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.BucketList" alias="Bucket"/>
+		<typeAlias type="com.kh.BucketStory.bucket.model.vo.Media" alias="Media"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/expert-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/main-mapper.xml"/>
 	</mappers>
 	
 </configuration>

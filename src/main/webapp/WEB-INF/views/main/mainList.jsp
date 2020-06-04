@@ -26,21 +26,43 @@
 	<%@ include file="searchscreen.jsp" %>
 	<section>
 		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
-		<div class="bucket">
+		<c:forEach var="b" items="${ bucketList }">
+		<div class="bucket" id="bucket${ b.bkNo }">
 			<div class="bucketContent">
-				<div class="c-category">FOOD</div>
+				<div class="c-category">
+					<c:choose>
+						<c:when test="${ b.cateNum == 1 }"><span style="color:#00c5bc;">Travel</span></c:when>
+						<c:when test="${ b.cateNum == 2 }"><span style="color:#fd8ab1;">Sport</span></c:when>
+						<c:when test="${ b.cateNum == 3 }"><span style="color:#fd8b42;">Food</span></c:when>
+						<c:when test="${ b.cateNum == 4 }"><span style="color:#c78646;">New Skill</span></c:when>
+						<c:when test="${ b.cateNum == 5 }"><span style="color:#9f7ed7;">Culture</span></c:when>
+						<c:when test="${ b.cateNum == 6 }"><span style="color:#6fc073;">Outdoor</span></c:when>
+						<c:when test="${ b.cateNum == 7 }"><span style="color:#efc648;">Shopping</span></c:when>
+						<c:when test="${ b.cateNum == 8 }"><span style="color:#87adf8;">Lifestyle</span></c:when>
+					</c:choose>
+				</div>
 				<div class="c-bucket">
-					<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
+					<div class="c-bucket-1">${ b.bkName }</div>
 				</div>
 				<div class="c-Add">
 					<div class="c-addBtn"> + ADD</div>
 				</div>
-				<div class="c-likewish">
-					<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+				<div class="c-likewish" id="c-likewish${ b.bkNo }">
+					<div class="c-likeBtn" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label>${ b.bkLike }</label></div>
 					<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
 				</div>
 			</div>
 		</div>
+<script>
+	//좋아요위시버튼 나오게하기
+	$('#bucket${ b.bkNo }').hover(function(){
+		$('#c-likewish${ b.bkNo }').show();
+	}, function(){
+		$('#c-likewish${ b.bkNo }').hide();
+	});
+	
+</script>
+		</c:forEach>
 	</section>
 	<div id="FullOverLay">
 		<div id="bucketDatail">
@@ -106,6 +128,20 @@
 	
 </body>
 <script>
+	//버킷 좋아요 올리기
+	function blLikeUp(bkNo){
+		$.ajax({
+			url:'blLike.ho',
+			data:{
+				bkNo:bkNo
+			},
+			success:function(data){
+				var blLike = '#c-likeBtn'+bkNo+'>label';
+				$(blLike).text(data);
+			}
+		});
+	}
+	
 	$(function(){
 		// --현재 카테고리 표시
 		$('#cssmenu>ul>li:eq(0)>a').css({'color':'#18dfd3','border-bottom':'2px solid #10ccc3'});
@@ -146,13 +182,6 @@
 			$('#searchresult').hide();
 		});
 		
-		// 좋아요위시버튼 나오게하기
-		$('.bucket').hover(function(){
-			$('.c-likewish').show();
-		}, function(){
-			$('.c-likewish').hide();
-		});
-		
 		// 좋아요위시 특수문자 색
 		$('.c-likeBtn').hover(function(){
 			$('.likehover').css('color', '#10ccc3');
@@ -165,15 +194,15 @@
 			$('.wishhover').css('color', 'white');
 		});
 		
-		
 		// 버킷리스트 상세보기 클릭 종류
 		$('.bucket').click(function(e){
-			if($(e.target).hasClass('c-likeBtn')){
-				
-			} else if($(e.target).hasClass('c-wishBtn')){
-				
+			if($(e.target).hasClass('c-likeBtn') || $(e.target).hasClass('likehover')){
+				console.log($(e.target).length);
+				console.log($('.c-likeBtn').has('label').length);
 			} else if($(e.target).hasClass('c-addBtn')){
-				
+				console.log($('.c-likeBtn').has('label').length);
+			} else if($(e.target).hasClass('c-wishBtn') || $(e.target).hasClass('wishhover')){
+				console.log($('.c-likeBtn').has('label').length);	
 			} else{
 				$('body').css('height', '100%');
 				$('body').css('overflow', 'hidden');
@@ -181,8 +210,6 @@
 				var bkhg = $('#bucketDatail').width()/16 * 9;
 				$('#bucketimg').css('height', bkhg);
 				var bkcphg = $('#bucketimg').width()-411;
-				console.log($('#bucketimg').width());
-				console.log(bkcphg);
 				$('#bucketcp').css('width', bkcphg);
 			}
 		});

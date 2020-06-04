@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mainMapper">
+	<select id="selectBucketList" resultType="Bucket">
+		select *
+		from bucketlist
+	</select>
+	
+	<select id="selectBLImg" resultMap="MediaResultSet">
+		select *
+		from media
+		where bkno is not null
+	</select>
+	
+	<resultMap type="Media" id="MediaResultSet">
+		<id property="mnumber" column="MNUMBER"/>
+		<result property="morigin" column="MORIGIN"/>
+		<result property="mweb" column="MWEB"/>
+		<result property="imgvideo" column="IMGVIDEO"/>
+		<result property="muse" column="MUSE"/>
+		<result property="bkno" column="BKNO"/>
+		<result property="bno" column="BNO"/>
+		<result property="coid" column="COID"/>
+		<result property="feno" column="FENO"/>
+		<result property="esNo" column="ES_NO"/>
+	</resultMap>
+	
+	<select id="blLikeCheck" resultType="_int">
+		select count(*)
+		from bucketlike
+		where userid = #{userId}
+		and bkNo = #{bkNo}
+	</select>
+	<update id="blLikeDown">
+		update bucketlist
+		set bklike = bklike - 1
+		where bkno = #{bkNo}
+	</update>
+	<delete id="deleteblLike">
+		delete from bucketlike
+		where userid = #{userId}
+		and bkNo = #{bkNo}
+	</delete>
+	<update id="blLikeUp">
+		update bucketlist
+		set bklike = bklike + 1
+		where bkno = #{bkNo}
+	</update>
+	<insert id="insertblLike">
+		insert into bucketlike
+		values(seq_bucketlike.nextval, sysdate, #{userId}, #{bkNo})
+	</insert>
+	<select id="blLike" resultType="_int">
+		select bklike
+		from bucketlist
+		where bkNo = #{bkNo}
+	</select>
+	
+</mapper>
