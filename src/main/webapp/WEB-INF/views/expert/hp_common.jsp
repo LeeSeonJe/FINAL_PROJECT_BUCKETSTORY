@@ -61,8 +61,8 @@
             <li><a href="pointList.ex">포인트 내역</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item5">
-            <li><a href=#>1:1 문의</a></li>
-            <li><a href=#>문의내용 확인</a></li>
+            <li><a href="helperSendQnA.ex">1:1 문의</a></li>
+            <li><a href="helperQnA.ex">문의내용 확인</a></li>
         </ul>
     </div>
 
