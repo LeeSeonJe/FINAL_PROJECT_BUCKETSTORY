@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.service.MemberService;
 
 @Controller
@@ -64,12 +66,13 @@ public class MemberController {
 	
 	@RequestMapping("bInsert.me")
 	public String BucketInsert(@ModelAttribute BucketList BL, @RequestParam("uploadFile") MultipartFile uploadFile,
-								@RequestParam("tags") List<String> tags, HttpServletRequest request ) {
+								@RequestParam("tags") List<String> tags, HttpServletRequest request,
+								HttpSession session) {
 		
 		Media m = new Media();
 		String tag = String.join(",", tags);
 		BL.setTag(tag);
-		BL.setUserId("hanho");
+		BL.setUserId(((Member)session.getAttribute("loginUser")).getUserId());
 		
 		if(uploadFile != null && !uploadFile.isEmpty()) {
 			String mweb = saveFile(uploadFile, request);

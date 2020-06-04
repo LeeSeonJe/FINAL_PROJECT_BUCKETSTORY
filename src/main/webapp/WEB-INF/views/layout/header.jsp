@@ -17,7 +17,7 @@
 		<div id="alertBtn" class="Rmenu"></div>
 		<div id="logoutBtn" class="Rmenu"></div>
 		<div id="logo-wrap">
-			<div id="logo">Bucket Story</div>
+			<div id="logo"><a href="main.ho?menuNum=1&category=1">Bucket Story</a></div>
 		</div>
 	</header>
 </body>
@@ -25,7 +25,7 @@
 	$('#logoutBtn').click(function(){
 		var result = confirm("로그아웃 하시겠습니까?");
 		if(result){
-			location.href='';
+			location.href='delogin.ho';
 		} else{
 			alert("로그아웃 취소");
 		}
