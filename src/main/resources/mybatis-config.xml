@@ -9,6 +9,8 @@
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.Company" alias="Company"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.BucketList" alias="Bucket"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.Media" alias="Media"/>
+		<typeAlias type="com.kh.BucketStory.bucket.model.vo.WishList" alias="WishList"/>
+		<typeAlias type="com.kh.BucketStory.bucket.model.vo.ShareBucket" alias="ShareBucket"/>
 	</typeAliases>
 	
 	<mappers>

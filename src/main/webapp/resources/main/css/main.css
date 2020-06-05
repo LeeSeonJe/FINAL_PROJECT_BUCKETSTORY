@@ -130,6 +130,10 @@ section{
 	float:left;
 	color:white;
 }
+.c-likeBtn>label,
+.c-wishBtn>label{
+	cursor: pointer;
+}
 
 /* 버킷 디테일 */
 
@@ -310,10 +314,12 @@ section{
 	width: 90%;
     font-size: 13px;
     color: #666666;
-    margin-left:5%;
+    margin-left: 5%;
     line-height: 24px;
-    max-height: 90px;
+    height: 90px;
     overflow: auto;
+    border: 1px solid #ded9d9;
+    background-color: white;
 }
 #bucketcompany{
 	width: 90%;

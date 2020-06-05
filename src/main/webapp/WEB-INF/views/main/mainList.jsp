@@ -1,7 +1,11 @@
-<%@page import="java.io.File"%>
+<%@page import="com.kh.BucketStory.bucket.model.vo.WishList"%>
+<%@page import="java.io.File, java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	ArrayList<WishList> wList = (ArrayList<WishList>)request.getAttribute("wishList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,29 +31,52 @@
 	<section>
 		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 		<c:forEach var="b" items="${ bucketList }">
-		<div class="bucket" id="bucket${ b.bkNo }">
+		<c:if test="${ b.cateNum == category || category == 0}">
+		<div class="bucket" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.userId}');">
 			<div class="bucketContent">
 				<div class="c-category">
 					<c:choose>
-						<c:when test="${ b.cateNum == 1 }"><span style="color:#00c5bc;">Travel</span></c:when>
-						<c:when test="${ b.cateNum == 2 }"><span style="color:#fd8ab1;">Sport</span></c:when>
-						<c:when test="${ b.cateNum == 3 }"><span style="color:#fd8b42;">Food</span></c:when>
-						<c:when test="${ b.cateNum == 4 }"><span style="color:#c78646;">New Skill</span></c:when>
-						<c:when test="${ b.cateNum == 5 }"><span style="color:#9f7ed7;">Culture</span></c:when>
-						<c:when test="${ b.cateNum == 6 }"><span style="color:#6fc073;">Outdoor</span></c:when>
-						<c:when test="${ b.cateNum == 7 }"><span style="color:#efc648;">Shopping</span></c:when>
-						<c:when test="${ b.cateNum == 8 }"><span style="color:#87adf8;">Lifestyle</span></c:when>
+						<c:when test="${ b.cateNum == 1 }"><span style="color:#00c5bc;">Travel</span><c:set var="cateName" value="Travel"/></c:when>
+						<c:when test="${ b.cateNum == 2 }"><span style="color:#fd8ab1;">Sport</span><c:set var="cateName" value="Sport"/></c:when>
+						<c:when test="${ b.cateNum == 3 }"><span style="color:#fd8b42;">Food</span><c:set var="cateName" value="Food"/></c:when>
+						<c:when test="${ b.cateNum == 4 }"><span style="color:#c78646;">New Skill</span><c:set var="cateName" value="New Skill"/></c:when>
+						<c:when test="${ b.cateNum == 5 }"><span style="color:#9f7ed7;">Culture</span><c:set var="cateName" value="Culture"/></c:when>
+						<c:when test="${ b.cateNum == 6 }"><span style="color:#6fc073;">Outdoor</span><c:set var="cateName" value="Outdoor"/></c:when>
+						<c:when test="${ b.cateNum == 7 }"><span style="color:#efc648;">Shopping</span><c:set var="cateName" value="Shopping"/></c:when>
+						<c:when test="${ b.cateNum == 8 }"><span style="color:#87adf8;">Lifestyle</span><c:set var="cateName" value="Lifestyle"/></c:when>
 					</c:choose>
 				</div>
 				<div class="c-bucket">
 					<div class="c-bucket-1">${ b.bkName }</div>
 				</div>
-				<div class="c-Add">
-					<div class="c-addBtn"> + ADD</div>
+				
+				<c:set var="Sloop_flag" value="false"/>
+				<c:forEach var="s" items="${ shareList }">
+					<c:if test="${s.bkNo == b.bkNo}">
+						<c:set var="Sloop_flag" value="true"/>
+					</c:if>
+				</c:forEach>
+				<c:if test="${not Sloop_flag}">
+				<div class="c-Add" id="c-Add${ b.bkNo }">
+					<div class="c-addBtn" onclick="sharebl(${ b.bkNo }, '${ b.userId }');"> + ADD</div>
 				</div>
+				</c:if>
 				<div class="c-likewish" id="c-likewish${ b.bkNo }">
-					<div class="c-likeBtn" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label>${ b.bkLike }</label></div>
-					<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+					<div class="c-likeBtn" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bkLike }</label></div>
+					<div class="c-wishBtn" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
+						<span class="wishhover" style="font-size:20px">☆ </span>
+						위시 
+						<label class="wishlabel">
+						<c:set var="loop_flag" value="false"/>
+						<c:forEach var="w" items="${ wishList }">
+							<c:if test="${w.bkNo == b.bkNo}">
+								<c:set var="loop_flag" value="true"/>
+							</c:if>
+						</c:forEach>
+						<c:if test="${loop_flag}">취소</c:if>
+						<c:if test="${not loop_flag}">등록</c:if>
+						</label>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -61,7 +88,9 @@
 		$('#c-likewish${ b.bkNo }').hide();
 	});
 	
+	
 </script>
+		</c:if>
 		</c:forEach>
 	</section>
 	<div id="FullOverLay">
@@ -142,17 +171,112 @@
 		});
 	}
 	
+	//위시 등록취소하기
+	function wishRegist(bkNo, userId){
+		if('${loginUser.userId}' == userId){
+			alert("나의 버킷은 위시등록 할 수 없습니다.");
+		} else{
+			$.ajax({
+				url:'wishRegi.ho',
+				data:{
+					bkNo:bkNo
+				},
+				success:function(data){
+					var blwish = '#c-wishBtn'+bkNo+'>label';
+					$(blwish).text(data);
+				}
+			});
+		}
+	}
+	
+	// 공유버킷등록
+	function sharebl(bkNo, userId){
+		if('${loginUser.userId}' == userId){
+			alert("나의 버킷은 공유할 수 없습니다.");
+		} else{
+			var result = confirm("이 버킷리스트를 공유하시겠습니까?");
+			if(result){
+				$.ajax({
+					url:'sharebl.ho',
+					data:{
+						bkNo:bkNo
+					},
+					success:function(data){
+						if(data == 'success'){
+							var blshare = '#c-Add'+bkNo;
+							$(blshare).hide();
+							alert("나의 버킷에 공유되었습니다.");
+						}
+					}
+				});
+			} else{
+				alert("공유 취소");
+			}
+		}
+	}
+	
+	function bkDetail(bkNo, cateNum, bkName, bkContent, userId){
+		switch(cateNum){
+		case 1: $('#bucketcate').html('<span style="color:#00c5bc;">Travel</span>'); break;
+		case 2: $('#bucketcate').html('<span style="color:#fd8ab1;">Sport</span>'); break;
+		case 3: $('#bucketcate').html('<span style="color:#fd8b42;">Food</span>'); break;
+		case 4: $('#bucketcate').html('<span style="color:#c78646;">New Skill</span>'); break;
+		case 5: $('#bucketcate').html('<span style="color:#9f7ed7;">Culture</span>'); break;
+		case 6: $('#bucketcate').html('<span style="color:#6fc073;">Outdoor</span>'); break;
+		case 7: $('#bucketcate').html('<span style="color:#efc648;">Shopping</span>'); break;
+		case 8: $('#bucketcate').html('<span style="color:#87adf8;">Lifestyle</span>'); break;
+		}
+		$('#buckettitle').text(bkName);
+		$('#bucketexplain').text(bkContent);
+	}
+	
 	$(function(){
-		// --현재 카테고리 표시
+		// --현재 메뉴바 표시
 		$('#cssmenu>ul>li:eq(0)>a').css({'color':'#18dfd3','border-bottom':'2px solid #10ccc3'});
 		//console.log($(window).width());
 		
-		$('.searchdiv').css('opacity', '1');
+		//$('.searchdiv').css('opacity', '1');
 		
 		// 카테고리 종류
-		$('#categoryImg1').prop('src','resources/layout/images/allhover.png');
-		$('#category1').css('background','silver');
-		$('#category1').unbind('mouseover mouseout');
+		var category = ${category};
+		if(category == 0){
+			$('#categoryImg1').prop('src','resources/layout/images/allhover.png');
+			$('#category1').css('background','silver');
+			$('#category1').unbind('mouseover mouseout');
+		} else if(category == 1){
+			$('#categoryImg2').prop('src','resources/layout/images/여행hover.png');
+			$('#category2').css('background','#D4F4FA');
+			$('#category2').unbind('mouseover mouseout');
+		} else if(category == 2){
+			$('#categoryImg3').prop('src','resources/layout/images/운동hover.png');
+			$('#category3').css('background','#FF4848');
+			$('#category3').unbind('mouseover mouseout');
+		} else if(category == 3){
+			$('#categoryImg4').prop('src','resources/layout/images/foodhover.png');
+			$('#category4').css('background','#FFCD12');
+			$('#category4').unbind('mouseover mouseout');
+		} else if(category == 4){
+			$('#categoryImg5').prop('src','resources/layout/images/skillhover.png');
+			$('#category5').css('background','#FFF612');
+			$('#category5').unbind('mouseover mouseout');
+		} else if(category == 5){
+			$('#categoryImg6').prop('src','resources/layout/images/culturehover.png');
+			$('#category6').css('background','#2FED28');
+			$('#category6').unbind('mouseover mouseout');
+		} else if(category == 6){
+			$('#categoryImg7').prop('src','resources/layout/images/campinghover.png');
+			$('#category7').css('background','#1266FF');
+			$('#category7').unbind('mouseover mouseout');
+		} else if(category == 7){
+			$('#categoryImg8').prop('src','resources/layout/images/shoppinghover.png');
+			$('#category8').css('background','#4D48E1');
+			$('#category8').unbind('mouseover mouseout');
+		} else if(category == 8){
+			$('#categoryImg9').prop('src','resources/layout/images/lifestylehover.png');
+			$('#category9').css('background','#B95AFF');
+			$('#category9').unbind('mouseover mouseout');
+		}
+		
 		
 		
 		// --section 버킷들 width에 따라 height변화
@@ -196,13 +320,12 @@
 		
 		// 버킷리스트 상세보기 클릭 종류
 		$('.bucket').click(function(e){
-			if($(e.target).hasClass('c-likeBtn') || $(e.target).hasClass('likehover')){
-				console.log($(e.target).length);
-				console.log($('.c-likeBtn').has('label').length);
+			if($(e.target).hasClass('c-likeBtn') || $(e.target).hasClass('likehover') || $(e.target).hasClass('likelabel')){
+				
 			} else if($(e.target).hasClass('c-addBtn')){
-				console.log($('.c-likeBtn').has('label').length);
-			} else if($(e.target).hasClass('c-wishBtn') || $(e.target).hasClass('wishhover')){
-				console.log($('.c-likeBtn').has('label').length);	
+				
+			} else if($(e.target).hasClass('c-wishBtn') || $(e.target).hasClass('wishhover') || $(e.target).hasClass('wishlabel')){
+				
 			} else{
 				$('body').css('height', '100%');
 				$('body').css('overflow', 'hidden');

@@ -25,6 +25,8 @@
 		<result property="esNo" column="ES_NO"/>
 	</resultMap>
 	
+	
+	<!-- 메인 버킷 좋아요 -->
 	<select id="blLikeCheck" resultType="_int">
 		select count(*)
 		from bucketlike
@@ -55,5 +57,43 @@
 		from bucketlist
 		where bkNo = #{bkNo}
 	</select>
+	
+	<!-- 위시 등록취소 -->
+	<select id="blWishCheck" resultType="_int">
+		select count(*)
+		from wishlist
+		where userid = #{userId}
+		and bkNo = #{bkNo}
+	</select>
+	<delete id="deleteWish">
+		delete from wishlist
+		where userid = #{userId}
+		and bkNo = #{bkNo}
+	</delete>
+	<insert id="insertWish">
+		insert into wishlist
+		values(seq_wishlist.nextval, sysdate, #{bkNo}, #{userId})
+	</insert>
+	
+	<!-- 로그인한 회원 위시리스트 -->
+	<select id="selectWishList" resultType="WishList">
+		select *
+		from wishlist
+		where userid = #{userId}
+	</select>
+	
+	<!-- 버킷공유하기 -->
+	<insert id="blShere">
+		insert into sharebucket
+		values(seq_sharebucket.nextval, #{bkNo}, #{userId}, sysdate)
+	</insert>
+	
+	<!-- 로그인한 회원 공유버킷리스트 -->
+	<select id="selectShereList" resultType="ShareBucket">
+		select *
+		from sharebucket
+		where userid = #{userId}
+	</select>
+	
 	
 </mapper>

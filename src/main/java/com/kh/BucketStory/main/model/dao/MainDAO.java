@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.bucket.model.vo.ShareBucket;
+import com.kh.BucketStory.bucket.model.vo.WishList;
 
 @Repository("mainDAO")
 public class MainDAO {
@@ -45,6 +47,51 @@ public class MainDAO {
 		}
 		
 		return blLike;
+	}
+
+	public String blWish(SqlSessionTemplate sqlSession, int bkNo, String userId) {
+		HashMap<String, String> hashmap = new HashMap<String, String>();
+		hashmap.put("bkNo", ""+bkNo);
+		hashmap.put("userId", userId);
+		
+		int blWishCheck = sqlSession.selectOne("mainMapper.blWishCheck", hashmap);
+		int result = 0;
+		String resultString = null;
+		
+		if(blWishCheck > 0) {
+			result = sqlSession.delete("mainMapper.deleteWish", hashmap);
+			if(result > 0) {
+				resultString = "등록";
+			} else {
+				System.out.println("실패");
+			}
+		} else {
+			result = sqlSession.insert("mainMapper.insertWish", hashmap);
+			if(result > 0) {
+				resultString = "취소";
+			} else {
+				System.out.println("실패");
+			}
+		}
+		
+		
+		return resultString;
+	}
+
+	public ArrayList<WishList> selectWishList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectWishList", userId);
+	}
+
+	public int blShare(SqlSessionTemplate sqlSession, int bkNo, String userId) {
+		HashMap<String, String> hashmap = new HashMap<String, String>();
+		hashmap.put("bkNo", ""+bkNo);
+		hashmap.put("userId", userId);
+		
+		return sqlSession.insert("mainMapper.blShere", hashmap);
+	}
+
+	public ArrayList<ShareBucket> selectShareList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectShereList", userId);
 	}
 
 	

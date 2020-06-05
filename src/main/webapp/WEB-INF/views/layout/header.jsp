@@ -25,7 +25,7 @@
 	$('#logoutBtn').click(function(){
 		var result = confirm("로그아웃 하시겠습니까?");
 		if(result){
-			location.href='delogin.ho';
+			location.href='';
 		} else{
 			alert("로그아웃 취소");
 		}
