@@ -11,39 +11,39 @@
 <body>
 	<div id="leftSideBar">
 		<div id="category1" class="category">
-			<a href='main.ho?menuNum=${ menuNum }&category=1'><img id="categoryImg1" class="categoryImg" src="resources/layout/images/all.png"></a>
+			<a href='main.ho?menuNum=${ menuNum }&category=0'><img id="categoryImg1" class="categoryImg" src="resources/layout/images/all.png"></a>
 		</div>
 		<div class="categoryname">All</div>
 		<div id="category2" class="category">
-			<a href='main.ho?menuNum=${ menuNum }&category=2'><img id="categoryImg2" class="categoryImg" src="resources/layout/images/여행.png"></a>
+			<a href='main.ho?menuNum=${ menuNum }&category=1'><img id="categoryImg2" class="categoryImg" src="resources/layout/images/여행.png"></a>
 		</div>
 		<div class="categoryname">Travel</div>
 		<div id="category3" class="category">
-			<a href='main.ho?menuNum=${ menuNum }&category=3'><img id="categoryImg3" class="categoryImg" src="resources/layout/images/운동.png"></a>
+			<a href='main.ho?menuNum=${ menuNum }&category=2'><img id="categoryImg3" class="categoryImg" src="resources/layout/images/운동.png"></a>
 		</div>
 		<div class="categoryname">Sport</div>
 		<div id="category4" class="category">
-			<a href='main.ho?menuNum=${ menuNum }&category=4'><img id="categoryImg4" class="categoryImg" src="resources/layout/images/food.png"></a>
+			<a href='main.ho?menuNum=${ menuNum }&category=3'><img id="categoryImg4" class="categoryImg" src="resources/layout/images/food.png"></a>
 		</div>
 		<div class="categoryname">Food</div>
 		<div id="category5" class="category">
-			<a href='main.ho?menuNum=${ menuNum }&category=5'><img id="categoryImg5" class="categoryImg" src="resources/layout/images/skill.png"></a>
+			<a href='main.ho?menuNum=${ menuNum }&category=4'><img id="categoryImg5" class="categoryImg" src="resources/layout/images/skill.png"></a>
 		</div>
 		<div class="categoryname">New Skill</div>
 		<div id="category6" class="category">
-			<a href='main.ho?menuNum=${ menuNum }&category=6'><img id="categoryImg6" class="categoryImg" src="resources/layout/images/culture.png"></a>
+			<a href='main.ho?menuNum=${ menuNum }&category=5'><img id="categoryImg6" class="categoryImg" src="resources/layout/images/culture.png"></a>
 		</div>
 		<div class="categoryname">Culture</div>
 		<div id="category7" class="category">
-			<a href='main.ho?menuNum=${ menuNum }&category=7'><img id="categoryImg7" class="categoryImg" src="resources/layout/images/camping.png"></a>
+			<a href='main.ho?menuNum=${ menuNum }&category=6'><img id="categoryImg7" class="categoryImg" src="resources/layout/images/camping.png"></a>
 		</div>
 		<div class="categoryname">Outdoor</div>
 		<div id="category8" class="category">
-			<a href='main.ho?menuNum=${ menuNum }&category=8'><img id="categoryImg8" class="categoryImg" src="resources/layout/images/shopping.png"></a>
+			<a href='main.ho?menuNum=${ menuNum }&category=7'><img id="categoryImg8" class="categoryImg" src="resources/layout/images/shopping.png"></a>
 		</div>
 		<div class="categoryname">Shopping</div>
 		<div id="category9" class="category">
-			<a href='main.ho?menuNum=${ menuNum }&category=9'><img id="categoryImg9" class="categoryImg" src="resources/layout/images/lifestyle.png"></a>
+			<a href='main.ho?menuNum=${ menuNum }&category=8'><img id="categoryImg9" class="categoryImg" src="resources/layout/images/lifestyle.png"></a>
 		</div>
 		<div class="categoryname">Lifestyle</div>
 	</div>

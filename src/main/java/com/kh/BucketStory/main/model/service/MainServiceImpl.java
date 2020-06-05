@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.bucket.model.vo.ShareBucket;
+import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.main.model.dao.MainDAO;
 
 @Service("mainService")
@@ -32,6 +34,26 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int blLike(int bkNo, String userId) {
 		return mainDAO.blLike(sqlSession, bkNo, userId);
+	}
+
+	@Override
+	public String blWish(int bkNo, String userId) {
+		return mainDAO.blWish(sqlSession, bkNo, userId);
+	}
+
+	@Override
+	public ArrayList<WishList> selectWishList(String userId) {
+		return mainDAO.selectWishList(sqlSession, userId);
+	}
+
+	@Override
+	public int blShare(int bkNo, String userId) {
+		return mainDAO.blShare(sqlSession, bkNo, userId);
+	}
+
+	@Override
+	public ArrayList<ShareBucket> selectShareList(String userId) {
+		return mainDAO.selectShareList(sqlSession, userId);
 	}
 
 }
