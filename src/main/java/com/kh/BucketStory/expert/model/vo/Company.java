@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Company {
 	
 	private String coId;
-	private String pwd;
+	private String coPwd;
 	private String coName;
 	private String compaName;
 	private String apName;
@@ -24,12 +24,12 @@ public class Company {
 	
 	public Company() {}
 	
-	public Company(String coId, String pwd, String coName, String compaName, String apName, String homePage,
+	public Company(String coId, String coPwd, String coName, String compaName, String apName, String homePage,
 			String coTel, Date enrollDate, char status, char approval, String busiEmail, int cpCheck, String checkImg,
 			int point, int cateNum, String coIntro, String coInfo) {
 		super();
 		this.coId = coId;
-		this.pwd = pwd;
+		this.coPwd = coPwd;
 		this.coName = coName;
 		this.compaName = compaName;
 		this.apName = apName;
@@ -71,12 +71,12 @@ public class Company {
 		this.coId = coId;
 	}
 
-	public String getPwd() {
-		return pwd;
+	public String getCoPwd() {
+		return coPwd;
 	}
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public void setCoPwd(String coPwd) {
+		this.coPwd = coPwd;
 	}
 
 	public String getCoName() {
@@ -201,7 +201,7 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return "Company [coId=" + coId + ", pwd=" + pwd + ", coName=" + coName + ", compaName=" + compaName
+		return "Company [coId=" + coId + ", coPwd=" + coPwd + ", coName=" + coName + ", compaName=" + compaName
 				+ ", apName=" + apName + ", homePage=" + homePage + ", coTel=" + coTel + ", enrollDate=" + enrollDate
 				+ ", status=" + status + ", approval=" + approval + ", busiEmail=" + busiEmail + ", cpCheck=" + cpCheck
 				+ ", checkImg=" + checkImg + ", point=" + point + ", cateNum=" + cateNum + ", coIntro=" + coIntro

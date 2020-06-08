@@ -8,7 +8,7 @@ public class Member {
 	private String userName;
 	private String phone;
 	private String email;
-	private String brith;
+	private String birth;
 	private String gender;
 	private String nickName;
 	private String caution;
@@ -18,7 +18,7 @@ public class Member {
 	
 	public Member() {}
 
-	public Member(String userId, String userPwd, String userName, String phone, String email, String brith,
+	public Member(String userId, String userPwd, String userName, String phone, String email, String birth,
 			String gender, String nickName, String caution, String prImage, int fwCount, Date enrollDate) {
 		super();
 		this.userId = userId;
@@ -26,7 +26,7 @@ public class Member {
 		this.userName = userName;
 		this.phone = phone;
 		this.email = email;
-		this.brith = brith;
+		this.birth = birth;
 		this.gender = gender;
 		this.nickName = nickName;
 		this.caution = caution;
@@ -75,12 +75,12 @@ public class Member {
 		this.email = email;
 	}
 
-	public String getBrith() {
-		return brith;
+	public String getBirth() {
+		return birth;
 	}
 
-	public void setBrith(String brith) {
-		this.brith = brith;
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 
 	public String getGender() {
@@ -134,11 +134,11 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", phone=" + phone
-				+ ", email=" + email + ", brith=" + brith + ", gender=" + gender + ", nickName=" + nickName
+				+ ", email=" + email + ", birth=" + birth + ", gender=" + gender + ", nickName=" + nickName
 				+ ", caution=" + caution + ", prImage=" + prImage + ", fwCount=" + fwCount + ", enrollDate="
 				+ enrollDate + "]";
 	}
-	
+
 	
 
 }
