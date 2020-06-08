@@ -4,7 +4,7 @@
 	<select id="memberLogin" parameterType="Member" resultMap="commonResultSet">
 		select *
 		from Member
-		where userid=#{userId} and userpwd = #{userPwd}
+		where userid=#{userId}
 	</select>
 	<resultMap id="commonResultSet" type="Member">
 	<id property="userId" column="USERID"/>
@@ -23,7 +23,10 @@
 	
 	<insert id="insertMember" parameterType="Member">
 		insert into Member
-		values(#{userid}, #{userpwd}, #{username}, #{phone}, #{email}, #{birth}, #{gender}, #{nickname}, sysdate, sysdate, sysdate, default)
+		values(#{userId}, #{userPwd}, #{userName}, #{phone}, #{email}, #{birth}, #{gender}, #{nickName}, default, null, default, sysdate)
 	</insert>
+	
+	
+	
 	
 </mapper>
