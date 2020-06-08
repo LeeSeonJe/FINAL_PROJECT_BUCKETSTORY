@@ -11,12 +11,14 @@
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.Media" alias="Media"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.WishList" alias="WishList"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.ShareBucket" alias="ShareBucket"/>
+		<typeAlias type="com.kh.BucketStory.common.model.vo.Member" alias="Member"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/expert-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/main-mapper.xml"/>
+		<mapper resource="mappers/common-mapper.xml"/>
 	</mappers>
 	
 </configuration>

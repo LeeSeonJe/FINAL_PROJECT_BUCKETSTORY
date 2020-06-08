@@ -309,8 +309,8 @@
 			<form id="login" action="memberlogin.co" method="post"> 
 				<div id="idPwdInput">
 					<div id="loginlogo" style="color: white">BucketStory</div>
-					<input name="userid" type="text" class="idPwd" placeholder="&ensp; ID">
-					<input name="userpwd" type="password" class="idPwd" placeholder="&ensp; Password">
+					<input name="userId" type="text" class="idPwd" placeholder="&ensp; ID">
+					<input name="userPwd" type="password" class="idPwd" placeholder="&ensp; Password">
 				</div>
 				<!-- 로그인 성공하면 바로 메인메뉴로 이동함 -->
 				<div id="submit"> 
@@ -322,8 +322,8 @@
 			<form id="Clogin" action="companylogin.co" method="post"> 
 				<div id="idPwdInput">
 					<div id="loginlogo" style="color: white">BucketStory</div>
-					<input name="coid" type="text" class="idPwd" placeholder="&ensp; ID">
-					<input name="copwd" type="password" class="idPwd" placeholder="&ensp; Password">
+					<input name="coId" type="text" class="idPwd" placeholder="&ensp; ID">
+					<input name="coPwd" type="password" class="idPwd" placeholder="&ensp; Password">
 				</div>
 				<!-- 로그인 성공하면 바로 메인메뉴로 이동함 -->
 				<div id="submit"> 

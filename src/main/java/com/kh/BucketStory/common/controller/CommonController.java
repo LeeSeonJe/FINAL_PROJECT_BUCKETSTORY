@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kh.BucketStory.common.controller.model.service.CommonService;
-import com.kh.BucketStory.member.model.vo.Member;
+import com.kh.BucketStory.common.model.service.CommonService;
+import com.kh.BucketStory.common.model.vo.Member;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -31,16 +31,15 @@ public class CommonController {
 		Member loginUser = cService.memberLogin(m); 
 		session.setAttribute("loginUser", loginUser);
 		session.setMaxInactiveInterval(60000);
-		return "success";
+		return "redirect:main.ho?menuNum=1&category=0";
 	}
 	
-	
-	
 	// 로그아웃
-    @RequestMapping("logout")
+    @RequestMapping("logout.co")
     public String logout(HttpSession session) {
-        session.setAttribute("userLoginInfo", null);
-        return "redirect:login";
+    	session.invalidate();
+    	
+        return "redirect:login.co";
     }
     
     // 로그인 처리

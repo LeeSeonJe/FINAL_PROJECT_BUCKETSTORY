@@ -1,11 +1,11 @@
-package com.kh.BucketStory.common.controller.model.service;
+package com.kh.BucketStory.common.model.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kh.BucketStory.common.controller.model.dao.CommonDAO;
-import com.kh.BucketStory.member.model.vo.Member;
+import com.kh.BucketStory.common.model.dao.CommonDAO;
+import com.kh.BucketStory.common.model.vo.Member;
 
 @Service("cService")
 public class CommonServiceImpl implements CommonService {
