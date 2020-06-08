@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<link rel="stylesheet" href="resources/member/css/bucketBlog.css">
 	<link rel="stylesheet" href="resources/member/css/bucketWrite.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
@@ -37,37 +38,93 @@
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
-			<h2>버킷리스트 작성</h2>
-			<form action="" method="post" enctype="multipart/form-data">
-				<input type='file' id="imgInput"/>
-				<div id="img_area">
-					<img/>
-				</div>
-				<div id="content_area">
-					제목<br>
-					<input type="text" /><br><br>
-					카테고리
-					<select name="" id="">
-						<option value="1">Travel</option>
-						<option value="2">Sport</option>
-						<option value="3">Food</option>
-						<option value="4">New Skill</option>
-						<option value="5">Culture</option>
-						<option value="6">Outdoor</option>
-						<option value="7">Shopping</option>
-						<option value="8">Lifestyle</option>
-					</select><br><br>
-					설명<br>
-					<textarea type="text"></textarea><br><br>
-					태그<br>
-					<span>#</span><input type="text" class="tag_input" />
-					<span>#</span><input type="text" class="tag_input" />
-					<span>#</span><input type="text" class="tag_input" />
-					<span>#</span><input type="text" class="tag_input" />
-					<span>#</span><input type="text" class="tag_input" />
-					<br><br><br><br>
-				</div>
-			</form>
+			<h2>블로그</h2>
+			<div id="bucketList-area">
+				<table>
+					<thead>
+						<tr>
+							<th>
+								<div class="wrap_td">
+									<span>글 제목</span>
+									<i class="cline"></i>
+								</div>
+							</th>
+							<th>
+								<div class="wrap_td">
+									<span>작성일</span>
+									<i class="cline"></i>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<div class="wrap_td">
+									<span>남성화장품 끈적임없이 촉촉한 기초</span>
+								</div>
+							</td>
+							<td>
+								<div class="wrap_td">
+									<span>2020. 6. 3.</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="wrap_td">
+									<span>남성화장품 끈적임없이 촉촉한 기초</span>
+								</div>
+							</td>
+							<td>
+								<div class="wrap_td">
+									<span>2020. 6. 3.</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="wrap_td">
+									<span>남성화장품 끈적임없이 촉촉한 기초</span>
+								</div>
+							</td>
+							<td>
+								<div class="wrap_td">
+									<span>2020. 6. 3.</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="wrap_td">
+									<span>남성화장품 끈적임없이 촉촉한 기초</span>
+								</div>
+							</td>
+							<td>
+								<div class="wrap_td">
+									<span>2020. 6. 3.</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="wrap_td">
+									<span>남성화장품 끈적임없이 촉촉한 기초</span>
+								</div>
+							</td>
+							<td>
+								<div class="wrap_td">
+									<span>2020. 6. 3.</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				
+			</div>
+			
 		</section>
 	</div>
 <script>
