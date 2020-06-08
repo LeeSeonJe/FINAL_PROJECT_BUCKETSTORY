@@ -19,4 +19,11 @@
 	
 	<context:component-scan base-package="com.kh.BucketStory" />
 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/login.co"/>
+			<bean id="loginInterceptor" class="com.kh.BucketStory.common.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 </beans>
