@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.BucketStory.common.model.dao.CommonDAO;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 
 @Service("cService")
 public class CommonServiceImpl implements CommonService {
@@ -19,6 +20,17 @@ public class CommonServiceImpl implements CommonService {
 	@Override
 	public Member memberLogin(Member m) {
 		return cDAO.memberLogin(sqlSession, m);
+	}
+
+	@Override
+	public int insertMember(Member m) {
+		return cDAO.insertMember(sqlSession, m);
+	}
+
+	@Override
+	public Company companyLogin(Company c) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

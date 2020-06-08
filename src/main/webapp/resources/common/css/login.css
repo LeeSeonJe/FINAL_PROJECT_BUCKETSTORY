@@ -116,10 +116,11 @@ body{
 	
 	#rightForm{ /* 오른쪽 로그인폼 */
 	float: right;
-    width: 320px;
-    height: 300px;
+    width: 340px;
+    height: 540px;
     margin-top: 140px;
     margin-right: 240px;
+    background: rgba(255,187,0,0.7);
 	}
 	#login{
 	    width: 350px;

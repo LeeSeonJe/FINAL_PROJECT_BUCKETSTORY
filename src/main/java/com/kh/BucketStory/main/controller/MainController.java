@@ -31,12 +31,8 @@ public class MainController {
 	@RequestMapping("main.ho")
 	public ModelAndView Main(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category,
 						ModelAndView mv, HttpSession session) {
-		// 가상로그인
-		Date today = new Date(0);
-//		Member loginUser = new Member("hanho", "1234", "name03", "010-1234-5678", "rgvefc1@naver.com", "1993/12/15", "M", "nick03", "N", null, 0, today);
-		Member loginUser = new Member("jeongho", "1234", "name03", "010-1234-5678", "rgvefc1@naver.com", "1993/12/15", "M", "nick03", "N", null, 0, today);
-		System.out.println(loginUser);
-		session.setAttribute("loginUser", loginUser);
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		String userId = loginUser.getUserId();
 		
 		ArrayList<BucketList> bucketList = mainService.selectBucketList();
