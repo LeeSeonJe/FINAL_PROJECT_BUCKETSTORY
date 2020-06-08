@@ -11,6 +11,9 @@ public class Member {
 	private String birth;
 	private String gender;
 	private String nickname;
+	private String caution;
+	private String prImage;
+	private String fwCount;
 	private Date enrollDate;
 	
 	public Member() {}
@@ -22,7 +25,7 @@ public class Member {
 	}
 
 	public Member(String userid, String userpwd, String username, String phone, String email, String birth,
-			String gender, String nickname, Date enrollDate) {
+			String gender, String nickname, String caution, String prImage, String fwCount, Date enrollDate) {
 		super();
 		this.userid = userid;
 		this.userpwd = userpwd;
@@ -32,6 +35,9 @@ public class Member {
 		this.birth = birth;
 		this.gender = gender;
 		this.nickname = nickname;
+		this.caution = caution;
+		this.prImage = prImage;
+		this.fwCount = fwCount;
 		this.enrollDate = enrollDate;
 	}
 
@@ -99,6 +105,30 @@ public class Member {
 		this.nickname = nickname;
 	}
 
+	public String getCaution() {
+		return caution;
+	}
+
+	public void setCaution(String caution) {
+		this.caution = caution;
+	}
+
+	public String getPrImage() {
+		return prImage;
+	}
+
+	public void setPrImage(String prImage) {
+		this.prImage = prImage;
+	}
+
+	public String getFwCount() {
+		return fwCount;
+	}
+
+	public void setFwCount(String fwCount) {
+		this.fwCount = fwCount;
+	}
+
 	public Date getEnrollDate() {
 		return enrollDate;
 	}
@@ -109,9 +139,9 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Common [userid=" + userid + ", userpwd=" + userpwd + ", username=" + username + ", phone=" + phone
+		return "Member [userid=" + userid + ", userpwd=" + userpwd + ", username=" + username + ", phone=" + phone
 				+ ", email=" + email + ", birth=" + birth + ", gender=" + gender + ", nickname=" + nickname
-				+ ", enrollDate=" + enrollDate + "]";
+				+ ", caution=" + caution + ", prImage=" + prImage + ", fwCount=" + fwCount + ", enrollDate="
+				+ enrollDate + "]";
 	}
-	
 }
