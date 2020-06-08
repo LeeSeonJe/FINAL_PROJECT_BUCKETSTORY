@@ -24,11 +24,11 @@
 					<input type="checkbox">
 					<span class="slider round"></span>
 				</label>
-				<p style="color: white">회원</p><p style="display:none;, color:white">기업</p>
+				<p id="tp" style="color: white;">회원</p>
 
 <!-- -------------------- 유저 회원가입폼 -------------------- -->
 		
-		    <form action="UserF">
+		    <form action="User">
 			<table id="User" cellpadding="0" cellspacing="20">
 					<tr>
 						<th align=right><label class="must"></label>아이디</th>
@@ -138,13 +138,13 @@
 					</tr>
 					<tr>
 						<td><button id="cancel" style='cursor:pointer'>취소하기</button></td>
-						<td><button id="finish" style='cursor:pointer'>가입하기</button></td>
+						<td><button id="finish" onclick="validate(); location.href='main.ho'" style='cursor:pointer'>가입하기</button></td>
 					</tr>
 				</table>
 				</form>
 				
 <!-- -------------------- 회사 회원가입폼 -------------------- -->
-				<form action="CompanyF">
+				<form action="Company">
 				<table id="Company" cellpadding="0" cellspacing="20">
 					<tr>
 						<th align=right><label class="must"></label>아이디</th>
@@ -214,7 +214,7 @@
 					<tr>
 						<th align=right>기업 확인 이메일</th>
 						<td>
-							<input type="text" id="busiemail_1" name="busiemail_1" class="member" style="width: 100px;">@ 
+							<input type="text" id="busiemail_1" name="busiemail_1" class="company" style="width: 100px;">@ 
 							<input type="text" id="busiemail_2" name="busiemail_2" style="width: 100px;" disabled> 
 								<select id="selectBusiEmail" name="selectBusiEmail" style="width: 100px; margin-right: 10px">
 										<option Selected>::선택하세요::</option>
@@ -260,7 +260,7 @@
 					<td>
 						<input type="text" id="emailfind_1" name="emailfind_1" class="ID_find" style="width: 100px;">@ 
 						<input type="text" id="emailfind_2" name="emailfind_2" style="width: 100px;" disabled> 
-							<select id="selectEmail" name="selectEmail" style="width: 100px; margin-right: 10px">
+							<select id="selectIdEmail" name="selectIdEmail" style="width: 100px; margin-right: 10px">
 									<option Selected>::선택하세요::</option>
 									<option value="1">직접입력</option>
 									<option value="naver.com">naver.com</option>
@@ -298,17 +298,39 @@
 		
 		<!-------------------- 오른쪽 로그인폼 -------------------->
 		<div id="rightForm">
-			<form id="login">
+			<!-- 회원 로그인, 기업 로그인 변경 스위치 -->
+		    	<!-- <label class="switch2">
+					<input type="checkbox">
+					<span class="slider round"></span>
+				</label>
+				<p id="ctp" style="color: white;">회원</p> -->
+				
+			<!-- 유저 로그인 -->
+			<form id="login" action="memberlogin.co" method="post"> 
 				<div id="idPwdInput">
 					<div id="loginlogo" style="color: white">BucketStory</div>
-					<input name="Wid" class="idPwd" placeholder="&ensp; ID">
-					<input name="Wpwd" class="idPwd" placeholder="&ensp; Password">
+					<input name="userid" type="text" class="idPwd" placeholder="&ensp; ID">
+					<input name="userpwd" type="password" class="idPwd" placeholder="&ensp; Password">
 				</div>
 				<!-- 로그인 성공하면 바로 메인메뉴로 이동함 -->
 				<div id="submit"> 
 					<input id="subbtn" type="submit" value="Login" style='cursor:pointer'>
 				</div>
 			</form>
+			
+			<!-- 컴퍼니 로그인 -->
+			<form id="Clogin" action="companylogin.co" method="post"> 
+				<div id="idPwdInput">
+					<div id="loginlogo" style="color: white">BucketStory</div>
+					<input name="coid" type="text" class="idPwd" placeholder="&ensp; ID">
+					<input name="copwd" type="password" class="idPwd" placeholder="&ensp; Password">
+				</div>
+				<!-- 로그인 성공하면 바로 메인메뉴로 이동함 -->
+				<div id="submit"> 
+					<input id="subbtn" type="submit" value="Login" style='cursor:pointer'>
+				</div>
+			</form>
+			
 			<div id="join">
 				<button class="joinBtn3" style='cursor:pointer'>아이디 찾기</button>
 			</div>
