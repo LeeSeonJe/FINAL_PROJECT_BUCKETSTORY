@@ -4,17 +4,17 @@
 	<select id="memberLogin" parameterType="Member" resultMap="commonResultSet">
 		select *
 		from Member
-		where userid=#{userid} and userpwd = #{userpwd}
+		where userid=#{userId}
 	</select>
 	<resultMap id="commonResultSet" type="Member">
-	<id property="userid" column="USERID"/>
-	<result property="userpwd" column="USERPWD"/>
-	<result property="username" column="USERNAME"/>
+	<id property="userId" column="USERID"/>
+	<result property="userPwd" column="USERPWD"/>
+	<result property="userName" column="USERNAME"/>
 	<result property="phone" column="PHONE"/>
 	<result property="email" column="EMAIL"/>
 	<result property="birth" column="BIRTH"/>
 	<result property="gender" column="GENDER"/>
-	<result property="nickname" column="NICKNAME"/>
+	<result property="nickName" column="NICKNAME"/>
 	<result property="caution" column="CAUTION"/>
 	<result property="prImage" column="PR_IMAGE"/>
 	<result property="fwCount" column="FW_COUNT"/>
@@ -23,7 +23,10 @@
 	
 	<insert id="insertMember" parameterType="Member">
 		insert into Member
-		values(#{userid}, #{userpwd}, #{username}, #{phone}, #{email}, #{birth}, #{gender}, #{nickname}, sysdate, sysdate, sysdate, default)
+		values(#{userId}, #{userPwd}, #{userName}, #{phone}, #{email}, #{birth}, #{gender}, #{nickName}, default, null, default, sysdate)
 	</insert>
+	
+	
+	
 	
 </mapper>

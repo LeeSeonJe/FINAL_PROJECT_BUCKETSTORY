@@ -21,18 +21,18 @@
 		      
 		    	<!-- 회원, 기업 변경 스위치 -->
 		    	<label class="switch">
-					<input type="checkbox">
+					<input type="checkbox" id="insertSwt">
 					<span class="slider round"></span>
 				</label>
 				<p id="tp" style="color: white;">회원</p>
 
 <!-- -------------------- 유저 회원가입폼 -------------------- -->
 		
-		    <form action="User">
+		    <form action="memberIn.co" method="post">
 			<table id="User" cellpadding="0" cellspacing="20">
 					<tr>
 						<th align=right><label class="must"></label>아이디</th>
-						<td><input type="text" id="userid" name="userid" class="user" maxlength="15" required>
+						<td><input type="text" id="userid" name="userId" class="user" maxlength="15" required>
 						<label id="idResult"></label></td>
 <!-- 						<span><button id="idCheck" onclick="checkId();">중복확인</button></span> -->
 <!-- 							<td width="200px"><label id="idResult"></label></td> -->
@@ -40,19 +40,19 @@
 					<tr>
 						<th align=right><label class="must"></label>이름</th>
 						<td>
-						<input type="text" id="username" name="username" class="user" maxlength="10" required>
+						<input type="text" id="username" name="userName" class="user" maxlength="10" required>
 						</td>
 					</tr>
 					<tr>
 						<th align=right><label class="must"></label>닉네임</th>
-						<td><input type="text" id="nickname" name="nickname" class="user" maxlength="10" required>
+						<td><input type="text" id="nickname" name="nickName" class="user" maxlength="10" required>
 						<label id="nickResult"></label>
 <!-- 								<span><button id="nickCheck" onclick="checkNick();">중복확인</button></span> -->
 						</td>
 					</tr>
 					<tr>
 						<th align=right>비밀번호</th>
-						<td><input type="password" id=userpwd name="userpwd"
+						<td><input type="password" id=userpwd name="userPwd"
 							class="user"></td>
 					</tr>
 					<tr>
@@ -299,22 +299,22 @@
 		<!-------------------- 오른쪽 로그인폼 -------------------->
 		<div id="rightForm">
 			<!-- 회원 로그인, 기업 로그인 변경 스위치 -->
-		    	<!-- <label class="switch2">
-					<input type="checkbox">
+		    	 <label class="switch2">
+					<input type="checkbox" id="loginSwt">
 					<span class="slider round"></span>
 				</label>
-				<p id="ctp" style="color: white;">회원</p> -->
+				<p id="ctp" style="color: white;">회원</p> 
 				
 			<!-- 유저 로그인 -->
 			<form id="login" action="memberlogin.co" method="post"> 
 				<div id="idPwdInput">
 					<div id="loginlogo" style="color: white">BucketStory</div>
-					<input name="userid" type="text" class="idPwd" placeholder="&ensp; ID">
-					<input name="userpwd" type="password" class="idPwd" placeholder="&ensp; Password">
+					<input name="userId" type="text" class="idPwd" placeholder="&ensp; ID">
+					<input name="userPwd" type="password" class="idPwd" placeholder="&ensp; Password">
 				</div>
 				<!-- 로그인 성공하면 바로 메인메뉴로 이동함 -->
-				<div id="submit"> 
-					<input id="subbtn" type="submit" value="Login" style='cursor:pointer'>
+				<div id="submit" style='float:left'> 
+					<input id="subbtn" type="submit" value="Login" style='cursor:pointer;margin-left:8px;margin-top:40px'>
 				</div>
 			</form>
 			
@@ -322,12 +322,12 @@
 			<form id="Clogin" action="companylogin.co" method="post"> 
 				<div id="idPwdInput">
 					<div id="loginlogo" style="color: white">BucketStory</div>
-					<input name="coid" type="text" class="idPwd" placeholder="&ensp; ID">
-					<input name="copwd" type="password" class="idPwd" placeholder="&ensp; Password">
+					<input name="coId" type="text" class="idPwd" placeholder="&ensp; ID">
+					<input name="coPwd" type="password" class="idPwd" placeholder="&ensp; Password">
 				</div>
 				<!-- 로그인 성공하면 바로 메인메뉴로 이동함 -->
-				<div id="submit"> 
-					<input id="subbtn" type="submit" value="Login" style='cursor:pointer'>
+				<div id="submit" style='float:left'> 
+					<input id="subbtn" type="submit" value="Login" style='cursor:pointer;margin-left:8px;margin-top:40px'>
 				</div>
 			</form>
 			

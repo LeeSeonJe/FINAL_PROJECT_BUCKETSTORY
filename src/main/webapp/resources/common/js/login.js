@@ -1,5 +1,5 @@
 // 회원, 기업 폼이 바뀌는 토글 스크립트
-			var check = $("input[type='checkbox']");
+			var check = $("#insertSwt");
 				check.click(function(){
 					var p = $("#tp");
 					if(p.text() =='회원'){
@@ -7,7 +7,7 @@
 					} else {
 						p.text('회원');
 					}
-					if($("p").text()=='회원'){
+					if(p.text()=='회원'){
 						$('#User').css('display','block');
 						$('#Company').css('display','none');
 					} else {
@@ -17,7 +17,7 @@
 				});
 				
 // 회원 로그인, 기업 로그인 폼이 바뀌는 토글 스크립트
-			/*var check = $("input[type='checkbox']");
+			var check = $("#loginSwt");
 				check.click(function(){
 					var p = $("#ctp");
 					if(p.text() =='회원'){
@@ -25,14 +25,17 @@
 					} else {
 						p.text('회원');
 					}
-					if($("p").text()=='회원'){
+					if(p.text()=='회원'){
 						$('#login').css('display','block');
 						$('#Clogin').css('display','none');
+						$('#rightForm').css('background', 'rgba(255,187,0,0.7)');
 					} else {
 						$('#Clogin').css('display','block');
 						$('#login').css('display','none');
+						
+						$('#rightForm').css('background', 'rgba(213,213,213,0.7)');
 					}
-				});				*/
+				});		
 		
 // 회원가입 버튼 누루면 나타나는 스크립트 
 			$(function() {

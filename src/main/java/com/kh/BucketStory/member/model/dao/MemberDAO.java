@@ -5,18 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
-import com.kh.BucketStory.member.model.vo.Member;
 
 @Repository("mDAO")
 public class MemberDAO {
-
-	public Member memberLogin(SqlSessionTemplate sqlSession, Member m) {
-		return (Member)sqlSession.selectOne("memberMapper.memberLogin", m);
-	}
-
-	public int insertMember(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.insert("memberMapper.insertMember", m);
-	}
 
 	public int bucketInsert(SqlSessionTemplate sqlSession, Media m, BucketList bL) {
 		

@@ -1,9 +1,9 @@
-package com.kh.BucketStory.common.controller.model.dao;
+package com.kh.BucketStory.common.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.BucketStory.member.model.vo.Member;
+import com.kh.BucketStory.common.model.vo.Member;
 
 @Repository("cDAO")
 public class CommonDAO {
