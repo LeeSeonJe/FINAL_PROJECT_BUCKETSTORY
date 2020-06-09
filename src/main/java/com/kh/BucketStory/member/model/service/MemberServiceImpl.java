@@ -1,5 +1,7 @@
 package com.kh.BucketStory.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int bucketInsert(Media m, BucketList bL) {
 		return mDAO.bucketInsert(sqlSession, m, bL);
+	}
+
+	@Override
+	public ArrayList<BucketList> myBucketList(String userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
