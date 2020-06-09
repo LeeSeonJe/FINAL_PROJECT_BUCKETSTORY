@@ -20,18 +20,18 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="resources/member/images/123.jpg" alt="프로필 사진" />					
+						<img id="profileImg" src="${ contextPath }/resources/member/images/${ loginUser.prImage }" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 30px;">Seonxi_l</td>
+					<td colspan="3" style="font-size: 30px;">${ loginUser.nickName }</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 20px;">이선제</td>
+					<td colspan="3" style="font-size: 20px;">${ loginUser.userName }</td>
 				</tr>
 				<tr>
 					<td>게시물수 199</td>
-					<td>팔로워 40</td>
+					<td>팔로워 ${ loginUser.fwCount }</td>
 					<td>팔로우 30</td>
 				</tr>
 			</table>
@@ -133,7 +133,7 @@
 		</section>
 	</div>
 </body>
-<script>
+<script>	
 	$('#bucketAddBtn').on('click', function(){
 		location.href="bucketWrite.me";
 	});

@@ -3,6 +3,7 @@ package com.kh.BucketStory.member.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.main.model.service.MainService;
 import com.kh.BucketStory.member.model.service.MemberService;
 
 @Controller
@@ -49,10 +51,14 @@ public class MemberController {
 		return "update";
 	}
 	
+	// 메인에서 마이페이지로 들어왔을 경우
 	@RequestMapping("myBucket.me")
-	public String MyPageBucket() {
+	public String MyPageBucket(HttpSession session) {
+		Member loginUser =  (Member) session.getAttribute("loginUser");
+		ArrayList<BucketList> bucketList = mService.myBucketList(loginUser.getUserId());
 		return "MyPageBucket";
 	}
+	
 	
 	@RequestMapping("bucketWrite.me")
 	public String BucketWrite() {
@@ -90,8 +96,6 @@ public class MemberController {
 		} else {
 			return "bucketWrite";
 		}
-		
-		
 	}
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
