@@ -11,16 +11,16 @@
 	<div id='cssmenu'>
 		<ul>
            	<li>
-           		<a href='main.ho?menuNum=1&category=1'>List</a>
+           		<a href='main.ho?menuNum=1&category=0'>List</a>
            	</li>
            	<li>
-                <a href='main.ho?menuNum=2&category=1'>Ranking</a>
+                <a href='main.ho?menuNum=2&category=0'>Ranking</a>
             </li>
             <li>
-                <a href='main.ho?menuNum=3&category=1'>Recomment</a>
+                <a href='main.ho?menuNum=3&category=0'>Recomment</a>
             </li>
             <li>
-                <a href='main.ho?menuNum=4&category=1'>Company</a>
+                <a href='main.ho?menuNum=4&category=0'>Company</a>
             </li>
 		</ul>
 	</div>

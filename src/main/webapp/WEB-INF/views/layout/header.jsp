@@ -17,7 +17,7 @@
 		<div id="alertBtn" class="Rmenu"></div>
 		<div id="logoutBtn" class="Rmenu"></div>
 		<div id="logo-wrap">
-			<div id="logo"><a href="main.ho?menuNum=1&category=1">Bucket Story</a></div>
+			<div id="logo"><a href="main.ho?menuNum=1&category=0">Bucket Story</a></div>
 		</div>
 	</header>
 </body>
