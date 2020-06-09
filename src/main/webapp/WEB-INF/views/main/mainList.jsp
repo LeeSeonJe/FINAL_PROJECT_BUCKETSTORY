@@ -32,7 +32,15 @@
 		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 		<c:forEach var="b" items="${ bucketList }">
 		<c:if test="${ b.cateNum == category || category == 0}">
-		<div class="bucket" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.userId}');">
+		<div class="bucket" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
+			<!-- 버킷 사진 -->
+			<c:forEach var="m" items="${blImg}">
+				<c:if test="${ m.bkno == b.bkNo }">
+<script>
+	$('#bucket${m.bkno}').css('background-image', 'url("resources/muploadFiles/${m.mweb}")');
+</script>
+				</c:if>
+			</c:forEach>
 			<div class="bucketContent">
 				<div class="c-category">
 					<c:choose>
@@ -66,16 +74,14 @@
 					<div class="c-wishBtn" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
 						<span class="wishhover" style="font-size:20px">☆ </span>
 						위시 
-						<label class="wishlabel">
 						<c:set var="loop_flag" value="false"/>
 						<c:forEach var="w" items="${ wishList }">
 							<c:if test="${w.bkNo == b.bkNo}">
 								<c:set var="loop_flag" value="true"/>
 							</c:if>
 						</c:forEach>
-						<c:if test="${loop_flag}">취소</c:if>
-						<c:if test="${not loop_flag}">등록</c:if>
-						</label>
+						<c:if test="${loop_flag}"><label class="wishlabel">취소</label></c:if>
+						<c:if test="${not loop_flag}"><label class="wishlabel">등록</label></c:if>
 					</div>
 				</div>
 			</div>
@@ -87,8 +93,6 @@
 	}, function(){
 		$('#c-likewish${ b.bkNo }').hide();
 	});
-	
-	
 </script>
 		</c:if>
 		</c:forEach>
@@ -107,11 +111,11 @@
 			</div>
 			<div id="bucketcp">
 				<div id="bucketTag">
-					<div id="bucketTag1"><span>#</span>화이트데이</div>
-					<div id="bucketTag1"><span>#</span>화이트데이</div>
-					<div id="bucketTag1"><span>#</span>화이트데이</div>
-					<div id="bucketTag1"><span>#</span>화이트데이</div>
-					<div id="bucketTag1"><span>#</span>화이트데이</div>
+					<div id="bucketTag1"><span>#</span><label>화이트데이</label></div>
+					<div id="bucketTag1"><span>#</span><label>화이트데이</label></div>
+					<div id="bucketTag1"><span>#</span><label>화이트데이</label></div>
+					<div id="bucketTag1"><span>#</span><label>화이트데이</label></div>
+					<div id="bucketTag1"><span>#</span><label>화이트데이</label></div>
 				</div>
 				<div id="bucketexplain">한옥에서 즐기는 타이푸드 식당 동남아. 요즘 핫한 동네 익선동에 들어서면 '동남아' 세 글자가 쓰여진 정직한 간판이 반겨준다. 내부에는 깨진 장독대와 푸른 식물이 한옥과 어우러져 이색 풍경이 펼쳐진다. 태국 유명 쿠킹클래스인 바이파이 출신 셰프가 직접 선보이는 팟타이부터 똠양꿍, 태국식 만두 퉁텅까지 로컬의 맛을 그대로 살렸다. 창밖 아래 풍경을 보면서 식사할 수 있는 2층 좌석을 추천. 종로 3가역에서 걸어서 5분 거리로 위치도 좋다. 팟타이 10,000원, 똠양꿍 12,000원 영업시간은 12:00-22:00	</div>
 				<div id="bucketcompany">
@@ -167,6 +171,10 @@
 			success:function(data){
 				var blLike = '#c-likeBtn'+bkNo+'>label';
 				$(blLike).text(data);
+				$('#bucketlike').text(data);
+				setTimeout(function(){
+					$('#bucketlike').text('♡');
+				}, 2000);
 			}
 		});
 	}
@@ -181,11 +189,17 @@
 				data:{
 					bkNo:bkNo
 				},
+				async : false,
 				success:function(data){
 					var blwish = '#c-wishBtn'+bkNo+'>label';
 					$(blwish).text(data);
 				}
 			});
+		}
+		if($('#c-wishBtn'+bkNo+'>label').text() == '취소'){
+			$('#bucketwish').css('color', '#10ccc3');
+		} else if($('#c-wishBtn'+bkNo+'>label').text() == '등록'){
+			$('#bucketwish').css('color', 'white');
 		}
 	}
 	
@@ -205,6 +219,7 @@
 						if(data == 'success'){
 							var blshare = '#c-Add'+bkNo;
 							$(blshare).hide();
+							$('#bucketAdd').hide();
 							alert("나의 버킷에 공유되었습니다.");
 						}
 					}
@@ -215,7 +230,7 @@
 		}
 	}
 	
-	function bkDetail(bkNo, cateNum, bkName, bkContent, userId){
+	function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 		switch(cateNum){
 		case 1: $('#bucketcate').html('<span style="color:#00c5bc;">Travel</span>'); break;
 		case 2: $('#bucketcate').html('<span style="color:#fd8ab1;">Sport</span>'); break;
@@ -228,6 +243,24 @@
 		}
 		$('#buckettitle').text(bkName);
 		$('#bucketexplain').text(bkContent);
+		$('#bucketlike').attr('onclick', 'blLikeUp('+bkNo+');');
+		$('#bucketAdd').attr('onclick', 'sharebl('+bkNo+',"'+userId+'");');
+		$('#bucketwish').attr('onclick', 'wishRegist('+bkNo+',"'+userId+'");');
+		var tags = tag.split(',');
+		$('#bucketTag').html('');
+		for(var i in tags){
+			$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
+		}
+		if(!$('#c-Add'+bkNo).length){
+			$('#bucketAdd').hide();
+		} else{
+			$('#bucketAdd').show();
+		}
+		if($('#c-wishBtn'+bkNo+'>label').text() == '취소'){
+			$('#bucketwish').css('color', '#10ccc3');
+		} else{
+			$('#bucketwish').css('color', 'white');
+		}
 	}
 	
 	$(function(){

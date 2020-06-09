@@ -203,7 +203,7 @@ section{
 }
 #bucketleft{
 	position: absolute;
-    top: 230px;
+    top: 360px;
     left: 10px;
     width: 50px;
     height: 50px;
@@ -219,7 +219,7 @@ section{
 }
 #bucketright{
 	position: absolute;
-    top: 230px;
+    top: 360px;
     right: 10px;
     width: 50px;
     height: 50px;
@@ -246,6 +246,7 @@ section{
     right: 170px;
     text-align: center;
     font-size: 25px;
+    cursor: pointer;
 }
 #bucketAdd:hover{
 	color:black;
@@ -264,6 +265,7 @@ section{
     text-align: center;
     font-size: 30px;
     line-height: 43.5px;
+    cursor: pointer;
 }
 #bucketlike:hover{
 	color:#10ccc3;
@@ -281,6 +283,7 @@ section{
     font-size: 30px;
     line-height: 43.5px;
     font-weight: 700;
+    cursor: pointer;
 }
 #bucketwish:hover{
 	color:#10ccc3;
