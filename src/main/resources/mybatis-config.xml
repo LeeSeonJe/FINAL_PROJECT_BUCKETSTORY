@@ -12,6 +12,7 @@
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.WishList" alias="WishList"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.ShareBucket" alias="ShareBucket"/>
 		<typeAlias type="com.kh.BucketStory.common.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.BucketStory.member.model.vo.MemberMyBucketList" alias="MemberMyBucketList"/>
 	</typeAliases>
 	
 	<mappers>

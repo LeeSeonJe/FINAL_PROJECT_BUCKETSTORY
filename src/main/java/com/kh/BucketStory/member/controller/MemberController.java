@@ -21,8 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
-import com.kh.BucketStory.main.model.service.MainService;
 import com.kh.BucketStory.member.model.service.MemberService;
+import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 
 @Controller
 public class MemberController {
@@ -53,10 +53,19 @@ public class MemberController {
 	
 	// 메인에서 마이페이지로 들어왔을 경우
 	@RequestMapping("myBucket.me")
-	public String MyPageBucket(HttpSession session) {
-		Member loginUser =  (Member) session.getAttribute("loginUser");
-		ArrayList<BucketList> bucketList = mService.myBucketList(loginUser.getUserId());
-		return "MyPageBucket";
+	public String MyPageBucket(HttpSession session, Model m) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		ArrayList<MemberMyBucketList> myBucketList = mService.myBucketList(loginUser.getUserId());
+		
+		for(MemberMyBucketList mm : myBucketList) {
+			System.out.println(mm);
+		}
+		if(myBucketList != null) {
+			m.addAttribute("myBucketList", myBucketList);
+			return "MyPageBucket";
+		} else {			
+			return "MyPageBucket";
+		}
 	}
 	
 	
@@ -66,8 +75,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping("myBlog.me")
-	public String BucketBlog() {
-		return "bucketBlog";
+	public String BucketBlog(HttpSession session, Model m) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		ArrayList<MemberMyBucketList> myBucketList = mService.myBucketList(loginUser.getUserId());
+		
+		for(MemberMyBucketList mm : myBucketList) {
+			System.out.println(mm);
+		}
+		if(myBucketList != null) {
+			m.addAttribute("myBucketList", myBucketList);
+			return "bucketBlog";
+		} else {			
+			return "bucketBlog";
+		}
 	}
 	
 	@RequestMapping("bInsert.me")
@@ -92,7 +112,7 @@ public class MemberController {
 		int result = mService.bucketInsert(m, BL);
 		
 		if(result > 0) {
-			return "MyPageBucket";
+			return "redirect:myBucket.me";
 		} else {
 			return "bucketWrite";
 		}
