@@ -35,7 +35,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/notice/notice_list.do" class="gnb3 mot2" onclick='eventTrack("", "menu_event");'>
+                            <a href="list.ad" class="gnb3 mot2" onclick='eventTrack("", "menu_event");'>
                                 <div class="text mot2">
                                     <span class="en mot2">Festival</span><br>
                                     진행중인 행사를 확인하세요.
