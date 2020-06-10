@@ -100,16 +100,14 @@
 	<div id="page-2">
 		<ul style="padding-inline-start: 0px;">
 			<li><h5>함께하는 버킷리스트</h5></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
+			<c:if test="${ bucket eq null }">
+				<li>함께하는 버킷리스트가 없습니다.</li>
+			</c:if>
+			<c:if test="${ bucket !=null }">
+				<c:forEach var="bucket" items="${ bucket }">
+					<li>${ bucket.bkName }</li>
+				</c:forEach>
+			</c:if>
 		</ul>
 		
 		<c:url var="estimate" value="estimate.ex">
