@@ -27,6 +27,7 @@ div > h2 {
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"></jsp:include>
 	</header>
 	<div id="adw_body">
 		<nav>
@@ -70,6 +71,6 @@ div > h2 {
 		<button>회원 경고</button>
 		<button>전체 삭제</button>
 	</div>
-
+</div>
 </body>
 </html>

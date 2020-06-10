@@ -24,5 +24,7 @@
 
 <a href="login.co">로그인 이동</a>
 
+<a href="admin.ad">관리자 이동</a>
+
 </body>
 </html>
