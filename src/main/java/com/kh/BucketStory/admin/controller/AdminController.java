@@ -38,14 +38,16 @@ public class AdminController {
 
 		return "festivalView";
 	}
-
+	
+	/* 페스티벌 작성 페이지 */
 	@RequestMapping("feinsert.ad")
-	public String festivalInsert(@ModelAttribute Festival f,  Media m, @RequestParam("feUpdateFile") MultipartFile uploadFile, HttpServletRequest request) {
+	public String festivalInsert(@ModelAttribute Festival f, @RequestParam("feUploadFile") MultipartFile uploadFile, HttpServletRequest request) {
 		
-//		!!!!!나중에 확인하기!!!!!
-//		System.out.println(b);
-//		System.out.println(uploadFile);
-//		System.out.println(uploadFile.getOriginalFilename()); // 실제 사진 파일이 있는지 없는지를 확인 하는 방법
+		Media m = new Media();
+		
+		System.out.println(f);
+		System.out.println(uploadFile);
+		System.out.println(uploadFile.getOriginalFilename()); // 실제 사진 파일이 있는지 없는지를 확인 하는 방법
 		
 		if(uploadFile != null && !uploadFile.isEmpty()) {
 			String renameFileName = saveFile(uploadFile, request);
@@ -55,8 +57,8 @@ public class AdminController {
 				m.setMweb(renameFileName);
 			}
 		}
-		
-		int result = bService.insertfestival(f);
+				
+		int result = bService.insertfestival(f, m);
 		
 		if(result > 0) {
 			return "redirect:list.ad";
