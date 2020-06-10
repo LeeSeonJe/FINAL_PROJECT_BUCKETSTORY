@@ -93,7 +93,7 @@ form>div>div>ul>li{
 				</ul>
 			</div>
 		</nav>
-		<form action="feinsert.ad" method="post" id="adw_form">
+		<form action="feinsert.ad" method="post" id="adw_form" enctype="multipart/form-data">
 			<div id="adw_formimg">
 				<input type="file" name="feUploadFile">
 			</div>
@@ -101,13 +101,13 @@ form>div>div>ul>li{
 				<div class="adw_formdiv">
 					<ul>
 						<li>
-							제목 : <input type="text" name="feTitle">
+							제목 : <input type="text" name="fetitle">
 						</li>
 						<li>
 							일시 : <input type="text" name="feDate">
 						</li>
 						<li>
-							장소 : <input type="text" name="fePlace">
+							장소 : <input type="text" name="feplace">
 						</li>
 					</ul>
 				</div>
@@ -120,7 +120,8 @@ form>div>div>ul>li{
 			</div>
 
 			<div class="adw_button">
-				<input type="submit" value="완료"> <input type="reset" value="취소">
+				<input type="submit" value="완료"> 
+				<input type="reset" value="취소">
 			</div>
 		</form>
 	</div>
