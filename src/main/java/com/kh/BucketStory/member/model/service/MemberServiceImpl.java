@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.member.model.dao.MemberDAO;
+import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 
 @Service("mService")
 public class MemberServiceImpl implements MemberService {
@@ -25,10 +26,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<BucketList> myBucketList(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<MemberMyBucketList> myBucketList(String userId) {
+		return mDAO.myBucketList(sqlSession, userId);
 	}
+
+//	@Override
+//	public ArrayList<Media> myBucketListMedia(ArrayList<BucketList> bucketList) {
+//		return mDAO.myBucketListMedia(sqlSession, bucketList);
+//	}
 
 	
 }

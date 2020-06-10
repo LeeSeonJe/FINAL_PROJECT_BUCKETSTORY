@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.BucketStory.bucket.model.vo.BucketList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -38,97 +40,26 @@
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
+			<c:forEach var="b" items="${ myBucketList }" varStatus="status">
+				<div class="bucket">
+				<script>
+					$('.bucket').eq(${ status.index }).css('background-image', 'url(resources/muploadFiles/${ b.media.mweb })');
+				</script>
+					<div class="bucketContent">
+						<div class="c-category">${ b.cateName }</div>
+						<div class="c-bucket">
+							<div class="c-bucket-1">${ b.bucket.bkName }</div>
+						</div>
+						<div class="c-Add">
+							<div class="c-addBtn"> + ADD</div>
+						</div>
+						<div class="c-likewish">
+							<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+							<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+						</div>
 					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			
+				</div>			
+			</c:forEach>
 			<div id="bucketAddBtn"></div>
 		</section>
 	</div>

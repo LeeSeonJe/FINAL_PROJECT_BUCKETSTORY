@@ -63,8 +63,7 @@ section {
 	height: 300px;
 	overflow: hidden;
 	cursor: pointer;
-	background: skyblue;
-	background-image: url('../images/loginback.jpg');
+/* 	background-image: url('../../muploadFiles/'); */
 	background-size: cover;
 	margin: 16px;
 	padding: 0;
@@ -84,6 +83,7 @@ section {
 	height: 20px;
 	font-weight: 800;
 	color: orange;
+	margin-bottom: 8px;
 }
 
 .c-bucket {
