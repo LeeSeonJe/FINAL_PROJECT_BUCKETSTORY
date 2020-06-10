@@ -52,4 +52,32 @@
 		<result property="complete" column="COMPLETE"/>
 		<result property="cateNum" column="CATENUM"/>
 	</resultMap>
+	
+	<update id="insertComBucket">
+		insert into cominbucket(COINBUCKET,COID,BKNO,BUCKETENROLL)
+		select seq_cominbucket.nextval,A.* from(
+		<foreach item="item" index="index" collection="list" separator="UNION ALL ">
+			select #{item.coId} as COID,
+				   #{item.bkNo} as BKNO,
+				   sysdate as BUCKETENROLL
+			from dual
+		</foreach>) A
+ 	</update>
+	
+	<select id="selectBucket" resultMap="BucketResultSet">
+		select *
+		from bucketlist
+		where bkno in (select bkno 
+                    from cominbucket 
+                    where coid=#{coid})
+	</select>
+	
+	
+	
+	<resultMap type="ComInBucket" id="ComInBucketSet">
+		<id property="coinbucket" column="COINBUCKET"/>
+		<result property="coId" column="COID"/>
+		<result property="bkNo" column="BKNO"/>
+		<result property="bucketEnroll" column="BUCKETENROLL"/>
+	</resultMap>
 </mapper>

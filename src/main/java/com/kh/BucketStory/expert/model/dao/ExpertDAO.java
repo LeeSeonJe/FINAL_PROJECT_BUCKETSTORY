@@ -1,11 +1,14 @@
 package com.kh.BucketStory.expert.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.bucket.model.vo.BucketList;
+import com.kh.BucketStory.bucket.model.vo.ComInBucket;
 import com.kh.BucketStory.expert.model.vo.Company;
 
 @Repository("exDAO")
@@ -23,4 +26,11 @@ public class ExpertDAO {
 		return (ArrayList)sqlSession.selectList("exMapper.selectCateList", catenum);
 	}
 
+	public int insertBucket(SqlSessionTemplate sqlSession, Map<String, Object> hm) {
+			return sqlSession.insert("exMapper.insertComBucket",hm);
+	}
+
+	public ArrayList<BucketList> selectComBucket(SqlSessionTemplate sqlSession, String coId) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectBucket",coId);
+	}
 }
