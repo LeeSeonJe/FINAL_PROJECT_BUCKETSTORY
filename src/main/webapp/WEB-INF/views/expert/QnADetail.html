@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+	header{
+		min-width:1200px;
+		border-bottom:1px solid black;
+		width:100%;
+		height:50px;
+	}
+	#facebookBtn{
+		background-image: url('image/facebook.png');
+		background-size: cover;
+	}
+	#instaBtn{
+		background-image: url('image/instagram.png');
+		background-size: cover;
+	}
+	.snsLink{
+		margin:5px;
+		background:white;
+		float:left;
+		height:35px;
+		width:35px;
+		cursor: pointer;
+	}
+	.Rmenu{
+		margin:5px;
+		background:white;
+		float:right;
+		height:35px;
+		width:35px;
+		cursor: pointer;
+	}
+	#logo-wrap{
+		background:white;
+		margin:0 auto;
+		width:200px;
+		height:100%;
+	}
+	#logo{
+	    margin-left: 20px;
+	    width: 160px;
+	    height: 100%;
+	    text-align: center;
+	    font-size: 28px;
+	    font-weight: 500;
+	    font-family: -webkit-pictograph;
+	    line-height: 40px;
+	}
+	#logoutBtn{
+		background-image: url('image/menu.png');
+		background-size: cover;
+	}
+	#alertBtn{
+		background-image: url('image/알림.png');
+		background-size: cover;
+	}
+	#menuBtn{
+		background-image: url('image/로그아웃.png');
+		background-size: cover;
+	}
+	#menuBtn:hover{
+		background-image: url('image/로그아웃호버.png');
+		background-size: cover;
+	}
+
+
+
+
+nav{
+	width:100%;
+	height:70px;
+	background:white;
+}
+
+
+/* --카테고리 바------------------------------------------------ */
+
+
+#cssmenu,
+#cssmenu>ul,
+#cssmenu>ul>li,
+#cssmenu>ul>li>a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+  line-height: 1;
+  display: block;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#cssmenu:after,
+#cssmenu>ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+#cssmenu {
+  width: auto;
+  font-family: Raleway, sans-serif;
+  line-height: 1;
+  margin-top: 40px;
+  /* 카테고리 바닥 부분 밑줄 */
+/*   border-bottom: 1px solid rgba(var(--b38,219,219,219),1); */
+}
+#cssmenu>ul {
+  background: #ffffff;
+  margin-left: 300px;
+  width: 900px;
+}
+#cssmenu > ul > li {
+  float: left;
+  width: 150px;
+  text-align: center;
+}
+#cssmenu.align-center > ul {
+  font-size: 0;
+  text-align: center;
+}
+#cssmenu.align-center > ul > li {
+  display: inline-block;
+  float: none;
+}
+#cssmenu.align-right > ul > li {
+  float: right;
+}
+#cssmenu.align-right > ul > li > a {
+  margin-right: 0;
+  margin-left: -4px;
+}
+#cssmenu > ul > li > a {
+  z-index: 2;
+  padding: 18px 25px 12px 25px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #444444;
+  -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -ms-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  transition: all .2s ease;
+  border-right: 1px solid rgba(var(--b38,219,219,219),1);
+}
+#cssmenu > ul > li:nth-child(1)>a{
+	border-left: 1px solid rgba(var(--b38,219,219,219),1);
+}
+#cssmenu > ul > li:nth-child(1)>a:hover{
+	color:#18dfd3;
+	border-bottom: 2px solid #10ccc3;
+}
+#cssmenu > ul > li:nth-child(2)>a:hover{
+	color:#5B5AFF;
+	border-bottom: 2px solid #3a7af8;
+}
+#cssmenu > ul > li:nth-child(3)>a:hover{
+	color:#CB6CFF;
+	border-bottom: 2px solid #a047c0;
+}
+#cssmenu > ul > li:nth-child(4)>a:hover{
+	color:#FF7E7E;
+	border-bottom: 2px solid #f861a2;
+}
+#cssmenu > ul > li:nth-child(5)>a:hover{
+	color:#000000;
+	border-bottom: 2px solid #000000;
+}
+#cssmenu > ul > li:nth-child(6)>a:hover{
+	color:#20da1d;
+	border-bottom: 2px solid #20da1d;
+}
+
+/* 게시판 테이블 */
+
+
+.divbody {
+    width: 60%;
+    margin: 0 auto;
+}
+
+h2{
+	border-bottom: 1px solid black;
+}
+
+
+.divbody>div>table{
+	margin: 0 auto;
+}
+
+
+</style>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<header>
+	<div id="facebookBtn" class="snsLink"></div>
+	<div id="instaBtn" class="snsLink"></div>
+	<div id="logoutBtn" class="Rmenu"></div>
+	<div id="alertBtn" class="Rmenu"></div>
+	<div id="menuBtn" class="Rmenu"></div>
+	<div id="logo-wrap">
+		<div id="logo">Bucket Story</div>
+	</div>
+	
+</header>
+<body>
+	<nav>
+	
+		<div id='cssmenu'>
+			<ul>
+            	<li>
+                	<a href='#'>축제작성</a>
+                </li>
+                <li>
+                    <a href='#'>가입확인</a>
+                </li>
+                <li>
+                  	<a href='#'>결제내역</a>
+                </li>
+                <li>
+                  	<a href='#'>통계</a>
+                </li>
+                <li>
+                  	<a href='#'>신고</a>
+                </li>
+                <li>
+                  	<a href='#'>QnA</a>
+                </li>
+			</ul>
+		</div>
+	</nav>
+		
+	<div class="divbody">	
+		<div>
+			<h2>QnA 상세보기</h2>
+		</div>
+		<div>
+			<table id="table_one">
+				<tr>
+					<td colspan="4" style="text-align: center;">제목 : </td>
+					<td>문의 날짜 : </td>
+				</tr>
+				<tr>
+					<td colspan="4"></td>
+					<td>회원 아이디 : </td>
+				</tr>
+				<tr>
+					<td>내용 : </td>
+					<td colspan="4"><textarea rows="10" cols="80"></textarea></td>
+				</tr>
+				<tr>
+					<td>답변 : </td>
+					<td colspan="3"><textarea rows="10" cols="80"></textarea></td>
+					<td style=" display: block; ">답변 날짜 : </td>
+				</tr>
+				<tr>
+					<td colspan="4"></td>
+					<td>
+						<button type="reset">목록</button>
+						<button type="reset">삭제</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+	</div>
+</body>
+
+</html>

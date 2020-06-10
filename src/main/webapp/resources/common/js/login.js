@@ -1,7 +1,13 @@
 // 회원, 기업 폼이 바뀌는 토글 스크립트
-			var check = $("input[type='checkbox']");
+			var check = $("#insertSwt");
 				check.click(function(){
-					if($("p").toggle('#User')=='none'){
+					var p = $("#tp");
+					if(p.text() =='회원'){
+						p.text('기업');
+					} else {
+						p.text('회원');
+					}
+					if(p.text()=='회원'){
 						$('#User').css('display','block');
 						$('#Company').css('display','none');
 					} else {
@@ -9,7 +15,27 @@
 						$('#User').css('display','none');
 					}
 				});
-		
+				
+// 회원 로그인, 기업 로그인 폼이 바뀌는 토글 스크립트
+			var check = $("#loginSwt");
+				check.click(function(){
+					var p = $("#ctp");
+					if(p.text() =='회원'){
+						p.text('기업');
+					} else {
+						p.text('회원');
+					}
+					if(p.text()=='회원'){
+						$('#login').css('display','block');
+						$('#Clogin').css('display','none');
+						$('#rightForm').css('background', 'rgba(255,187,0,0.7)');
+					} else {
+						$('#Clogin').css('display','block');
+						$('#login').css('display','none');
+						
+						$('#rightForm').css('background', 'rgba(213,213,213,0.7)');
+					}
+				});		
 		
 // 회원가입 버튼 누루면 나타나는 스크립트 
 			$(function() {
@@ -82,6 +108,18 @@
 					} else { //직접입력이 아닐경우 
 						$("#busiemail_2").val($(this).text()); //선택값 입력 
 						$("#busiemail_2").attr("disabled", false); //비활성화 
+					}
+				});
+			});
+			
+			$('#selectIdEmail').change(function() {
+				$("#selectIdEmail option:selected").each(function() {
+					if ($(this).val() == '1') { //직접입력일 경우 
+						$("#emailfind_2").val(''); //값 초기화 
+						$("#emailfind_2").attr("disabled", false); //활성화 
+					} else { //직접입력이 아닐경우 
+						$("#emailfind_2").val($(this).text()); //선택값 입력 
+						$("#emailfind_2").attr("disabled", false); //비활성화 
 					}
 				});
 			});

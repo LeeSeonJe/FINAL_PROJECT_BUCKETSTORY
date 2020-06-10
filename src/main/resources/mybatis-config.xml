@@ -9,10 +9,21 @@
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.Company" alias="Company"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.BucketList" alias="Bucket"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.ComInBucket" alias="ComInBucket"/>
+    <typeAlias type="com.kh.BucketStory.bucket.model.vo.Media" alias="Media"/>
+		<typeAlias type="com.kh.BucketStory.bucket.model.vo.WishList" alias="WishList"/>
+		<typeAlias type="com.kh.BucketStory.bucket.model.vo.ShareBucket" alias="ShareBucket"/>
+		<typeAlias type="com.kh.BucketStory.common.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.BucketStory.member.model.vo.MemberMyBucketList" alias="MemberMyBucketList"/>
+		<typeAlias type="com.kh.BucketStory.admin.model.vo.Festival" alias="Festival"/>
+
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/expert-mapper.xml"/>
+		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/main-mapper.xml"/>
+		<mapper resource="mappers/common-mapper.xml"/>
+		<mapper resource="mappers/admin-mapper.xml"/>
 	</mappers>
 	
 </configuration>

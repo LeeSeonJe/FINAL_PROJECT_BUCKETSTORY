@@ -15,7 +15,6 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-<a href="main.ho?menuNum=1&category=1">메인 이동</a>
 
 <a href="writer.me">멤버이동</a>
 
@@ -24,6 +23,8 @@
 
 
 <a href="login.co">로그인 이동</a>
+
+<a href="admin.ad">관리자 이동</a>
 
 </body>
 </html>

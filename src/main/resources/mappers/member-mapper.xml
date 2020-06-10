@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+	<insert id="insertBucket">
+		insert into bucketlist
+		values(seq_bucketlist.nextval, #{bkName}, #{bkContent}, #{tag}, sysdate, 0, #{userId},
+		default, #{cateNum})
+	</insert>
+
+	<insert id="insertbMedia">
+		insert into media
+		values(seq_media.nextval, #{morigin}, #{mweb}, 1, 1, seq_bucketlist.currval, null,
+		null, null, null)
+	</insert>
+
+	<select id="myBucketList" resultMap="memberMyBucketListResultSet">
+		select *
+		from category
+		join bucketList using (CATENUM)
+		join media using (bkno)
+		where userid = #{ userId }
+		ORDER by bkno
+	</select>
+	
+	<resultMap type="MemberMyBucketList" id="memberMyBucketListResultSet">
+		<id property="bkNo" column="BKNO"></id>
+		<result property="cateNum" column="CATENUM" />
+		<result property="cateName" column="CATENAME" />
+		<association property="bucket" resultMap="BucketListResultSet"></association>
+		<association property="media" resultMap="MediaResultSet"></association> 
+	</resultMap>
+		
+	<resultMap type="Bucket" id="BucketListResultSet">
+		<result property="bkNo" column="BKNO"/>
+		<result property="bkName" column="BKNAME"/>
+		<result property="bkContent" column="BKCONTENT"/>
+		<result property="tag" column="TAG"/>
+		<result property="enrolldate" column="ENROLLDATE"/>
+		<result property="bkLike" column="BKLIKE"/>
+		<result property="userId" column="USERID"/>
+		<result property="complete" column="COMPLETE"/>
+		<result property="cateNum" column="CATENUM"/>
+	</resultMap>
+	
+	<resultMap type="Media" id="MediaResultSet">
+		<result property="mnumber" column="MNUMBER"/>
+		<result property="morigin" column="MORIGIN"/>
+		<result property="mweb" column="MWEB"/>
+		<result property="imgvideo" column="IMGVIDEO"/>
+		<result property="muse" column="MUSE"/>
+		<result property="bkno" column="BKNO"/>
+		<result property="bno" column="BNO"/>
+		<result property="coid" column="COID"/>
+		<result property="feno" column="FENO"/>
+		<result property="esNo" column="ES_NO"/>
+	</resultMap>
+</mapper>

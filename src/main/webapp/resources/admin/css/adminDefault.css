@@ -113,53 +113,6 @@
 	border-bottom: 2px solid #20da1d;
 }
 
-form{
- 	border-left: 1px solid gray;
-    border-right: 1px solid gray;
-    height: 900px;
-    margin-top: 45px;
-}
-
-form>div>img {
-	background-color:black;
-	min-width:950px;
-	min-height:350px;
-	
-}
-
-form>#adw_formimg{
-	text-align: center;
-	margin-bottom: 50px;
-}
-
-form>div>ul>li{
-	list-style: none;
-	font-size: 15px;
-    height: 65px;
-}
-
-.adw_formDiv{
-	display: inline-flex;
-}
-
-#adw_textarea{
-    resize: none;
-    width: 650px;
-    height: 150px;
-    margin-left: 35px;
-	
-}
-
-.adw_button{
-    text-align: center;
-    margin-top: 40px;
-}
-
-#adw_body>nav{
-	width: 100%;
-	height:30px;
-	
-}
 
 
 

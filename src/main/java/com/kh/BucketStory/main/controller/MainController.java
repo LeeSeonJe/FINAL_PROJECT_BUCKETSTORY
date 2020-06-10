@@ -1,66 +1,111 @@
 package com.kh.BucketStory.main.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.BucketStory.bucket.model.vo.BucketList;
+import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.bucket.model.vo.ShareBucket;
+import com.kh.BucketStory.bucket.model.vo.WishList;
+import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.main.model.service.MainService;
 
 @Controller
 public class MainController {
 	
+	@Autowired
+	private MainService mainService;
+	
 	@RequestMapping("main.ho")
-	public String Main(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category) {
+	public ModelAndView Main(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category,
+						ModelAndView mv, HttpSession session) {
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
+		
+		ArrayList<BucketList> bucketList = mainService.selectBucketList();
+		ArrayList<Media> blImg = mainService.selectBucketImg();
+		ArrayList<WishList> wishList = mainService.selectWishList(userId);
+		ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+		mv.addObject("bucketList", bucketList);
+		mv.addObject("blImg", blImg);
+		mv.addObject("wishList", wishList);
+		mv.addObject("category", category);
+		mv.addObject("shareList", shareList);
 		
 		if(menuNum == 1) {
-			switch(category) {
-			case 1: return "mainList";
-			case 2: return "mainList2";
-			case 3: return "mainList3";
-			case 4: return "mainList4";
-			case 5: return "mainList5";
-			case 6: return "mainList6";
-			case 7: return "mainList7";
-			case 8: return "mainList8";
-			case 9: return "mainList9";
-			}
+			mv.setViewName("mainList");
 		} else if(menuNum == 2) {
-			switch(category) {
-			case 1: return "mainRanking";
-			case 2: return "mainRanking2";
-			case 3: return "mainRanking3";
-			case 4: return "mainRanking4";
-			case 5: return "mainRanking5";
-			case 6: return "mainRanking6";
-			case 7: return "mainRanking7";
-			case 8: return "mainRanking8";
-			case 9: return "mainRanking9";
-			}
+			mv.setViewName("mainRanking");
 		} else if(menuNum == 3) {
-			switch(category) {
-			case 1: return "mainRecomment";
-			case 2: return "mainRecomment2";
-			case 3: return "mainRecomment3";
-			case 4: return "mainRecomment4";
-			case 5: return "mainRecomment5";
-			case 6: return "mainRecomment6";
-			case 7: return "mainRecomment7";
-			case 8: return "mainRecomment8";
-			case 9: return "mainRecomment9";
-			}
+			mv.setViewName("mainRecomment");
 		} else {
-			switch(category) {
-			case 1: return "mainCompany";
-			case 2: return "mainCompany2";
-			case 3: return "mainCompany3";
-			case 4: return "mainCompany4";
-			case 5: return "mainCompany5";
-			case 6: return "mainCompany6";
-			case 7: return "mainCompany7";
-			case 8: return "mainCompany8";
-			case 9: return "mainCompany9";
-			}
+			mv.setViewName("mainCompany");
+		}
+		return mv;
+	}
+	
+	@RequestMapping("blLike.ho")
+	public void BucketLike(@RequestParam("bkNo") int bkNo, HttpSession session, HttpServletResponse response) {
+		String UserId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		int blLike = mainService.blLike(bkNo, UserId);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			
+			out.append(blLike+"");
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
-		return "mainList";
+	}
+	
+	@RequestMapping("wishRegi.ho")
+	public void BucketWish(@RequestParam("bkNo") int bkNo, HttpSession session, HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+		String UserId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		String wishCheck = mainService.blWish(bkNo, UserId);
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			
+			out.append(wishCheck);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("sharebl.ho")
+	@ResponseBody
+	public String BucketShare(@RequestParam("bkNo") int bkNo, HttpSession session) {
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		int result = mainService.blShare(bkNo, userId);
+		
+		String returnString = "";
+		if(result > 0) {
+			returnString = "success";
+		} else {
+			System.out.println("실패");
+		}
+		return returnString;
 	}
 	
 }

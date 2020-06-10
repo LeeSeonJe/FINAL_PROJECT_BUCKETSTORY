@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardMapper">
+	
+	<insert id="insertfestival" parameterType="Festival">
+		insert into festival
+		values(seq_festival.nextval, #{fetitle}, #{feDate}, #{fecontent}, #{feplace}, sysdate, 'admin')
+	</insert>
+	
+	<insert id="insertfestivalimg" parameterType="Media">
+		insert into media
+		values(seq_media.nextval, #{morigin}, #{mweb}, 1, 5, null, null, null, seq_festival.currval, null)
+	</insert>
+
+</mapper >

@@ -31,6 +31,9 @@ body{
     margin-left: 480px;
 	} */
 	
+	#Clogin {
+		display: none;
+	}
 /*-------------------------------------  */
 	
 	#modal1 { /* 누르면 나타나는 회원가입 투명창 */
@@ -113,10 +116,11 @@ body{
 	
 	#rightForm{ /* 오른쪽 로그인폼 */
 	float: right;
-    width: 320px;
-    height: 300px;
+    width: 340px;
+    height: 540px;
     margin-top: 140px;
     margin-right: 240px;
+    background: rgba(255,187,0,0.7);
 	}
 	#login{
 	    width: 350px;
@@ -363,80 +367,7 @@ body{
     	
     }
 
-.switch { /* 회원, 기업 변경 스위치 */
-	  position: relative;
-	  display: inline-block;
-	  width: 60px;
-	  height: 34px;
-	  vertical-align:middle;
-	}
-	
-	/* Hide default HTML checkbox */
-	.switch input {display:none;}
-	
-	/* The slider */
-	.slider {
-	  position: absolute;
-	  cursor: pointer;
-	  top: 0;
-	  left: 0;
-	  right: 0;
-	  bottom: 0;
-	  background-color: hsla(0,0%,0%,.2);
-	  
-	  -webkit-transition: .4s;
-	  transition: .4s;
-	}
-	
-	.slider:before {
-	  position: absolute;
-	  content: "";
-	  height: 26px;
-	  width: 26px;
-	  left: 4px;
-	  bottom: 4px;
-	  background-color: hsla(0,0%,0%,.2);
-	  background-image: -webkit-radial-gradient( hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 40%, hsla(200,100%,60%,.3) 60%, hsla(200,100%,30%,0) 110% );
-	  background-repeat: no-repeat;
-	  -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
-	    -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
-	  outline: none;
-	  -webkit-transition: .4s;
-	  transition: .4s;
-	}
-	
-	input:checked + .slider {
-	  background-color: hsla(0,0%,0%,.2);
-	}
-	
-	input:focus + .slider {
-	  box-shadow: 0 0 1px #2196F3;
-	}
-	
-	input:checked + .slider:before {
-	  -webkit-transform: translateX(26px);
-	  -ms-transform: translateX(26px);
-	  transform: translateX(26px);
-	}
-	
-	/* Rounded sliders */
-	.slider.round {
-	  border-radius: 34px;
-	  
-	}
-	
-	.slider.round:before {
-	  border-radius: 50%;
-	}
-	
-	p {
-		margin:0px;
-		display:inline-block;
-		font-size:15px;
-		font-weight:bold;
-	}
-	
-/*-------------------------------------  */
+
 	
 	/* ---------------라디오버튼------------------------------ */
 	  display: flex;
@@ -453,8 +384,8 @@ body{
 	input {
 	  -webkit-appearance: none; /* remove default */
 	  display: inline-block; 
-	/*  margin: 10px; */
-	/*  width: 24px; */
+	 /*  margin: 10px; */
+	 /*  width: 24px; */
 	  height: 24px;
 	  border-radius: 12px;
 	  vertical-align: middle;
@@ -493,23 +424,92 @@ body{
 	input:checked ~ input:active {
 	  background-position: -24px 24px;
 	}
-/* 	input{
-	  	background-position: 24px 24px;
-	}
-	input:checked {
-	  background-position: 0 0;
-	}
-	input:active{
-		background-position: 24px -24px
-/* 	}
-	#gender_M:active{
-		background-position: -24px 24px; 
-	} 
+
 	
-	input:checked ~ input,
-	input:checked ~ input:active {
-	  background-position: -24px 24px;
-	} */
 	/* ------------------------------------- */
+	
+	.switch, .switch2 { /* 회원, 기업 변경 스위치 */
+	  position: relative;
+	  display: inline-block;
+	  width: 60px;
+	  height: 34px;
+	  vertical-align:middle;
+	}
+	
+	/* Hide default HTML checkbox */
+	.switch input {display:none;}
+	.switch2 input {display:none;}
+	
+	/* The slider */
+	.slider {
+	  position: absolute;
+	  cursor: pointer;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  background-color: hsla(0,0%,0%,.2);
+	  
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+	
+	.slider:before {
+	  -webkit-appearance: none;
+	  position: absolute;
+	  content: "";
+	  height: 26px;
+	  width: 26px;
+	  left: 4px;
+	  bottom: 4px;
+	  box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+	  background-color: hsla(0,0%,0%,.2);
+	  background-image: -webkit-radial-gradient( hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 40%, hsla(200,100%,60%,.3) 60%, hsla(200,100%,30%,0) 110% );
+	  background-repeat: no-repeat;
+	  -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
+	    -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
+	  outline: none;
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+	
+	input:checked + .slider {
+	  background-color: hsla(0,0%,0%,.2);
+	}
+	
+	input:focus + .slider {
+	  box-shadow: 0 0 1px #2196F3;
+	}
+	
+	input:checked + .slider:before {
+	  -webkit-transform: translateX(26px); 
+	  -ms-transform: translateX(26px);
+	  transform: translateX(26px);
+	  
+	}
+	
+	input:active {
+	  -webkit-transform: scale(1.5);
+	  -webkit-transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
+	}
+	
+	/* Rounded sliders */
+	.slider.round {
+	  border-radius: 34px;
+	  
+	}
+	
+	.slider.round:before {
+	  border-radius: 50%;
+	}
+	
+	p {
+		margin:0px;
+		display:inline-block;
+		font-size:15px;
+		font-weight:bold;
+	}
+	
+/*-------------------------------------  */
 
 	

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mtbatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commonMapper">
+	<select id="memberLogin" parameterType="Member" resultMap="commonResultSet">
+		select *
+		from Member
+		where userid=#{userId}
+	</select>
+	<resultMap id="commonResultSet" type="Member">
+	<id property="userId" column="USERID"/>
+	<result property="userPwd" column="USERPWD"/>
+	<result property="userName" column="USERNAME"/>
+	<result property="phone" column="PHONE"/>
+	<result property="email" column="EMAIL"/>
+	<result property="birth" column="BIRTH"/>
+	<result property="gender" column="GENDER"/>
+	<result property="nickName" column="NICKNAME"/>
+	<result property="caution" column="CAUTION"/>
+	<result property="prImage" column="PR_IMAGE"/>
+	<result property="fwCount" column="FW_COUNT"/>
+	<result property="enrollDate" column="ENROLLDATE"/>
+	</resultMap>
+	
+	<insert id="insertMember" parameterType="Member">
+		insert into Member
+		values(#{userId}, #{userPwd}, #{userName}, #{phone}, #{email}, #{birth}, #{gender}, #{nickName}, default, null, default, sysdate)
+	</insert>
+	
+	
+	
+	
+</mapper>

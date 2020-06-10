@@ -9,7 +9,7 @@ public class ExpertController2 {
 	// 테스트
 	@RequestMapping("gogo.ex")
 	public String expertInfo2() {
-		return "gogo";
+		return "hp_common";
 	}
 	
 	// 전문가 메인페이지
@@ -45,8 +45,15 @@ public class ExpertController2 {
 		return "hp_pointList";
 	}
 	
+	// 헬퍼 qna 문의 페이지
+	@RequestMapping("helperSendQnA.ex")
+	public String goHelperSendQnA() {
+		return "hp_sendQnA";
+	}
 	
-	
-	
-	
+	// 헬퍼 qna 문의확인 페이지
+	@RequestMapping("helperQnA.ex")
+	public String goHelperQnA() {
+		return "hp_QnA";
+	}
 }

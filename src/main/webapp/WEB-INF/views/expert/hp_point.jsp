@@ -15,9 +15,9 @@
 </head>
 
 <body>
-<%-- <jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/> --%>
+<jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
 
-<jsp:include page="/WEB-INF/views/expert/hp_pointCon.jsp"/> 
+<%-- <jsp:include page="/WEB-INF/views/expert/hp_pointCon.jsp"/>  --%>
 
         <div class="point-inner">
 	

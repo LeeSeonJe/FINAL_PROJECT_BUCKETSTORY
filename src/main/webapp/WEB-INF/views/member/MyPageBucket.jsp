@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.BucketStory.bucket.model.vo.BucketList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -20,120 +22,49 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="resources/member/images/123.jpg" alt="프로필 사진" />					
+						<img id="profileImg" src="${ contextPath }/resources/member/images/${ loginUser.prImage }" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 30px;">Seonxi_l</td>
+					<td colspan="3" style="font-size: 30px;">${ loginUser.nickName }</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 20px;">이선제</td>
+					<td colspan="3" style="font-size: 20px;">${ loginUser.userName }</td>
 				</tr>
 				<tr>
 					<td>게시물수 199</td>
-					<td>팔로워 40</td>
+					<td>팔로워 ${ loginUser.fwCount }</td>
 					<td>팔로우 30</td>
 				</tr>
 			</table>
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
+			<c:forEach var="b" items="${ myBucketList }" varStatus="status">
+				<div class="bucket">
+				<script>
+					$('.bucket').eq(${ status.index }).css('background-image', 'url(resources/muploadFiles/${ b.media.mweb })');
+				</script>
+					<div class="bucketContent">
+						<div class="c-category">${ b.cateName }</div>
+						<div class="c-bucket">
+							<div class="c-bucket-1">${ b.bucket.bkName }</div>
+						</div>
+						<div class="c-Add">
+							<div class="c-addBtn"> + ADD</div>
+						</div>
+						<div class="c-likewish">
+							<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+							<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+						</div>
 					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			<div class="bucket">
-				<div class="bucketContent">
-					<div class="c-category">FOOD</div>
-					<div class="c-bucket">
-						<div class="c-bucket-1">리틀 포레스트에 나오는 음식 따라 만들기</div>
-					</div>
-					<div class="c-Add">
-						<div class="c-addBtn"> + ADD</div>
-					</div>
-					<div class="c-likewish">
-						<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-						<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-					</div>
-				</div>
-			</div>
-			
+				</div>			
+			</c:forEach>
 			<div id="bucketAddBtn"></div>
 		</section>
 	</div>
 </body>
-<script>
+<script>	
 	$('#bucketAddBtn').on('click', function(){
 		location.href="bucketWrite.me";
 	});

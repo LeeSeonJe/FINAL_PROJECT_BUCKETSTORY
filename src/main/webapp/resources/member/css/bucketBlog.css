@@ -1,0 +1,50 @@
+/* bucketList 가운데 정렬 */
+#bucketList-area>table {
+	margin: 0 auto;
+	border-collapse: collapse; /* 테이블 간격 없애기 */
+	font-size: 17px;
+}
+
+#bucketList-area>table>tbody {
+	font-size: 13px;
+}
+
+#bucketList-area>table tr th:first-child {
+	text-align: left;
+	width: 650px;
+}
+
+#bucketList-area>table tr th:last-child {
+	text-align: right;
+	width: 150px;
+}
+
+#bucketList-area>table tr td:first-child {
+	text-align: left;
+	width: 650px;
+}
+
+#bucketList-area>table tr td:first-child span {
+	cursor: pointer;
+}
+
+#bucketList-area>table tr td:first-child span:hover {
+	border-bottom: 1px solid black;
+}
+
+#bucketList-area>table tr td:last-child {
+	text-align: right;
+	width: 150px;
+}
+
+#bucketList-area>table>thead>tr>th {
+	border-bottom: 2px solid black;
+}
+
+#bucketList-area>table>tbody>tr>td {
+	border-bottom: 1px solid black;
+}
+
+.wrap_td {
+	margin: 9px;
+}

@@ -5,6 +5,63 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/admin/css/adminDefault.css">
+<style>
+form{
+ 	border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    height: 900px;
+    margin-top: 45px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+form>adw_formimg>div{
+	background-color:black;
+	min-width:950px;
+	min-height:350px;
+	
+}
+
+form>#adw_formimg{
+	text-align: center;
+	margin-bottom: 50px;
+    margin-top: 40px;
+}
+
+form>div>div>ul>li{
+	list-style: none;
+	font-size: 15px;
+    height: 60px;
+}
+
+#adw_formDiv{
+    width: 75%;
+    margin: 0 auto;
+
+}
+.adw_formdiv{
+	display: inline-flex;
+}
+
+#adw_textarea{
+    resize: none;
+    width: 650px;
+    height: 150px;
+    margin-left: 35px;
+	
+}
+
+.adw_button{
+    text-align: center;
+    margin-top: 35px;
+}
+
+#adw_body>nav{
+	width: 100%;
+	height:30px;
+	
+}
+</style>
 </head>
 <body>
 	<header>
@@ -36,30 +93,34 @@
 				</ul>
 			</div>
 		</nav>
-		<form id="adw_form">
+		<form action="feinsert.ad" method="post" id="adw_form" enctype="multipart/form-data">
 			<div id="adw_formimg">
-				<img>
+				<input type="file" name="feUploadFile">
 			</div>
-			<div class="adw_formDiv">
-				<ul>
-					<li>제목 :
-						<input type="text">
-					</li>
-					<li>일시 : 
-						<input type="text">
-					</li>
-					<li>장소 :
-						<input type="text">
-					</li>
-				</ul>
+			<div id="adw_formDiv">
+				<div class="adw_formdiv">
+					<ul>
+						<li>
+							제목 : <input type="text" name="fetitle">
+						</li>
+						<li>
+							일시 : <input type="text" name="feDate">
+						</li>
+						<li>
+							장소 : <input type="text" name="feplace">
+						</li>
+					</ul>
+				</div>
+				<div class="test" id="map"
+					style="width: 480px; height: 383px; float: right;">
+				</div>
+				<div>
+					<textarea id="adw_textarea" name="fecontent">내용작성</textarea>
+				</div>
 			</div>
-				<div class="test" id="map" style="width:480px; height:383px; float:right;"></div>
-			<div>
-				<textarea id="adw_textarea">내용작성</textarea>
-			</div>
-			
+
 			<div class="adw_button">
-				<input type="submit" value="완료">
+				<input type="submit" value="완료"> 
 				<input type="reset" value="취소">
 			</div>
 		</form>
