@@ -17,13 +17,17 @@
 	</p>
 </form>
 
+</body>
+</html>
+
 <script type="text/javascript">
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
 	elPlaceHolder: "ir1",
 	sSkinURI: "SmartEditor2Skin.html",	
-	htParams : {bUseToolbar : true,
+	htParams : {
+		bUseToolbar : true,
 		fOnBeforeUnload : function(){
 			//alert("아싸!");	
 		}
@@ -61,6 +65,3 @@ function setDefaultFont() {
 	oEditors.getById["ir1"].setDefaultFont(sDefaultFont, nFontSize);
 }
 </script>
-
-</body>
-</html>

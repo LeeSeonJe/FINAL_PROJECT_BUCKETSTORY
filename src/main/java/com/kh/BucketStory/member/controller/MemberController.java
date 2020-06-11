@@ -22,6 +22,7 @@ import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.service.MemberService;
+import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 
 @Controller
@@ -30,24 +31,36 @@ public class MemberController {
 	@Autowired
 	private MemberService mService;
 	
-	@RequestMapping("writer.me")
-	public String writer() {
-		return "writer";
+	// 버킷리스트를 하는 과정
+	@RequestMapping("blogWrite.me")
+	public String writer(@RequestParam String bkNo, Model m) {
+		m.addAttribute("bkNo", bkNo);
+		return "blogWriter";
 	}
 	
 	
-	@RequestMapping("test.me")
-	public String test(@RequestParam("ir1") String ir1, Model model) {
-		System.out.println(ir1);
-		ir1 = ir1.replaceAll(System.getProperty("line.separator"), " ");
-		model.addAttribute("ir1", ir1);
-		return "test";
+	@RequestMapping("BlogInsert.me")
+	public String test(HttpSession session, @RequestParam String bContent, @RequestParam int bkNo, @RequestParam String bTitle, Model model) {
+		bContent = bContent.replaceAll(System.getProperty("line.separator"), " ");
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String userid = loginUser.getUserId();
+		
+		
+		Board board = new Board(bTitle, bContent, userid, bkNo);
+		int result = mService.blogInsert(board);
+		
+		if(result > 0) {
+			return "redirect:myBlog.me?bkNo" + board.getBkNo();	
+		} else {
+			return "redirect:myBlog.me?bkNo" + board.getBkNo();	
+		}
 	}
 	
 	@RequestMapping("update.me")
-	public String update(@RequestParam("ir1") String ir1, Model model) {
-		System.out.println(ir1);
-		model.addAttribute("ir1", ir1);
+	public String update(@RequestParam("blogContent") String blogContent, Model model) {
+		System.out.println(blogContent);
+		model.addAttribute("blogContent", blogContent);
 		return "update";
 	}
 	
@@ -57,33 +70,42 @@ public class MemberController {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		ArrayList<MemberMyBucketList> myBucketList = mService.myBucketList(loginUser.getUserId());
 		
-		for(MemberMyBucketList mm : myBucketList) {
-			System.out.println(mm);
-		}
 		if(myBucketList != null) {
 			m.addAttribute("myBucketList", myBucketList);
-			return "MyPageBucket";
+			return "myPageBucket";
 		} else {			
-			return "MyPageBucket";
+			return "myPageBucket";
 		}
 	}
 	
 	
+	// 버킷리스트를 추가
 	@RequestMapping("bucketWrite.me")
 	public String BucketWrite() {
 		return "bucketWrite";
 	}
 	
 	@RequestMapping("myBlog.me")
-	public String BucketBlog(HttpSession session, Model m) {
+	public String BucketBlog(HttpSession session, Model m, @RequestParam(value = "bkNo", required = false) String bkNo) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		ArrayList<MemberMyBucketList> myBucketList = mService.myBucketList(loginUser.getUserId());
-		
-		for(MemberMyBucketList mm : myBucketList) {
-			System.out.println(mm);
+		int bn = 0;
+		int index = 0;
+		if(bkNo == null) {
+			bkNo = myBucketList.get(0).getBkNo() + "";
+			bn = Integer.parseInt(bkNo);
+			index = 0;
+		} else {
+			bn = Integer.parseInt(bkNo);
+			for(int i = 0; i < myBucketList.size(); i++) {
+				if(myBucketList.get(i).getBkNo() == bn) {
+					index = i;
+					break;
+				}
+			}
 		}
 		if(myBucketList != null) {
-			m.addAttribute("myBucketList", myBucketList);
+			m.addAttribute("myBucketList", myBucketList).addAttribute("index", index);
 			return "bucketBlog";
 		} else {			
 			return "bucketBlog";

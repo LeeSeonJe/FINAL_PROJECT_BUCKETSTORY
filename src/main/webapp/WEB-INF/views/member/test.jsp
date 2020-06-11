@@ -16,7 +16,7 @@
 	<div id="ttt"></div>
 	<script>
 		$(function(){
-			$('#ttt').html('${ ir1 }');
+			$('#ttt').html('${ blogContent }');
 		})
 	</script>
 	<br>

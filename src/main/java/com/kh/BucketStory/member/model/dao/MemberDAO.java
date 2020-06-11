@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 
 @Repository("mDAO")
@@ -27,9 +28,7 @@ public class MemberDAO {
 		return (ArrayList) sqlSession.selectList("memberMapper.myBucketList", userId);
 	}
 
-//	public ArrayList<Media> myBucketListMedia(SqlSessionTemplate sqlSession, ArrayList<BucketList> bucketList) {
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		map.put("bucketList",bucketList);
-//		return (ArrayList) sqlSession.selectList("memberMapper.myBucketListMedia", map);
-//	}
+	public int blogInsert(SqlSessionTemplate sqlSession, Board board) {
+		return sqlSession.insert("memberMapper.blogInsert", board);
+	}
 }

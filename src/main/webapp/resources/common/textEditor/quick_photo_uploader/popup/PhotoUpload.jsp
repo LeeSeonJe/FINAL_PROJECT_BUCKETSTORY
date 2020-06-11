@@ -42,9 +42,11 @@
     } else {
         //이미지이므로 신규 파일로 디렉토리 설정 및 업로드   
         //파일 기본경로
-        String dftFilePath = request.getSession().getServletContext().getRealPath("/");
-        //파일 기본경로 _ 상세경로
-        String filePath = dftFilePath + "resources" + File.separator + "member" + File.separator + "images" + File.separator;
+        String dftFilePath = request.getSession().getServletContext().getRealPath("resources");
+//         String dftFilePath = request.getSession().getServletContext().getContextPath();
+        //파일 기본경로 _ 상세경로        
+//         System.out.println(dftFilePath);
+        String filePath = dftFilePath + "\\member\\images\\blogUploade\\";
 //         System.out.println(filePath);
         
         File file = new File(filePath);
@@ -76,7 +78,7 @@
 //         System.out.println("1 " + sFileInfo);
         sFileInfo += "&sFileName=" + filename;    
 //         System.out.println("2 " + sFileInfo);
-        sFileInfo += "&sFileURL=/BucketStory/resources/member/images/"+realFileNm;
+        sFileInfo += "&sFileURL=/BucketStory/resources/member/images/blogUploade/"+realFileNm;
 //         System.out.println("3 " + sFileInfo);
         out.println(sFileInfo);
     }

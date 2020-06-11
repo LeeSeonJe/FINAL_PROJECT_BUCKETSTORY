@@ -1,12 +1,15 @@
+<%@page import="org.springframework.http.server.reactive.ContextPathCompositeHandler"%>
+<%@page import="com.kh.BucketStory.member.model.vo.MemberMyBucketList"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<link rel="stylesheet" href="resources/member/css/bucketBlog.css">
-	<link rel="stylesheet" href="resources/member/css/bucketWrite.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
@@ -20,18 +23,18 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="resources/member/images/123.jpg" alt="프로필 사진" />					
+						<img id="profileImg" src="/BucketStory/resources/member/images/${ loginUser.prImage }" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 30px;">Seonxi_l</td>
+					<td colspan="3" style="font-size: 30px;">${ loginUser.nickName }</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 20px;">이선제</td>
+					<td colspan="3" style="font-size: 20px;">${ loginUser.userName }</td>
 				</tr>
 				<tr>
 					<td>게시물수 199</td>
-					<td>팔로워 40</td>
+					<td>팔로워 ${ loginUser.fwCount }</td>
 					<td>팔로우 30</td>
 				</tr>
 			</table>
@@ -58,76 +61,86 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>
-								<div class="wrap_td">
-									<span>남성화장품 끈적임없이 촉촉한 기초</span>
-								</div>
-							</td>
-							<td>
-								<div class="wrap_td">
-									<span>2020. 6. 3.</span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="wrap_td">
-									<span>남성화장품 끈적임없이 촉촉한 기초</span>
-								</div>
-							</td>
-							<td>
-								<div class="wrap_td">
-									<span>2020. 6. 3.</span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="wrap_td">
-									<span>남성화장품 끈적임없이 촉촉한 기초</span>
-								</div>
-							</td>
-							<td>
-								<div class="wrap_td">
-									<span>2020. 6. 3.</span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="wrap_td">
-									<span>남성화장품 끈적임없이 촉촉한 기초</span>
-								</div>
-							</td>
-							<td>
-								<div class="wrap_td">
-									<span>2020. 6. 3.</span>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<div class="wrap_td">
-									<span>남성화장품 끈적임없이 촉촉한 기초</span>
-								</div>
-							</td>
-							<td>
-								<div class="wrap_td">
-									<span>2020. 6. 3.</span>
-								</div>
-							</td>
-						</tr>
+						<c:forEach items="${ myBucketList }" var="mbl" >
+							<tr>
+								<td>
+									<input type="hidden" value="${ mbl.bkNo }"/>
+									<div class="wrap_td">
+										<span class="bkName">${ mbl.bucket.bkName }</span>
+									</div>
+								</td>
+								<td>
+									<div class="wrap_td">
+										<span class="date">${ mbl.bucket.enrolldate }</span>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
-			<div>
+			<div id="div-area">
+				<%
+					int index = (int) request.getAttribute("index");
+					ArrayList<MemberMyBucketList> mbl = (ArrayList<MemberMyBucketList>) request.getAttribute("myBucketList");
+				%>
+				<div id="bucketTitle">
+					<h3>
+						<%= mbl.get(index).getBucket().getBkName() %>
+					</h3>
+				</div>
+				<br>
+				<div id="bucketImg">
+					<img style="max-width: 600px; max-height: 337.5;" src="/BucketStory/resources/muploadFiles/<%= mbl.get(index).getMedia().getMweb() %>" alt="" />
+				</div>
+				<br>
+				<div id="bucketContent">
+					<textarea>
+						<%= mbl.get(index).getBucket().getBkContent() %>
+					</textarea>
+				</div>
+				<div id="bucketTag"></div>
 				
-			</div>
-			
+				<input type="hidden" value="<%= mbl.get(index).getBucket().getBkNo() %>" />
+				<button id="blogWriteBtn">작성하기</button>
+			</div>			
 		</section>
 	</div>
 <script>
+	$(function(){
+		var length = ${ myBucketList.size() };
+		var bucketTitle = $('#bucketTitle').children().val().trim();
+		for (var i = 0; i < length; i++) {
+			if($('.bkName').eq(i).text().trim() == bucketTitle) {
+				$('.bkName').eq(i).css({'font-weight':'900', 'border-bottom':'1px solid black'})
+			}
+		}
+		
+		var bucketContent = $('#bucketContent').children()
+		var content = $('#bucketContent').children().val()
+		bucketContent.text(content.trim());
+		
+		var tag = '<%= mbl.get(index).getBucket().getTag() %>'
+		var tags = tag.split(',');
+		for(var i = 0; i < tags.length; i++) {
+			if(tags[i] == "") {
+			} else {
+				$tagBtn = $('<button>').text("#" + tags[i])
+				console.log(tags[i])
+				$('#bucketTag').append($tagBtn)
+			}
+		}
+	})
+	$('span.bkName').on('click', function(){
+		var bkNo = $(this).parent().prev().val();
+		location.href="myBlog.me?bkNo=" + bkNo;
+	})
+	
+	$('#blogWriteBtn').on('click', function(){
+		var bkNo = $(this).prev().val();
+		location.href="blogWrite.me?bkNo=" + bkNo;
+	})
+	
 	$(function(){
 		$('#img_area').on('click',function(){
 			$('#imgInput').click();
