@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,11 +15,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.BucketStory.admin.model.exception.BoardException;
 import com.kh.BucketStory.admin.model.service.BoardService;
 import com.kh.BucketStory.admin.model.vo.Festival;
+import com.kh.BucketStory.admin.model.vo.PageInfo;
+import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.common.Pagination;
 
 @Controller
 public class AdminController {
@@ -27,7 +32,7 @@ public class AdminController {
 	private BoardService bService;
 	
 	
-	@RequestMapping("admin.ad")
+	@RequestMapping("adminwrite.ad")
 	public String admintest() {
 		return "festivalWrite";
 	}
@@ -60,7 +65,12 @@ public class AdminController {
 				
 		int result = bService.insertfestival(f, m);
 		
+		if(result > 0) {
 			return "redirect:list.ad";
+			
+		} else {
+			throw new BoardException("게시물 등록에 실패하였습니다.");
+		}
 	}
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
@@ -88,4 +98,45 @@ public class AdminController {
 		return renameFileName;
 	}
 	
+	
+	/* QnA 게시판 리스트 */
+	@RequestMapping("adminQnAlist.ad")
+	public ModelAndView adminQnAList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = bService.getListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<adminQnA> list = bService.adminQnAselectList(pi);
+		
+//		System.out.println("값이 넘어 오는지 확인하기" + list);
+		
+		if(list != null) {
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("adminQnAboard");
+		} else {
+			throw new BoardException("게시물 등록에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	/* qna 상세페이지 */
+	@RequestMapping("qnadetail.ad")
+	public ModelAndView adminqnadetail(@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
+		
+		adminQnA adminQnA = bService.adminqnadetail(qno);
+		
+		mv.addObject("adminQnA", adminQnA)
+		  .addObject("page", page)
+		  .setViewName("adminQnADetail");
+		
+		return mv;
+	}
 }

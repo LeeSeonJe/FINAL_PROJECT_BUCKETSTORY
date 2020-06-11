@@ -18,6 +18,16 @@ h2 {
 .ad_Detail>div>table {
 	margin: 0 auto;
 }
+span.answer:after {
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    display: inline-block;
+    background: #3a8afd;
+    content: "";
+    width: 100%;
+    height: 2px;
+}
 </style>
 </head>
 <body>
@@ -42,31 +52,23 @@ h2 {
 				<h2>QnA 상세보기</h2>
 			</div>
 			<div>
-				<table id="table_one">
-					<tr>
-						<td colspan="4" style="text-align: center;">제목 :</td>
-						<td>문의 날짜 :</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td>회원 아이디 :</td>
-					</tr>
-					<tr>
-						<td>내용 :</td>
-						<td colspan="4"><textarea rows="10" cols="80"></textarea></td>
-					</tr>
-					<tr>
-						<td>답변 :</td>
-						<td colspan="3"><textarea rows="10" cols="80"></textarea></td>
-						<td style="display: block;">답변 날짜 :</td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td>
-							<button>답변하기</button>
-						</td>
-					</tr>
-				</table>
+				<div style="text-align: center;"><b> ${ adminQnA.q_title }</b></div>
+				<div style="float: right;">
+				<span>[이미지 넣기] ${ adminQnA.userid }</span>
+				<span>[이미지 넣기] ${ adminQnA.q_date }</span>
+				</div>
+				<br clear="all">
+				<div style="height: 350px; padding-top: 2%;">${ adminQnA.q_content }</div>
+				<div style=" border-bottom: 1px solid #d2d1d1; font-size: 15px;"><span class="answer"style="position: relative;
+    display: inline-block;
+    width:10%;
+    margin: 10px 0;
+    margin-right: 5px;
+    font-size: 1em;
+    color: #3a8afd;"><b style="color: black;">답변</b></span></div>
+				<div style="margin-top: 2%; display: inline-block;"><textarea rows="50" cols="1000" style="width: 90%;
+    height: 100px; "></textarea>
+				<button>답변하기</button></div>
 			</div>
 		</div>
 	</div>
