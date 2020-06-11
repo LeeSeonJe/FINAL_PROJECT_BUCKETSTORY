@@ -112,7 +112,7 @@ form>div>div>ul>li{
 					</ul>
 				</div>
 				<div class="test" id="map"
-					style="width: 480px; height: 383px; float: right;">
+					style="width: 300px; height: 300px; float: right;">
 				</div>
 				<div>
 					<textarea id="adw_textarea" name="fecontent">내용작성</textarea>

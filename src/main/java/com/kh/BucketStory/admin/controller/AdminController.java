@@ -60,11 +60,7 @@ public class AdminController {
 				
 		int result = bService.insertfestival(f, m);
 		
-		if(result > 0) {
 			return "redirect:list.ad";
-		} else {
-			throw new BoardException("게시물 등록에 실패하였습니다.");
-		}
 	}
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {

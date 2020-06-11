@@ -1,0 +1,91 @@
+package com.kh.BucketStory.admin.model.vo;
+
+import java.sql.Date;
+
+public class adminQnA {
+	private int q_no; // qna번호
+	private String q_title; // 문의 제목
+	private String q_content; // 문의 내용
+	private Date q_date; // 문의날짜
+	private char Answer; // 답변여부
+	private Date an_date; // 답변날짜
+	private String an_content; // 답변내용
+	
+	public adminQnA() {}
+
+	public adminQnA(int q_no, String q_title, String q_content, Date q_date, char answer, Date an_date,
+			String an_content) {
+		super();
+		this.q_no = q_no;
+		this.q_title = q_title;
+		this.q_content = q_content;
+		this.q_date = q_date;
+		Answer = answer;
+		this.an_date = an_date;
+		this.an_content = an_content;
+	}
+
+	public int getQ_no() {
+		return q_no;
+	}
+
+	public void setQ_no(int q_no) {
+		this.q_no = q_no;
+	}
+
+	public String getQ_title() {
+		return q_title;
+	}
+
+	public void setQ_title(String q_title) {
+		this.q_title = q_title;
+	}
+
+	public String getQ_content() {
+		return q_content;
+	}
+
+	public void setQ_content(String q_content) {
+		this.q_content = q_content;
+	}
+
+	public Date getQ_date() {
+		return q_date;
+	}
+
+	public void setQ_date(Date q_date) {
+		this.q_date = q_date;
+	}
+
+	public char getAnswer() {
+		return Answer;
+	}
+
+	public void setAnswer(char answer) {
+		Answer = answer;
+	}
+
+	public Date getAn_date() {
+		return an_date;
+	}
+
+	public void setAn_date(Date an_date) {
+		this.an_date = an_date;
+	}
+
+	public String getAn_content() {
+		return an_content;
+	}
+
+	public void setAn_content(String an_content) {
+		this.an_content = an_content;
+	}
+
+	@Override
+	public String toString() {
+		return "adminQnA [q_no=" + q_no + ", q_title=" + q_title + ", q_content=" + q_content + ", q_date=" + q_date
+				+ ", Answer=" + Answer + ", an_date=" + an_date + ", an_content=" + an_content + "]";
+	}
+	
+	
+}
