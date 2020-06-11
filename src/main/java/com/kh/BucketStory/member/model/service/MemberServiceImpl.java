@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.member.model.dao.MemberDAO;
+import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 
 @Service("mService")
@@ -30,10 +31,8 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.myBucketList(sqlSession, userId);
 	}
 
-//	@Override
-//	public ArrayList<Media> myBucketListMedia(ArrayList<BucketList> bucketList) {
-//		return mDAO.myBucketListMedia(sqlSession, bucketList);
-//	}
-
-	
+	@Override
+	public int blogInsert(Board board) {
+		return mDAO.blogInsert(sqlSession, board);
+	}
 }

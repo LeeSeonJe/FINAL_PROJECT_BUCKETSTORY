@@ -19,7 +19,7 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="resources/member/images/123.jpg" alt="프로필 사진" />					
+						<img id="profileImg" src="/BucketStory/resources/member/images/123.jpg" alt="프로필 사진" />					
 					</td>
 				</tr>
 				<tr>

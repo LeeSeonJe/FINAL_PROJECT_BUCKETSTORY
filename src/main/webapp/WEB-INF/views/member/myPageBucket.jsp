@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="resources/member/css/MyPageBucket.css">
+	<link rel="stylesheet" href="resources/member/css/myPageBucket.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
@@ -22,7 +22,7 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="${ contextPath }/resources/member/images/${ loginUser.prImage }" />
+						<img id="profileImg" src="/BucketStory/resources/member/images/${ loginUser.prImage }" />
 					</td>
 				</tr>
 				<tr>

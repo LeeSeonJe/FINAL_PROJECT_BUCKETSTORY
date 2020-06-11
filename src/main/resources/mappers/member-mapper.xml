@@ -20,7 +20,7 @@
 		join bucketList using (CATENUM)
 		join media using (bkno)
 		where userid = #{ userId }
-		ORDER by bkno
+		ORDER by bkno desc
 	</select>
 	
 	<resultMap type="MemberMyBucketList" id="memberMyBucketListResultSet">
@@ -55,4 +55,9 @@
 		<result property="feno" column="FENO"/>
 		<result property="esNo" column="ES_NO"/>
 	</resultMap>
+	
+	<insert id="blogInsert" parameterType="Board">
+		insert into board
+		values (SEQ_BOARD.NEXTVAL, #{ bTitle }, #{ bContent }, DEFAULT, DEFAULT, SYSDATE, DEFAULT, #{ userid }, #{ bkNo })
+	</insert>
 </mapper>
