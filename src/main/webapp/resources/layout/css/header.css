@@ -59,3 +59,18 @@
 	background-image: url('../images/로그아웃호버.png');
 	background-size: cover;
 }
+
+/* 스크롤 */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(91, 90, 255);
+}
+
+::-webkit-scrollbar-track {
+    background-color: #eaeaea;
+    border-left: 1px solid #ccc;
+}
