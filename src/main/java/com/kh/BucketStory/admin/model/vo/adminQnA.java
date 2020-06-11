@@ -7,22 +7,26 @@ public class adminQnA {
 	private String q_title; // 문의 제목
 	private String q_content; // 문의 내용
 	private Date q_date; // 문의날짜
-	private char Answer; // 답변여부
+	private char answer; // 답변여부
 	private Date an_date; // 답변날짜
 	private String an_content; // 답변내용
+	private String userid; // 답변내용
+	private String coid; // 답변내용
 	
 	public adminQnA() {}
 
 	public adminQnA(int q_no, String q_title, String q_content, Date q_date, char answer, Date an_date,
-			String an_content) {
+			String an_content, String userid, String coid) {
 		super();
 		this.q_no = q_no;
 		this.q_title = q_title;
 		this.q_content = q_content;
 		this.q_date = q_date;
-		Answer = answer;
+		this.answer = answer;
 		this.an_date = an_date;
 		this.an_content = an_content;
+		this.userid = userid;
+		this.coid = coid;
 	}
 
 	public int getQ_no() {
@@ -58,11 +62,11 @@ public class adminQnA {
 	}
 
 	public char getAnswer() {
-		return Answer;
+		return answer;
 	}
 
 	public void setAnswer(char answer) {
-		Answer = answer;
+		this.answer = answer;
 	}
 
 	public Date getAn_date() {
@@ -81,11 +85,30 @@ public class adminQnA {
 		this.an_content = an_content;
 	}
 
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getCoid() {
+		return coid;
+	}
+
+	public void setCoid(String coid) {
+		this.coid = coid;
+	}
+
 	@Override
 	public String toString() {
 		return "adminQnA [q_no=" + q_no + ", q_title=" + q_title + ", q_content=" + q_content + ", q_date=" + q_date
-				+ ", Answer=" + Answer + ", an_date=" + an_date + ", an_content=" + an_content + "]";
+				+ ", answer=" + answer + ", an_date=" + an_date + ", an_content=" + an_content + ", userid=" + userid
+				+ ", coid=" + coid + "]";
 	}
+
+
 	
 	
 }
