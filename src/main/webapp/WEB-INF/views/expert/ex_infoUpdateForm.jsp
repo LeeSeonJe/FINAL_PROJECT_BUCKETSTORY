@@ -90,6 +90,7 @@
 		<div id="bucketArea">
 		</div>
 			<script>
+				var cateListVar;
 				function cateList(catenum){
 					$.ajax({
 						url : 'cateList.ex',
@@ -103,7 +104,11 @@
 							
 							if(data.length >0){
 								for(var i in data){
-									$text +="<div class='bucketList' style='margin-top:30px;' onclick='modal();'>"
+									cateListVar = data;
+									var d = data[i];
+									console.log(d);
+									$text +="<div class='bucketList' style='margin-top:30px;'" 
+												+"onclick='modal("+data[i].bkNo+");'>"
 													+"<table><tr>"
 													+"<td rowspan='2'><img style='width: 90px;'id='bucketListImage' src='resources/expert/images/photo.jpg'></td>"
 													+"<td>"+data[i].bkName+"</td>"
@@ -124,19 +129,18 @@
 		</div>
 </div>
 	<div id="page-2">
-		<ul style="padding-inline-start: 0px;">
-			<li><h5>함께하는 버킷리스트</h5></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-			<li><a href="">버킷리스트</a></li>
-		</ul>
+		<table id="choiceBucket" style="padding-inline-start: 0px;width: 100%;">
+			<tr><th colspan="2">함께하는 버킷리스트</th></tr>
+			
+			<c:if test="${ bucket eq null }">
+				<tr><td colspan="2">함께하는 버킷리스트가 없습니다.</td><tr>
+			</c:if>
+			<c:if test="${ bucket !=null }">
+				<c:forEach var="bucket" items="${ bucket }">
+					<tr><td>${ bucket.bkName }</td><td><b id="delete">x</b></td></tr>
+				</c:forEach>
+			</c:if>
+		</table>
 		
 		<div id="subBtn">
 			<button id="sub">저장하기</button>
@@ -148,15 +152,14 @@
 				<img id="bucketImage" src="resources/expert/images/배경-1.jpg">
 					       
 				<div id="area1">
-					<h2 style="display:inline;">버킷리스트 이름</h2>
-					<textarea id="bucketContent" readonly>
-						버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트
-						버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트버킷리스트
-					</textarea>
+					<h2 style="display:inline;" id="modalName"></h2>
+					<div id="bucketContent">
+					</div>
 				</div>
-					       
-				<button type="button" id="modal_close_btn">모달 창 닫기</button>
-				<button id="bucketAdd">추가하기</button>
+				<div id="controll">	  
+					<input type="button" id="bucketAdd" value="추가하기" onclick="selectBucket()">  <br>  
+					<input type="button" id="modal_close_btn" value="닫기">
+				</div>
 			</div>
 					   
 		<div class="modal_layer"></div>
@@ -164,11 +167,33 @@
 	<script>
 	var currentPosition = parseInt($("#page-2").css("top")); $(window).scroll(function() { var position = $(window).scrollTop(); $("#page-2").stop().animate({"top":position+currentPosition+"px"},1000); });
 
-	function modal() {
+	function modal(b) {
+		for( var i in cateListVar){
+			if(b==cateListVar[i].bkNo){
+				$('#modalName').html(cateListVar[i].bkName);
+				$('#bucketContent').html(cateListVar[i].bkContent);
+				$('#bucketAdd').attr("onclick","selectBucket("+cateListVar[i].bkNo+")");
+			}
+		}
     	$('#modal').css({"top":(($(window).height()-$('#modal').outerHeight())/2+$(window).scrollTop()+80)+"px",
 						 "left":(($(window).width()-$('#modal').outerWidth())/2+$(window).scrollLeft())+"px"})
-       $('#modal').show();
-    };
+      	$('#modal').show();
+    }
+	
+	function selectBucket(bk){
+		var addLi =$('#choiceBucket>tbody>tr:Last')
+		var add;
+		
+		
+		
+		for(var i in cateListVar){
+			if(cateListVar[i].bkNo == bk){
+				add = "<tr><td>"+cateListVar[i].bkName+"</td><td><b>x</b></td></tr>"+"<input type='hidden' name='bucket' value='"+cateListVar[i].bkNo+ "'>"
+			}
+		}
+		addLi.after(add);
+		document.getElementById("modal").style.display="none";
+	};
    
     document.getElementById("modal_close_btn").onclick = function() {
         document.getElementById("modal").style.display="none";

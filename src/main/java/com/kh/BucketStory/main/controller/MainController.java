@@ -108,4 +108,9 @@ public class MainController {
 		return returnString;
 	}
 	
+	@RequestMapping("festival.ho")
+	public String festivalView() {
+		return "mainFestival";
+	}
+	
 }

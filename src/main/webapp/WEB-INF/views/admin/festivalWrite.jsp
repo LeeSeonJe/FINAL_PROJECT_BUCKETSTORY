@@ -73,27 +73,27 @@ form>div>div>ul>li{
 			<div id="adw_menu">
 				<ul>
 					<li>
-						<a href="">축제 작성</a>	
+						<a href="adminwrite.ad">축제 작성</a>	
 					</li>
 					<li>
-						<a href="">가입확인</a>
+						<a href="adminCompany.ad">가입확인</a>
 					</li>
 					<li>
-						<a href="">결제내역</a>
+						<a href="adminBill.ad">결제내역</a>
 					</li>
 					<li>
 						<a href="">통계</a>
 					</li>
 					<li>
-						<a href="">신고</a>
+						<a href="adminCaution.ad">신고</a>
 					</li>
 					<li>
-						<a href="">QnA</a>
+						<a href="adminQnAlist.ad">QnA</a>
 					</li>
 				</ul>
 			</div>
 		</nav>
-		<form action="feinsert.ad" method="post" id="adw_form">
+		<form action="feinsert.ad" method="post" id="adw_form" enctype="multipart/form-data">
 			<div id="adw_formimg">
 				<input type="file" name="feUploadFile">
 			</div>
@@ -101,18 +101,18 @@ form>div>div>ul>li{
 				<div class="adw_formdiv">
 					<ul>
 						<li>
-							제목 : <input type="text" name="feTitle">
+							제목 : <input type="text" name="fetitle">
 						</li>
 						<li>
 							일시 : <input type="text" name="feDate">
 						</li>
 						<li>
-							장소 : <input type="text" name="fePlace">
+							장소 : <input type="text" name="feplace">
 						</li>
 					</ul>
 				</div>
 				<div class="test" id="map"
-					style="width: 480px; height: 383px; float: right;">
+					style="width: 300px; height: 300px; float: right;">
 				</div>
 				<div>
 					<textarea id="adw_textarea" name="fecontent">내용작성</textarea>
@@ -120,7 +120,8 @@ form>div>div>ul>li{
 			</div>
 
 			<div class="adw_button">
-				<input type="submit" value="완료"> <input type="reset" value="취소">
+				<input type="submit" value="완료"> 
+				<input type="reset" value="취소">
 			</div>
 		</form>
 	</div>
