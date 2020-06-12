@@ -1,10 +1,25 @@
 package com.kh.BucketStory.expert.controller;
 
+import java.util.ArrayList;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kh.BucketStory.expert.model.exception.ExpertException;
+import com.kh.BucketStory.expert.model.service.ExpertService2;
+import com.kh.BucketStory.expert.model.vo.PageInfo;
+import com.kh.BucketStory.expert.model.vo.Pay;
+import com.kh.BucketStory.expert.model.vo.pagination;
 
 @Controller
 public class ExpertController2 {
+	
+	// 의존성주입
+	@Autowired
+	private ExpertService2 ExService2;
 	
 	// 테스트
 	@RequestMapping("gogo.ex")
@@ -41,9 +56,29 @@ public class ExpertController2 {
 	
 	// 포인트 내역 페이지
 	@RequestMapping("pointList.ex")
-	public String goPointList() {
-		return "hp_pointList";
+	public ModelAndView boardList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {
+
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
+
+		int listCount = ExService2.getListCount();
+		PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Pay> list = ExService2.selectList(pi);
+
+		if (list != null) {
+			// list, pi, view
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("hp_pointList");
+		} else {
+			throw new ExpertException("포인트 내역 조회에 실패했습니다.");
+		}
+		return mv;
 	}
+	
+	
 	
 	// 헬퍼 qna 문의 페이지
 	@RequestMapping("helperSendQnA.ex")
