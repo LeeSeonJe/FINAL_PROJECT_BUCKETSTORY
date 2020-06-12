@@ -2,6 +2,7 @@ package com.kh.BucketStory.expert.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
 
 public interface ExpertService2 {
@@ -11,4 +12,8 @@ public interface ExpertService2 {
 
 	//TEST
 	String test(String coid);
+
+	int getListCount();
+
+	ArrayList<Pay> selectList(PageInfo pi);
 }
