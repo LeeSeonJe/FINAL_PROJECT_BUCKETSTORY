@@ -144,10 +144,6 @@
 		}
 
 
-
-    	function(){
-    		
-    	}
 //         function setDisplay(){
 //             if($('input:radio[id=aaa]').is(':checked')){
 //                 $('#divId').hide();
