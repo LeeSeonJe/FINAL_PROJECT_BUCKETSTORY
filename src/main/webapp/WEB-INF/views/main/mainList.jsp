@@ -29,13 +29,13 @@
 		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 		<c:forEach var="b" items="${ bucketList }">
 		<c:if test="${ b.cateNum == category || category == 0}">
-		<div class="bucket" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
+		<div class="bucket ${ b.bkNo }" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
 		
 			<!-- 버킷 사진 -->
 			<c:forEach var="m" items="${blImg}">
 				<c:if test="${ m.bkno == b.bkNo }">
 <script>
-	$('#bucket${m.bkno}').css('background-image', 'url("resources/muploadFiles/${m.mweb}")');
+	$('.bucket.${ b.bkNo }').css('background-image', 'url("resources/muploadFiles/${m.mweb}")');
 </script>
 				</c:if>
 			</c:forEach>
@@ -73,13 +73,13 @@
 					</c:if>
 				</c:forEach>
 				<c:if test="${not Sloop_flag}">
-				<div class="c-Add" id="c-Add${ b.bkNo }">
+				<div class="c-Add ${ b.bkNo }" id="c-Add${ b.bkNo }">
 					<div class="c-addBtn" onclick="sharebl(${ b.bkNo }, '${ b.userId }');"> + ADD</div>
 				</div>
 				</c:if>
-				<div class="c-likewish" id="c-likewish${ b.bkNo }">
-					<div class="c-likeBtn" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bkLike }</label></div>
-					<div class="c-wishBtn" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
+				<div class="c-likewish ${ b.bkNo }" id="c-likewish${ b.bkNo }">
+					<div class="c-likeBtn ${ b.bkNo }" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bkLike }</label></div>
+					<div class="c-wishBtn ${ b.bkNo }" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
 						<span class="wishhover" style="font-size:20px">☆ </span>
 						위시 
 						<c:set var="loop_flag" value="false"/>
@@ -96,10 +96,10 @@
 		</div>
 <script>
 	//좋아요위시버튼 나오게하기
-	$('#bucket${ b.bkNo }').hover(function(){
-		$('#c-likewish${ b.bkNo }').show();
+	$('.bucket.${ b.bkNo }').hover(function(){
+		$('.c-likewish.${ b.bkNo }').show();
 	}, function(){
-		$('#c-likewish${ b.bkNo }').hide();
+		$('.c-likewish.${ b.bkNo }').hide();
 	});
 </script>
 		</c:if>
@@ -109,6 +109,8 @@
 		<div id="bucketDatail">
 			<div id="bucketexit">X</div>
 			<div id="bucketimg">
+				<ul>
+				</ul>
 				<div id="bucketcate">FOOD</div>
 				<div id="buckettitle">리틀 포레스트에 나오는 음식 따라 만들기</div>
 				<div id="bucketleft">〈</div>
@@ -171,7 +173,7 @@
 				bkNo:bkNo
 			},
 			success:function(data){
-				var blLike = '#c-likeBtn'+bkNo+'>label';
+				var blLike = '.c-likeBtn.'+bkNo+'>label';
 				$(blLike).text(data);
 				$('#bucketlike').text(data);
 				setTimeout(function(){
@@ -193,14 +195,14 @@
 				},
 				async : false,
 				success:function(data){
-					var blwish = '#c-wishBtn'+bkNo+'>label';
+					var blwish = '.c-wishBtn.'+bkNo+'>label';
 					$(blwish).text(data);
 				}
 			});
 		}
-		if($('#c-wishBtn'+bkNo+'>label').text() == '취소'){
+		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
 			$('#bucketwish').css('color', '#10ccc3');
-		} else if($('#c-wishBtn'+bkNo+'>label').text() == '등록'){
+		} else if($('.c-wishBtn.'+bkNo+'>label').text() == '등록'){
 			$('#bucketwish').css('color', 'white');
 		}
 	}
@@ -219,7 +221,7 @@
 					},
 					success:function(data){
 						if(data == 'success'){
-							var blshare = '#c-Add'+bkNo;
+							var blshare = '.c-Add.'+bkNo;
 							$(blshare).hide();
 							$('#bucketAdd').hide();
 							alert("나의 버킷에 공유되었습니다.");
@@ -253,16 +255,59 @@
 		for(var i in tags){
 			$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
 		}
-		if(!$('#c-Add'+bkNo).length){
+		if(!$('.c-Add.'+bkNo).length){
 			$('#bucketAdd').hide();
 		} else{
 			$('#bucketAdd').show();
 		}
-		if($('#c-wishBtn'+bkNo+'>label').text() == '취소'){
+		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
 			$('#bucketwish').css('color', '#10ccc3');
 		} else{
 			$('#bucketwish').css('color', 'white');
 		}
+		// 사진 가져오기
+		$('#bucketimg>ul').html('');
+		if(1<=bkNo&&bkNo<=10){
+			$.ajax({
+				url:'bkDetailMedia.ho',
+				data:{
+					bkNo:bkNo
+				},
+				async : false,
+				success:function(data){
+					var $li = '<li><img src="http://images.hwlife.hscdn.com//library/'+data+'_view_01.jpg"></li>';
+					$('#bucketimg>ul').append($li);
+				}
+			});
+		} else{
+			
+		}
+		// 공유한 사람
+		$.ajax({
+			url:'bkDetailShare.ho',
+			data:{
+				bkNo:bkNo
+			},
+			async : false,
+			success:function(data){
+				if(data.length > 0){
+					$('#bucketwithPro').html('');
+					$('#bucketwithCount>span').text(data.length);
+					for(var key in data){
+						if(data[key].prImage != null){
+							var $div = '<div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div>';
+							$('#bucketwithPro').append($div);
+						} else{
+							var $div = '<div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div>';
+							$('#bucketwithPro').append($div);
+						}
+					}
+				} else{
+					$('#bucketwithPro').html('');
+					$('#bucketwithCount>span').text('0');
+				}
+			}
+		});
 	}
 	
 	$(function(){
@@ -324,6 +369,10 @@
 			$('#bucketimg').css('height', bkhg);
 			var bkcphg = $('#bucketimg').width()-411;
 			$('#bucketcp').css('width', bkcphg);
+			$('#bucketleft').css('top', bkhg/2);
+			$('#bucketright').css('top', bkhg/2);
+			$('#bucketimg img').css('width', $('#bucketimg').width());
+			$('#bucketimg img').css('height', bkhg);
 		});
 		
 		// 검색창 나오게 하기
@@ -366,8 +415,12 @@
 				$('#FullOverLay').show();
 				var bkhg = $('#bucketDatail').width()/16 * 9;
 				$('#bucketimg').css('height', bkhg);
+				$('#bucketleft').css('top', bkhg/2);
+				$('#bucketright').css('top', bkhg/2);
 				var bkcphg = $('#bucketimg').width()-411;
 				$('#bucketcp').css('width', bkcphg);
+				$('#bucketimg img').css('width', $('#bucketimg').width());
+				$('#bucketimg img').css('height', bkhg);
 			}
 		});
 		
