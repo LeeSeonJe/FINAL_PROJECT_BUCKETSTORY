@@ -37,7 +37,7 @@
 	<select id="selectList" resultMap = "PayResultSet">
 	select *
 	from PAY
-	order by bid desc
+	order by PA_NO desc
 	</select>
 
 	<resultMap id="PayResultSet" type="Pay">
