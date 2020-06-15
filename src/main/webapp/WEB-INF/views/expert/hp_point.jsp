@@ -39,6 +39,9 @@
                 </div>
                 <br> -->
 			<div class="point-img">
+							
+				<!--  보너스 포인트 10% -->
+				<!--  이벤트배터  할인율 : 30 % 적용 -->
 				<img src="resources/expert/images/sale2.PNG" alt=" " />
 			</div>
 			<table class="point">
@@ -53,35 +56,35 @@
 						<th>
 					</tr>
 				</thead>
-
+				
 				<tbody>
 					<tr>
-						<td>11,000 point</td>
-						<td>+11,000 point</td>
-						<td><p class="p-before">11,000원</p>
+						<td>10,000 point</td>
+						<td>+1,000 point</td>
+						<td><p class="p-before">10,000원</p>
 							<p class="p-after">7,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(11000);">결제하기</button></td>
+						<td><button class="btn btn--primary2" onclick="requestPay(10000);">결제하기</button></td>
 					</tr>
 					<tr>
-						<td>22,000 point</td>
-						<td>+22,000 point</td>
-						<td><p class="p-before">22,000원</p>
-							<p class="p-after">11,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(22000);">결제하기</button></td>
+						<td>20,000 point</td>
+						<td>+2,000 point</td>
+						<td><p class="p-before">20,000원</p>
+							<p class="p-after">14,000원</p></td>
+						<td><button class="btn btn--primary2" onclick="requestPay(20000);">결제하기</button></td>
 					</tr>
 					<tr>
-						<td>33,000 point</td>
-						<td>+33,000 point</td>
-						<td><p class="p-before">33,000원</p>
-							<p class="p-after">27,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(33000);">결제하기</button></td>
+						<td>30,000 point</td>
+						<td>+3,000 point</td>
+						<td><p class="p-before">30,000원</p>
+							<p class="p-after">21,000원</p></td>
+						<td><button class="btn btn--primary2" onclick="requestPay(30000);">결제하기</button></td>
 					</tr>
 					<tr>
-						<td>44,000 point</td>
-						<td>+44,000 point</td>
-						<td><p class="p-before">44,000원</p>
-							<p class="p-after">37,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(44000);">결제하기</button></td>
+						<td>40,000 point</td>
+						<td>+4,000 point</td>
+						<td><p class="p-before">40,000원</p>
+							<p class="p-after">28,000원</p></td>
+						<td><button class="btn btn--primary2" onclick="requestPay(40000);">결제하기</button></td>
 					</tr>
 				</tbody>
 			</table>
@@ -114,19 +117,20 @@
 		      });
 		}
 		
-		
+	  var dc = 0.3; //할인율
 	  var IMP = window.IMP; 
 	  IMP.init('imp49697884'); 
 	  
 		function requestPay(price) {
 			
-			alert(price +'원을 결제합니다.');
+			alert(price * (1-dc) +'원을 결제합니다.');
+			
 			IMP.request_pay({
 			    pg : 'inicis', 
 			    pay_method : 'card',
 			    merchant_uid : 'merchant_' + new Date().getTime(),
 			    name : '주문명:포인트충전',
-			    amount : price,
+			    amount : price * (1-dc),
 			 
 // 			    buyer_email : 'iamport@siot.do',
 			    buyer_name : '로그인유저',
@@ -144,7 +148,7 @@
 // 			    	  headers:{"Content-Type":"application/json"}
 			      	  data:{
 			      		 pa_no  : 9999,
-			      		 pa_pay : price,
+			      		 pa_pay : price * 1.1, //보너스 포인트 포함
 			      		 coid   : "KH KOREA",
 			      		 status : 'Y',
 			      		 pdate  : "1900-01-01",
