@@ -6,12 +6,21 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel ="stylesheet" href ="resources/expert/css/hp_helperEdit.css">
+<style>
+	.inner{
+		margin-top : 50px;
+		z-index:-1;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
+
+<%-- <jsp:include page="/WEB-INF/views/expert/hp_helperCon.jsp"/> --%>
+
     <section>
 
-      <div class="inner">
+      <div class="inner" >
 
        <form id ="submitform">
 

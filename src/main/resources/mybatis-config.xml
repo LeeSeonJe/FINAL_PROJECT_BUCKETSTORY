@@ -7,6 +7,7 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.Company" alias="Company"/>
+		<typeAlias type="com.kh.BucketStory.expert.model.vo.Pay" alias="Pay"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.BucketList" alias="Bucket"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.ComInBucket" alias="ComInBucket"/>
     <typeAlias type="com.kh.BucketStory.bucket.model.vo.Media" alias="Media"/>
@@ -16,11 +17,12 @@
 		<typeAlias type="com.kh.BucketStory.member.model.vo.MemberMyBucketList" alias="MemberMyBucketList"/>
 		<typeAlias type="com.kh.BucketStory.admin.model.vo.Festival" alias="Festival"/>
 		<typeAlias type="com.kh.BucketStory.admin.model.vo.adminQnA" alias="adminQnA"/>
-    <typeAlias type="com.kh.BucketStory.member.model.vo.Board" alias="Board"/>
+        <typeAlias type="com.kh.BucketStory.member.model.vo.Board" alias="Board"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/expert-mapper.xml"/>
+		<mapper resource="mappers/expert2-mapper.xml"/>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/main-mapper.xml"/>
 		<mapper resource="mappers/common-mapper.xml"/>

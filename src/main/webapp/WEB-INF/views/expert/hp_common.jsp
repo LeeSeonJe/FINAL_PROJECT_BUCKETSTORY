@@ -95,23 +95,23 @@
         
         $('#menu-item1').on('click',function(){
             sub_close(); overlay_show();
-            $('#sub-item1').css({"border":"2px solid #10ccc3","transform":"translateX(40%)"}).show();
+            $('#sub-item1').css({"border":"2px solid #10ccc3","transform":"translateX(100%)"}).show();
         });
         $('#menu-item2').on('click',function(){
             sub_close(); overlay_show();
-            $('#sub-item2').css({"border": "2px solid #3a7af8","transform":"translateX(50%)"}).show();
+            $('#sub-item2').css({"border": "2px solid #3a7af8","transform":"translateX(150%)"}).show();
         });
         $('#menu-item3').on('click',function(){
             sub_close(); overlay_show();
-            $('#sub-item3').css({"border": "2px solid #a047c0","transform":"translateX(100%)"}).show();
+            $('#sub-item3').css({"border": "2px solid #a047c0","transform":"translateX(200%)"}).show();
         });
         $('#menu-item4').on('click',function(){
             sub_close(); overlay_show();
-            $('#sub-item4').css({"border": "2px solid #f861a2","transform":"translateX(120%)"}).show();
+            $('#sub-item4').css({"border": "2px solid #f861a2","transform":"translateX(250%)"}).show();
         });
         $('#menu-item5').on('click',function(){
             sub_close(); overlay_show();
-            $('#sub-item5').css({"border": "2px solid #10ccc3","transform":"translateX(150%)"}).show();
+            $('#sub-item5').css({"border": "2px solid #10ccc3","transform":"translateX(300%)"}).show();
         });
 
         
