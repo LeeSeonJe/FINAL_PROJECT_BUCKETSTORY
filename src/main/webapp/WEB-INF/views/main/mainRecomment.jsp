@@ -134,42 +134,6 @@
 						<div id="profile1"></div>
 						<div id="profile2">한호성</div>
 					</div>
-					<div id="profile-div">
-						<div id="profile1"></div>
-						<div id="profile2">한호성</div>
-					</div>
-					<div id="profile-div">
-						<div id="profile1"></div>
-						<div id="profile2">한호성</div>
-					</div>
-					<div id="profile-div">
-						<div id="profile1"></div>
-						<div id="profile2">한호성</div>
-					</div>
-					<div id="profile-div">
-						<div id="profile1"></div>
-						<div id="profile2">한호성</div>
-					</div>
-					<div id="profile-div">
-						<div id="profile1"></div>
-						<div id="profile2">한호성</div>
-					</div>
-					<div id="profile-div">
-						<div id="profile1"></div>
-						<div id="profile2">한호성</div>
-					</div>
-					<div id="profile-div">
-						<div id="profile1"></div>
-						<div id="profile2">한호성</div>
-					</div>
-					<div id="profile-div">
-						<div id="profile1"></div>
-						<div id="profile2">한호성</div>
-					</div>
-					<div id="profile-div">
-						<div id="profile1"></div>
-						<div id="profile2">한호성</div>
-					</div>
 				</div>
 				<div id="bucketwithBN">
 					<a id="bucketwithBN-a1">이전</a>

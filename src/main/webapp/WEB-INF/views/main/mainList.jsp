@@ -30,6 +30,7 @@
 		<c:forEach var="b" items="${ bucketList }">
 		<c:if test="${ b.cateNum == category || category == 0}">
 		<div class="bucket" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
+		
 			<!-- 버킷 사진 -->
 			<c:forEach var="m" items="${blImg}">
 				<c:if test="${ m.bkno == b.bkNo }">
@@ -38,6 +39,16 @@
 </script>
 				</c:if>
 			</c:forEach>
+			
+			<!-- 버킷 주인 -->
+			<c:if test="${ b.userId ne '관리자찡' }">
+			<div class="bucketStoryNick">${ b.userId }</div>
+			</c:if>
+			<c:if test="${ b.userId eq '관리자찡' }">
+			<div class="bucketStoryNick">추천</div>
+			</c:if>
+			
+			<div class="bucketStoryStory">0</div>
 			<div class="bucketContent">
 				<div class="c-category">
 					<c:choose>
@@ -133,22 +144,16 @@
 			<div id="bucketwith">
 				<div id="bucketwithCount"><span>14</span>명이 이 버킷 리스트를 함께 합니다.</div>
 				<div id="bucketwithPro">
-					<div id="profile1"></div>
-					<div id="profile1"></div>
-					<div id="profile1"></div>
-					<div id="profile1"></div>
-					<div id="profile1"></div>
-					<div id="profile1"></div>
-					<div id="profile1"></div>
-					<div id="profile1"></div>
-					<div id="profile1"></div>
-					<div id="profile1"></div>
+					<div id="profile-div">
+						<div id="profile1"></div>
+						<div id="profile2">한호성</div>
+					</div>
 				</div>
-				<div id="bucketwithBN">
+				<!-- <div id="bucketwithBN">
 					<a id="bucketwithBN-a1">이전</a>
 					<div id="bucketwithBN-Count">1/2</div>
 					<a id="bucketwithBN-a2">다음</a>
-				</div>
+				</div> -->
 			</div>
 			<div id="bucketcpEvent"></div>
 		</div>
