@@ -106,7 +106,7 @@
 		      	  data:{
 		      		 pa_no  : 9999,
 		      		 pa_pay : price,
-		      		 coid   : "KH KOREA",
+		      		 coid   : "KH_ACADEMY",
 		      		 status : 'Y',
 		      		 pdate  : "1900-01-01",
 		      	  },
@@ -149,7 +149,7 @@
 			      	  data:{
 			      		 pa_no  : 9999,
 			      		 pa_pay : price * 1.1, //보너스 포인트 포함
-			      		 coid   : "KH KOREA",
+			      		 coid   : "KH_ACADEMY",
 			      		 status : 'Y',
 			      		 pdate  : "1900-01-01",
 			      	  },
