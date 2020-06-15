@@ -27,7 +27,7 @@
 		<div class="inner__header">
 			<div>
 				<br>
-				<h2>보유 총 포인트 : 300000포인트 </h2>
+				<h2>보유 총 포인트 : ${hp} 포인트 </h2>
 			</div>
 		</div>
 
@@ -143,11 +143,11 @@
 // 			    	  method:"POST"
 // 			    	  headers:{"Content-Type":"application/json"}
 			      	  data:{
-			      		 pa_no  : 999,
+			      		 pa_no  : 9999,
 			      		 pa_pay : price,
 			      		 coid   : "KH KOREA",
 			      		 status : 'Y',
-			      		 pdate  : "2020-06-15",
+			      		 pdate  : "1900-01-01",
 			      	  },
 						success : function(data){
 					        var msg = '결제가 완료되었습니다.';

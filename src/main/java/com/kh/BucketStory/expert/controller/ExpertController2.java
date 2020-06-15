@@ -78,9 +78,23 @@ public class ExpertController2 {
 	
 	// 포인트 충전페이지
 	@RequestMapping("point.ex")
-	public String goPoint() {
-		return "hp_point";
+	public ModelAndView goPoint(ModelAndView mv) {
+//		return "hp_point";
+		mv.addObject("hp", getPoint());
+		mv.setViewName("hp_point");
+		return mv;
 	}
+	
+	// 보유 포인트 -> coid 
+	public int getPoint() {
+		int yPoint = ExService2.getYPoint();
+		int nPoint = ExService2.getNPoint();
+		return yPoint - nPoint;
+	}
+	public int getPoint2(int coid) {
+		return 0;
+	}
+	
 	
 	// 포인트 내역 페이지
 	@RequestMapping("pointList.ex")
@@ -94,11 +108,13 @@ public class ExpertController2 {
 		int listCount = ExService2.getListCount();
 		PageInfo pi = pagination.getPageInfo(currentPage, listCount);
 		ArrayList<Pay> list = ExService2.selectList(pi);
-
+		
 		if (list != null) {
 			// list, pi, view
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
+			mv.addObject("hp", getPoint());
+			
 			mv.setViewName("hp_pointList");
 		} else {
 			throw new ExpertException("포인트 내역 조회에 실패했습니다.");

@@ -34,15 +34,12 @@ public class ExpertDAO2 {
 		return sqlSession.update("exMapper2.insertPoint", p);
 	}
 
-//	<select id = "getListCount" resultType ="_int">
-//	select count(*)
-//	from PAY
-//	</select>
-//
-//	<select id="selectList" resultMap = "boardResultSet">
-//	select *
-//	from PAY
-//	order by bid desc
-//	</select>
-	
+	public int getYPoint(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("exMapper2.getYCount");
+	}
+	public int getNPoint(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("exMapper2.getNCount");
+	}
+
+
 }
