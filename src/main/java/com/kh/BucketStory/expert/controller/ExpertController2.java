@@ -2,8 +2,11 @@ package com.kh.BucketStory.expert.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,12 +26,15 @@ public class ExpertController2 {
 	
 	// 테스트
 	@RequestMapping("gogo.ex")
-	public String expertInfo2() {
+	public String expertInfo1() {
 		return "hp_common";
 	}
 	
 	// 전문가 메인페이지
-	
+	@RequestMapping("expertIntro.ex")
+	public String expertInfo2() {
+		return "hp_intro";
+	}
 	
 	// 헬퍼뷰어 페이지
 	@RequestMapping("helperView.ex")
@@ -46,6 +52,28 @@ public class ExpertController2 {
 	@RequestMapping("helperBucketList.ex")
 	public String goHelperBucketList() {
 		return "hp_helperBucketList";
+	}
+	
+	
+	@RequestMapping("ptest.ex")
+	public void test(@ModelAttribute Pay p,HttpServletRequest request) {
+		System.out.println(p.toString());
+	}
+	
+	// 포인트 충전
+	@RequestMapping("pinsert.ex")
+	public String pointInsert(@ModelAttribute Pay p,HttpServletRequest request) {
+		
+		System.out.println(p);
+		
+		int result = ExService2.insertPoint(p);
+
+		if (result > 0) {
+			return "redirect:pointList.ex";
+		} else {
+			throw new ExpertException("포인트 충전에 실패하였습니다.");
+		}
+
 	}
 	
 	// 포인트 충전페이지
