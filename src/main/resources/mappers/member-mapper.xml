@@ -23,6 +23,15 @@
 		ORDER by bkno desc
 	</select>
 	
+	<select id="myBucketListPage" resultMap="memberMyBucketListResultSet">
+		select *
+		from category
+		join bucketList using (CATENUM)
+		join media using (bkno)
+		where userid = #{ userId }
+		ORDER by bkno desc
+	</select>
+	
 	<resultMap type="MemberMyBucketList" id="memberMyBucketListResultSet">
 		<id property="bkNo" column="BKNO"></id>
 		<result property="cateNum" column="CATENUM" />
@@ -60,4 +69,33 @@
 		insert into board
 		values (SEQ_BOARD.NEXTVAL, #{ bTitle }, #{ bContent }, DEFAULT, DEFAULT, SYSDATE, DEFAULT, #{ userid }, #{ bkNo })
 	</insert>
+	
+	<select id="getBoard" resultMap="BoardResultSet">
+		select *
+		from board
+		where userid = #{ userid } and bkno = #{ bkNo } and status = 'Y'
+		order by enrolldate desc
+	</select>
+	
+	<resultMap type="Board" id="BoardResultSet">
+		<id property="bNo" column="BNO"></id>
+		<result property="bTitle" column="BTITLE"></result>
+		<result property="bContent" column="BCONTENT"></result>
+		<result property="bLike" column="BLIKE"></result>
+		<result property="bCount" column="BCOUNT"></result>
+		<result property="enrollDate" column="ENROLLDATE"></result>
+		<result property="status" column="STATUS"></result>
+		<result property="userid" column="USERID"></result>
+		<result property="bkNo" column="BKNO"></result>
+	</resultMap>
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from BUCKETLIST
+		order by enrolldate desc
+	</select>
+	
+
+	
+	
 </mapper>

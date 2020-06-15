@@ -17,6 +17,12 @@ public class Board {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Board(String userid, int bkNo) {
+		super();
+		this.userid = userid;
+		this.bkNo = bkNo;
+	}
+
 	public Board(String bTitle, String bContent, String userid, int bkNo) {
 		super();
 		this.bTitle = bTitle;

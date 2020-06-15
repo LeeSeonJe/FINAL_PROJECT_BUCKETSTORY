@@ -40,6 +40,7 @@
 		<section>
 			<form action="BlogInsert.me" method="post">
 				<input type="hidden" name="bkNo" value="${ bkNo }"/>
+				<input type="hidden" name="page" value="${ page }" />
 				<h2>내용 작성</h2><br>
 				<div id="content_area">
 					제목
