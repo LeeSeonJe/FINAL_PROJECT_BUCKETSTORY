@@ -23,7 +23,8 @@
 <!--         <p id ="title">포인트 내역</p> -->
  
   	<h3>포인트 내역 : ${ pi.listCount }</h3>
-
+	<h3>보유 포인트 : ${hp }</h3>
+	
         <!-- 게시판 목록 영역-->
         <div id ="board-area">
            
@@ -31,14 +32,14 @@
                 <thead>
                 <tr>
                     <th scope="cols" width="10%">번호</th>
-                    <th scope="cols" width="10%">말머리</th>
+                    <th scope="cols" width="10%">충전/사용</th>
                     <th scope="cols" width="25%">금액</th>
                     <th scope="cols" width="25%">아이디</th>
                     <th scope="cols" width="25%">날짜</th>
                 </tr>
                 </thead>
                 <tbody>
-        
+ 
 <!--                 <tr> -->
 <!--                     <td scope="row">3</td> -->
 <!--                     <td>사용</td> -->
@@ -57,10 +58,20 @@
 					<c:forEach var="b" items="${ list }">
 						<tr>
 							<td scope="row" align="center">${ b.pa_no }</td>
-<%-- 						<c:if test="${ b.status eq 'Y'}">  --%>
-<!-- 						      <td align="center">충전</td> -->
-<%-- 						</c:if> --%>
-							<td align="center">${ b.status }</td>
+						
+						
+						<!--  char 형과 비교 -->
+						<c:if test="${b.status eq 'Y'.charAt(0)}"> 
+						      <td align="center">충전</td>
+						</c:if>
+						<c:if test="${b.status eq 'N'.charAt(0)}"> 
+						      <td align="center">사용</td>
+						</c:if>
+							
+							<!-- Y : 충전 , N : 사용 -->
+<%-- 						<td align="center">${ b.status }</td> --%>
+							
+							
 							<td align="center">${ b.pa_pay }</td>
 							<td align="center">${ b.coid }</td>
 							<td align="center">${ b.pdate }</td>

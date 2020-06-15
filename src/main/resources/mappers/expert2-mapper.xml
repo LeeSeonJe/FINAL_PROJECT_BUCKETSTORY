@@ -29,10 +29,28 @@
 	</resultMap>
 
 
+    <!-- PAY 총 개수 구한다. -->
 	<select id = "getListCount" resultType ="_int">
 	select count(*)
 	from PAY
 	</select>
+	
+	<!-- PAY 충전금액 합계  -->
+	<select id = "getYCount" resultType ="_int">
+	select SUM(PA_PAY) 
+	from PAY
+	where STATUS = 'Y'
+	GROUP BY COID
+	</select>
+	
+	<!-- PAY 사용내역 합계 -->
+	<select id = "getNCount" resultType ="_int">
+	select SUM(PA_PAY) 
+	from PAY
+	where STATUS = 'N'
+	GROUP BY COID
+	</select>
+	
 
 	<select id="selectList" resultMap = "PayResultSet">
 	select *
@@ -44,7 +62,6 @@
 		insert into PAY
 		values(seq_pay.nextval, #{pa_pay}, #{coid}, #{status}, sysdate)
 <!-- 		values(#{pa_no}, #{pa_pay}, #{coid}, #{status}, #{pdate}) -->
-			
 	</insert>
 	
 	
