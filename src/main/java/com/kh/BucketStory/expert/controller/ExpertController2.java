@@ -86,6 +86,7 @@ public class ExpertController2 {
 	}
 	
 	// 보유 포인트 -> coid 
+	// 임시로 해둔것.; 로그인한 기업아이디로 계산해야된다.
 	public int getPoint() {
 		int yPoint = ExService2.getYPoint();
 		int nPoint = ExService2.getNPoint();
