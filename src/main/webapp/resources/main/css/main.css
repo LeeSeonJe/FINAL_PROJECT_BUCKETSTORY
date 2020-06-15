@@ -179,6 +179,7 @@ section{
 #bucketimg{
 	width:100%;
 	background:skyblue;
+	background-size: cover;
 }
 #bucketcate{
 	position: absolute;
@@ -309,6 +310,10 @@ section{
     font-size: 11px;
     color: #666666;
     transition: border-color 0.3s;
+    cursor: pointer;
+}
+#bucketTag1:hover{
+	border-color: #10c5bc;
 }
 #bucketTag1>span{
 	color: #10c5bc;
@@ -369,21 +374,30 @@ section{
 	color:rgb(91, 90, 255);
 }
 #bucketwithPro{
-	width:90%;
-	margin-left: 5%;
-	margin-top:20px;
-	height:18px;
+	width: 90%;
+    margin-left: 5%;
+    margin-top: 20px;
+    height: 18px;
+}
+#profile-div{
+	float: left;
+    margin-left: 6px;
+    margin-right: 6px;
+    width: 60px;
+    height: 80px;
+    cursor: pointer;
 }
 #profile1{
-	margin-top:15px;
-	margin-left: 6px;
-    margin-right: 6px;
-    float: left;
     width: 60px;
     height: 60px;
     border-radius: 50px;
     background-image: url(../images/프로필.png);
     background-size: cover;
+}
+#profile2{
+	width: 60px;
+	height: 20px;
+	text-align: center;
 }
 #bucketwithBN{
 	position: absolute;
