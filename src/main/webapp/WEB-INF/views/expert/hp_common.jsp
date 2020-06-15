@@ -19,6 +19,9 @@
 	z-index:9999;
 	display:none;
 }
+.sub-c{
+	display:none;
+}
 .hidden {height:100%; min-height:100%; overflow:hidden !important; touch-action:none;}
 </style>
 </head>

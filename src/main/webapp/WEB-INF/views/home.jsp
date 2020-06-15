@@ -19,7 +19,7 @@
 <a href="writer.me">멤버이동</a>
 
 
-<a href="helperView.ex">전문가이동</a>
+<a href="expertIntro.ex">전문가이동</a>
 
 
 <a href="login.co">로그인 이동</a>

@@ -21,14 +21,12 @@
 
 	<%-- <jsp:include page="/WEB-INF/views/expert/hp_pointCon.jsp"/>  --%>
 
-<section>
 	<div class="point-inner">
 
 		<div class="inner__header">
-			<div>
-				<br>
-				<h2>보유 총 포인트 : 300000포인트 </h2>
-			</div>
+			<!--                <div><p>Point 충전</p></div>  -->
+
+			<!--              <div><p>Point 내역</p></div>  -->
 		</div>
 
 		<div class="inner__content">
@@ -50,7 +48,6 @@
 						</td>
 						<th scope="cols">금액
 						</td>
-						<th>
 					</tr>
 				</thead>
 
@@ -60,28 +57,24 @@
 						<td>+11,000 point</td>
 						<td><p class="p-before">11,000원</p>
 							<p class="p-after">7,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(11000);">결제하기</button></td>
 					</tr>
 					<tr>
 						<td>22,000 point</td>
 						<td>+22,000 point</td>
 						<td><p class="p-before">22,000원</p>
 							<p class="p-after">11,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(22000);">결제하기</button></td>
 					</tr>
 					<tr>
 						<td>33,000 point</td>
 						<td>+33,000 point</td>
 						<td><p class="p-before">33,000원</p>
 							<p class="p-after">27,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(33000);">결제하기</button></td>
 					</tr>
 					<tr>
 						<td>44,000 point</td>
 						<td>+44,000 point</td>
 						<td><p class="p-before">44,000원</p>
 							<p class="p-after">37,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(44000);">결제하기</button></td>
 					</tr>
 				</tbody>
 			</table>
@@ -89,75 +82,69 @@
 
 			<br>
 			<br>
+			<div class="content-m banner">
+				<p>결제수단</p>
+			</div>
+			<br>
+			<br>
+
+			<div id="payfrom-outer">
+
+				<form id="payform">
+					<div id="payform-img">
+						<!-- <img src ="../image/credit.png" alt=""> -->
+						<img src="resources/expert/images/phone.png" alt="">
+					</div>
+
+					<div id="payform-select">
+						<div class="payform-radio">
+							<input type="radio" name="pay" value="card" checked>
+							<p>신용/체크 카드</p>
+						</div>
+						<div class="payform-radio">
+							<input type="radio" name="pay" value="phone">
+							<p>휴대폰</p>
+						</div>
+					</div>
+					<div id="payform-bottom">
+						<button class="btn btn--primary2" onclick="requestPay();">결제하기</button>
+					</div>
+				</form>
+
+			</div>
+
 		</div>
+
+		<br> <br> <br>
 	</div>
-</section>
+<button class="btn btn--primary2" onclick="requestPay();">결제하기</button>
+
 	<script>
-	
-		function test(price){
-			
-			alert('test')
-			 $.ajax({
-// 		    	  url:"ptest.ex",
-				  url:"pinsert.ex",
-		      	  data:{
-		      		 pa_no  : 9999,
-		      		 pa_pay : price,
-		      		 coid   : "KH KOREA",
-		      		 status : 'Y',
-		      		 pdate  : "1900-01-01",
-		      	  },
-					success : function(data){
-				        var msg = '결제가 완료되었습니다.';
-				        alert(msg)
-					}		
-		      });
-		}
-		
-		
+
 	  var IMP = window.IMP; 
 	  IMP.init('imp49697884'); 
 	  
-		function requestPay(price) {
-			
-			alert(price +'원을 결제합니다.');
+		function requestPay() {
+			alert('안녕');
 			IMP.request_pay({
-			    pg : 'inicis', 
+			    pg : 'inicis', // version 1.1.0부터 지원.
 			    pay_method : 'card',
 			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '주문명:포인트충전',
-			    amount : price,
-			 
-// 			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '로그인유저',
-			  /*   buyer_tel : '010-1234-5678',
+			    name : '주문명:결제테스트',
+			    amount : 14000,
+			    buyer_email : 'iamport@siot.do',
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678',
 			    buyer_addr : '서울특별시 강남구 삼성동',
 			    buyer_postcode : '123-456',
-			    m_redirect_url : 'https://www.yourdomain.com/payments/complete' */
-			    
+			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 			}, function(rsp) {
 			    if ( rsp.success ) {
-			      $.ajax({
-// 			    	  url:"ptest.ex",
-					  url:"pinsert.ex",
-// 			    	  method:"POST"
-// 			    	  headers:{"Content-Type":"application/json"}
-			      	  data:{
-			      		 pa_no  : 999,
-			      		 pa_pay : price,
-			      		 coid   : "KH KOREA",
-			      		 status : 'Y',
-			      		 pdate  : "2020-06-15",
-			      	  },
-						success : function(data){
-					        var msg = '결제가 완료되었습니다.';
-					        msg += '고유ID : ' + rsp.imp_uid;
-					        msg += '상점 거래ID : ' + rsp.merchant_uid;
-					        msg += '결제 금액 : ' + rsp.paid_amount;
-					        msg += '카드 승인번호 : ' + rsp.apply_num;
-					        alert(msg);
-						}		
-			      });
+			        var msg = '결제가 완료되었습니다.';
+			        msg += '고유ID : ' + rsp.imp_uid;
+			        msg += '상점 거래ID : ' + rsp.merchant_uid;
+			        msg += '결제 금액 : ' + rsp.paid_amount;
+			        msg += '카드 승인번호 : ' + rsp.apply_num;
 			    } else {
 			        var msg = '결제에 실패하였습니다.';
 			        msg += '에러내용 : ' + rsp.error_msg;
@@ -166,6 +153,15 @@
 			});
 		}
 
+
+//         function setDisplay(){
+//             if($('input:radio[id=aaa]').is(':checked')){
+//                 $('#divId').hide();
+//             }else{
+//                 $('#divId').show();
+//             }
+//         }
+        
     </script>
 
 

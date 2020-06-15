@@ -58,12 +58,12 @@
 						<tr>
 							<td scope="row" align="center">${ b.pa_no }</td>
 <%-- 						<c:if test="${ b.status eq 'Y'}">  --%>
-						      <td align="center">충전</td>
+<!-- 						      <td align="center">충전</td> -->
 <%-- 						</c:if> --%>
-<%-- 							<td align="center">${ b.status }</td> --%>
+							<td align="center">${ b.status }</td>
 							<td align="center">${ b.pa_pay }</td>
 							<td align="center">${ b.coid }</td>
-<%-- 							<td align="center">${ b.bCount }</td> --%>
+							<td align="center">${ b.pdate }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

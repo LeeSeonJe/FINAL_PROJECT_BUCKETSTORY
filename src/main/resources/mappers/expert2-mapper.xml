@@ -39,12 +39,21 @@
 	from PAY
 	order by PA_NO desc
 	</select>
-
+	
+	<insert id ="insertPoint">
+		insert into PAY
+		values(seq_pay.nextval, #{pa_pay}, #{coid}, #{status}, sysdate)
+<!-- 		values(#{pa_no}, #{pa_pay}, #{coid}, #{status}, #{pdate}) -->
+			
+	</insert>
+	
+	
 	<resultMap id="PayResultSet" type="Pay">
 		<id property="pa_no" column="PA_NO"/>
 		<result property="pa_pay" column="PA_PAY"/>
 		<result property="coid" column="COID"/>
 		<result property="status" column="STATUS"/>
+		<result property="pdate" column="PDATE"/>
 	</resultMap>
 	
 </mapper>

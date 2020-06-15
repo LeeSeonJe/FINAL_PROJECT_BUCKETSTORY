@@ -30,6 +30,10 @@ public class ExpertDAO2 {
 		return (ArrayList) sqlSession.selectList("exMapper2.selectList", null, rowBounds);
 	}
 
+	public int insertPoint(SqlSessionTemplate sqlSession, Pay p) {
+		return sqlSession.update("exMapper2.insertPoint", p);
+	}
+
 //	<select id = "getListCount" resultType ="_int">
 //	select count(*)
 //	from PAY

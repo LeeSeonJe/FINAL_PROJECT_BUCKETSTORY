@@ -21,7 +21,8 @@
     <section>
 
       <div class="inner" >
-
+<%--    <h1 align="center">'${ loginUser.name }'님의 정보 수정</h1> --%>
+<!--    <br> -->
        <form id ="submitform">
 
         <table class ="et th1">
