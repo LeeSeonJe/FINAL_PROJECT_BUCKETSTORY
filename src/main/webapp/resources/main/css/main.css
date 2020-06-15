@@ -70,6 +70,27 @@ section{
     border: 0;
     display: block;
 }
+.bucketStoryNick{
+	position: absolute;
+    width: 100px;
+    height: 30px;
+    text-align: left;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 30px;
+    color: rgb(24, 223, 211);
+    left: 10px;
+}
+.bucketStoryStory{
+	position: absolute;
+    width: 60px;
+    height: 30px;
+    text-align: right;
+    font-size: 15px;
+    line-height: 30px;
+    color: rgb(24, 223, 211);
+    right: 13.9px;
+}
 .bucketContent{
 	position:absolute;
 	width:100%;
@@ -377,11 +398,13 @@ section{
 	width: 90%;
     margin-left: 5%;
     margin-top: 20px;
-    height: 18px;
+    height: 221.7px;
+    overflow: auto;
 }
 #profile-div{
 	float: left;
     margin-left: 6px;
+    margin-top: 20px;
     margin-right: 6px;
     width: 60px;
     height: 80px;

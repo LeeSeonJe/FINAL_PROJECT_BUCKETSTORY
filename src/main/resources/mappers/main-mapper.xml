@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mainMapper">
-	<select id="selectBucketList" resultType="Bucket">
+	<select id="selectBucketList" resultMap="BucketResultSet">
 		select *
-		from bucketlist
+		from
+		    (select BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join member using(userid)
+		    UNION
+		    select b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join SHAREBUCKET s on (b.bkNo = s.bkNo)
+		    join member m on (s.userid = m.userid))
+		order by ENROLLDATE desc
 	</select>
+	<resultMap type="Bucket" id="BucketResultSet">
+		<id property="bkNo" column="BKNO"/>
+		<result property="bkName" column="BKNAME"/>
+		<result property="bkContent" column="BKCONTENT"/>
+		<result property="tag" column="TAG"/>
+		<result property="enrolldate" column="ENROLLDATE"/>
+		<result property="bkLike" column="BKLIKE"/>
+		<result property="userId" column="NICKNAME"/>
+		<result property="complete" column="COMPLETE"/>
+		<result property="cateNum" column="CATENUM"/>
+	</resultMap>
 	
 	<select id="selectBLImg" resultMap="MediaResultSet">
 		select *
 		from media
 		where bkno is not null
 	</select>
-	
 	<resultMap type="Media" id="MediaResultSet">
 		<id property="mnumber" column="MNUMBER"/>
 		<result property="morigin" column="MORIGIN"/>
@@ -24,7 +43,6 @@
 		<result property="feno" column="FENO"/>
 		<result property="esNo" column="ES_NO"/>
 	</resultMap>
-	
 	
 	<!-- 메인 버킷 좋아요 -->
 	<select id="blLikeCheck" resultType="_int">
