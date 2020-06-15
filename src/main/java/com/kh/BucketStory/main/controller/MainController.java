@@ -2,12 +2,13 @@ package com.kh.BucketStory.main.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -113,4 +117,35 @@ public class MainController {
 		return "mainFestival";
 	}
 	
+	@RequestMapping("bkDetailMedia.ho")
+	@ResponseBody
+	public String BucketDetailImage(@RequestParam("bkNo") int bkNo) {
+		
+		ArrayList<Media> blImg = mainService.selectBucketImg();
+		
+		String returnString = "";
+		for(int i=0;i<blImg.size();i++) {
+			Media m = blImg.get(i);
+			if(m.getBkno() == bkNo) {
+				returnString = m.getMweb();
+			}
+		}
+		returnString = returnString.substring(0, 5);
+		return returnString;
+	}
+	
+	@RequestMapping("bkDetailShare.ho")
+	public void bucketDetailShare(@RequestParam("bkNo") int bkNo, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<Member> ShareMList = mainService.selectShareMList(bkNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		try {
+			gson.toJson(ShareMList, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

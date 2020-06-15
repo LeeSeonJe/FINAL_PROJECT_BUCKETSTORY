@@ -3,14 +3,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	ArrayList<WishList> wList = (ArrayList<WishList>)request.getAttribute("wishList");
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리스트ALL</title>
+<title>최신순버킷</title>
 	<link rel="stylesheet" href="resources/main/css/main.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
@@ -268,7 +265,6 @@
 		$('#cssmenu>ul>li:eq(0)>a').css({'color':'#18dfd3','border-bottom':'2px solid #10ccc3'});
 		//console.log($(window).width());
 		
-		//$('.searchdiv').css('opacity', '1');
 		
 		// 카테고리 종류
 		var category = ${category};
