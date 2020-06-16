@@ -2,9 +2,11 @@ package com.kh.BucketStory.member.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.member.model.vo.Board;
@@ -30,5 +32,20 @@ public class MemberDAO {
 
 	public int blogInsert(SqlSessionTemplate sqlSession, Board board) {
 		return sqlSession.insert("memberMapper.blogInsert", board);
+	}
+	
+	public ArrayList<Board> getBoard(SqlSessionTemplate sqlSession, Board b) {
+		return (ArrayList) sqlSession.selectList("memberMapper.getBoard", b);
+	}
+
+	public int getListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("memberMapper.getListCount");
+	}
+
+	public ArrayList<MemberMyBucketList> myBucketListPage(SqlSessionTemplate sqlSession, String userId, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList) sqlSession.selectList("memberMapper.myBucketListPage", userId, rowBounds);
 	}
 }

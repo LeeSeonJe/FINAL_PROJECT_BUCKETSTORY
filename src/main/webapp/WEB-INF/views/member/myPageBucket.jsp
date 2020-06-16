@@ -32,7 +32,7 @@
 					<td colspan="3" style="font-size: 20px;">${ loginUser.userName }</td>
 				</tr>
 				<tr>
-					<td>게시물수 199</td>
+					<td>게시물 ${ myBucketList.size() }</td>
 					<td>팔로워 ${ loginUser.fwCount }</td>
 					<td>팔로우 30</td>
 				</tr>

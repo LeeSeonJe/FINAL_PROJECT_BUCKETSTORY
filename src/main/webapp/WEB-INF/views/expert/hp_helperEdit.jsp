@@ -6,13 +6,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel ="stylesheet" href ="resources/expert/css/hp_helperEdit.css">
+<style>
+	.inner{
+		margin-top : 50px;
+		z-index:-1;
+	}
+</style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
+
+<%-- <jsp:include page="/WEB-INF/views/expert/hp_helperCon.jsp"/> --%>
+
     <section>
 
-      <div class="inner">
-
+      <div class="inner" >
+<%--    <h1 align="center">'${ loginUser.name }'님의 정보 수정</h1> --%>
+<!--    <br> -->
        <form id ="submitform">
 
         <table class ="et th1">

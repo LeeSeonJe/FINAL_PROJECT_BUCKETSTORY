@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="exMapper2">
+
+	<select id="selectCompanyInfo" resultMap="CompanyResultSet">
+		select * 
+		from company
+		where coid=#{coId} and status='Y'
+	</select>
+	
+	<resultMap id="CompanyResultSet" type="Company">
+		<id property="coId" column="COID"/>
+		<result property="pwd" column="COPWD"/>
+		<result property="coName" column="CONAME"/>
+		<result property="compaName" column="COMPANAME"/>
+		<result property="apName" column="APNAME"/>
+		<result property="homePage" column="HOMEPAGE"/>
+		<result property="coTel" column="COTEL"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="approval" column="APPROVAL"/>
+		<result property="busiEmail" column="BUSIEMAIL"/>
+		<result property="cpCheck" column="CPCHECK"/>
+		<result property="checkImg" column="CHECKIMG"/>
+		<result property="point" column="POINT"/>
+		<result property="cateNum" column="CATENUM"/>
+		<result property="coIntro" column="COINTRO"/>
+		<result property="coInfo" column="COINFO"/>
+	</resultMap>
+
+
+    <!-- PAY 총 개수 구한다. -->
+	<select id = "getListCount" resultType ="_int">
+	select count(*)
+	from PAY
+	</select>
+	
+	<!-- PAY 충전금액 합계  -->
+	<select id = "getYCount" resultType ="_int">
+	select SUM(PA_PAY) 
+	from PAY
+	where STATUS = 'Y'
+	GROUP BY COID
+	</select>
+	
+	<!-- PAY 사용내역 합계 -->
+	<select id = "getNCount" resultType ="_int">
+	select SUM(PA_PAY) 
+	from PAY
+	where STATUS = 'N'
+	GROUP BY COID
+	</select>
+	
+
+	<select id="selectList" resultMap = "PayResultSet">
+	select *
+	from PAY
+	order by PA_NO desc
+	</select>
+	
+	<insert id ="insertPoint">
+		insert into PAY
+		values(seq_pay.nextval, #{pa_pay}, #{coid}, #{status}, sysdate)
+<!-- 		values(#{pa_no}, #{pa_pay}, #{coid}, #{status}, #{pdate}) -->
+	</insert>
+	
+	
+	<resultMap id="PayResultSet" type="Pay">
+		<id property="pa_no" column="PA_NO"/>
+		<result property="pa_pay" column="PA_PAY"/>
+		<result property="coid" column="COID"/>
+		<result property="status" column="STATUS"/>
+		<result property="pdate" column="PDATE"/>
+	</resultMap>
+	
+</mapper>

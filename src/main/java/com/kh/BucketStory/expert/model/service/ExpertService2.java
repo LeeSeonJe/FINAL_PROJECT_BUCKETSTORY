@@ -16,4 +16,10 @@ public interface ExpertService2 {
 	int getListCount();
 
 	ArrayList<Pay> selectList(PageInfo pi);
+
+	int insertPoint(Pay p);
+
+	int getYPoint();
+
+	int getNPoint();
 }

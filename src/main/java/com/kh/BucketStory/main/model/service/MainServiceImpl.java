@@ -10,6 +10,7 @@ import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
+import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.main.model.dao.MainDAO;
 
 @Service("mainService")
@@ -54,6 +55,11 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public ArrayList<ShareBucket> selectShareList(String userId) {
 		return mainDAO.selectShareList(sqlSession, userId);
+	}
+
+	@Override
+	public ArrayList<Member> selectShareMList(int bkNo) {
+		return mainDAO.selectShareMList(sqlSession, bkNo);
 	}
 
 }

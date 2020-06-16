@@ -34,6 +34,21 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 		return exDAO2.selectList(sqlSession, pi);
 	}
 
+	@Override
+	public int insertPoint(Pay p) {
+		return  exDAO2.insertPoint(sqlSession, p);
+	}
+
+	@Override
+	public int getYPoint() {
+		return exDAO2.getYPoint(sqlSession);
+	}
+
+	@Override
+	public int getNPoint() {
+		return exDAO2.getNPoint(sqlSession);
+	}
+
 
 
 

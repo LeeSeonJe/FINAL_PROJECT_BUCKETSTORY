@@ -13,13 +13,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.common.Pagination;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.service.MemberService;
 import com.kh.BucketStory.member.model.vo.Board;
@@ -33,14 +36,14 @@ public class MemberController {
 	
 	// 버킷리스트를 하는 과정
 	@RequestMapping("blogWrite.me")
-	public String writer(@RequestParam String bkNo, Model m) {
-		m.addAttribute("bkNo", bkNo);
+	public String writer(@RequestParam String bkNo, @RequestParam Integer page, Model m) {
+		m.addAttribute("bkNo", bkNo).addAttribute("page", page);
 		return "blogWriter";
 	}
 	
 	
 	@RequestMapping("BlogInsert.me")
-	public String test(HttpSession session, @RequestParam String bContent, @RequestParam int bkNo, @RequestParam String bTitle, Model model) {
+	public String test(HttpSession session, @RequestParam String bContent, @RequestParam int bkNo, @RequestParam String bTitle, @RequestParam Integer page, Model model) {
 		bContent = bContent.replaceAll(System.getProperty("line.separator"), " ");
 		
 		Member loginUser = (Member) session.getAttribute("loginUser");
@@ -51,9 +54,9 @@ public class MemberController {
 		int result = mService.blogInsert(board);
 		
 		if(result > 0) {
-			return "redirect:myBlog.me?bkNo" + board.getBkNo();	
+			return "redirect:myBlog.me?bkNo=" + board.getBkNo() + "&page=" + page;	
 		} else {
-			return "redirect:myBlog.me?bkNo" + board.getBkNo();	
+			return "redirect:myBlog.me?bkNo=" + board.getBkNo() + "&page=" + page;	
 		}
 	}
 	
@@ -85,10 +88,24 @@ public class MemberController {
 		return "bucketWrite";
 	}
 	
+	// 내가 작성한 버킷/ 버킷에 따른 스토리/ 버킷에 대한 index번호
 	@RequestMapping("myBlog.me")
-	public String BucketBlog(HttpSession session, Model m, @RequestParam(value = "bkNo", required = false) String bkNo) {
+	public String BucketBlog(HttpSession session, Model m, @RequestParam(value = "bkNo", required = false) String bkNo, @RequestParam(value = "page", required = false) Integer page) {
+		int currentPage = 1;
+
+		if (page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = mService.getListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		ArrayList<MemberMyBucketList> myBucketList = mService.myBucketList(loginUser.getUserId());
+		ArrayList<MemberMyBucketList> myBucketList = mService.myBucketListPage(loginUser.getUserId(), pi);
+		
+		System.out.println(myBucketList.size());
+		
 		int bn = 0;
 		int index = 0;
 		if(bkNo == null) {
@@ -104,8 +121,12 @@ public class MemberController {
 				}
 			}
 		}
-		if(myBucketList != null) {
-			m.addAttribute("myBucketList", myBucketList).addAttribute("index", index);
+		
+		Board b = new Board(loginUser.getUserId(), bn);
+		ArrayList<Board> bList =  mService.getBoard(b);
+		
+		if(myBucketList != null & bList != null) {
+			m.addAttribute("myBucketList", myBucketList).addAttribute("index", index).addAttribute("bList", bList).addAttribute("pi", pi);
 			return "bucketBlog";
 		} else {			
 			return "bucketBlog";

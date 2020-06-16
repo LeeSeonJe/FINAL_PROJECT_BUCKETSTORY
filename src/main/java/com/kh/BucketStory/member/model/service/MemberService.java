@@ -2,6 +2,7 @@ package com.kh.BucketStory.member.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.member.model.vo.Board;
@@ -15,7 +16,10 @@ public interface MemberService{
 
 	int blogInsert(Board board);
 
-//	ArrayList<Media> myBucketListMedia(ArrayList<BucketList> bucketList);
-	
+	ArrayList<Board> getBoard(Board b);
+
+	int getListCount();
+
+	ArrayList<MemberMyBucketList> myBucketListPage(String userId, PageInfo pi);	
 	
 }

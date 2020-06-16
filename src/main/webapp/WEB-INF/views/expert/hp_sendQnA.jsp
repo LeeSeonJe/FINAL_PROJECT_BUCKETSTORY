@@ -10,8 +10,11 @@
 .divbody {
     width: 60%;
     margin: 0 auto;
+    text-align:center;
 }
-
+.divbody table{
+	 margin: 0 auto;
+}
 h2{
 	border-bottom: 1px solid black;
 }
@@ -28,6 +31,7 @@ h2{
 	<section>
 	<div class="divbody">	
 		<div>
+			<br>
 			<h2>QnA 작성하기</h2>
 		</div>
 		

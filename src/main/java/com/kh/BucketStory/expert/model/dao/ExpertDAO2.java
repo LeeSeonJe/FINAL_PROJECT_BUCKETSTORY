@@ -21,24 +21,25 @@ public class ExpertDAO2 {
 //	}
 
 	public int getListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("exMapper.getListCount");
+		return sqlSession.selectOne("exMapper2.getListCount");
 	}
 
 	public ArrayList<Pay> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("exMapper.selectList", null, rowBounds);
+		return (ArrayList) sqlSession.selectList("exMapper2.selectList", null, rowBounds);
 	}
 
-//	<select id = "getListCount" resultType ="_int">
-//	select count(*)
-//	from PAY
-//	</select>
-//
-//	<select id="selectList" resultMap = "boardResultSet">
-//	select *
-//	from PAY
-//	order by bid desc
-//	</select>
-	
+	public int insertPoint(SqlSessionTemplate sqlSession, Pay p) {
+		return sqlSession.update("exMapper2.insertPoint", p);
+	}
+
+	public int getYPoint(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("exMapper2.getYCount");
+	}
+	public int getNPoint(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("exMapper2.getNCount");
+	}
+
+
 }

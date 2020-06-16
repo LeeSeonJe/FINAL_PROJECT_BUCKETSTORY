@@ -70,6 +70,27 @@ section{
     border: 0;
     display: block;
 }
+.bucketStoryNick{
+	position: absolute;
+    width: 100px;
+    height: 30px;
+    text-align: left;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 30px;
+    color: rgb(24, 223, 211);
+    left: 10px;
+}
+.bucketStoryStory{
+	position: absolute;
+    width: 60px;
+    height: 30px;
+    text-align: right;
+    font-size: 15px;
+    line-height: 30px;
+    color: rgb(24, 223, 211);
+    right: 13.9px;
+}
 .bucketContent{
 	position:absolute;
 	width:100%;
@@ -174,15 +195,28 @@ section{
     font-size: 35px;
     cursor: pointer;
     font-weight: 700;
+    z-index: 100;
 }
-
 #bucketimg{
 	width:100%;
 	background:skyblue;
+	background-size: cover;
+	overflow: hidden;
+	position:relative;
+}
+#bucketimg ul{
+	width:10000000px;
+	position: absolute;
+	top:0;
+	left:0;
+	padding: 0;
+}
+#bucketimg ul li{
+	display: inline-block;
 }
 #bucketcate{
 	position: absolute;
-    bottom: 420px;
+    bottom: 120px;
     left: 20px;
     width: 100px;
     height: 20px;
@@ -192,7 +226,7 @@ section{
 }
 #buckettitle{
 	position: absolute;
-    bottom: 320px;
+    bottom: 20px;
     left: 10px;
     width: 500px;
     height: 90px;
@@ -213,6 +247,7 @@ section{
     background: rgb(0,0,0,0.3);
     text-align: center;
     line-height: 46.3px;
+    cursor: pointer;
 }
 #bucketleft:hover{
 	color:#36FFFF;
@@ -229,6 +264,7 @@ section{
     background: rgb(0,0,0,0.3);
     text-align: center;
     line-height: 46.3px;
+    cursor: pointer;
 }
 #bucketright:hover{
 	color:#36FFFF;
@@ -242,7 +278,7 @@ section{
     border-radius: 50px;
     line-height: 43.5px;
     font-weight: 700;
-    bottom: 320px;
+    bottom: 40px;
     right: 170px;
     text-align: center;
     font-size: 25px;
@@ -260,7 +296,7 @@ section{
     border: 1px solid white;
     color: white;
     border-radius: 50px;
-    bottom: 320px;
+    bottom: 40px;
     right: 100.9px;
     text-align: center;
     font-size: 30px;
@@ -277,7 +313,7 @@ section{
     border: 1px solid white;
     color: white;
     border-radius: 50px;
-    bottom: 320px;
+    bottom: 40px;
     right: 32.1px;
     text-align: center;
     font-size: 30px;
@@ -309,6 +345,10 @@ section{
     font-size: 11px;
     color: #666666;
     transition: border-color 0.3s;
+    cursor: pointer;
+}
+#bucketTag1:hover{
+	border-color: #10c5bc;
 }
 #bucketTag1>span{
 	color: #10c5bc;
@@ -369,21 +409,32 @@ section{
 	color:rgb(91, 90, 255);
 }
 #bucketwithPro{
-	width:90%;
-	margin-left: 5%;
-	margin-top:20px;
-	height:18px;
+	width: 90%;
+    margin-left: 5%;
+    margin-top: 20px;
+    height: 221.7px;
+    overflow: auto;
+}
+#profile-div{
+	float: left;
+    margin-left: 6px;
+    margin-top: 20px;
+    margin-right: 6px;
+    width: 60px;
+    height: 80px;
+    cursor: pointer;
 }
 #profile1{
-	margin-top:15px;
-	margin-left: 6px;
-    margin-right: 6px;
-    float: left;
     width: 60px;
     height: 60px;
     border-radius: 50px;
     background-image: url(../images/프로필.png);
     background-size: cover;
+}
+#profile2{
+	width: 60px;
+	height: 20px;
+	text-align: center;
 }
 #bucketwithBN{
 	position: absolute;

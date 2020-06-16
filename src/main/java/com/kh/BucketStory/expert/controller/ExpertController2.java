@@ -2,8 +2,11 @@ package com.kh.BucketStory.expert.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,12 +26,15 @@ public class ExpertController2 {
 	
 	// 테스트
 	@RequestMapping("gogo.ex")
-	public String expertInfo2() {
+	public String expertInfo1() {
 		return "hp_common";
 	}
 	
 	// 전문가 메인페이지
-	
+	@RequestMapping("expertIntro.ex")
+	public String expertInfo2() {
+		return "hp_intro";
+	}
 	
 	// 헬퍼뷰어 페이지
 	@RequestMapping("helperView.ex")
@@ -48,11 +54,48 @@ public class ExpertController2 {
 		return "hp_helperBucketList";
 	}
 	
+	
+	@RequestMapping("ptest.ex")
+	public void test(@ModelAttribute Pay p,HttpServletRequest request) {
+		System.out.println(p.toString());
+	}
+	
+	// 포인트 충전
+	@RequestMapping("pinsert.ex")
+	public String pointInsert(@ModelAttribute Pay p,HttpServletRequest request) {
+		
+		System.out.println(p);
+		
+		int result = ExService2.insertPoint(p);
+
+		if (result > 0) {
+			return "redirect:pointList.ex";
+		} else {
+			throw new ExpertException("포인트 충전에 실패하였습니다.");
+		}
+
+	}
+	
 	// 포인트 충전페이지
 	@RequestMapping("point.ex")
-	public String goPoint() {
-		return "hp_point";
+	public ModelAndView goPoint(ModelAndView mv) {
+//		return "hp_point";
+		mv.addObject("hp", getPoint());
+		mv.setViewName("hp_point");
+		return mv;
 	}
+	
+	// 보유 포인트 -> coid 
+	// 임시로 해둔것.; 로그인한 기업아이디로 계산해야된다.
+	public int getPoint() {
+		int yPoint = ExService2.getYPoint();
+		int nPoint = ExService2.getNPoint();
+		return yPoint - nPoint;
+	}
+	public int getPoint2(int coid) {
+		return 0;
+	}
+	
 	
 	// 포인트 내역 페이지
 	@RequestMapping("pointList.ex")
@@ -66,11 +109,13 @@ public class ExpertController2 {
 		int listCount = ExService2.getListCount();
 		PageInfo pi = pagination.getPageInfo(currentPage, listCount);
 		ArrayList<Pay> list = ExService2.selectList(pi);
-
+		
 		if (list != null) {
 			// list, pi, view
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
+			mv.addObject("hp", getPoint());
+			
 			mv.setViewName("hp_pointList");
 		} else {
 			throw new ExpertException("포인트 내역 조회에 실패했습니다.");
