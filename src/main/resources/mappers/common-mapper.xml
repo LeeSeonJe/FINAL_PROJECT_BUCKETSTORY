@@ -7,26 +7,66 @@
 		where userid=#{userId}
 	</select>
 	<resultMap id="commonResultSet" type="Member">
-	<id property="userId" column="USERID"/>
-	<result property="userPwd" column="USERPWD"/>
-	<result property="userName" column="USERNAME"/>
-	<result property="phone" column="PHONE"/>
-	<result property="email" column="EMAIL"/>
-	<result property="birth" column="BIRTH"/>
-	<result property="gender" column="GENDER"/>
-	<result property="nickName" column="NICKNAME"/>
-	<result property="caution" column="CAUTION"/>
-	<result property="prImage" column="PR_IMAGE"/>
-	<result property="fwCount" column="FW_COUNT"/>
-	<result property="enrollDate" column="ENROLLDATE"/>
+		<id property="userId" column="USERID"/>
+		<result property="userPwd" column="USERPWD"/>
+		<result property="userName" column="USERNAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="gender" column="GENDER"/>
+		<result property="nickName" column="NICKNAME"/>
+		<result property="caution" column="CAUTION"/>
+		<result property="prImage" column="PR_IMAGE"/>
+		<result property="fwCount" column="FW_COUNT"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+		<result property="state" column="STATE"/>
 	</resultMap>
 	
 	<insert id="insertMember" parameterType="Member">
 		insert into Member
-		values(#{userId}, #{userPwd}, #{userName}, #{phone}, #{email}, #{birth}, #{gender}, #{nickName}, default, null, default, sysdate)
+		values(#{userId}, #{userPwd}, #{userName}, #{phone}, #{email}, #{birth}, #{gender}, #{nickName}, default, null, default, sysdate, default)
 	</insert>
 	
 	
+	<select id="companyLogin" parameterType="Company" resultMap="CompanyResultSet">
+		select * 
+		from company
+		where coid=#{coId}
+	</select>	
+	<resultMap id="CompanyResultSet" type="Company">
+		<id property="coId" column="COID"/>
+		<result property="coPwd" column="COPWD"/>
+		<result property="coName" column="CONAME"/>
+		<result property="compaName" column="COMPANAME"/>
+		<result property="apName" column="APNAME"/>
+		<result property="homePage" column="HOMEPAGE"/>
+		<result property="coTel" column="COTEL"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="approval" column="APPROVAL"/>
+		<result property="busiEmail" column="BUSIEMAIL"/>
+		<result property="cpCheck" column="CPCHECK"/>
+		<result property="checkImg" column="CHECKIMG"/>
+		<result property="point" column="POINT"/>
+		<result property="cateNum" column="CATENUM"/>
+		<result property="coIntro" column="COINTRO"/>
+		<result property="coInfo" column="COINFO"/>
+	</resultMap>
 	
+	<insert id="insertCompany" parameterType="Company">
+		insert into Company
+		values(#{coId}, #{coPwd}, #{coName}, #{compaName}, #{apName}, #{homePage}, #{coTel}, sysdate, default, default, #{busiEmail}, #{cpCheck}, #{checkImg}, 0, #{cateNum}, null, null)
+	</insert>
+
+	<select id="findAccount" resultMap="commonResultSet">
+		select *
+		from member
+		where email=#{ email }
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="update_pw" parameterType="member">
+		update member set userPwd = #{userPwd} where userId = #{userId}
+	</update>
 	
 </mapper>
