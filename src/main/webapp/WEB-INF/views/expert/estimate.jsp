@@ -11,27 +11,27 @@
 <link rel="stylesheet" href="resources/expert/css/estimate.css">
 </head>
 <body>
-<c:import url="../layout/header.jsp"/>
-<c:import url="../layout/mainNav.jsp"/>
-<c:import url="../layout/mainLeftSide.jsp"/>
+<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 	<div id="page">
 		<h1 style="text-align:center;">견적서 작성</h1>
 		<br><br>
-		<h3 style="text-align:center;">제목:버킷리스트 이름</h3>
+		<h3 style="text-align:center;">버킷리스트:${ bucket.bkName }</h3>
 		
 		<div id="memberInfo">
 			<h2 class="subtitle">요청회원 정보</h2>
 			<br>
 			<table id="helperProfile" style="border:1px solid black;">
 				<tr>
-					<td rowspan="2"><img src="<%=request.getContextPath() %>/views/프로필.png" id="profileImage" ></td>
-					<td><h3>업체이름</h3></td>
+					<td rowspan="2"><img src="resources/expert/images/photo.jpg" id="profileImage" ></td>
+					<td><h3>${ company.coId }</h3></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td colspan="2">
 						<div>
-						업체 소개업체 소개업체 소개업체 소개업체 소개업체 소개업체 소개업체 소개업체 소개업체 소개업체 소개업체 소개업체 소개업체 소개
+							${ company.coIntro }
 						</div>
 					</td>
 				</tr>
@@ -46,8 +46,8 @@
 					<td>종료일</td>
 				</tr>
 				<tr>
-					<td><input type="date" id="startDate"></td>
-					<td><input type="date" id="endDate"></td>
+					<td><input type="date" id="esr_startDate" name="esr_startDate" value="${ er.esr_startDate }" readonly></td>
+					<td><input type="date" id="esr_endDate" name="esr_endDate" value="${ er.esr_endDate }" readonly></td>
 				</tr>
 			</table>
 		</div>
@@ -55,7 +55,7 @@
 		<br>
 		<div id="subtitle">
 			<h2 class="subtitle">견적 요청사항</h2>
-			<textarea rows="10" cols="100" id="Precautions" name="Precautions"></textarea>
+			<textarea rows="10" cols="100" id="Precautions" name="Precautions" readonly>${ er.precautions }</textarea>
 		</div>
 		<br>
 		<br>
@@ -69,25 +69,12 @@
 				</tr>
 				<tr class="optionAdd">
 					<td></td>
-					<td><input type="text" id="optionName" name="optionName" style="width:100%;" placeholder="옵션이름"></td>
+					<td><input type="text" class="optionName" name="optionName" style="width:100%;" placeholder="옵션이름"></td>
 					<td></td>
-					<td><input type="number" id="optionCost" name="optionCost" style="width:100%;" placeholder="옵션가격"></td>
+					<td><input type="number" class="optionCost" name="optionCost" style="width:100%;" placeholder="옵션가격"></td>
 					<td></td>
 				</tr>
-				<tr class="optionAdd">
-					<td></td>
-					<td><input type="text" id="optionName" name="optionName" style="width:100%;" placeholder="옵션이름"></td>
-					<td></td>
-					<td><input type="number" id="optionCost" name="optionCost" style="width:100%;" placeholder="옵션가격"></td>
-					<td><b class="deleteOption">&nbsp;x</b></td>
-				</tr>
-				<tr class="optionAdd">
-					<td></td>
-					<td><input type="text" id="optionName" name="optionName" style="width:100%;" placeholder="옵션이름"></td>
-					<td></td>
-					<td><input type="number" id="optionCost" name="optionCost" style="width:100%;" placeholder="옵션가격"></td>
-					<td><b class="deleteOption">&nbsp;x</b></td>
-				</tr>
+				
 				<tr>
 					<td></td>
 					<td></td>
@@ -108,9 +95,9 @@
 				$('#addOption').on('click',function(){
 					var optionTr = '<tr class="optionAdd">'
 								   +'<td></td>'
-								   +'<td><input type="text" id="optionName" name="optionName" style="width:100%;" placeholder="옵션이름"></td>'
+								   +'<td><input type="text" class="optionName" name="optionName" style="width:100%;" placeholder="옵션이름"></td>'
 								   +'<td></td>'
-					               +'<td><input type="number" id="optionCost" name="optionCost" style="width:100%;" placeholder="옵션가격"></td>'
+					               +'<td><input type="number" class="optionCost" name="optionCost" style="width:100%;" placeholder="옵션가격"></td>'
 								   +'<td><b class="deleteOption">&nbsp;x</b></td>'
 					               +'</tr>';
 				

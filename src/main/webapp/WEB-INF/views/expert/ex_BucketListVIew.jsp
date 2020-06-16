@@ -11,9 +11,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="../common/header.jsp"/>
-<c:import url="../common/mainNav.jsp"/>
-<c:import url="../common/mainLeftSide.jsp"/>
+<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 	<div id="page">
 		<div id="categorybar">
 			<img class="category" src="">

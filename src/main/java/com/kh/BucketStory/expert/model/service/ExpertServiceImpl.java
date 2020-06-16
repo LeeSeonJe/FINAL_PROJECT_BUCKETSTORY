@@ -12,6 +12,7 @@ import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.ComInBucket;
 import com.kh.BucketStory.expert.model.dao.ExpertDAO;
 import com.kh.BucketStory.expert.model.vo.Company;
+import com.kh.BucketStory.expert.model.vo.EsRequest;
 
 @Service("ExService")
 public class ExpertServiceImpl implements ExpertService {
@@ -42,5 +43,21 @@ public class ExpertServiceImpl implements ExpertService {
 	@Override
 	public ArrayList<BucketList> selectComBucket(String coId) {
 		return exDAO.selectComBucket(sqlSession,coId);
+	}
+	@Override
+	public BucketList selectBucket(int bkNo) {
+		return exDAO.selectBucket(sqlSession,bkNo);
+	}
+	@Override
+	public int insertEsrequest(EsRequest er) {
+		return exDAO.insertEsrequest(sqlSession,er);
+	}
+	@Override
+	public ArrayList<EsRequest> selectEsRequest(String coId) {
+		return exDAO.selectEsRequest(sqlSession,coId);
+	}
+	@Override
+	public EsRequest RequestDetail(String esr_no) {
+		return exDAO.RequestDetail(sqlSession,esr_no);
 	}
 }

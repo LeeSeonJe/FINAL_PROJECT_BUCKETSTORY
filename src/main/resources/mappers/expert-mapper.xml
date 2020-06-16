@@ -7,10 +7,65 @@
 		from company
 		where coid=#{coId} and status='Y'
 	</select>
+
+	<update id="updateExInfo">
+		update company 
+		set cointro=#{coIntro}, coinfo=#{coInfo}
+		where coid=#{coId}
+	</update>
+	
+	<select id="selectCateList" resultMap="BucketResultSet">
+		select *
+		from bucketlist
+		where catenum = #{catenum}
+	</select>
+	
+	<update id="insertComBucket">
+		insert into cominbucket(COINBUCKET,COID,BKNO,BUCKETENROLL)
+		select seq_cominbucket.nextval,A.* from(
+		<foreach item="item" index="index" collection="list" separator="UNION ALL ">
+			select #{item.coId} as COID,
+				   #{item.bkNo} as BKNO,
+				   sysdate as BUCKETENROLL
+			from dual
+		</foreach>) A
+ 	</update>
+	
+	<select id="selectComBucket" resultMap="BucketResultSet">
+		select *
+		from bucketlist
+		where bkno in (select bkno 
+                    from cominbucket 
+                    where coid=#{coid})
+	</select>
+	
+	<select id="selectBucket" resultMap="BucketResultSet">
+		select*
+		from bucketlist
+		where bkno =#{bkNo}
+	</select>
+	
+	<insert id="insertEsrequest">
+		insert into ESREQUEST
+		values(seq_esrequest.nextval,#{esr_endDate},sysdate,#{userId},#{coId},#{bkNo},#{esr_startDate},#{precautions})
+	</insert>
+	
+	<select id="selectEsRequest" resultMap="esrequestSet">
+		select * 
+		from esrequest
+		where coid =#{coId}
+	</select>
+
+	<select id="RequestDetail" resultMap="esrequestSet">
+		select *
+		from esrequest
+		where esr_no =#{ esr_no }
+	</select>
+	
 	
 	<resultMap id="CompanyResultSet" type="Company">
 		<id property="coId" column="COID"/>
-		<result property="pwd" column="COPWD"/>
+		<result property="coPwd" column="COPWD"/>
 		<result property="coName" column="CONAME"/>
 		<result property="compaName" column="COMPANAME"/>
 		<result property="apName" column="APNAME"/>
@@ -28,19 +83,6 @@
 		<result property="coInfo" column="COINFO"/>
 	</resultMap>
 
-	<update id="updateExInfo">
-		update company 
-		set cointro=#{coIntro}, coinfo=#{coInfo}
-		where coid=#{coId}
-	</update>
-	
-	<select id="selectCateList" resultMap="BucketResultSet">
-		select *
-		from bucketlist
-		where catenum = #{catenum}
-	
-	</select>
-	
 	<resultMap type="Bucket" id="BucketResultSet">
 		<id property="bkNo" column="BKNO"/>
 		<result property="bkName" column="BKNAME"/>
@@ -53,31 +95,21 @@
 		<result property="cateNum" column="CATENUM"/>
 	</resultMap>
 	
-	<update id="insertComBucket">
-		insert into cominbucket(COINBUCKET,COID,BKNO,BUCKETENROLL)
-		select seq_cominbucket.nextval,A.* from(
-		<foreach item="item" index="index" collection="list" separator="UNION ALL ">
-			select #{item.coId} as COID,
-				   #{item.bkNo} as BKNO,
-				   sysdate as BUCKETENROLL
-			from dual
-		</foreach>) A
- 	</update>
-	
-	<select id="selectBucket" resultMap="BucketResultSet">
-		select *
-		from bucketlist
-		where bkno in (select bkno 
-                    from cominbucket 
-                    where coid=#{coid})
-	</select>
-	
-	
-	
 	<resultMap type="ComInBucket" id="ComInBucketSet">
 		<id property="coinbucket" column="COINBUCKET"/>
 		<result property="coId" column="COID"/>
 		<result property="bkNo" column="BKNO"/>
 		<result property="bucketEnroll" column="BUCKETENROLL"/>
+	</resultMap>
+	
+	<resultMap type="Esrequest" id="esrequestSet">
+		<id property="esr_no" column="ESR_NO"/>
+		<result property="esr_enrollDate" column="ESR_ENROLLDATE"/>
+		<result property="esr_startDate" column="ESR_STARTDATE"/>
+		<result property="esr_endDate" column="ESR_ENDDATE"/>
+		<result property="precautions" column="PRECAUTIONS"/>
+		<result property="userId" column="USERID"/>
+		<result property="coId" column="COID"/>
+		<result property="bkNo" column="BKNO"/>
 	</resultMap>
 </mapper>

@@ -9,14 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="../common/header.jsp"/>
-<c:import url="../common/mainNav.jsp"/>
-<c:import url="../common/mainLeftSide.jsp"/>
+<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
+<c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 	<div id="page">
 		<div id="submenu">
 			<ul>
-				<li>받은요청 &nbsp</li>
-				<li>진행중 &nbsp</li>
+				<li><a href="getRequest.ex?coId=${ coId }">받은요청 &nbsp</a></li>
+				<li><a href="makingRequestView.ex?coId=${ coId }">진행중 &nbsp</a></li>
 				<li><h3 style="display: inline;">완료요청</h3></li>
 			</ul>
 		</div>
