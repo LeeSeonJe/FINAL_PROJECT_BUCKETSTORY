@@ -1,5 +1,6 @@
 package com.kh.BucketStory.expert.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.BucketStory.expert.model.exception.ExpertException;
+import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
+import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
 import com.kh.BucketStory.expert.model.vo.pagination;
@@ -22,6 +25,9 @@ import com.kh.BucketStory.expert.model.vo.pagination;
 public class ExpertController2 {
 	
 	// 의존성주입
+	@Autowired
+	private ExpertService ExService;
+	
 	@Autowired
 	private ExpertService2 ExService2;
 	
@@ -39,14 +45,80 @@ public class ExpertController2 {
 	
 	// 헬퍼뷰어 페이지
 	@RequestMapping("helperView.ex")
-	public String goHelperView() {
-		return "hp_helperView";
+	public ModelAndView  goHelperView(@RequestParam("coid") String coId,
+			ModelAndView mv) {
+		Company company = ExService.selectCompanyInfo(coId);
+		mv.addObject("com", company);
+		mv.setViewName("hp_helperView");
+		return mv;
 	}
+	
+//	<!-- 	coId 기업아이디 -->
+//	<!-- 	coPwd 비밀번호 -->
+//	<!-- 	coName 기업명-->
+//	<!-- 	compaName 업종명 -->
+//	<!-- 	apName 신청자이름 -->
+//	<!-- 	homePage 홈페이지 -->
+//	<!-- 	coTel 전화번호 -->
+//	<!-- 	enrollDate 가입날짜 -->
+//	<!-- 	status -->
+//	<!-- 	approval 승인여부 -->
+//	<!--    busiEmail 이메일 -->
+//	<!-- 	cpCheck 기업전문가여부 -->
+//	<!-- 	checkImg 인증사진 -->
+//	<!--    point 포인트 -->
+//	<!-- 	cateNum 카테고리 번호 -->
+//	<!-- 	coIntro 업체소개-->
+//	<!--    coInfo 업체정보-->
+
+	/*
+	 * 		public Company(String coId, String coName, String homePage, String coTel, Date enrollDate, String busiEmail,
+				int cpCheck, String checkImg, int cateNum, String coIntro, String coInfo) {
+			super();
+			this.coId = coId;
+			this.coName = coName;
+			this.homePage = homePage;
+			this.coTel = coTel;
+			this.enrollDate = enrollDate;
+			this.busiEmail = busiEmail;
+			this.cpCheck = cpCheck;
+			this.checkImg = checkImg;
+			this.cateNum = cateNum;
+			this.coIntro = coIntro;
+			this.coInfo = coInfo;
+		}
+	 */
+	@RequestMapping("helperUpdate.ex")
+	public void helperUpdate(HttpServletRequest request) {
+		
+	    String coId = request.getParameter("coId");
+	    System.out.println(coId);
+		String coName = request.getParameter("coName");
+		String compaName = request.getParameter("compaName");
+		String coIntro = request.getParameter("coIntro");
+		
+//		Company c = new Company()
+		
+
+		 int result = ExService2.updateCompany(coName,compaName,coIntro);
+		 
+		 
+		System.out.println("진입");
+		
+		System.out.println(coName + ", " + compaName);
+
+	}
+	
 //	
 //	// 헬퍼수정 페이지
 	@RequestMapping("helperEdit.ex")
-	public String goHelperEdit() {
-		return "hp_helperEdit";
+	public ModelAndView goHelperEdit(@RequestParam("coid") String coId,
+			ModelAndView mv)  {
+		
+		Company company = ExService.selectCompanyInfo(coId);
+		mv.addObject("com", company);
+		mv.setViewName("hp_helperEdit");
+		return mv;
 	}
 	
 	// 헬퍼버킷리스트 페이지

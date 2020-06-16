@@ -50,8 +50,8 @@
 
     <div id="sub-area">
         <ul class='sub-c' id ="sub-item1">
-            <li><a href="helperView.ex">헬퍼뷰어</a></li>
-            <li><a href="helperEdit.ex">헬퍼수정</a></li>
+            <li><a href="helperView.ex?coid=TEST">헬퍼뷰어</a></li>
+            <li><a href="helperEdit.ex?coid=TEST">헬퍼수정</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item2">
             <li><a href="helperBucketList.ex">헬퍼버킷리스트</a></li>

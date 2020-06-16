@@ -57,6 +57,11 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 		return exDAO2.getNPoint(sqlSession,coId);
 	}
 
+	@Override
+	public int updateCompany(String coName, String compaName, String coIntro) {
+		return 0;
+	}
+
 	
 
 
