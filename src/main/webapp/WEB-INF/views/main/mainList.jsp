@@ -165,6 +165,8 @@
 	
 </body>
 <script>
+	first = 1;
+	dataNum = 0;
 $(function(){
 	// --현재 메뉴바 표시
 	$('#cssmenu>ul>li:eq(0)>a').css({'color':'#18dfd3','border-bottom':'2px solid #10ccc3'});
@@ -227,6 +229,7 @@ $(function(){
 		$('#bucketleft').css('top', bkhg/2);
 		$('#bucketright').css('top', bkhg/2);
 		$('#bucketimg img').css('width', $('#bucketimg').width());
+		console.log();
 		$('#bucketimg img').css('height', bkhg);
 	});
 	
@@ -369,6 +372,8 @@ $(function(){
 	}
 	
 	function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
+		first = 1;
+		dataNum = 0;
 		switch(cateNum){
 		case 1: $('#bucketcate').html('<span style="color:#00c5bc;">Travel</span>'); break;
 		case 2: $('#bucketcate').html('<span style="color:#fd8ab1;">Sport</span>'); break;
@@ -472,57 +477,51 @@ $(function(){
 			}
 		});
 	}
-$(function(){
-	dataNum = 0;
-	first = 1;
-	
-	
-	function left(bkNo){
-		$.ajax({
-			url:'blogMedia.ho',
-			data:{
-				bkNo:bkNo
-			},
-			async : false,
-			success:function(data){
-				if(data.length > 0){
-					dataNum = data.length;
-				}
+function left(bkNo){
+	$.ajax({
+		url:'blogMedia.ho',
+		data:{
+			bkNo:bkNo
+		},
+		async : false,
+		success:function(data){
+			if(data.length > 0){
+				dataNum = data.length+1;
 			}
-		});
-		var val1 = $('#bucketimg>ul').css('left').replace('px', '');
-		var val2 = $('#bucketimg').width();
-		var leftval = val1 + val2;
-		if(first > 1){
-			$('#bucketimg>ul').animate({
-				left:leftval
-			});
-			first--;
 		}
+	});
+	var val1 = $('#bucketimg>ul').css('left').replace('px', '');
+	var val2 = $('#bucketimg li').width();
+	var leftval = parseInt(val1) + val2;
+	if(first > 1){
+		$('#bucketimg>ul').animate({
+			left:leftval
+		});
+		first--;
 	}
-	function right(bkNo){
-		$.ajax({
-			url:'blogMedia.ho',
-			data:{
-				bkNo:bkNo
-			},
-			async : false,
-			success:function(data){
-				if(data.length > 0){
-					dataNum = data.length;
-				}
+}
+function right(bkNo){
+	$.ajax({
+		url:'blogMedia.ho',
+		data:{
+			bkNo:bkNo
+		},
+		async : false,
+		success:function(data){
+			if(data.length > 0){
+				dataNum = data.length+1;
 			}
-		});
-		var val1 = $('#bucketimg>ul').css('left').replace('px', '');
-		var val2 = $('#bucketimg').width();
-		var leftval = val1 - val2;
-		if(first < dataNum){
-			$('#bucketimg>ul').animate({
-				left:leftval
-			});
-			first++;
 		}
+	});
+	var val1 = $('#bucketimg>ul').css('left').replace('px', '');
+	var val2 = $('#bucketimg li').width();
+	var leftval = val1 - val2;
+	if(first < dataNum){
+		$('#bucketimg>ul').animate({
+			left:leftval
+		});
+		first++;
 	}
-});
+}
 </script>
 </html>
