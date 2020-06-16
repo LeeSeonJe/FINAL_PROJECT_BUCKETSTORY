@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +23,7 @@ import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.main.model.service.MainService;
+import com.kh.BucketStory.member.model.vo.Board;
 
 @Controller
 public class MainController {
@@ -130,7 +129,6 @@ public class MainController {
 				returnString = m.getMweb();
 			}
 		}
-		returnString = returnString.substring(0, 5);
 		return returnString;
 	}
 	
@@ -142,6 +140,28 @@ public class MainController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		try {
 			gson.toJson(ShareMList, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("blogMedia.ho")
+	public void bucketDetailBlogMedia(@RequestParam("bkNo") int bkNo, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		
+		ArrayList<Board> bMList = mainService.selectbMList(bkNo);
+		ArrayList<String> list = new ArrayList<String>();
+		for(Board b : bMList) {
+			int val = b.getbContent().indexOf("blogUploade/");
+			list.add(b.getbContent().substring(val + 12 , val + 66));
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		try {
+			gson.toJson(list, response.getWriter());
 		} catch (JsonIOException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

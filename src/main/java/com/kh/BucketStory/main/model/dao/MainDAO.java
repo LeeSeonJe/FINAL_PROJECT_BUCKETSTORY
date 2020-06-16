@@ -11,6 +11,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.member.model.vo.Board;
 
 @Repository("mainDAO")
 public class MainDAO {
@@ -97,6 +98,10 @@ public class MainDAO {
 
 	public ArrayList<Member> selectShareMList(SqlSessionTemplate sqlSession, int bkNo) {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectShareMList", bkNo);
+	}
+
+	public ArrayList<Board> selectbMList(SqlSessionTemplate sqlSession, int bkNo) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectbMList", bkNo);
 	}
 
 	

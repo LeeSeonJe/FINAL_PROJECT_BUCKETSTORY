@@ -7,6 +7,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.member.model.vo.Board;
 
 public interface MainService {
 
@@ -25,5 +26,7 @@ public interface MainService {
 	ArrayList<ShareBucket> selectShareList(String userId);
 
 	ArrayList<Member> selectShareMList(int bkNo);
+
+	ArrayList<Board> selectbMList(int bkNo);
 
 }

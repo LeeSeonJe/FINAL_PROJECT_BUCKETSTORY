@@ -14,7 +14,6 @@ public class Board {
 	private int bkNo;
 
 	public Board() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Board(String userid, int bkNo) {

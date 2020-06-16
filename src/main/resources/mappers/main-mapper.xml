@@ -135,4 +135,11 @@
 	<result property="enrollDate" column="ENROLLDATE"/>
 	</resultMap>
 	
+	<!-- 블로그불러오기 -->
+	<select id="selectbMList" resultType="Board">
+		select *
+		from board
+		where bkno = #{bkNo}
+	</select>
+	
 </mapper>
