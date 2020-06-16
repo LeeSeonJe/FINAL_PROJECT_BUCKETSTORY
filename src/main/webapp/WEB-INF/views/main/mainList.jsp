@@ -229,7 +229,6 @@ $(function(){
 		$('#bucketleft').css('top', bkhg/2);
 		$('#bucketright').css('top', bkhg/2);
 		$('#bucketimg img').css('width', $('#bucketimg').width());
-		console.log();
 		$('#bucketimg img').css('height', bkhg);
 	});
 	
@@ -301,6 +300,8 @@ $(function(){
 			$('#bucketcpeventD>button').text("행사 펼치기");
 		}
 	});
+	
+	//버킷슬라이드 버튼 숨기기
 });
 	//버킷 좋아요 올리기
 	function blLikeUp(bkNo){
@@ -374,6 +375,8 @@ $(function(){
 	function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 		first = 1;
 		dataNum = 0;
+		$('#bucketimg>ul').css('left', 0);
+		$('#bucketimg>ul').html('');
 		switch(cateNum){
 		case 1: $('#bucketcate').html('<span style="color:#00c5bc;">Travel</span>'); break;
 		case 2: $('#bucketcate').html('<span style="color:#fd8ab1;">Sport</span>'); break;
@@ -498,6 +501,11 @@ function left(bkNo){
 			left:leftval
 		});
 		first--;
+		if(first == 1){
+			$('#bucketleft').hide();
+		} else{
+			$('#bucketleft').show();
+		}
 	}
 }
 function right(bkNo){
@@ -521,6 +529,11 @@ function right(bkNo){
 			left:leftval
 		});
 		first++;
+		if(first == dataNum){
+			$('#bucketright').hide();
+		} else{
+			$('#bucketright').show();
+		}
 	}
 }
 </script>
