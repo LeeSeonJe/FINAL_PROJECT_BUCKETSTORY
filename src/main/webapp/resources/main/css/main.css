@@ -248,6 +248,7 @@ section{
     text-align: center;
     line-height: 46.3px;
     cursor: pointer;
+    display: none;
 }
 #bucketleft:hover{
 	color:#36FFFF;
