@@ -18,7 +18,7 @@ public interface MemberService{
 
 	ArrayList<Board> getBoard(Board b);
 
-	int getListCount();
+	int getListCount(String string);
 
 	ArrayList<MemberMyBucketList> myBucketListPage(String userId, PageInfo pi);	
 	

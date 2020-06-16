@@ -38,8 +38,8 @@ public class MemberDAO {
 		return (ArrayList) sqlSession.selectList("memberMapper.getBoard", b);
 	}
 
-	public int getListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("memberMapper.getListCount");
+	public int getListCount(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("memberMapper.getListCount", userId);
 	}
 
 	public ArrayList<MemberMyBucketList> myBucketListPage(SqlSessionTemplate sqlSession, String userId, PageInfo pi) {

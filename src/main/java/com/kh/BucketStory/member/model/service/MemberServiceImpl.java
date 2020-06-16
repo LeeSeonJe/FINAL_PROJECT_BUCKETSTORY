@@ -43,8 +43,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int getListCount() {
-		return mDAO.getListCount(sqlSession);
+	public int getListCount(String userId) {
+		return mDAO.getListCount(sqlSession, userId);
 	}
 
 	@Override

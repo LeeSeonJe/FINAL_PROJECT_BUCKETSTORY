@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -91,44 +92,47 @@ public class MemberController {
 	// 내가 작성한 버킷/ 버킷에 따른 스토리/ 버킷에 대한 index번호
 	@RequestMapping("myBlog.me")
 	public String BucketBlog(HttpSession session, Model m, @RequestParam(value = "bkNo", required = false) String bkNo, @RequestParam(value = "page", required = false) Integer page) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
 		int currentPage = 1;
 
 		if (page != null) {
 			currentPage = page;
 		}
 		
-		int listCount = mService.getListCount();
+		int listCount = mService.getListCount(loginUser.getUserId());
 		
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		Member loginUser = (Member) session.getAttribute("loginUser");
 		ArrayList<MemberMyBucketList> myBucketList = mService.myBucketListPage(loginUser.getUserId(), pi);
-		
-		System.out.println(myBucketList.size());
-		
 		int bn = 0;
 		int index = 0;
-		if(bkNo == null) {
-			bkNo = myBucketList.get(0).getBkNo() + "";
-			bn = Integer.parseInt(bkNo);
-			index = 0;
+		if(myBucketList.isEmpty()) {
 		} else {
-			bn = Integer.parseInt(bkNo);
-			for(int i = 0; i < myBucketList.size(); i++) {
-				if(myBucketList.get(i).getBkNo() == bn) {
-					index = i;
-					break;
+			if(bkNo == null) {
+				bkNo = myBucketList.get(0).getBkNo() + "";
+				bn = Integer.parseInt(bkNo);
+				index = 0;
+			} else {
+				bn = Integer.parseInt(bkNo);
+				for(int i = 0; i < myBucketList.size(); i++) {
+					if(myBucketList.get(i).getBkNo() == bn) {
+						index = i;
+						break;
+					}
 				}
-			}
+			}			
 		}
+		
 		
 		Board b = new Board(loginUser.getUserId(), bn);
 		ArrayList<Board> bList =  mService.getBoard(b);
 		
+		
 		if(myBucketList != null & bList != null) {
-			m.addAttribute("myBucketList", myBucketList).addAttribute("index", index).addAttribute("bList", bList).addAttribute("pi", pi);
+			m.addAttribute("myBucketList", myBucketList).addAttribute("index", index).addAttribute("bList", bList).addAttribute("pi", pi);				
 			return "bucketBlog";
 		} else {			
+			System.out.println("TEST3");
 			return "bucketBlog";
 		}
 	}
