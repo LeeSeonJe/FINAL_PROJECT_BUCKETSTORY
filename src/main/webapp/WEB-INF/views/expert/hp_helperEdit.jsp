@@ -40,8 +40,11 @@
       <div class="inner" >
 <%--    <h1 align="center">'${ loginUser.name }'님의 정보 수정</h1> --%>
 <!--    <br> -->
-       <form id ="submitform">
 
+       <form id ="submitform" action ="helperUpdate.ex">
+	
+		<p>${com}</p>
+		
         <table class ="et th1">
             <tr>
                 <th colspan="3" class ="title">회원정보 수정(헬퍼)</th>
@@ -50,8 +53,14 @@
                 <th colspan="3"><p class ="op">&nbsp;</p></th>
             </tr>
             <tr>
+            	<td class ="rown">가입날짜</td>
+            	<td><p>${com.enrollDate }</p></td>
+            	<td></td>
+            </tr>
+            <tr>
                 <td class ="rown">회원아이디</td>
-                <td><input type ="text"></td>
+                <td><p style="color:red">${com.coId}</p><input type="hidden" value="${com.coId }" name ="coId">
+<%--                 <input type ="text" value ="${com.coId}" readonly style="color:red"></td> --%>
                 <td>아이디는 변경 불가합니다.</td>
             </tr>
             <tr>
@@ -66,21 +75,27 @@
             </tr>
             <tr>
                 <td class ="rown">Email</td>
-                <td><input type ="text"></td>
+                <td><input type ="text" value="${com.busiEmail}"></td>
             </tr>
             <tr>
                 <td class ="rown">Phone</td>
-                <td><input type ="text" placeholder="-는 빼고 입력해주세요."></td>
+                <td><input type ="text" placeholder="-는 빼고 입력해주세요." value="${com.coTel}"></td>
             </tr>
+            
             <tr>
-                <td class ="rown">주소</td>
-                <td><input type ="text"></td>
-                <td><button class ="btn">주소찾기</button></td>
+                <td class ="rown">Hompage</td>
+                <td><input type ="text" value="${com.homePage}"></td>
             </tr>
-            <tr>
-                <td class ="rown">상세주소</td>
-                <td><input type ="text"></td>
-            </tr>
+            
+<!--             <tr> -->
+<!--                 <td class ="rown">주소</td> -->
+<!--                 <td><input type ="text"></td> -->
+<!--                 <td><button class ="btn">주소찾기</button></td> -->
+<!--             </tr> -->
+<!--             <tr> -->
+<!--                 <td class ="rown">상세주소</td> -->
+<!--                 <td><input type ="text"></td> -->
+<!--             </tr> -->
         </table>
   
 
@@ -101,12 +116,17 @@
             </tr>
             <tr>
                 <td class ="rown"><p>업체이름</p></td>
-                <td><input type="text"></td>
+                <td><input type="text" value ="${com.coName }" name ="coName"></td>
+            </tr>
+            
+            <tr>
+                <td class ="rown"><p>업종명</p></td>
+                <td><input type="text" value ="${com.compaName }" name ="compaName"></td>
             </tr>
 
             <tr>
                 <td class ="rown"><p>업체소개</p></td>
-                <td colspan="2"><textarea id="textArea">저희 업체는 어쩌구~~</textarea></td>
+                <td colspan="2"><textarea id="textArea" name ="coInro">${com.coIntro}</textarea></td>
             </tr>
             <tr>
                 <th colspan="3"><p class ="op">&nbsp;</p></th>
