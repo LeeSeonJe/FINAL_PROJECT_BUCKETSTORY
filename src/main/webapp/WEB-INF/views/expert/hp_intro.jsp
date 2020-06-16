@@ -43,7 +43,7 @@
 //       dI0Zub0mCYU
       function onYouTubePlayerAPIReady(){
          player = new YT.Player('muteYouTubeVideoPlayer', {
-            videoId : '0mscJXxvR8E',
+            videoId : 'dI0Zub0mCYU',
             playerVars : {
                autoplay : 1,       // Auto-play the video on load // 자동 재생 (유)
                controls : 0,       // Show pause/play buttons in player // 컨트롤러의 유무 (무)
@@ -53,7 +53,7 @@
                showinfo : 0,       // Hide the video title // 재생 영상에 대한 정보 유무
                modestbranding : 1, // Hide the Youtube Logo
                loop : 1,          // Run the video in a loop // 반복 재생에 대한 여부
-               playlist : '0mscJXxvR8E',
+               playlist : 'dI0Zub0mCYU',
                
              
                fs : 0,          // Hide the full screen button

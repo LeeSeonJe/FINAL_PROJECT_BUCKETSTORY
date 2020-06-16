@@ -11,6 +11,7 @@
 		margin-top : 50px;
 		z-index:-1;
 	}
+
 </style>
 </head>
 <body>
@@ -43,9 +44,10 @@
 
        <form id ="submitform" action ="helperUpdate.ex">
 	
-		<p>${com}</p>
+		
 		
         <table class ="et th1">
+        <p>${com}</p>
             <tr>
                 <th colspan="3" class ="title">회원정보 수정(헬퍼)</th>
             </tr>
@@ -111,8 +113,8 @@
             <tr>
                 <td class ="rown"><p>업체사진</p></td>
                 <td><div id="igm-area">
-                    <img src ="../image/barbara-girls.jpg" alt=""></div></td>
-                <td><button class="btn">사진넣기</button></td>
+                     <img id="foo" src="#" alt="없음"/></div></td>
+                <td><input type="file" name="uploadFile" id="imgInp"></td>
             </tr>
             <tr>
                 <td class ="rown"><p>업체이름</p></td>
@@ -145,5 +147,22 @@
         </div>
         
     </section>
+    
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#foo').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function() {
+        readURL(this);
+    });
+</script>
+
 </body>
 </html>

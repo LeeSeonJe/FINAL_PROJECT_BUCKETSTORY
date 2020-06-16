@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel ="stylesheet" href ="resources/expert/css/hp_common.css">
 <link rel ="stylesheet" href ="resources/expert/css/hp_pointList.css">
 <style>
 #point-nav ul li:last-child{
