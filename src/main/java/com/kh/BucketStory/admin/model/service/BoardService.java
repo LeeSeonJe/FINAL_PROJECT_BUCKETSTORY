@@ -17,6 +17,9 @@ public interface BoardService {
 
 	adminQnA adminqnadetail(int qno);
 
+	int updateQnAanswer(adminQnA ad);
+
+
 
 
 

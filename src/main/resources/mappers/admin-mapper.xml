@@ -11,6 +11,7 @@
 		from QNA
 		order by q_no desc
 	</select>
+	
 	<resultMap type="adminQnA" id="QnAResultSet">
 		<id property="q_no" column="Q_NO"/>
 		<result property="q_title" column="Q_TITLE"/>
@@ -18,7 +19,7 @@
 		<result property="q_date" column="Q_DATE"/>
 		<result property="answer" column="ANSWER"/>
 		<result property="an_date" column="AN_DATE"/>
-		<result property="ad_content" column="AN_CONTENT"/>
+		<result property="an_content" column="AN_CONTENT"/>
 		<result property="userid" column="USERID"/>
 		<result property="coid" column="COID"/>
 	</resultMap>
@@ -38,7 +39,11 @@
 		select *
 		from qna
 		where q_no = #{qno} 
-		
 	</select>
-
+	
+	<update id="updateQnAanswer">
+		update qna
+		set answer = 'Y', an_content = #{an_content}, an_date = sysdate
+		where answer = 'N' and q_no = #{q_no}
+	</update>
 </mapper >
