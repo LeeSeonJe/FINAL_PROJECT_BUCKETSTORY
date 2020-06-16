@@ -41,6 +41,11 @@ public class BoardDAO {
 		return sqlSession.selectOne("boardMapper.adminqnadetail", qno);
 	}
 
+	public int updateQnAanswer(SqlSessionTemplate sqlSession, adminQnA ad) {
+		return sqlSession.update("boardMapper.updateQnAanswer", ad);
+	}
+
+
 
 
 }

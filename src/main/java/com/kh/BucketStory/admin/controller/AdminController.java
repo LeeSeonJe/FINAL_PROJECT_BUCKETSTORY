@@ -3,17 +3,21 @@ package com.kh.BucketStory.admin.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -121,7 +125,7 @@ public class AdminController {
 			mv.addObject("pi", pi);
 			mv.setViewName("adminQnAboard");
 		} else {
-			throw new BoardException("게시물 등록에 실패하였습니다.");
+			throw new BoardException("실패하였습니다.");
 		}
 		
 		return mv;
@@ -132,11 +136,62 @@ public class AdminController {
 	public ModelAndView adminqnadetail(@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
 		
 		adminQnA adminQnA = bService.adminqnadetail(qno);
+		System.out.println("adminQnA 컨트롤러 " + adminQnA);
 		
 		mv.addObject("adminQnA", adminQnA)
 		  .addObject("page", page)
-		  .setViewName("adminQnADetail");
+		  .setViewName("adminQnAinsert");
 		
 		return mv;
+	}
+	
+	/* qna 답변하기 */
+	@RequestMapping("addAnswer.ad")
+	public ModelAndView adminqnaanswer(@ModelAttribute adminQnA ad, @RequestParam("q_no") int qno, @RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		
+		System.out.println("AdminController ad : " + ad);
+		
+		int result = bService.updateQnAanswer(ad);
+		
+		if(result > 0){
+			mv.addObject("q_no", qno)
+			  .addObject("page", page)
+			  .setViewName("redirect:qnaupdate.ad");
+			return mv;
+					
+					
+		} else {
+			throw new BoardException("답변 등록에 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("qnaupdate.ad")
+	public void adminqnaupdate(@RequestParam("q_no") int qno, @RequestParam("page") int page, HttpServletResponse response) {
+		
+		response.setContentType("application/json; charset=UTF-8"); 
+		
+		adminQnA adminQnA = bService.adminqnadetail(qno);
+		System.out.println("adminQnA 컨트롤러 " + adminQnA);
+		
+		JSONObject obj = new JSONObject();
+		
+//		obj.put("q_no", adminQnA.getQ_no());
+//		obj.put("q_title", adminQnA.getQ_title());
+//		obj.put("q_content", adminQnA.getQ_content());
+//		obj.put("q_date", adminQnA.getQ_date());
+//		obj.put("answer", adminQnA.getAnswer());
+//		obj.put("an_date", adminQnA.getAn_date());
+		obj.put("an_content", adminQnA.getAn_content());
+//		obj.put("userid", adminQnA.getUserid());
+//		obj.put("coid", adminQnA.getCoid());
+		
+		try {
+			PrintWriter out = response.getWriter();
+			out.println(obj);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
