@@ -32,6 +32,8 @@
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
 	</header>
 	
+	<!-- 전문가 로그인 아이디 coid를 가져와서 집어넣어야 한다. -->
+	
     <nav>
     <div id="menu-area">
         <ul class='menu-c'>
@@ -60,8 +62,8 @@
             <li><a href=#>헬퍼6</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item4">
-            <li><a href="point.ex">포인트 충전</a></li>
-            <li><a href="pointList.ex">포인트 내역</a></li>
+            <li><a href="point.ex?coid=KH_ACADEMY">포인트 충전</a></li>  <!-- point.ex?coid=${coId} -->
+            <li><a href="pointList2.ex?coid=KH_ACADEMY">포인트 내역</a></li> <!-- pointList.ex -->
         </ul>
         <ul class='sub-c' id ="sub-item5">
             <li><a href="helperSendQnA.ex">1:1 문의</a></li>

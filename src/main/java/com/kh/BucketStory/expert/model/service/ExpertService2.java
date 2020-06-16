@@ -14,12 +14,16 @@ public interface ExpertService2 {
 	String test(String coid);
 
 	int getListCount();
-
+	int getListCount(String coId);
+	
 	ArrayList<Pay> selectList(PageInfo pi);
-
+	ArrayList<Pay> selectList(PageInfo pi, String coId);
+	
 	int insertPoint(Pay p);
 
-	int getYPoint();
+	int getYPoint(String coId);
 
-	int getNPoint();
+	int getNPoint(String coId);
+
+	
 }

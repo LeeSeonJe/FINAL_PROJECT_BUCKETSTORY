@@ -23,23 +23,30 @@ public class ExpertDAO2 {
 	public int getListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("exMapper2.getListCount");
 	}
-
+	public int getListCount(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getListCount2",coId);
+	}
+	
 	public ArrayList<Pay> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList) sqlSession.selectList("exMapper2.selectList", null, rowBounds);
 	}
-
+	public ArrayList<Pay> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectList2", coId, rowBounds);
+	}
+	
 	public int insertPoint(SqlSessionTemplate sqlSession, Pay p) {
 		return sqlSession.update("exMapper2.insertPoint", p);
 	}
 
-	public int getYPoint(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("exMapper2.getYCount");
+	public int getYPoint(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getYCount",coId);
 	}
-	public int getNPoint(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("exMapper2.getNCount");
+	public int getNPoint(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getNCount",coId);
 	}
-
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -66,8 +67,14 @@ public class ExpertController2 {
 		
 		System.out.println(p);
 		
+		// PAY 테이블에 Point 집어넣기
 		int result = ExService2.insertPoint(p);
 
+		// COMPANY 테이블에 보유 포인트 갱신
+		/* update COMPANY set POINT = POINT + p.getPa_pay()
+		   where COID = p.getCoid() */
+		
+		
 		if (result > 0) {
 			return "redirect:pointList.ex";
 		} else {
@@ -76,30 +83,33 @@ public class ExpertController2 {
 
 	}
 	
-	// 포인트 충전페이지
+	// 포인트 충전페이지(coid)
 	@RequestMapping("point.ex")
-	public ModelAndView goPoint(ModelAndView mv) {
-//		return "hp_point";
-		mv.addObject("hp", getPoint());
+	public ModelAndView goPoint(@RequestParam("coid") String coId,
+								ModelAndView mv) {
+
+		if(ExService2.getListCount(coId) > 0) {
+			mv.addObject("hp", getPoint(coId));
+		}else {
+			mv.addObject("hp", 0);
+		}
+		
+		mv.addObject("coId",coId);
 		mv.setViewName("hp_point");
 		return mv;
 	}
 	
-	// 보유 포인트 -> coid 
-	// 임시로 해둔것.; 로그인한 기업아이디로 계산해야된다.
-	public int getPoint() {
-		int yPoint = ExService2.getYPoint();
-		int nPoint = ExService2.getNPoint();
+	// 보유 포인트(coId)
+	public int getPoint(String coId) {
+		int yPoint = ExService2.getYPoint(coId); // 충전 포인트
+		int nPoint = ExService2.getNPoint(coId); // 사용 포인트
 		return yPoint - nPoint;
 	}
-	public int getPoint2(int coid) {
-		return 0;
-	}
 	
 	
-	// 포인트 내역 페이지
+	// 포인트 내역 페이지(전체)
 	@RequestMapping("pointList.ex")
-	public ModelAndView boardList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {
+	public ModelAndView pointList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {
 
 		int currentPage = 1;
 		if (page != null) {
@@ -113,16 +123,50 @@ public class ExpertController2 {
 		if (list != null) {
 			// list, pi, view
 			mv.addObject("list", list);
-			mv.addObject("pi", pi);
-			mv.addObject("hp", getPoint());
-			
-			mv.setViewName("hp_pointList");
+			mv.addObject("pi", pi);			
+			mv.setViewName("hp_pointListAll");
 		} else {
 			throw new ExpertException("포인트 내역 조회에 실패했습니다.");
 		}
 		return mv;
 	}
 	
+	
+	// 포인트 내역 페이지(coid)
+	// 테스팅
+	// http://localhost:9480/BucketStory/pointList2.ex?coid=TEST
+	// http://localhost:9480/BucketStory/pointList2.ex?coid=KH_ACADEMY
+	
+	@RequestMapping(value = "pointList2.ex", method = RequestMethod.GET)
+		public ModelAndView pointList(@RequestParam("coid") String coId,
+									  @RequestParam(value = "page", required = false) Integer page, ModelAndView mv){
+
+			int currentPage = 1;
+			if (page != null) {
+				currentPage = page;
+			}
+
+			int listCount = ExService2.getListCount(coId);
+			PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+			ArrayList<Pay> list = ExService2.selectList(pi, coId);
+//			System.out.println(list);
+			if (list != null) {
+				// list, pi, view
+				mv.addObject("list", list);
+				mv.addObject("pi", pi);
+				mv.addObject("coId", coId);
+				if(listCount > 0) {
+					mv.addObject("hp", getPoint(coId));
+				}else { // 포인트 내역이 없으면
+					mv.addObject("hp", 0);
+				}
+				mv.setViewName("hp_pointList");
+			} else {
+				throw new ExpertException("포인트 내역 조회에 실패했습니다.");
+			}
+			return mv;
+		}
+		
 	
 	
 	// 헬퍼 qna 문의 페이지
