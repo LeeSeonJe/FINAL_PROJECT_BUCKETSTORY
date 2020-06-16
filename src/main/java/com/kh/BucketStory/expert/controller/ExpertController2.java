@@ -1,6 +1,7 @@
 package com.kh.BucketStory.expert.controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -251,5 +252,35 @@ public class ExpertController2 {
 	@RequestMapping("helperQnA.ex")
 	public String goHelperQnA() {
 		return "hp_QnA";
+	}
+	
+	@RequestMapping("insertQnA.ex")
+	public void insertQnA(HttpServletRequest request) {
+		System.out.println("진입");
+		
+//		SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+//		String today = dateFormat.format(new Date());
+		
+		String coid = request.getParameter("coId");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+//		
+//		public adminQnA(int q_no, String q_title, String q_content, Date q_date, char answer, Date an_date,
+//				String an_content, String userid, String coid) {
+//			super();
+//			this.q_no = q_no;
+//			this.q_title = q_title;
+//			this.q_content = q_content;
+//			this.q_date = q_date;
+//			this.answer = answer;
+//			this.an_date = an_date;
+//			this.an_content = an_content;
+//			this.userid = userid;
+//			this.coid = coid;
+//		}
+		
+		//--> 정호 요청
+		
+		System.out.println(title + ", " + content);
 	}
 }
