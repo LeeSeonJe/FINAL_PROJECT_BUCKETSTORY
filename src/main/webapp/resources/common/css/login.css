@@ -67,6 +67,14 @@ body{
 		display: none;
 	}
 	
+	#ComidFind{
+		display: none;
+	}
+	
+	#CompwdFind{
+		display: none;
+	}
+	
 	#modal2 { /* 누르면 나타나는 아이디찾기 투명창 */
 		border-radius: 3px;
         background-color: rgba( 255, 255, 255, 0.4 );
@@ -398,7 +406,7 @@ body{
 	  outline: none;
 	}
 	
-	#gender_F, #gender_M{
+	#gender_F, #gender_M, #cpCheck_Y, #cpCheck_N{
 	  width: 24px;	
 	  height: 24px;
 	}
@@ -424,11 +432,10 @@ body{
 	input:checked ~ input:active {
 	  background-position: -24px 24px;
 	}
-
 	
 	/* ------------------------------------- */
 	
-	.switch, .switch2 { /* 회원, 기업 변경 스위치 */
+	.switch { /* 회원, 기업 변경 스위치 */
 	  position: relative;
 	  display: inline-block;
 	  width: 60px;
@@ -438,7 +445,6 @@ body{
 	
 	/* Hide default HTML checkbox */
 	.switch input {display:none;}
-	.switch2 input {display:none;}
 	
 	/* The slider */
 	.slider {
