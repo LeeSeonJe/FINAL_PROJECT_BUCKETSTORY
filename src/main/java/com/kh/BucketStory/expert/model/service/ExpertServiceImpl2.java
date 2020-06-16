@@ -28,10 +28,18 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	public int getListCount() {
 		return exDAO2.getListCount(sqlSession);
 	}
+	@Override
+	public int getListCount(String coId) {
+		return exDAO2.getListCount(sqlSession,coId);
+	}
 
 	@Override
 	public ArrayList<Pay> selectList(PageInfo pi) {
 		return exDAO2.selectList(sqlSession, pi);
+	}
+	@Override
+	public ArrayList<Pay> selectList(PageInfo pi, String coId) {
+		return exDAO2.selectList(sqlSession, pi,coId);
 	}
 
 	@Override
@@ -40,14 +48,18 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	}
 
 	@Override
-	public int getYPoint() {
-		return exDAO2.getYPoint(sqlSession);
+	public int getYPoint(String coId) {
+		return exDAO2.getYPoint(sqlSession,coId);
 	}
 
 	@Override
-	public int getNPoint() {
-		return exDAO2.getNPoint(sqlSession);
+	public int getNPoint(String coId) {
+		return exDAO2.getNPoint(sqlSession,coId);
 	}
+
+	
+
+
 
 
 

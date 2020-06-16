@@ -16,7 +16,24 @@
 <body>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
 
-<%-- <jsp:include page="/WEB-INF/views/expert/hp_helperCon.jsp"/> --%>
+<!-- 	coId 기업아이디 -->
+<!-- 	coPwd 비밀번호 -->
+<!-- 	coName 기업명-->
+<!-- 	compaName 업종명 -->
+<!-- 	apName 신청자이름 -->
+<!-- 	homePage 홈페이지 -->
+<!-- 	coTel 전화번호 -->
+<!-- 	enrollDate 가입날짜 -->
+<!-- 	status -->
+<!-- 	approval 승인여부 -->
+<!--    busiEmail 이메일 -->
+<!-- 	cpCheck 기업전문가여부 -->
+<!-- 	checkImg 인증사진 -->
+<!--    point 포인트 -->
+<!-- 	cateNum 카테고리 번호 -->
+<!-- 	coIntro 업체소개-->
+<!--    coInfo 업체정보-->
+
 
     <section>
 

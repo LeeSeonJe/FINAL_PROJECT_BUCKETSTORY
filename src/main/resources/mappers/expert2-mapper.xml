@@ -29,34 +29,53 @@
 	</resultMap>
 
 
-    <!-- PAY 총 개수 구한다. -->
+    <!-- PAY 내역리스트 총 개수 구한다. -->
 	<select id = "getListCount" resultType ="_int">
 	select count(*)
 	from PAY
 	</select>
 	
+	<!-- 특정 기업아이디와 일치하는 PAY 내역리스트 개수 구한다. -->
+	<select id ="getListCount2"  resultType ="_int">
+	select count(*)
+	from PAY
+	where COID = #{coId}
+	</select>
+	
+    
 	<!-- PAY 충전금액 합계  -->
 	<select id = "getYCount" resultType ="_int">
-	select SUM(PA_PAY) 
+	select NVL(SUM(PA_PAY) ,0)
 	from PAY
-	where STATUS = 'Y'
+	where STATUS = 'Y' AND COID = #{coId}
 	GROUP BY COID
 	</select>
 	
 	<!-- PAY 사용내역 합계 -->
 	<select id = "getNCount" resultType ="_int">
-	select SUM(PA_PAY) 
+	select NVL(SUM(PA_PAY) ,0)
 	from PAY
-	where STATUS = 'N'
+	where STATUS = 'N' AND COID = #{coId}
 	GROUP BY COID
 	</select>
 	
-
+	
+	<!-- PAY 전체 리스트 -->
 	<select id="selectList" resultMap = "PayResultSet">
 	select *
 	from PAY
 	order by PA_NO desc
 	</select>
+	
+	
+	<!-- PAY 리스트(coid) -->
+	<select id="selectList2" resultMap = "PayResultSet">
+	select *
+	from PAY
+	where COID = #{coId}
+	order by PA_NO desc
+	</select>
+	
 	
 	<insert id ="insertPoint">
 		insert into PAY

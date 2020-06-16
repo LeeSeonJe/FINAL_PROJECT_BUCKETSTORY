@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.text.SimpleDateFormat, java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<% 			SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+			String today = dateFormat.format(new Date());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +16,7 @@
 #point-nav ul li:first-child {
 	background-color: rgba(0, 0, 0, 0.085);
 }
+
 </style>
 </head>
 
@@ -25,12 +29,12 @@
 	<div class="point-inner">
 
 		<div class="inner__header">
-			<div>
 				<br>
-				<h2>보유 총 포인트 : ${hp} 포인트 </h2>
-			</div>
+				<h2>${coId}</h2>
+				<h2>보유 총 포인트 : ${hp} 포인트 </h2> 
+				<br>
 		</div>
-
+		<br><br>
 		<div class="inner__content">
 
 			<!-- <br><br>
@@ -97,22 +101,23 @@
 </section>
 	<script>
 	
-		function test(price){
-			
-			alert('test')
+		function insertPoint(price){
 			 $.ajax({
-// 		    	  url:"ptest.ex",
 				  url:"pinsert.ex",
 		      	  data:{
 		      		 pa_no  : 9999,
-		      		 pa_pay : price,
-		      		 coid   : "KH_ACADEMY",
+		      		 pa_pay : price * 1.1, //보너스 포인트 포함
+		      		 coid   : "${coId}",
 		      		 status : 'Y',
-		      		 pdate  : "1900-01-01",
+		      		 pdate  : "<%=today%>",
 		      	  },
 					success : function(data){
 				        var msg = '결제가 완료되었습니다.';
-				        alert(msg)
+				        msg += '고유ID : ' + rsp.imp_uid;
+				        msg += '상점 거래ID : ' + rsp.merchant_uid;
+				        msg += '결제 금액 : ' + rsp.paid_amount;
+				        msg += '카드 승인번호 : ' + rsp.apply_num;
+				        alert(msg);
 					}		
 		      });
 		}
@@ -133,7 +138,7 @@
 			    amount : price * (1-dc),
 			 
 // 			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '로그인유저',
+			    buyer_name : "${coId}",
 			  /*   buyer_tel : '010-1234-5678',
 			    buyer_addr : '서울특별시 강남구 삼성동',
 			    buyer_postcode : '123-456',
@@ -141,17 +146,17 @@
 			    
 			}, function(rsp) {
 			    if ( rsp.success ) {
+			    	
 			      $.ajax({
-// 			    	  url:"ptest.ex",
 					  url:"pinsert.ex",
 // 			    	  method:"POST"
 // 			    	  headers:{"Content-Type":"application/json"}
 			      	  data:{
 			      		 pa_no  : 9999,
 			      		 pa_pay : price * 1.1, //보너스 포인트 포함
-			      		 coid   : "KH_ACADEMY",
+			      		 coid   : "${coId}",
 			      		 status : 'Y',
-			      		 pdate  : "1900-01-01",
+			      		 pdate  : "<%=today%>",
 			      	  },
 						success : function(data){
 					        var msg = '결제가 완료되었습니다.';

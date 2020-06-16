@@ -22,10 +22,8 @@
  <section class ="p-section">
 <!--         <p id ="title">포인트 내역</p> -->
  
-    <h3>${coId}</h3>
   	<h3>포인트 내역 : ${ pi.listCount }</h3>
-	<h3>보유 포인트 : ${hp }</h3>
-	
+		
         <!-- 게시판 목록 영역-->
         <div id ="board-area">
            
@@ -57,35 +55,34 @@
 <!--                 </tr> -->
 
 
-					<c:if test ="${empty list }">
-					  <tr>
-					  	<td colspan="5">포인트 충전내역이 없습니다.</td>
-					  </tr>
+					<c:if test="${empty list }">
+						<tr>
+							<td colspan="5">포인트 충전내역이 없습니다.</td>
+						</tr>
 					</c:if>
-					
+
 					<c:forEach var="b" items="${ list }">
 						<tr>
 							<td scope="row" align="center">${ b.pa_no }</td>
-						
-						
-						<!--  char 형과 비교 -->
-						<c:if test="${b.status eq 'Y'.charAt(0)}"> 
-						      <td align="center">충전</td>
-						</c:if>
-						<c:if test="${b.status eq 'N'.charAt(0)}"> 
-						      <td align="center">사용</td>
-						</c:if>
-							
+
+
+							<!--  char 형과 비교 -->
+							<c:if test="${b.status eq 'Y'.charAt(0)}">
+								<td align="center">충전</td>
+							</c:if>
+							<c:if test="${b.status eq 'N'.charAt(0)}">
+								<td align="center">사용</td>
+							</c:if>
+
 							<!-- Y : 충전 , N : 사용 -->
-<%-- 						<td align="center">${ b.status }</td> --%>
-							
-							
+							<%-- 						<td align="center">${ b.status }</td> --%>
+
+
 							<td align="center">${ b.pa_pay }</td>
 							<td align="center">${ b.coid }</td>
 							<td align="center">${ b.pdate }</td>
 						</tr>
 					</c:forEach>
-					
 				</tbody>
             </table>
         
@@ -99,7 +96,7 @@
 					<button id ="prev">이전</button>
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="pointList2.ex?coid=${coId}">
+					<c:url var="before" value="pointList.ex">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ before }"><button id ="prev">이전</button></a> 
@@ -112,7 +109,7 @@
 					</c:if>
 					
 					<c:if test="${ p ne pi.currentPage }">
-						<c:url var="pagination" value="pointList2.ex?coid=${coId}">
+						<c:url var="pagination" value="pointList.ex">
 							<c:param name="page" value="${ p }"/>
 						</c:url>
 						<a href="${ pagination }"><button class ="sBtn">${ p }</button></a> 
@@ -124,7 +121,7 @@
 					<button id= "next">다음</button>
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="pointList2.ex?coid=${coId}">
+					<c:url var="after" value="pointList.ex">
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>
 					</c:url> 
 					<a href="${ after }"><button id= "next">다음</button></a>
