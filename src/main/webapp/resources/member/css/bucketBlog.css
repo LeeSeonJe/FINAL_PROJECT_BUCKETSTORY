@@ -125,50 +125,50 @@ select {
 	color: blue;
 }
 /* bucketList 가운데 정렬 */
-.bucketList-area>table {
+.bucketList-area>table, #bottom_scroll>table {
 	margin: 0 auto;
 	border-collapse: collapse; /* 테이블 간격 없애기 */
 	font-size: 16px;
 	margin-bottom: 15px;
 }
 
-.bucketList-area>table>tbody {
+.bucketList-area>table>tbody, #bottom_scroll>table>tbody {
 	font-size: 13px;
 }
 
-.bucketList-area>table tr th:first-child {
+.bucketList-area>table tr th:first-child, #bottom_scroll>table tr th:first-child {
 	text-align: left;
 	width: 650px;
 }
 
-.bucketList-area>table tr th:last-child {
+.bucketList-area>table tr th:last-child, #bottom_scroll>table tr th:last-child {
 	text-align: right;
 	width: 150px;
 }
 
-.bucketList-area>table tr td:first-child {
+.bucketList-area>table tr td:first-child, #bottom_scroll>table tr td:first-child {
 	text-align: left;
 	width: 650px;
 }
 
-.bucketList-area>table tr td:first-child span {
+.bucketList-area>table tr td:first-child span, #bottom_scroll>table tr td:first-child span {
 	cursor: pointer;
 }
 
-.bucketList-area>table tr td:first-child span:hover {
+.bucketList-area>table tr td:first-child span:hover, #bottom_scroll>table tr td:first-child span:hover {
 	border-bottom: 1px solid black;
 }
 
-.bucketList-area>table tr td:last-child {
+.bucketList-area>table tr td:last-child, #bottom_scroll>table tr td:last-child {
 	text-align: right;
 	width: 150px;
 }
 
-.bucketList-area>table>thead>tr>th {
+.bucketList-area>table>thead>tr>th, #bottom_scroll>table>thead>tr>th {
 	border-bottom: 2px solid black;
 }
 
-.bucketList-area>table>tbody>tr>td {
+.bucketList-area>table>tbody>tr>td, #bottom_scroll>table>tbody>tr>td {
 	border-bottom: 1px solid black;
 }
 
@@ -223,6 +223,12 @@ select {
 	padding-bottom: 15px;
 }
 
+.pagingBtn-area2 {
+	text-align: center;
+	font-size: 13px;
+	padding-bottom: 15px;
+}
+
 a:link {
 	color: black;
 	text-decoration: none;
@@ -245,17 +251,38 @@ a:hover {
 #list_header>button {
 	cursor: pointer;
 	margin-left: 57%;
-    border: none;
-    background: #fafafa;
-    outline: none;
-    transition:color 0.5s;
+	border: none;
+	background: #fafafa;
+	outline: none;
+	transition: color 0.5s;
 }
 
 #list_header>button:hover {
 	text-decoration: underline;
 	margin-left: 57%;
-    border: none;
-    background: #fafafa;
-    outline: none;
-    color: orange;
+	border: none;
+	background: #fafafa;
+	outline: none;
+	color: orange;
+}
+
+#mydiv {
+	position: fixed;
+	z-index: 9;
+	background-color: #f1f1f1;
+	border: 1px solid #d3d3d3;
+	text-align: center;
+	border-radius: 6px;
+}
+
+#mydivheader {
+	padding: 10px;
+	cursor: move;
+	z-index: 10;
+	background-color: #2196F3;
+	color: #fff;
+}
+
+#mydiv span {
+	font-size: 13px;
 }

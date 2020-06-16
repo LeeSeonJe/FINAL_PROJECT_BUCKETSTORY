@@ -40,26 +40,31 @@
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
-			<c:forEach var="b" items="${ myBucketList }" varStatus="status">
-				<div class="bucket">
-				<script>
-					$('.bucket').eq(${ status.index }).css('background-image', 'url(resources/muploadFiles/${ b.media.mweb })');
-				</script>
-					<div class="bucketContent">
-						<div class="c-category">${ b.cateName }</div>
-						<div class="c-bucket">
-							<div class="c-bucket-1">${ b.bucket.bkName }</div>
+			<c:if test="${ empty myBucketList }">
+				<div>등록된 버킷이 없습니다.</div>
+			</c:if>
+			<c:if test="${ !empty myBucketList }">
+				<c:forEach var="b" items="${ myBucketList }" varStatus="status">
+					<div class="bucket">
+					<script>
+						$('.bucket').eq(${ status.index }).css('background-image', 'url(resources/muploadFiles/${ b.media.mweb })');
+					</script>
+						<div class="bucketContent">
+							<div class="c-category">${ b.cateName }</div>
+							<div class="c-bucket">
+								<div class="c-bucket-1">${ b.bucket.bkName }</div>
+							</div>
+							<div class="c-Add">
+								<div class="c-addBtn"> + ADD</div>
+							</div>
+							<div class="c-likewish">
+								<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+								<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+							</div>
 						</div>
-						<div class="c-Add">
-							<div class="c-addBtn"> + ADD</div>
-						</div>
-						<div class="c-likewish">
-							<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-							<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-						</div>
-					</div>
-				</div>			
-			</c:forEach>
+					</div>			
+				</c:forEach>
+			</c:if>
 			<div id="bucketAddBtn"></div>
 		</section>
 	</div>
