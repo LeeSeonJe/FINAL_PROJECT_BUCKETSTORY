@@ -7,7 +7,7 @@
 <head>
 <meta charset="EUC-KR">
       <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <link rel="stylesheet" href="resources/expert/css/ex_info.css">
 <title>Insert title here</title>
@@ -110,14 +110,14 @@
 			</c:if>
 		</ul>
 		
-		<c:url var="estimate" value="estimate.ex">
-			<c:param name="coid" value="${ company.coId }"/>
+		<c:url var="getRequest" value="getRequest.ex">
+			<c:param name="coId" value="${ company.coId }"/>
 		</c:url>
 		<c:url var="ex_infoUpdate" value="ex_infoUpdateForm.ex">
-			<c:param name="coid" value="${ company.coId }"/>
+			<c:param name="coId" value="${ company.coId }"/>
 		</c:url>
 		<div id="subBtn">
-			<button onclick="location.href='${ estimate }'">맞춤견적 신청</button>
+			<button onclick="location.href='${ getRequest }'">받은 견적확인</button>
 			<button onclick="location.href='${ ex_infoUpdate }'">정보수정</button>
 		</div>
 	</div>

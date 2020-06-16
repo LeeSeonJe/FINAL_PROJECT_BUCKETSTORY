@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+body {
+	min-width: 1200px;
+	margin: 0;
+}
+
+header {
+	min-width: 1200px;
+	border-bottom: 1px solid rgba(var(- -b38, 219, 219, 219), 1);
+	width: 100%;
+	height: 60px;
+	position: fixed;
+	z-index: 100;
+	background: white;
+}
+
+#extra {
+	width: 100%;
+	height: 60px;
+}
+
+#body-wrap {
+	width: 1000px;
+	min-height: 500px;
+	margin: 0 auto;
+}
+
+#Myheader {
+	width: 100%;
+	height: 225px;
+}
+
+section {
+	width: 100%;
+	min-height: 100px;
+/* 	background: green; */
+	margin-top: 5px;
+}
+
+#profileImg {
+	width: 166px;
+	height: 166px;
+	border-radius: 100px;
+}
+
+#table_area {
+	margin: 0 auto;
+}
+
+#table_area>tbody>tr>td {
+	width: 180px;
+	height: 70px;
+}
+
+#profileImage {
+	    width: 210px;
+	    height: 197px;
+	    margin-left: 41px;
+	    margin-right: 14px;
+	    float: left;
+	}
+#coIntro{
+	width: 67%;
+    margin-left: 259px;
+    height: 112px;
+}
+#helperProfile{
+	width: 80%;
+	height: 200px;
+	margin:auto;
+}
+.btn{    width: 200px;
+    height: 40px;
+    border: none;
+   	cursor: pointer;
+   }
+.btn:hover{
+	background:coral;
+}
+#btnarea{
+	width:100%;
+}
+#esrequest {
+    margin-left: 32%;
+    margin-bottom: 33px;
+}
+.subtitle{width:80%;margin:auto;}
+#inputSchedule{
+	width:100%;
+}
+#precautions{display: block;
+   	margin: auto;
+   	width:80%;}

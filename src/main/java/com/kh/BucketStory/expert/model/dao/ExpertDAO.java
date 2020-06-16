@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.ComInBucket;
 import com.kh.BucketStory.expert.model.vo.Company;
+import com.kh.BucketStory.expert.model.vo.EsRequest;
 
 @Repository("exDAO")
 public class ExpertDAO {
@@ -31,6 +32,22 @@ public class ExpertDAO {
 	}
 
 	public ArrayList<BucketList> selectComBucket(SqlSessionTemplate sqlSession, String coId) {
-		return (ArrayList)sqlSession.selectList("exMapper.selectBucket",coId);
+		return (ArrayList)sqlSession.selectList("exMapper.selectComBucket",coId);
+	}
+
+	public BucketList selectBucket(SqlSessionTemplate sqlSession, int bkNo) {
+		return sqlSession.selectOne("exMapper.selectBucket", bkNo);
+	}
+
+	public int insertEsrequest(SqlSessionTemplate sqlSession, EsRequest er) {
+		return sqlSession.insert("exMapper.insertEsrequest",er);
+	}
+
+	public ArrayList<EsRequest> selectEsRequest(SqlSessionTemplate sqlSession, String coId) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectEsRequest",coId);
+	}
+
+	public EsRequest RequestDetail(SqlSessionTemplate sqlSession, String esr_no) {
+		return sqlSession.selectOne("exMapper.RequestDetail",esr_no);
 	}
 }
