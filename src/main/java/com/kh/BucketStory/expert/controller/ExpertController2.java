@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
@@ -40,9 +42,22 @@ public class ExpertController2 {
 	
 	// 전문가 메인페이지
 	@RequestMapping("expertIntro.ex")
-	public String expertInfo2() {
-		return "hp_intro";
+	public ModelAndView expertInfo2(ModelAndView mv, HttpSession session) { 
+		
+		Company loginCom = (Company)session.getAttribute("loginCompany");
+		
+		System.out.println(loginCom);
+		
+		// 기업 아이디
+		String coId = loginCom.getCoId();
+		
+		System.out.println(coId);
+		mv.addObject("coid",coId);
+		mv.setViewName("hp_intro");
+		return mv;
 	}
+	
+
 	
 	// 헬퍼뷰어 페이지
 	@RequestMapping("helperView.ex")
