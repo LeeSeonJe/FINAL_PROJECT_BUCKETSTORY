@@ -62,7 +62,10 @@ span.answer:after {
 	font-size: 15px;
 }
 
-.
+#qna_button{
+	text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -95,8 +98,8 @@ span.answer:after {
 				<br clear="all">
 				<div id="qna_content">${ adminQnA.q_content }</div>
 				<div id="qna_answer"><span class="answer"><b style=" color: black; ">답변</b></span></div>
-				<div id="qna_text">${ adminQnA.an_content }
-				<button>목록</button></div>
+				<div id="qna_text">${ adminQnA.an_content }</div>
+				<div id="qna_button"><button onclick="location.href='adminQnAlist.ad'">목록</button></div>
 			</div>
 		</div>
 	</div>
