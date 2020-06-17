@@ -50,8 +50,8 @@
 
     <div id="sub-area">
         <ul class='sub-c' id ="sub-item1">
-            <li><a href="helperView.ex?coid=${coid}">헬퍼뷰어</a></li>
-            <li><a href="helperEdit.ex?coid=TEST">헬퍼수정</a></li>
+            <li><a href="helperView.ex">헬퍼뷰어</a></li>
+            <li><a href="helperEdit.ex">헬퍼수정</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item2">
             <li><a href="helperBucketList.ex">헬퍼버킷리스트</a></li>
@@ -62,8 +62,8 @@
             <li><a href=#>헬퍼6</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item4">
-            <li><a href="point.ex?coid=KH_ACADEMY">포인트 충전</a></li>  <!-- point.ex?coid=${coId} -->
-            <li><a href="pointList2.ex?coid=KH_ACADEMY">포인트 내역</a></li> <!-- pointList.ex -->
+            <li><a href="point.ex">포인트 충전</a></li>  <!-- point.ex?coid=${coId} -->
+            <li><a href="pointList2.ex">포인트 내역</a></li> <!-- pointList.ex -->
         </ul>
         <ul class='sub-c' id ="sub-item5">
             <li><a href="helperSendQnA.ex">1:1 문의</a></li>
