@@ -1,7 +1,5 @@
 package com.kh.BucketStory.expert.controller;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +19,7 @@ import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
+import com.kh.BucketStory.expert.model.vo.PageInfoPF;
 import com.kh.BucketStory.expert.model.vo.Pay;
 import com.kh.BucketStory.expert.model.vo.pagination;
 
@@ -238,9 +237,36 @@ public class ExpertController2 {
 	
 	
 	// 포인트 내역 페이지(전체)
+//	@RequestMapping("pointList.ex")
+//	public ModelAndView pointList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {
+//
+//		int currentPage = 1;
+//		if (page != null) {
+//			currentPage = page;
+//		}
+//
+//		int listCount = ExService2.getListCount();
+//		PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+//		ArrayList<Pay> list = ExService2.selectList(pi);
+//		
+//		if (list != null) {
+//			// list, pi, view
+//			mv.addObject("list", list);
+//			mv.addObject("pi", pi);			
+//			mv.setViewName("hp_pointListAll");
+//		} else {
+//			throw new ExpertException("포인트 내역 조회에 실패했습니다.");
+//		}
+//		return mv;
+//	}
+	
 	@RequestMapping("pointList.ex")
-	public ModelAndView pointList(@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {
+	public ModelAndView pointList(@RequestParam(value = "page", required = false) Integer page, 
+			ModelAndView mv, HttpServletRequest request) {
 
+		char check = request.getParameter("check").charAt(0);
+		String keyword = request.getParameter("keyword");
+		
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = page;
@@ -248,6 +274,9 @@ public class ExpertController2 {
 
 		int listCount = ExService2.getListCount();
 		PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+		
+		PageInfoPF pf = new PageInfoPF();
+		
 		ArrayList<Pay> list = ExService2.selectList(pi);
 		
 		if (list != null) {
