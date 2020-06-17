@@ -100,8 +100,19 @@ public class MainDAO {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectShareMList", bkNo);
 	}
 
-	public ArrayList<Board> selectbMList(SqlSessionTemplate sqlSession, int bkNo) {
-		return (ArrayList)sqlSession.selectList("mainMapper.selectbMList", bkNo);
+	public ArrayList<Board> selectbMList(SqlSessionTemplate sqlSession, int bkNo, String nickName) {
+		HashMap<String, String> hashmap = new HashMap<String, String>();
+		hashmap.put("bkNo", ""+bkNo);
+		hashmap.put("nickName", nickName);
+		return (ArrayList)sqlSession.selectList("mainMapper.selectbMList", hashmap);
+	}
+
+	public ArrayList<BucketList> selectRecoBucketList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectRecoBucketList");
+	}
+
+	public ArrayList<Board> selectBlogList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectBlogList");
 	}
 
 	

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mainMapper">
+
+	<!-- 메인 List(최신순) -->
 	<select id="selectBucketList" resultMap="BucketResultSet">
 		select *
 		from
@@ -25,6 +27,14 @@
 		<result property="complete" column="COMPLETE"/>
 		<result property="cateNum" column="CATENUM"/>
 	</resultMap>
+	
+	<!-- 메인 Recommment -->
+	<select id="selectRecoBucketList" resultMap="BucketResultSet">
+		select BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		from bucketlist b
+		join member using(userid)
+		where nickname = '관리자찡'
+	</select>
 	
 	<select id="selectBLImg" resultMap="MediaResultSet">
 		select *
@@ -116,9 +126,15 @@
 	<!-- 이 버킷공유한 버킷회원 -->
 	<select id="selectShareMList" parameterType="_int" resultMap="memberResultSet">
 		select *
-		from member
-		join sharebucket using(userid)
-		where bkno = #{bkNo}
+		from (select USERID, USERPWD, USERNAME, PHONE, EMAIL, BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE, STATUS
+				from member m
+				join sharebucket using(userid)
+		        where bkno = #{bkNo}
+		        UNION
+		      select USERID, USERPWD, USERNAME, PHONE, EMAIL, BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE, STATUS
+		        from member m
+		        join bucketlist using(userid)
+		        where bkno = #{bkNo})
 	</select>
 	<resultMap id="memberResultSet" type="Member">
 	<id property="userId" column="USERID"/>
@@ -133,13 +149,34 @@
 	<result property="prImage" column="PR_IMAGE"/>
 	<result property="fwCount" column="FW_COUNT"/>
 	<result property="enrollDate" column="ENROLLDATE"/>
+	<result property="status" column="STATUS"/>
 	</resultMap>
 	
 	<!-- 블로그불러오기 -->
-	<select id="selectbMList" resultType="Board">
-		select *
-		from board
-		where bkno = #{bkNo}
+	<select id="selectbMList" resultMap="BoardResultSet">
+		select BNO, BTITLE, BCONTENT, BLIKE, BCOUNT, b.ENROLLDATE, b.STATUS, NICKNAME, BKNO
+		from board b
+		join member using(userid)
+		where bkno = #{bkNo} and NICKNAME = #{nickName}
 	</select>
+	
+	<!-- 메인블로그숫자표시 -->
+	<select id="selectBlogList" resultMap="BoardResultSet">
+		select BNO, BTITLE, BCONTENT, BLIKE, BCOUNT, b.ENROLLDATE, b.STATUS, NICKNAME, BKNO
+		from board b
+		join member using(userid)
+	</select>
+	
+	<resultMap type="Board" id="BoardResultSet">
+		<id property="bNo" column="BNO"/>
+		<result property="bTitle" column="BTITLE"/>
+		<result property="bContent" column="BCONTENT"/>
+		<result property="bLike" column="BLIKE"/>
+		<result property="bCount" column="BCOUNT"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="userid" column="NICKNAME"/>
+		<result property="bkNo" column="BKNO"/>
+	</resultMap>
 	
 </mapper>
