@@ -1,7 +1,5 @@
 package com.kh.BucketStory.expert.controller;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
@@ -58,7 +55,7 @@ public class ExpertController2 {
 		return mv;
 	}
 	
-
+	
 	
 	// 헬퍼뷰어 페이지
 	@RequestMapping("helperView.ex")
@@ -102,40 +99,55 @@ public class ExpertController2 {
 //	<!--    coInfo 업체정보-->
 
 	/*
-	 * 		public Company(String coId, String coName, String homePage, String coTel, Date enrollDate, String busiEmail,
-				int cpCheck, String checkImg, int cateNum, String coIntro, String coInfo) {
-			super();
-			this.coId = coId;
-			this.coName = coName;
-			this.homePage = homePage;
-			this.coTel = coTel;
-			this.enrollDate = enrollDate;
-			this.busiEmail = busiEmail;
-			this.cpCheck = cpCheck;
-			this.checkImg = checkImg;
-			this.cateNum = cateNum;
-			this.coIntro = coIntro;
-			this.coInfo = coInfo;
-		}
+	public Company(String coId, String coPwd, String coName, String compaName, String apName, String homePage,
+			String coTel, Date enrollDate, String status, String approval, String busiEmail, int cpCheck,
+			String checkImg, int point, int cateNum, String coIntro, String coInfo) {
+		super();
+		this.coId = coId;
+		this.coPwd = coPwd;
+		this.coName = coName;
+		this.compaName = compaName;
+		this.apName = apName;
+		this.homePage = homePage;
+		this.coTel = coTel;
+		this.enrollDate = enrollDate;
+		this.status = status;
+		this.approval = approval;
+		this.busiEmail = busiEmail;
+		this.cpCheck = cpCheck;
+		this.checkImg = checkImg;
+		this.point = point;
+		this.cateNum = cateNum;
+		this.coIntro = coIntro;
+		this.coInfo = coInfo;
+	}
+	
+	생성자 하나 더 만들어ㅇ
 	 */
+	
+
 	@RequestMapping("helperUpdate.ex")
-	public void helperUpdate(HttpServletRequest request) {
+	public void helperUpdate(HttpSession session, HttpServletRequest request) {
 		
-	    String coId = request.getParameter("coId");
-	    System.out.println(coId);
+
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+		
 		String coName = request.getParameter("coName");
 		String compaName = request.getParameter("compaName");
 		String coIntro = request.getParameter("coIntro");
 		
-//		Company c = new Company()
+//		Company c = new Company(coId, coPwd, coName, compaName, apName, homePage,
+//				coTel, enrollDate, status, approval, busiEmail, cpCheck,
+//				checkImg, point, cateNum, coIntro, coInfo);
+		
 		
 
-		 int result = ExService2.updateCompany(coName,compaName,coIntro);
+	//	 int result = ExService2.updateCompany(coName,compaName,coIntro);
 		 
 		 
 		System.out.println("진입");
 		
-		System.out.println(coName + ", " + compaName);
+		System.out.println(coId +"," + coName + ", " + compaName);
 
 	}
 	
@@ -153,34 +165,44 @@ public class ExpertController2 {
 		return mv;
 	}
 	
+	// 헬퍼수정 비번일치확인
+	@RequestMapping("helperPwdCheck.ex")
+	public void helperPwdCheck() {
+		
+//		if(bcryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) {
+//			
+//			
+//		}
+			
+	}
+	
 	// 헬퍼버킷리스트 페이지
 	@RequestMapping("helperBucketList.ex")
 	public String goHelperBucketList() {
 		return "hp_helperBucketList";
 	}
 	
-	
-	@RequestMapping("ptest.ex")
-	public void test(@ModelAttribute Pay p,HttpServletRequest request) {
-		System.out.println(p.toString());
-	}
-	
 	// 포인트 충전
 	@RequestMapping("pinsert.ex")
-	public String pointInsert(@ModelAttribute Pay p,HttpServletRequest request) {
+	public String pointInsert(HttpSession session,
+							  @ModelAttribute Pay p,
+							  HttpServletRequest request) {
 		
+		//String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		System.out.println(p);
 		
 		// PAY 테이블에 Point 집어넣기
 		int result = ExService2.insertPoint(p);
-
+		
+		//ExService2.updateCompanyPoint(coId, getPoint(coId));
+		
 		// COMPANY 테이블에 보유 포인트 갱신
 		/* update COMPANY set POINT = POINT + p.getPa_pay()
 		   where COID = p.getCoid() */
 		
-		
 		if (result > 0) {
-			return "redirect:pointList.ex";
+//			System.out.println("완료");
+			return "redirect:point.ex";
 		} else {
 			throw new ExpertException("포인트 충전에 실패하였습니다.");
 		}
@@ -192,6 +214,7 @@ public class ExpertController2 {
 	public ModelAndView goPoint(HttpSession session,
 								ModelAndView mv) {
 		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+	
 		if(ExService2.getListCount(coId) > 0) {
 			mv.addObject("hp", getPoint(coId));
 		}else {
@@ -236,11 +259,7 @@ public class ExpertController2 {
 	}
 	
 	
-	// 포인트 내역 페이지(coid)
-	// 테스팅
-	// http://localhost:9480/BucketStory/pointList2.ex?coid=TEST
-	// http://localhost:9480/BucketStory/pointList2.ex?coid=KH_ACADEMY
-	
+	// 포인트 내역 페이지	
 	@RequestMapping(value = "pointList2.ex", method = RequestMethod.GET)
 		public ModelAndView pointList(HttpSession session,
 									  @RequestParam(value = "page", required = false) Integer page, ModelAndView mv){

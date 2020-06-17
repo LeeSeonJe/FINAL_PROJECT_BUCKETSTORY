@@ -25,7 +25,4 @@ public interface ExpertService2 {
 
 	int getNPoint(String coId);
 
-	int updateCompany(String coName, String compaName, String coIntro);
-
-	
 }
