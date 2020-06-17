@@ -22,18 +22,18 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/${ loginUser.prImage }" />
+						<img id="profileImg" src="/BucketStory/resources/member/images/${ getMember.prImage }" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 30px;">${ loginUser.nickName }</td>
+					<td colspan="3" style="font-size: 30px;">${ getMember.nickName }</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 20px;">${ loginUser.userName }</td>
+					<td colspan="3" style="font-size: 20px;">${ getMember.userName }</td>
 				</tr>
 				<tr>
-					<td>게시물 ${ myBucketList.size() }</td>
-					<td>팔로워 ${ loginUser.fwCount }</td>
+					<td>게시물 ${ list }</td>
+					<td>팔로워 ${ getMember.fwCount }</td>
 					<td>팔로우 30</td>
 				</tr>
 			</table>
@@ -65,13 +65,17 @@
 					</div>			
 				</c:forEach>
 			</c:if>
-			<div id="bucketAddBtn"></div>
+			<c:if test="${ flag eq 'true' }">
+				<div id="bucketAddBtn"></div>
+			</c:if>
+			<c:if test="${ flag eq 'false' }">
+			</c:if>
 		</section>
 	</div>
 </body>
 <script>	
 	$('#bucketAddBtn').on('click', function(){
-		location.href="bucketWrite.me";
+		location.href="bucketWrite.me?nickName=${ getMember.nickName }";
 	});
 	
 	$('#overlay').css('top','-2px');

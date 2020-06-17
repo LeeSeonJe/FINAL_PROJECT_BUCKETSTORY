@@ -15,11 +15,14 @@ public class Member {
 	private String prImage;
 	private int fwCount;
 	private Date enrollDate;
-	
-	public Member() {}
+	private String status;
+
+	public Member() {
+	}
 
 	public Member(String userId, String userPwd, String userName, String phone, String email, String birth,
-			String gender, String nickName, String caution, String prImage, int fwCount, Date enrollDate) {
+			String gender, String nickName, String caution, String prImage, int fwCount, Date enrollDate,
+			String status) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -33,6 +36,7 @@ public class Member {
 		this.prImage = prImage;
 		this.fwCount = fwCount;
 		this.enrollDate = enrollDate;
+		this.status = status;
 	}
 
 	public String getUserId() {
@@ -131,14 +135,20 @@ public class Member {
 		this.enrollDate = enrollDate;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", phone=" + phone
 				+ ", email=" + email + ", birth=" + birth + ", gender=" + gender + ", nickName=" + nickName
 				+ ", caution=" + caution + ", prImage=" + prImage + ", fwCount=" + fwCount + ", enrollDate="
-				+ enrollDate + "]";
+				+ enrollDate + ", status=" + status + "]";
 	}
-
-	
 
 }

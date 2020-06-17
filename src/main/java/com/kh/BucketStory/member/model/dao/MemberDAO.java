@@ -1,6 +1,8 @@
 package com.kh.BucketStory.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 
@@ -26,26 +29,37 @@ public class MemberDAO {
 		return result2;
 	}
 
-	public ArrayList<MemberMyBucketList> myBucketList(SqlSessionTemplate sqlSession, String userId) {
-		return (ArrayList) sqlSession.selectList("memberMapper.myBucketList", userId);
+	public ArrayList<MemberMyBucketList> myBucketList(SqlSessionTemplate sqlSession, String nickName) {
+		return (ArrayList) sqlSession.selectList("memberMapper.myBucketList", nickName);
 	}
 
 	public int blogInsert(SqlSessionTemplate sqlSession, Board board) {
 		return sqlSession.insert("memberMapper.blogInsert", board);
 	}
 	
-	public ArrayList<Board> getBoard(SqlSessionTemplate sqlSession, Board b) {
-		return (ArrayList) sqlSession.selectList("memberMapper.getBoard", b);
+	public ArrayList<Board> getBoard(SqlSessionTemplate sqlSession, String userid, int bn) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("bn", bn);
+		return (ArrayList) sqlSession.selectList("memberMapper.getBoard", map);
 	}
 
 	public int getListCount(SqlSessionTemplate sqlSession, String userId) {
 		return sqlSession.selectOne("memberMapper.getListCount", userId);
 	}
 
-	public ArrayList<MemberMyBucketList> myBucketListPage(SqlSessionTemplate sqlSession, String userId, PageInfo pi) {
+	public ArrayList<MemberMyBucketList> myBucketListPage(SqlSessionTemplate sqlSession, String nickName, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList) sqlSession.selectList("memberMapper.myBucketListPage", userId, rowBounds);
+		return (ArrayList) sqlSession.selectList("memberMapper.myBucketListPage", nickName, rowBounds);
+	}
+
+	public String getUserId(SqlSessionTemplate sqlSession, String nickName) {
+		return sqlSession.selectOne("memberMapper.getUserId", nickName);
+	}
+
+	public Member getMEmber(SqlSessionTemplate sqlSession, String nickName) {
+		return sqlSession.selectOne("memberMapper.getMember", nickName);
 	}
 }

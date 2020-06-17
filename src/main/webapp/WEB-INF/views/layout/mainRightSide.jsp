@@ -17,7 +17,7 @@
         	 <div class="gnb_menu">
                     <ul class="gnb_menu_ul">
                         <li >
-                            <a id="test" href="myBucket.me" class="gnb1 mot2" onclick='eventTrack("", "menu_discover");'>
+                            <a id="test" href="myBucket.me?nickName=${ loginUser.nickName }" class="gnb1 mot2" onclick='eventTrack("", "menu_discover");'>
                                 <div class="text mot2">
                                     <span class="en mot2">My BucketStory</span><br>
                                     나의 버킷이야기를 작성하고 관리해보세요.
