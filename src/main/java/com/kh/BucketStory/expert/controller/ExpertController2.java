@@ -46,12 +46,13 @@ public class ExpertController2 {
 		
 		Company loginCom = (Company)session.getAttribute("loginCompany");
 		
-		System.out.println(loginCom);
+		// System.out.println(loginCom);
 		
 		// 기업 아이디
 		String coId = loginCom.getCoId();
 		
-		System.out.println(coId);
+		System.out.println("기업아이디 :" + coId +"로 로그인하셨습니다.");
+		
 		mv.addObject("coid",coId);
 		mv.setViewName("hp_intro");
 		return mv;
@@ -61,13 +62,26 @@ public class ExpertController2 {
 	
 	// 헬퍼뷰어 페이지
 	@RequestMapping("helperView.ex")
-	public ModelAndView  goHelperView(@RequestParam("coid") String coId,
+	public ModelAndView  goHelperView(HttpSession session,
 			ModelAndView mv) {
+		
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+		
 		Company company = ExService.selectCompanyInfo(coId);
 		mv.addObject("com", company);
 		mv.setViewName("hp_helperView");
 		return mv;
 	}
+	
+	
+//	@RequestMapping("helperView.ex")
+//	public ModelAndView  goHelperView(@RequestParam("coid") String coId,
+//			ModelAndView mv) {
+//		Company company = ExService.selectCompanyInfo(coId);
+//		mv.addObject("com", company);
+//		mv.setViewName("hp_helperView");
+//		return mv;
+//	}
 	
 //	<!-- 	coId 기업아이디 -->
 //	<!-- 	coPwd 비밀번호 -->
@@ -128,10 +142,12 @@ public class ExpertController2 {
 //	
 //	// 헬퍼수정 페이지
 	@RequestMapping("helperEdit.ex")
-	public ModelAndView goHelperEdit(@RequestParam("coid") String coId,
+	public ModelAndView goHelperEdit(HttpSession session,
 			ModelAndView mv)  {
 		
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		Company company = ExService.selectCompanyInfo(coId);
+		
 		mv.addObject("com", company);
 		mv.setViewName("hp_helperEdit");
 		return mv;
@@ -173,9 +189,9 @@ public class ExpertController2 {
 	
 	// 포인트 충전페이지(coid)
 	@RequestMapping("point.ex")
-	public ModelAndView goPoint(@RequestParam("coid") String coId,
+	public ModelAndView goPoint(HttpSession session,
 								ModelAndView mv) {
-
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		if(ExService2.getListCount(coId) > 0) {
 			mv.addObject("hp", getPoint(coId));
 		}else {
@@ -226,9 +242,10 @@ public class ExpertController2 {
 	// http://localhost:9480/BucketStory/pointList2.ex?coid=KH_ACADEMY
 	
 	@RequestMapping(value = "pointList2.ex", method = RequestMethod.GET)
-		public ModelAndView pointList(@RequestParam("coid") String coId,
+		public ModelAndView pointList(HttpSession session,
 									  @RequestParam(value = "page", required = false) Integer page, ModelAndView mv){
 
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 			int currentPage = 1;
 			if (page != null) {
 				currentPage = page;
@@ -259,7 +276,8 @@ public class ExpertController2 {
 	
 	// 헬퍼 qna 문의 페이지
 	@RequestMapping("helperSendQnA.ex")
-	public String goHelperSendQnA() {
+	public String goHelperSendQnA(HttpSession session) {
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		return "hp_sendQnA";
 	}
 	
@@ -270,13 +288,13 @@ public class ExpertController2 {
 	}
 	
 	@RequestMapping("insertQnA.ex")
-	public void insertQnA(HttpServletRequest request) {
+	public void insertQnA(HttpSession session,HttpServletRequest request) {
 		System.out.println("진입");
-		
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 //		SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
 //		String today = dateFormat.format(new Date());
 		
-		String coid = request.getParameter("coId");
+	//	String coid = request.getParameter("coId");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 //		
