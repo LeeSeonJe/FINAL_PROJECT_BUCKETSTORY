@@ -22,8 +22,8 @@
  <section class ="p-section">
 <!--         <p id ="title">포인트 내역</p> -->
  
-    <h3>${coId}</h3>
-  	<h3>포인트 내역 : ${ pi.listCount }</h3>
+    <h3>${coId} 님 환영합니다!</h3>
+  	<h3>포인트 충전/사용 횟수 : ${ pi.listCount }</h3>
 	<h3>보유 포인트 : ${hp }</h3>
 	
         <!-- 게시판 목록 영역-->

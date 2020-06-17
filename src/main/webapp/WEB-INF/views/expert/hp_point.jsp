@@ -30,7 +30,7 @@
 
 		<div class="inner__header">
 				<br>
-				<h2>${coId}</h2>
+				<h2>${coId} 님 환영합니다!</h2>
 				<h2>보유 총 포인트 : ${hp} 포인트 </h2> 
 				<br>
 		</div>
@@ -67,14 +67,14 @@
 						<td>+1,000 point</td>
 						<td><p class="p-before">10,000원</p>
 							<p class="p-after">7,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(10000);">결제하기</button></td>
+						<td><button class="btn btn--primary2" onclick="insertPoint(10000);">결제하기(걍 결제 Test)</button></td>
 					</tr>
 					<tr>
 						<td>20,000 point</td>
 						<td>+2,000 point</td>
 						<td><p class="p-before">20,000원</p>
 							<p class="p-after">14,000원</p></td>
-						<td><button class="btn btn--primary2" onclick="requestPay(20000);">결제하기</button></td>
+						<td><button class="btn btn--primary2" onclick="requestPay(20000);">결제하기(카카오페이 Test)</button></td>
 					</tr>
 					<tr>
 						<td>30,000 point</td>
@@ -102,6 +102,7 @@
 	<script>
 	
 		function insertPoint(price){
+			alert(price * (1-dc) +'원을 결제합니다.');
 			 $.ajax({
 				  url:"pinsert.ex",
 		      	  data:{
@@ -113,11 +114,8 @@
 		      	  },
 					success : function(data){
 				        var msg = '결제가 완료되었습니다.';
-				        msg += '고유ID : ' + rsp.imp_uid;
-				        msg += '상점 거래ID : ' + rsp.merchant_uid;
-				        msg += '결제 금액 : ' + rsp.paid_amount;
-				        msg += '카드 승인번호 : ' + rsp.apply_num;
 				        alert(msg);
+				        location.reload();
 					}		
 		      });
 		}
@@ -165,6 +163,7 @@
 					        msg += '결제 금액 : ' + rsp.paid_amount;
 					        msg += '카드 승인번호 : ' + rsp.apply_num;
 					        alert(msg);
+					        location.reload();
 						}		
 			      });
 			    } else {

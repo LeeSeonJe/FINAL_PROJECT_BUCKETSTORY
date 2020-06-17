@@ -49,4 +49,5 @@ public class ExpertDAO2 {
 		return sqlSession.selectOne("exMapper2.getNCount",coId);
 	}
 
+
 }
