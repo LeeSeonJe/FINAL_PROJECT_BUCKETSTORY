@@ -97,53 +97,37 @@ span.answer:after {
 				<div id="qna_answer"><span class="answer"><b style=" color: black; ">답변</b></span></div>
 				<div id="qna_text"><textarea rows="50" cols="1000" style=" width: 90%; height: 100px; " id="QnA_answer"></textarea>
 				<button id="qna_success">답변하기</button></div>
+				<textarea id="id"></textarea>
+				
 			</div>
 		</div>
 	</div>
 
 <script>
+
 //답변 보내기
-// $('#qna_success').on('click', function(){
-// 	var QnA_answer = $('#QnA_answer').val();
-// 	var q_no = ${ adminQnA.q_no };
-// 	var page = ${ page };
+//  $('#qna_success').on('click', function(){
+// 	 	var QnA_answer = $('#QnA_answer').val();
+// 	 	var q_no = ${ adminQnA.q_no };
+// 	 	var page = ${ page };
 	
-// 	 console.log(QnA_answer);
-	 
-// 	$.ajax({
-// 		url: "addAnswer.ad",
-// 		data:{an_content:QnA_answer, q_no:q_no, page:page},
-// 		dataType: 'json',
-// 		success: function(data){
-// 			data = JSON.parse(data);
-// 			console.log(data);
-// 			console.log(typeof(data));
-// 			console.log(typeof(data.responseText));
-// 			console.log("넘어왔다");
-			
-// 		}
-// 	});
-// });
- $('#qna_success').on('click', function(){
-	 	var QnA_answer = $('#QnA_answer').val();
-	 	var q_no = ${ adminQnA.q_no };
-	 	var page = ${ page };
-	
-	 	$.ajax({
-	 		url: "addAnswer.ad",
-	 		data:{an_content:QnA_answer, q_no:q_no, page:page},
-	 		dataType: "html",
-	 		success: function(data){
-	 		console.log(data);	 
- 			$('#qna_text').children().remove();
- 		 	$('#qna_text').html(data);
-	 	
-	 		}	 		
-	 		});
- 	});
+// 	 	$.ajax({
+// 	 		url: "readAnswer.ad",
+// 	 		data:{an_content:QnA_answer, q_no:q_no, page:page},
+// 	 		dataType: "json",
+// 	 		success: function(data){
+//  				var tt = data.an_content;
+//  				console.log(tt);
+	 			
+//  				$('#id').val(tt);
+// //  				$('#QnA_answer').children().remove();
+// //  				$('#QnA_answer').val(tt);
+// 	 		}	 		
+// 	 		});
+//  	});
  
 
-</script>
+</script>		
 
 </body>
 </html>

@@ -131,7 +131,7 @@ public class AdminController {
 		return mv;
 	}
 	
-	/* qna 상세페이지 */
+	/* qna 상세페이지(답변) */
 	@RequestMapping("qnadetail.ad")
 	public ModelAndView adminqnadetail(@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
 		
@@ -145,53 +145,47 @@ public class AdminController {
 		return mv;
 	}
 	
-	/* qna 답변하기 */
+	
+	
+//	/* qna 답변한 상세페이지 */
 	@RequestMapping("addAnswer.ad")
 	public ModelAndView adminqnaanswer(@ModelAttribute adminQnA ad, @RequestParam("q_no") int qno, @RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 		
-		System.out.println("AdminController ad : " + ad);
+		System.out.println("AdminController 확인하기 : " + ad);
 		
 		int result = bService.updateQnAanswer(ad);
-		
+//		
 		if(result > 0){
 			mv.addObject("q_no", qno)
 			  .addObject("page", page)
-			  .setViewName("redirect:qnaupdate.ad");
+			  .setViewName("adminQnADetail");
 			return mv;
-					
-					
+//					
+//					
 		} else {
 			throw new BoardException("답변 등록에 실패하였습니다.");
 		}
 	}
-	
-	@RequestMapping("qnaupdate.ad")
-	public void adminqnaupdate(@RequestParam("q_no") int qno, @RequestParam("page") int page, HttpServletResponse response) {
-		
-		response.setContentType("application/json; charset=UTF-8"); 
-		
-		adminQnA adminQnA = bService.adminqnadetail(qno);
-		System.out.println("adminQnA 컨트롤러 " + adminQnA);
-		
-		JSONObject obj = new JSONObject();
-		
-//		obj.put("q_no", adminQnA.getQ_no());
-//		obj.put("q_title", adminQnA.getQ_title());
-//		obj.put("q_content", adminQnA.getQ_content());
-//		obj.put("q_date", adminQnA.getQ_date());
-//		obj.put("answer", adminQnA.getAnswer());
-//		obj.put("an_date", adminQnA.getAn_date());
-		obj.put("an_content", adminQnA.getAn_content());
-//		obj.put("userid", adminQnA.getUserid());
-//		obj.put("coid", adminQnA.getCoid());
-		
-		try {
-			PrintWriter out = response.getWriter();
-			out.println(obj);
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//	
+//	@RequestMapping("readAnswer.ad")
+//	public void adminqnaupdate(@RequestParam("q_no") int qno, @RequestParam("page") int page, HttpServletResponse response) {
+//		
+//		response.setContentType("application/json; charset=UTF-8"); 
+//		
+//		adminQnA adminQnA = bService.adminqnadetail(qno);
+//		System.out.println("adminQnA 컨트롤러 " + adminQnA);
+//		
+//		JSONObject obj = new JSONObject();
+//		
+//		obj.put("an_content", adminQnA.getAn_content());
+//		
+//		try {
+//			PrintWriter out = response.getWriter();
+//			out.println(obj);
+//			out.flush();
+//			out.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }

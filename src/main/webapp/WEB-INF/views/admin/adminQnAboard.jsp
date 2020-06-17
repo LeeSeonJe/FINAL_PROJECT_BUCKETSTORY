@@ -71,21 +71,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="b" items="${ list }">
-				<tr>
-					<c:url var="qnadetail" value="qnadetail.ad">
-						<c:param name="q_no" value="${ b.q_no }"/>
-						<c:param name="page" value="${ pi.currentPage }"/>
-					</c:url>
-						<td>${ b.q_no }</td>
-						<td>
-							<a href="${qnadetail}">${ b.q_title }</a>
-						</td>
-						<td>${b.userid }</td>
-						<td>${b.q_date }</td>
-						<td>${b.answer }</td>
-				</tr>
-				</c:forEach>
+			
+						<c:forEach var="b" items="${ list }">
+						<tr>
+							<c:url var="qnadetail" value="qnadetail.ad">
+								<c:param name="q_no" value="${ b.q_no }"/>
+								<c:param name="page" value="${ pi.currentPage }"/>
+							</c:url>
+								<td>${ b.q_no }</td>
+								<td>
+									<a href="${qnadetail}">${ b.q_title }</a>
+								</td>
+								<td>${ b.userid }</td>
+								<td>${ b.q_date }</td>
+								<td>${ b.answer }</td>
+						</tr>
+						</c:forEach>
 			</tbody>	
 				<!-- 페이징 처리 -->
 		<tr align="center" height="20" id="buttonTab">
