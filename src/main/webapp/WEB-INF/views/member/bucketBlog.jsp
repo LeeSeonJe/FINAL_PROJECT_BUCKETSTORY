@@ -32,18 +32,18 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/${ loginUser.prImage }" />
+						<img id="profileImg" src="/BucketStory/resources/member/images/${ getMember.prImage }" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 30px;">${ loginUser.nickName }</td>
+					<td colspan="3" style="font-size: 30px;">${ getMember.nickName }</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 20px;">${ loginUser.userName }</td>
+					<td colspan="3" style="font-size: 20px;">${ getMember.userName }</td>
 				</tr>
 				<tr>
-					<td>게시물 ${ pi.listCount }</td>
-					<td>팔로워 ${ loginUser.fwCount }</td>
+					<td>게시물 ${ list }</td>
+					<td>팔로워 ${ getMember.fwCount }</td>
 					<td>팔로우 30</td>
 				</tr>
 			</table>
@@ -182,7 +182,7 @@
 							<a href="#bottom_scroll">아래로</a>
 						</td>
 						<td>
-							<a href="myBucket.me">&nbsp;목록&nbsp;</a>
+							<a href="myBucket.me?nickName=${ nickName }">&nbsp;목록&nbsp;</a>
 						</td>
 					</tr>
 				</table>
@@ -277,7 +277,9 @@
 						}
 					</script>
 					<input type="hidden" value="<%= mbl.get(index).getBucket().getBkNo() %>" />
-					<button id="blogWriteBtn">작성하기</button>
+					<c:if test="${ flag eq 'true' }">
+						<button id="blogWriteBtn">작성하기</button>
+					</c:if>
 				</c:if>
 			</div>		
 			<c:if test="${ !empty bList }">
@@ -418,19 +420,19 @@
 	$('span.bkName').on('click', function(){
 		var bkNo = $(this).parent().prev().val();
 		var page = ${ pi.currentPage }
-		location.href="myBlog.me?bkNo=" + bkNo + "&page=" + page;
+		location.href="myBlog.me?nickName=${ nickName }&bkNo=" + bkNo + "&page=" + page;
 	})
 	
 	$('span.bkName2').on('click', function(){
 		var bkNo = $(this).parent().prev().val();
 		var page = ${ pi.currentPage }
-		location.href="myBlog.me?bkNo=" + bkNo + "&page=" + page;
+		location.href="myBlog.me?nickName=${ nickName }&bkNo=" + bkNo + "&page=" + page;
 	})
 	
 	$('#blogWriteBtn').on('click', function(){
 		var page = ${ pi.currentPage }
 		var bkNo = $(this).prev().val();
-		location.href="blogWrite.me?bkNo=" + bkNo + "&page=" + page;
+		location.href="blogWrite.me?nickName=${ nickName }&bkNo=" + bkNo + "&page=" + page;
 	})
 	
 	$(function(){

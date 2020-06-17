@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.dao.MemberDAO;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
@@ -28,8 +29,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<MemberMyBucketList> myBucketList(String userId) {
-		return mDAO.myBucketList(sqlSession, userId);
+	public ArrayList<MemberMyBucketList> myBucketList(String nickName) {
+		return mDAO.myBucketList(sqlSession, nickName);
 	}
 
 	@Override
@@ -38,18 +39,24 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<Board> getBoard(Board b) {
-		return mDAO.getBoard(sqlSession, b);
-	}
-
-	@Override
 	public int getListCount(String userId) {
 		return mDAO.getListCount(sqlSession, userId);
 	}
 
 	@Override
-	public ArrayList<MemberMyBucketList> myBucketListPage(String userId, PageInfo pi) {
-		return mDAO.myBucketListPage(sqlSession, userId, pi);
+	public ArrayList<MemberMyBucketList> myBucketListPage(String nickName, PageInfo pi) {
+		return mDAO.myBucketListPage(sqlSession, nickName, pi);
+	}
+
+	@Override
+	public ArrayList<Board> getBoard(String nickName, int bn) {
+		String userid = mDAO.getUserId(sqlSession, nickName);
+		return mDAO.getBoard(sqlSession, userid, bn);
+	}
+
+	@Override
+	public Member getMember(String nickName) {
+		return mDAO.getMEmber(sqlSession, nickName);
 	}
 
 }
