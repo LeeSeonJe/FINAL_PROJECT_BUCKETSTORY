@@ -131,7 +131,7 @@
 		select *
 		from board
 		where userid = #{ userid } and bkno = #{ bn } and status = 'Y'
-		order by enrolldate desc
+		order by enrolldate
 	</select>
 	
 	<resultMap type="Board" id="BoardResultSet">

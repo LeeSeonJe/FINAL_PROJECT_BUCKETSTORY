@@ -22,7 +22,7 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/${ getMember.prImage }" />
+						<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />
 					</td>
 				</tr>
 				<tr>
