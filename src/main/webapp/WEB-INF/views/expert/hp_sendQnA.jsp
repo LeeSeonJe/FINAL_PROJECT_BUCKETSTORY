@@ -36,9 +36,8 @@ h2{
 			<h2>QnA 작성하기</h2>
 		</div>
 		<br>
-			<form action ="insertQnA.ex">
+			<form action ="insertQnA.ex" method="POST">
 				<table>
-				    <input type="hidden" value="TEST" name ="coID">
 					<tr>
 						<td>제목</td>
 						<td><input type="text" name="title"></td>

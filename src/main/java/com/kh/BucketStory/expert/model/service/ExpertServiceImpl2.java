@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.expert.model.dao.ExpertDAO2;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
@@ -55,6 +56,11 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	@Override
 	public int getNPoint(String coId) {
 		return exDAO2.getNPoint(sqlSession,coId);
+	}
+
+	@Override
+	public int insertQnA(adminQnA aQ) {
+		return exDAO2.insertQnA(sqlSession,aQ);
 	}
 
 

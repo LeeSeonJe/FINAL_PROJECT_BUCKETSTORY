@@ -1,5 +1,7 @@
 package com.kh.BucketStory.expert.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
@@ -295,8 +298,8 @@ public class ExpertController2 {
 	
 	// 헬퍼 qna 문의 페이지
 	@RequestMapping("helperSendQnA.ex")
-	public String goHelperSendQnA(HttpSession session) {
-		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+	public String goHelperSendQnA() {
+	//	String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		return "hp_sendQnA";
 	}
 	
@@ -305,34 +308,35 @@ public class ExpertController2 {
 	public String goHelperQnA() {
 		return "hp_QnA";
 	}
-	
+
 	@RequestMapping("insertQnA.ex")
-	public void insertQnA(HttpSession session,HttpServletRequest request) {
+	public String insertQnA(HttpSession session,HttpServletRequest request) {
 		System.out.println("진입");
-		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
-//		SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
-//		String today = dateFormat.format(new Date());
 		
-	//	String coid = request.getParameter("coId");
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+		
+		//System.out.println(today);
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-//		
-//		public adminQnA(int q_no, String q_title, String q_content, Date q_date, char answer, Date an_date,
-//				String an_content, String userid, String coid) {
-//			super();
-//			this.q_no = q_no;
-//			this.q_title = q_title;
-//			this.q_content = q_content;
-//			this.q_date = q_date;
-//			this.answer = answer;
-//			this.an_date = an_date;
-//			this.an_content = an_content;
-//			this.userid = userid;
-//			this.coid = coid;
-//		}
 		
-		//--> 정호 요청
+		adminQnA aQ = new adminQnA(title,content,null,coId);
+//		adminQnA aQ = new adminQnA(9999,title,content,null,'N',null,null,null,coId);
 		
-		System.out.println(title + ", " + content);
+		
+		int result = ExService2.insertQnA(aQ);
+		
+		if (result > 0) {
+			System.out.println("질문 완료");
+			return "hp_sendQnASuccess";
+		} else {
+			throw new ExpertException("질문에 실패하였습니다.");
+		}
 	}
+	
+	@RequestMapping("insertQnAS.ex")
+	public String goHelperQnASuccess() {
+		return "hp_sendQnASuccess";
+	}
+	
 }
