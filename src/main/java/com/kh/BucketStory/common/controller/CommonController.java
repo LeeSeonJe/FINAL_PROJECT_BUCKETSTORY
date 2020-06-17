@@ -30,7 +30,7 @@ import com.kh.BucketStory.common.model.service.MailService;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.vo.Company;
 
-@SessionAttributes("loginUser")
+@SessionAttributes({"loginUser", "loginCompany"})
 @Controller
 public class CommonController {
 	
@@ -105,8 +105,7 @@ public class CommonController {
   
 	  if(bcryptPasswordEncoder.matches(c.getCoPwd(), loginUser.getCoPwd())) {
 		  model.addAttribute("loginCompany", loginUser);
-		  System.out.println("성공");
-		  return "redirect:login.co";
+		  return "redirect:expertIntro.ex";
 	  } else {
 		  System.out.println("실패");
 		  return "redirect:login.co";

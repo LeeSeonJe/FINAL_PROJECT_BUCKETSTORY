@@ -28,12 +28,9 @@
 					if(p.text()=='회원'){
 						$('#login').css('display','block');
 						$('#Clogin').css('display','none');
-						$('#rightForm').css('background', 'rgba(255,187,0,0.7)');
 					} else {
 						$('#Clogin').css('display','block');
 						$('#login').css('display','none');
-						
-						$('#rightForm').css('background', 'rgba(213,213,213,0.7)');
 					}
 				});		
 				
