@@ -240,15 +240,9 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 	for(var i in tags){
 		$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
 	}
-	if(!$('#c-Add'+bkNo).length){
-		$('#bucketAdd').hide();
-	} else{
-		$('#bucketAdd').show();
-	}
+	$('#bucketAdd').show();
 	if($('#c-wishBtn'+bkNo+'>label').text() == '취소'){
 		$('#bucketwish').css('color', '#10ccc3');
-	} else{
-		$('#bucketwish').css('color', 'white');
 	}
 	// 사진 가져오기
 	$.ajax({
@@ -258,7 +252,8 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 		},
 		async : false,
 		success:function(data){
-			$('#bucketimg').css('background-image', 'url("http://images.hwlife.hscdn.com//library/'+data+'_view_01.jpg")');
+			var value = data.substring(0,5);
+			$('#bucketimg').css('background-image', 'url("http://images.hwlife.hscdn.com//library/'+value+'_view_01.jpg")');
 		}
 	});
 	// 공유한 사람
@@ -273,12 +268,19 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 				$('#bucketwithPro').html('');
 				$('#bucketwithCount>span').text(data.length);
 				for(var key in data){
-					if(data[key].prImage != null){
-						var $div = '<div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div>';
-						$('#bucketwithPro').append($div);
+					if(data[key].nickName == '${loginUser.nickName}'){
+						$('#bucketAdd').hide();
+					}
+					if(data[key].userId != 'admin'){
+						if(data[key].prImage != null){
+							var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+							$('#bucketwithPro').append($div);
+						} else{
+							var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+							$('#bucketwithPro').append($div);
+						}
 					} else{
-						var $div = '<div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div>';
-						$('#bucketwithPro').append($div);
+						$('#bucketwithCount>span').text(data.length-1);
 					}
 				}
 			} else{

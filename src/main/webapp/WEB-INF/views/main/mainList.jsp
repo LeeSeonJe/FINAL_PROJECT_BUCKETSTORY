@@ -48,7 +48,14 @@
 			<div class="bucketStoryNick">추천</div>
 			</c:if>
 			
-			<div class="bucketStoryStory">0</div>
+			<c:set var="bCount" value="0"/>
+			<c:forEach var="blog" items="${ blogList }">
+				<c:if test="${ blog.userid == b.userId && blog.bkNo == b.bkNo}">
+					<c:set var="bCount" value="${ bCount + 1 }"/>
+				</c:if>
+			</c:forEach>
+			<div class="bucketStoryStory">${ bCount }</div>
+			
 			<div class="bucketContent">
 				<div class="c-category">
 					<c:choose>
@@ -101,6 +108,9 @@
 	}, function(){
 		$('.c-likewish.${ b.bkNo }').hide();
 	});
+	if('${loginUser.nickName}' == '${b.userId}'){
+		$('.c-Add.${b.bkNo}').hide();
+	}
 </script>
 		</c:if>
 		</c:forEach>
@@ -108,6 +118,7 @@
 	<div id="FullOverLay">
 		<div id="bucketDatail">
 			<div id="bucketexit">X</div>
+			<div id="bucketGoBlog" onclick="location.href='login.co'">블로그 가기</div>
 			<div id="bucketimg">
 				<ul>
 				</ul>
@@ -115,7 +126,7 @@
 				<div id="buckettitle">리틀 포레스트에 나오는 음식 따라 만들기</div>
 				<div id="bucketleft">〈</div>
 				<div id="bucketright">〉</div>
-				<div id="bucketAdd"> + ADD</div>
+				<div id="bucketAdd"> + ADD                       </div>
 				<div id="bucketlike">♡ </div>
 				<div id="bucketwish">☆ </div>
 			</div>
@@ -151,11 +162,6 @@
 						<div id="profile2">한호성</div>
 					</div>
 				</div>
-				<!-- <div id="bucketwithBN">
-					<a id="bucketwithBN-a1">이전</a>
-					<div id="bucketwithBN-Count">1/2</div>
-					<a id="bucketwithBN-a2">다음</a>
-				</div> -->
 			</div>
 			<div id="bucketcpEvent"></div>
 		</div>
@@ -347,7 +353,7 @@ $(function(){
 	
 	// 공유버킷등록
 	function sharebl(bkNo, userId){
-		if('${loginUser.userId}' == userId){
+		if('${loginUser.nickName}' == userId){
 			alert("나의 버킷은 공유할 수 없습니다.");
 		} else{
 			var result = confirm("이 버킷리스트를 공유하시겠습니까?");
@@ -392,26 +398,20 @@ $(function(){
 		$('#bucketlike').attr('onclick', 'blLikeUp('+bkNo+');');
 		$('#bucketAdd').attr('onclick', 'sharebl('+bkNo+',"'+userId+'");');
 		$('#bucketwish').attr('onclick', 'wishRegist('+bkNo+',"'+userId+'");');
-		$('#bucketleft').attr('onclick', 'left('+bkNo+');');
-		$('#bucketright').attr('onclick', 'right('+bkNo+');');
+		$('#bucketleft').attr('onclick', 'left('+bkNo+',"'+userId+'","'+bkName+'");');
+		$('#bucketright').attr('onclick', 'right('+bkNo+',"'+userId+'");');
 		$('#bucketright')
 		var tags = tag.split(',');
 		$('#bucketTag').html('');
 		for(var i in tags){
 			$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
 		}
-		if(!$('.c-Add.'+bkNo).length){
-			$('#bucketAdd').hide();
-		} else{
-			$('#bucketAdd').show();
-		}
+		$('#bucketAdd').show();
 		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
 			$('#bucketwish').css('color', '#10ccc3');
-		} else{
-			$('#bucketwish').css('color', 'white');
 		}
 		// 버킷사진 가져오기
-			if(1<=bkNo&&bkNo<=10){
+		if(1<=bkNo&&bkNo<=10){
 			$.ajax({
 				url:'bkDetailMedia.ho',
 				data:{
@@ -438,18 +438,27 @@ $(function(){
 			});
 		}
 		// 블로그 사진 가져오기
+		$('#bucketGoBlog').show();
+		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
+		if(userId == '관리자찡'){
+			$('#bucketGoBlog').hide();
+		}
 		$.ajax({
 			url:'blogMedia.ho',
 			data:{
-				bkNo:bkNo
+				bkNo:bkNo,
+				nickName:userId
 			},
 			async : false,
 			success:function(data){
 				if(data.length > 0){
+					$('#bucketright').show();
 					for(var key in data){
 						var $li = '<li><img src="resources/member/images/blogUploade/'+data[key]+'"></li>';
 						$('#bucketimg>ul').append($li);
 					}
+				} else{
+					$('#bucketright').hide();
 				}
 			}
 		});
@@ -465,12 +474,19 @@ $(function(){
 					$('#bucketwithPro').html('');
 					$('#bucketwithCount>span').text(data.length);
 					for(var key in data){
-						if(data[key].prImage != null){
-							var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-							$('#bucketwithPro').append($div);
+						if(data[key].nickName == '${loginUser.nickName}'){
+							$('#bucketAdd').hide();
+						}
+						if(data[key].userId != 'admin'){
+							if(data[key].prImage != null){
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
+							} else{
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
+							}
 						} else{
-							var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-							$('#bucketwithPro').append($div);
+							$('#bucketwithCount>span').text(data.length-1);
 						}
 					}
 				} else{
@@ -480,45 +496,83 @@ $(function(){
 			}
 		});
 	}
-function left(bkNo){
+function left(bkNo, userId, bkName){
+	first--;
 	$.ajax({
 		url:'blogMedia.ho',
 		data:{
-			bkNo:bkNo
+			bkNo:bkNo,
+			nickName:userId
 		},
 		async : false,
 		success:function(data){
 			if(data.length > 0){
-				dataNum = data.length+1;
+				dataNum = data.length+2;
+			}
+		}
+	});
+	$.ajax({
+		url:'bloginfo.ho',
+		data:{
+			bkNo:bkNo,
+			nickName:userId
+		},
+		async : false,
+		success:function(data){
+			console.log(first);
+			if(first==1){
+				$('#buckettitle').text(bkName);
+				$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
+			} else{
+				$('#buckettitle').text(data[first-2].bTitle);
+				$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'&bNo='+data[first-2].bNo+'"');
 			}
 		}
 	});
 	var val1 = $('#bucketimg>ul').css('left').replace('px', '');
 	var val2 = $('#bucketimg li').width();
 	var leftval = parseInt(val1) + val2;
-	if(first > 1){
+	if(first > 0){
 		$('#bucketimg>ul').animate({
 			left:leftval
 		});
-		first--;
 		if(first == 1){
 			$('#bucketleft').hide();
 		} else{
 			$('#bucketleft').show();
 		}
+		if(first == dataNum-1){
+			$('#bucketright').hide();
+		} else{
+			$('#bucketright').show();
+		}
 	}
 }
-function right(bkNo){
+function right(bkNo, userId){
+	first++;
 	$.ajax({
 		url:'blogMedia.ho',
 		data:{
-			bkNo:bkNo
+			bkNo:bkNo,
+			nickName:userId
 		},
 		async : false,
 		success:function(data){
 			if(data.length > 0){
-				dataNum = data.length+1;
+				dataNum = data.length+2;
 			}
+		}
+	});
+	$.ajax({
+		url:'bloginfo.ho',
+		data:{
+			bkNo:bkNo,
+			nickName:userId
+		},
+		async : false,
+		success:function(data){
+			$('#buckettitle').text(data[first-2].bTitle);
+			$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'&bNo='+data[first-2].bNo+'"');
 		}
 	});
 	var val1 = $('#bucketimg>ul').css('left').replace('px', '');
@@ -528,8 +582,12 @@ function right(bkNo){
 		$('#bucketimg>ul').animate({
 			left:leftval
 		});
-		first++;
-		if(first == dataNum){
+		if(first == 1){
+			$('#bucketleft').hide();
+		} else{
+			$('#bucketleft').show();
+		}
+		if(first == dataNum-1){
 			$('#bucketright').hide();
 		} else{
 			$('#bucketright').show();

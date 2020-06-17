@@ -27,6 +27,10 @@ public interface MainService {
 
 	ArrayList<Member> selectShareMList(int bkNo);
 
-	ArrayList<Board> selectbMList(int bkNo);
+	ArrayList<Board> selectbMList(int bkNo, String nickName);
+
+	ArrayList<BucketList> selectRecoBucketList();
+
+	ArrayList<Board> selectBlogList();
 
 }

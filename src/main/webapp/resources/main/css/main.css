@@ -197,6 +197,25 @@ section{
     font-weight: 700;
     z-index: 100;
 }
+#bucketGoBlog{
+	position: absolute;
+    width: 120px;
+    height: 30px;
+    color: white;
+    top: 19px;
+    right: 70px;
+    font-size: 20px;
+    font-weight: 700;
+    z-index: 100;
+    text-align: center;
+    background: black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#bucketGoBlog:hover{
+	color:black;
+	background:white;
+}
 #bucketimg{
 	width:100%;
 	background:skyblue;

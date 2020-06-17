@@ -38,21 +38,27 @@ public class MainController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		String userId = loginUser.getUserId();
 		
-		ArrayList<BucketList> bucketList = mainService.selectBucketList();
+		
 		ArrayList<Media> blImg = mainService.selectBucketImg();
 		ArrayList<WishList> wishList = mainService.selectWishList(userId);
 		ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
-		mv.addObject("bucketList", bucketList);
+		ArrayList<Board> blogList = mainService.selectBlogList();
+		
 		mv.addObject("blImg", blImg);
 		mv.addObject("wishList", wishList);
 		mv.addObject("category", category);
 		mv.addObject("shareList", shareList);
+		mv.addObject("blogList", blogList);
 		
 		if(menuNum == 1) {
+			ArrayList<BucketList> bucketList = mainService.selectBucketList();
+			mv.addObject("bucketList", bucketList);
 			mv.setViewName("mainList");
 		} else if(menuNum == 2) {
 			mv.setViewName("mainRanking");
 		} else if(menuNum == 3) {
+			ArrayList<BucketList> bucketList = mainService.selectRecoBucketList();
+			mv.addObject("bucketList", bucketList);
 			mv.setViewName("mainRecomment");
 		} else {
 			mv.setViewName("mainCompany");
@@ -148,10 +154,10 @@ public class MainController {
 	}
 	
 	@RequestMapping("blogMedia.ho")
-	public void bucketDetailBlogMedia(@RequestParam("bkNo") int bkNo, HttpServletResponse response) {
+	public void bucketDetailBlogMedia(@RequestParam("bkNo") int bkNo, @RequestParam("nickName") String nickName, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
 		
-		ArrayList<Board> bMList = mainService.selectbMList(bkNo);
+		ArrayList<Board> bMList = mainService.selectbMList(bkNo, nickName);
 		ArrayList<String> list = new ArrayList<String>();
 		for(Board b : bMList) {
 			int val = b.getbContent().indexOf("blogUploade/");
@@ -162,6 +168,22 @@ public class MainController {
 		
 		try {
 			gson.toJson(list, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping("bloginfo.ho")
+	public void bucketBlogInfo(@RequestParam("bkNo") int bkNo, @RequestParam("nickName") String nickName, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		
+		ArrayList<Board> bMList = mainService.selectbMList(bkNo, nickName);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		try {
+			gson.toJson(bMList, response.getWriter());
 		} catch (JsonIOException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
