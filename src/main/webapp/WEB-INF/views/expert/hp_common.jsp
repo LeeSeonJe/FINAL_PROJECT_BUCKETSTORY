@@ -62,7 +62,7 @@
             <li><a href=#>헬퍼6</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item4">
-            <li><a href="point.ex">포인트 충전</a></li>  <!-- point.ex?coid=${coId} -->
+            <li><a href="point.ex">포인트 충전</a></li>  
             <li><a href="pointList2.ex">포인트 내역</a></li> <!-- pointList.ex -->
         </ul>
         <ul class='sub-c' id ="sub-item5">

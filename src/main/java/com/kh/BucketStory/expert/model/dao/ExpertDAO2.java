@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
 
@@ -39,7 +40,7 @@ public class ExpertDAO2 {
 	}
 	
 	public int insertPoint(SqlSessionTemplate sqlSession, Pay p) {
-		return sqlSession.update("exMapper2.insertPoint", p);
+		return sqlSession.insert("exMapper2.insertPoint", p);
 	}
 
 	public int getYPoint(SqlSessionTemplate sqlSession, String coId) {
@@ -47,6 +48,9 @@ public class ExpertDAO2 {
 	}
 	public int getNPoint(SqlSessionTemplate sqlSession, String coId) {
 		return sqlSession.selectOne("exMapper2.getNCount",coId);
+	}
+	public int insertQnA(SqlSessionTemplate sqlSession, adminQnA aQ) {
+		return sqlSession.insert("exMapper2.insertQnA", aQ);
 	}
 
 
