@@ -32,7 +32,7 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/${ getMember.prImage }" />
+						<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />
 					</td>
 				</tr>
 				<tr>
@@ -81,7 +81,7 @@
 							<c:forEach items="${ myBucketList }" var="mbl" >
 								<tr>
 									<td>
-										<input type="hidden" value="${ mbl.bkNo }"/>
+										<input type="hidden" class="hidden_BKNO" value="${ mbl.bkNo }"/>
 										<div class="wrap_td">
 											<span class="bkName">${ mbl.bucket.bkName }</span>
 										</div>
@@ -103,6 +103,7 @@
 					</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
 						<c:url var="before" value="myBlog.me">
+							<c:param name="nickName" value="${ getMember.nickName }"></c:param>
 							<c:param name="page" value="${ pi.currentPage - 1 }"/>
 						</c:url>
 						<a href="${ before }">[이전]</a> &nbsp;
@@ -116,6 +117,7 @@
 						
 						<c:if test="${ p ne pi.currentPage }">
 							<c:url var="pagination" value="myBlog.me">
+								<c:param name="nickName" value="${ getMember.nickName }"></c:param>
 								<c:param name="page" value="${ p }"/>
 							</c:url>
 							<a href="${ pagination }">${ p }</a> &nbsp;
@@ -128,6 +130,7 @@
 					</c:if>
 					<c:if test="${ pi.currentPage < pi.maxPage }">
 						<c:url var="after" value="myBlog.me">
+							<c:param name="nickName" value="${ getMember.nickName }"></c:param>
 							<c:param name="page" value="${ pi.currentPage + 1 }"/>
 						</c:url> 
 						<a href="${ after }">[다음]</a> &nbsp;
@@ -156,7 +159,7 @@
 								<input id="goElement" type="text" value="1" style="width: 30px; height: 20px; border: 1px solid gray;"/>&nbsp;/&nbsp;${ bList.size() }&nbsp;<a onclick="goBucket()">이동</a>
 							</c:if>
 							<c:if test="${ empty bList }">
-								<input type="text" style="width: 30px; height: 20px; border: 1px solid gray;" readonly="readonly"/>&nbsp;/&nbsp;${ bList.size() }&nbsp;<a>이동</a>
+								<input type="text" value="0" style="width: 30px; height: 20px; border: 1px solid gray;" readonly="readonly"/>&nbsp;/&nbsp;${ bList.size() }&nbsp;<a>이동</a>
 							</c:if>
 						</td>
 					</tr>
@@ -288,11 +291,26 @@
 						<input type="hidden" value="${ bl.bNo }" />
 						<input type="text" readonly="readonly" value="${ status.index }" style="width:0px; height:0px; font-size: 0px; border: none;">
 						<h3>${ bl.bTitle }</h3>
+						<div class="profile-area">
+							<img src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+							<span>${ getMember.nickName }</span>
+							<span>${ bl.enrollDate }</span>
+							<span>팔로우</span>
+						</div>
 						<div>
 							${ bl.bContent }
 						</div>
 						<div class="reply">
-							등록된 댓글이 없습니다.
+							<div class="reply_profile_area">
+								<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+								<span>${ loginUser.nickName }</span>
+							</div>
+							<div class="reply_content">
+								<textarea name="cmcontent" class="cmcontent" cols="10" rows="5" style="width: 100%;"></textarea>
+							</div>
+							<div>
+								
+							</div>
 						</div>
 					</div>	
 				</c:forEach>
@@ -329,7 +347,7 @@
 							<c:forEach items="${ myBucketList }" var="mbl" >
 								<tr>
 									<td>
-										<input type="hidden" value="${ mbl.bkNo }"/>
+										<input type="hidden" class="hidden_BKNO" value="${ mbl.bkNo }"/>
 										<div class="wrap_td">
 											<span class="bkName2">${ mbl.bucket.bkName }</span>
 										</div>
@@ -351,6 +369,7 @@
 					</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
 						<c:url var="before" value="myBlog.me">
+							<c:param name="nickName" value="${ getMember.nickName }"></c:param>
 							<c:param name="page" value="${ pi.currentPage - 1 }"/>
 						</c:url>
 						<a href="${ before }">[이전]</a> &nbsp;
@@ -364,6 +383,7 @@
 						
 						<c:if test="${ p ne pi.currentPage }">
 							<c:url var="pagination" value="myBlog.me">
+								<c:param name="nickName" value="${ getMember.nickName }"></c:param>
 								<c:param name="page" value="${ p }"/>
 							</c:url>
 							<a href="${ pagination }">${ p }</a> &nbsp;
@@ -376,6 +396,7 @@
 					</c:if>
 					<c:if test="${ pi.currentPage < pi.maxPage }">
 						<c:url var="after" value="myBlog.me">
+							<c:param name="nickName" value="${ getMember.nickName }"></c:param>
 							<c:param name="page" value="${ pi.currentPage + 1 }"/>
 						</c:url> 
 						<a href="${ after }">[다음]</a> &nbsp;
@@ -388,22 +409,39 @@
 
 	$(function(){
 		var length = ${ myBucketList.size() };
-		var bucketTitle = $('#bucketTitle').children().text().trim();
+		var bkNo = $('#bucketTag').next().next().val();
 		for (var i = 0; i < length; i++) {
-			if($('.bkName').eq(i).text().trim() == bucketTitle) {
+			if($.trim($('.hidden_BKNO').eq(i).val()) == bkNo) {
 				$('.bkName').eq(i).css({'font-weight':'900', 'border-bottom':'1px solid black'})
-			}
-		}
-		for (var i = 0; i < length; i++) {
-			if($('.bkName2').eq(i).text().trim() == bucketTitle) {
 				$('.bkName2').eq(i).css({'font-weight':'900', 'border-bottom':'1px solid black'})
 			}
 		}
-		
 		var list_table = $('.bucketList-area>table').hide()
 		var list_page = $('.pagingBtn-area').hide();
 		
+		var bNo = '${ bNo }'
+		if(bNo != "") {
+			var length = $('.blogBucket').children('input[type=hidden]').length
+			for(var i = 0; i < length; i++) {
+				if($('.blogBucket').children('input[type=hidden]').eq(i).val() == bNo){
+					console.log(i);
+					$('.blogBucket').children('input[type=hidden]').eq(i).next().focus();
+				}
+			}
+		}
 	})
+	
+	/* 글자수 스크립트 */
+	$('.reply_TEXT').keyup(function (e){
+       var content = $(this).val();
+       $('#counter').html(content.length+"/200");//글자수 실시간 카운팅
+
+       if (content.length > 300){
+           alert("최대 200자까지 입력 가능합니다.");
+           $(this).val(content.substring(0, 200));
+           $('#counter').html("200/200");
+       }
+   });
 	
 	function listSH() {
 		if($('#listBtn').text() == '목록열기'){

@@ -90,7 +90,7 @@ h2 {
 	width: 600px;
 }
 
-textarea {
+#bucketContent>textarea {
 	outline: none;
 	resize: none;
 	margin-top: 15px;
@@ -136,30 +136,36 @@ select {
 	font-size: 13px;
 }
 
-.bucketList-area>table tr th:first-child, #bottom_scroll>table tr th:first-child {
+.bucketList-area>table tr th:first-child, #bottom_scroll>table tr th:first-child
+	{
 	text-align: left;
 	width: 650px;
 }
 
-.bucketList-area>table tr th:last-child, #bottom_scroll>table tr th:last-child {
+.bucketList-area>table tr th:last-child, #bottom_scroll>table tr th:last-child
+	{
 	text-align: right;
 	width: 150px;
 }
 
-.bucketList-area>table tr td:first-child, #bottom_scroll>table tr td:first-child {
+.bucketList-area>table tr td:first-child, #bottom_scroll>table tr td:first-child
+	{
 	text-align: left;
 	width: 650px;
 }
 
-.bucketList-area>table tr td:first-child span, #bottom_scroll>table tr td:first-child span {
+.bucketList-area>table tr td:first-child span, #bottom_scroll>table tr td:first-child span
+	{
 	cursor: pointer;
 }
 
-.bucketList-area>table tr td:first-child span:hover, #bottom_scroll>table tr td:first-child span:hover {
+.bucketList-area>table tr td:first-child span:hover, #bottom_scroll>table tr td:first-child span:hover
+	{
 	border-bottom: 1px solid black;
 }
 
-.bucketList-area>table tr td:last-child, #bottom_scroll>table tr td:last-child {
+.bucketList-area>table tr td:last-child, #bottom_scroll>table tr td:last-child
+	{
 	text-align: right;
 	width: 150px;
 }
@@ -207,14 +213,6 @@ select {
 .tagBtn:hover {
 	background: #dce6f2;
 	border-radius: 7px;
-}
-
-.reply {
-	width: 820px;
-	margin: 0 auto;
-	margin-top: 130px;
-	border: 1px solid #ddcbda;
-	border-radius: 5px;
 }
 
 .pagingBtn-area {
@@ -285,4 +283,37 @@ a:hover {
 
 #mydiv span {
 	font-size: 13px;
+}
+
+.profile-area {
+	display: flex;
+	align-items: center;
+	margin-left: 100px;
+}
+
+.profile-area>span, .reply_profile_area>span {
+	margin-left: 15px;
+	font-size: 14px;
+}
+
+/* 댓글 */
+.reply {
+	width: 820px;
+	margin: 0 auto;
+	margin-top: 130px;
+	border: 1px solid #ddcbda;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.reply_profile_area {
+	display: flex;
+	align-items: center;
+}
+
+.cmcontent {
+	outline: none;
+	height: 55px;
+	margin-top: 10px;
+	resize: none;
 }
