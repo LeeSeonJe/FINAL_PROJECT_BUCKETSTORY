@@ -27,14 +27,17 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
-
-   <div class="video-background">
-      <div class="video-foreground">
-         <div id="muteYouTubeVideoPlayer"></div>
-      </div>
-   </div>
+	<br><br><br><br><br><br><br><br><br><br>
+    <p>로그인한 아이디</p>
+	<p>${coid}</p>
+	
+<!--    <div class="video-background"> -->
+<!--       <div class="video-foreground"> -->
+<!--          <div id="muteYouTubeVideoPlayer"></div> -->
+<!--       </div> -->
+<!--    </div> -->
    
-   <div class="video-film"></div>
+<!--    <div class="video-film"></div> -->
    
 
    <script async src="https://www.youtube.com/iframe_api"></script>
