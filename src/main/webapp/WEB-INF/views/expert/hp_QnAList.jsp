@@ -7,11 +7,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel ="stylesheet" href ="resources/expert/css/hp_boardList.css">
+<style>
+
+	.background{
+		 background: url("resources/common/images/Mountain.jpg");
+	 background-size:cover;
+	}
+	#inner{
+		width:980px;
+		height:auto;
+		margin:0 auto;
+		padding: 50px;
+		background: #fff;
+		border-radius: 7px;
+	}
+
+</style>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
- <section class ="p-section">
-
+ 
+ <section class ="p-section background">
+ 
+ 	<div id ="inner">
  	<h3>${coId} 님 환영합니다!</h3>
   	<h3>문의 횟수 : ${ pi.listCount }</h3>
         <!-- 게시판 목록 영역-->
@@ -98,10 +116,8 @@
                     <button id ="searchBtn">검색</button>
                 </div>
             </div>
-
-
         </div>
-       
+       </div>
  </section class ="section"> 
 </body>
 </html>
