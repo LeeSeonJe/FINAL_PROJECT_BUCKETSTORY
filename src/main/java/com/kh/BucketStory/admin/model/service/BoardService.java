@@ -15,9 +15,13 @@ public interface BoardService {
 
 	ArrayList<adminQnA> adminQnAselectList(PageInfo pi);
 
-	adminQnA adminqnadetail(int qno);
+	adminQnA adminqnadetailview(int qno);
 
-	int updateQnAanswer(adminQnA ad);
+	adminQnA adminqnaUpdate(int qno);
+
+	int adminqnaUpdatedetail(adminQnA a);
+
+
 
 
 

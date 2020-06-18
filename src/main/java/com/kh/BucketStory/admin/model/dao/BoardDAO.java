@@ -37,13 +37,20 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectList("boardMapper.adminQnAselectList", null, rowBounds);
 	}
 
-	public adminQnA adminqnadetail(SqlSessionTemplate sqlSession, int qno) {
-		return sqlSession.selectOne("boardMapper.adminqnadetail", qno);
+	public adminQnA adminqnadetailview(SqlSessionTemplate sqlSession, int qno) {
+		return sqlSession.selectOne("boardMapper.adminqnadetailview", qno);
 	}
 
-	public int updateQnAanswer(SqlSessionTemplate sqlSession, adminQnA ad) {
-		return sqlSession.update("boardMapper.updateQnAanswer", ad);
+	public adminQnA adminqnaUpdate(SqlSessionTemplate sqlSession, int qno) {
+		return sqlSession.selectOne("boardMapper.adminqnaUpdate", qno);
 	}
+
+	public int adminqnaUpdatedetail(SqlSessionTemplate sqlSession, adminQnA a) {
+		return sqlSession.update("boardMapper.adminqnaUpdatedetail", a);
+	}
+
+
+
 
 
 
