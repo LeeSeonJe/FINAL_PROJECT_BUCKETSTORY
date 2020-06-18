@@ -82,9 +82,6 @@ public class CommonController {
     	String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
     	m.setUserPwd(encPwd);
     	
-
-
-    
     	int result = cService.insertMember(m);
     	String returnValue = "";
     	
