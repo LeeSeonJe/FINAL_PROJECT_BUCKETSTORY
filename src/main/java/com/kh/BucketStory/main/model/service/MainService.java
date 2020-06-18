@@ -33,4 +33,12 @@ public interface MainService {
 
 	ArrayList<Board> selectBlogList();
 
+	ArrayList<Member> selectAllMember();
+
+	ArrayList<BucketList> selectAllBucket();
+
+	ArrayList<BucketList> selectSearchBucket(String b);
+
+	ArrayList<BucketList> selectSearchTag(String t);
+
 }

@@ -78,4 +78,24 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.selectbMList(sqlSession, bkNo, nickName);
 	}
 
+	@Override
+	public ArrayList<Member> selectAllMember() {
+		return mainDAO.selectAllMember(sqlSession);
+	}
+
+	@Override
+	public ArrayList<BucketList> selectAllBucket() {
+		return mainDAO.selectAllBucket(sqlSession);
+	}
+
+	@Override
+	public ArrayList<BucketList> selectSearchBucket(String b) {
+		return mainDAO.selectSearchBucket(sqlSession, b);
+	}
+
+	@Override
+	public ArrayList<BucketList> selectSearchTag(String t) {
+		return mainDAO.selectSearchTag(sqlSession, t);
+	}
+
 }
