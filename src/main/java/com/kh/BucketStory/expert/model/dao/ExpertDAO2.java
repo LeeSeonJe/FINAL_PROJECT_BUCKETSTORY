@@ -8,18 +8,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.admin.model.vo.adminQnA;
+import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
 
 @Repository("exDAO2")
 public class ExpertDAO2 {
-
-//	public ArrayList<Pay> selectPayList(SqlSessionTemplate sqlSession, String coid) {
-//		
-//		List<Object> list = sqlSession.selectList("exMapper.selectPayList", coid);
-//		
-//		return null;
-//	}
 
 	public int getListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("exMapper2.getListCount");
@@ -61,6 +55,9 @@ public class ExpertDAO2 {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAList", coId, rowBounds);
+	}
+	public int updateCompany(SqlSessionTemplate sqlSession, Company c) {
+		return sqlSession.update("exMapper2.updateCompany", c);
 	}
 
 

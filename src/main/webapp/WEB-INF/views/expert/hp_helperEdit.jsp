@@ -29,9 +29,7 @@
 	<!-- 	coIntro 업체소개-->
 	<!--    coInfo 업체정보-->
 
-
 	<section>
-
 		<div class="inner">
 			<h1 align="center">Helper Edit</h1>
 			<br>

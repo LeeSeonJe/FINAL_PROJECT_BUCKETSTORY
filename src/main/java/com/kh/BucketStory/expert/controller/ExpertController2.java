@@ -1,8 +1,11 @@
 package com.kh.BucketStory.expert.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.BucketStory.admin.model.vo.adminQnA;
@@ -37,7 +41,7 @@ public class ExpertController2 {
 	private ExpertService2 ExService2;
 	
 	// Ajax용
-	private static void ajaxWriter(HttpServletResponse response,String msg) {
+	private static void resWriter(HttpServletResponse response,String msg) {
 		try {
 			PrintWriter out = response.getWriter();
 			out.append(msg);
@@ -47,24 +51,16 @@ public class ExpertController2 {
 			e.printStackTrace();
 		}
 	}
-	
-	// 테스트
-	@RequestMapping("gogo.ex")
-	public String expertInfo1() {
-		return "hp_common";
-	}
-	
+		
 	// 전문가 메인페이지
 	@RequestMapping("expertIntro.ex")
 	public ModelAndView expertInfo2(ModelAndView mv, HttpSession session) { 
 		
-		Company loginCom = (Company)session.getAttribute("loginCompany");
-		
+		Company loginCom = (Company)session.getAttribute("loginCompany");	
 		// System.out.println(loginCom);
 		
-		// 기업 아이디
+		// 기업/전문가 아이디
 		String coId = loginCom.getCoId();
-		
 		System.out.println("기업아이디 :" + coId +"로 로그인하셨습니다.");
 		
 		mv.addObject("coid",coId);
@@ -72,15 +68,12 @@ public class ExpertController2 {
 		return mv;
 	}
 	
-	
-	
 	// 헬퍼뷰어 페이지
 	@RequestMapping("helperView.ex")
 	public ModelAndView  goHelperView(HttpSession session,
 			ModelAndView mv) {
 		
 		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
-		
 		Company company = ExService.selectCompanyInfo(coId);
 		mv.addObject("com", company);
 		mv.setViewName("hp_helperView");
@@ -97,56 +90,75 @@ public class ExpertController2 {
 //		return mv;
 //	}
 	
-//	<!-- 	coId 기업아이디 -->
-//	<!-- 	coPwd 비밀번호 -->
-//	<!-- 	coName 기업명-->
-//	<!-- 	compaName 업종명 -->
-//	<!-- 	apName 신청자이름 -->
-//	<!-- 	homePage 홈페이지 -->
-//	<!-- 	coTel 전화번호 -->
-//	<!-- 	enrollDate 가입날짜 -->
-//	<!-- 	status -->
-//	<!-- 	approval 승인여부 -->
-//	<!--    busiEmail 이메일 -->
-//	<!-- 	cpCheck 기업전문가여부 -->
-//	<!-- 	checkImg 인증사진 -->
-//	<!--    point 포인트 -->
-//	<!-- 	cateNum 카테고리 번호 -->
-//	<!-- 	coIntro 업체소개-->
-//	<!--    coInfo 업체정보-->
-
-	/*
-	public Company(String coId, String coPwd, String coName, String compaName, String apName, String homePage,
-			String coTel, Date enrollDate, String status, String approval, String busiEmail, int cpCheck,
-			String checkImg, int point, int cateNum, String coIntro, String coInfo) {
-		super();
-		this.coId = coId;
-		this.coPwd = coPwd;
-		this.coName = coName;
-		this.compaName = compaName;
-		this.apName = apName;
-		this.homePage = homePage;
-		this.coTel = coTel;
-		this.enrollDate = enrollDate;
-		this.status = status;
-		this.approval = approval;
-		this.busiEmail = busiEmail;
-		this.cpCheck = cpCheck;
-		this.checkImg = checkImg;
-		this.point = point;
-		this.cateNum = cateNum;
-		this.coIntro = coIntro;
-		this.coInfo = coInfo;
+	// 기업소개 변경 
+	@RequestMapping("comUpdate.ex")
+	public String comUpdate(HttpSession session, HttpServletRequest request,
+							@RequestParam("uploadFile") MultipartFile uploadFile) {
+		
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+		String coName = request.getParameter("coName");
+		//String checkImg = request.getParameter("checkImg");
+		String compaName = request.getParameter("compaName");
+		String coIntro = request.getParameter("coIntro");
+		int cateNum = Integer.parseInt(request.getParameter("cateNum"));
+		String checkImg = null;
+		
+		 if(uploadFile != null && !uploadFile.isEmpty()) {
+	    		checkImg = saveFile(uploadFile, request);  			
+		 }		 
+		 Company c = new Company(coId, coName, compaName, checkImg, cateNum, coIntro);
+		 
+		 System.out.println("기업소개변경");
+		 System.out.println(c);
+		 int result = ExService2.updateCompany(c);
+		 
+		 if (result > 0) {
+			 	//resWriter(response,"ok");
+			 	return "redirect:comUpdateSuccess.ex";
+			} else {
+				//resWriter(response,"fail");
+				throw new ExpertException("기업소개 변경에 실패하였습니다.");
+			}	
 	}
 	
-	생성자 하나 더 만들어ㅇ
-	 */
-	
+	@RequestMapping("comUpdateSuccess.ex")
+	public ModelAndView  comUpdate(HttpSession session, ModelAndView mv) {
+		Company loginCom = (Company)session.getAttribute("loginCompany");
+		mv.addObject("com", loginCom);
+		mv.setViewName("hp_comUpdateSuccess");
+		return mv;
+	}
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\muploadFiles";
+		
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originFileName = file.getOriginalFilename();
+		String renameFileName = sdf.format(new Date(System.currentTimeMillis()))
+								+"."
+								+ originFileName.substring(originFileName.lastIndexOf(".") + 1);
+		String renamePath = folder + "//" + renameFileName;
+		
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return renameFileName;
+	}
 
 	@RequestMapping("helperUpdate.ex")
 	public void helperUpdate(HttpSession session, HttpServletRequest request) {
 		
-
 		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		
 		String coName = request.getParameter("coName");
@@ -179,6 +191,19 @@ public class ExpertController2 {
 		
 		mv.addObject("com", company);
 		mv.setViewName("hp_helperEdit");
+		return mv;
+	}
+	
+//	// 헬퍼수정 페이지
+	@RequestMapping("helperEdit2.ex")
+	public ModelAndView goHelperEdit2(HttpSession session,
+			ModelAndView mv)  {
+		
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+		Company company = ExService.selectCompanyInfo(coId);
+		
+		mv.addObject("com", company);
+		mv.setViewName("hp_helperEdit2");
 		return mv;
 	}
 	
@@ -367,9 +392,9 @@ public class ExpertController2 {
 		
 		if (result > 0) {
 //			System.out.println("성공");
-			ajaxWriter(response,"ok");
+			resWriter(response,"ok");
 		} else {
-			ajaxWriter(response,"fail");
+			resWriter(response,"fail");
 		}	
 	}
 	

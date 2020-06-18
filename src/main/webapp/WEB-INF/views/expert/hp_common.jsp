@@ -29,7 +29,8 @@
 
 
 	<header>
-		<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+<%-- 		<jsp:include page="/WEB-INF/views/layout/header.jsp"/> --%>
+			<jsp:include page="/WEB-INF/views/expert/hp_header.jsp"/>
 	</header>
 	
 	<!-- 전문가 로그인 아이디 coid를 가져와서 집어넣어야 한다. -->
@@ -50,8 +51,8 @@
 
     <div id="sub-area">
         <ul class='sub-c' id ="sub-item1">
-            <li><a href="helperView.ex">헬퍼뷰어</a></li>
-            <li><a href="helperEdit.ex">헬퍼수정</a></li>
+            <li><a href="helperEdit.ex">기본정보변경</a></li>
+            <li><a href="helperEdit2.ex">기업소개변경</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item2">
             <li><a href="helperBucketList.ex">헬퍼버킷리스트</a></li>

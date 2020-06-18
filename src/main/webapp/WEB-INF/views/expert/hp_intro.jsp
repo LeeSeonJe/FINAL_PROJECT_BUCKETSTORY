@@ -74,7 +74,7 @@
 	font-size : 28px;
 	position : absolute;
 	left: 50%;
-	top: 17%;
+	top: 15%;
 	width: 200px;
 	height: 100px;
 }
@@ -83,6 +83,7 @@
 	font-size:24px;
 	font-weight: bold;
 }
+
 </style>
 </head>
 <body>
@@ -104,6 +105,12 @@
 		
 <!-- 		<!-- 		<img src ="resources/common/images/Mountain.jpg"> --> -->
 <!-- 	</div> -->
-
+	
+<%-- 	<iframe src = "<%=request.getContextPath()%>/hp_cal.html" width="100%" height="500"></iframe> --%>
+	
+<%-- 	<jsp:include page="/WEB-INF/views/expert/hp_cal.jsp"/> --%>
+	
+	
+	
 </body>
 </html>

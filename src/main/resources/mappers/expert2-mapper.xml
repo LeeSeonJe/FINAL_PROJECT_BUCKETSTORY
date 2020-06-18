@@ -8,6 +8,18 @@
 		where coid=#{coId} and status='Y'
 	</select>
 	
+	<!-- 기업소개 변경 -->
+	<update id ="updateCompany">
+		update COMPANY
+		<if test="checkImg != null">
+		set CONAME=#{coName},COMPANAME=#{compaName},CHECKIMG=#{checkImg},CATENUM=#{cateNum},COINTRO=#{coIntro}
+		where COID=#{coId}
+		</if>
+		<if test="checkImg == null">
+		set CONAME=#{coName},COMPANAME=#{compaName},CATENUM=#{cateNum},COINTRO=#{coIntro}
+		where COID=#{coId}
+		</if>
+	</update>
 	<resultMap id="CompanyResultSet" type="Company">
 		<id property="coId" column="COID"/>
 		<result property="pwd" column="COPWD"/>

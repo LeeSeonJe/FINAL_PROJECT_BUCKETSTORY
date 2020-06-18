@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.expert.model.dao.ExpertDAO2;
+import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
 
@@ -19,11 +20,6 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
-	@Override
-	public String test(String coid) {
-		return null;
-	}
 
 	@Override
 	public int getListCount() {
@@ -71,6 +67,10 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	@Override
 	public ArrayList<adminQnA> selectQnAList(PageInfo pi, String coId) {
 		return exDAO2.selectQnAList(sqlSession, pi, coId);
+	}
+	@Override
+	public int updateCompany(Company c) {
+		return exDAO2.updateCompany(sqlSession,c);
 	}
 
 }
