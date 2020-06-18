@@ -8,9 +8,21 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel ="stylesheet" href ="resources/expert/css/hp_common.css">
 <link rel ="stylesheet" href ="resources/expert/css/hp_sendQnA.css">
+<style>
+#background{
+	 background: url("resources/common/images/Mountain.jpg");
+	 background-size:cover;
+	 position: absolute;
+	 left: 0;
+	 right: 0;
+	 top: 0;
+	 bottom: 0;
+}
+</style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
+	<jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>`
+	<div id ="background"></div>
 	<section>
 	<div  id ="writeform" class="comb">	
 		<div>
