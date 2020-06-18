@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -92,14 +93,23 @@ span.answer:after {
 			<div>
 				<div id="qna_title"><b> ${ adminQnA.q_title }</b></div>
 				<div id="qna_info">
-				<span>[이미지 넣기] ${ adminQnA.userid }</span>
+				<span>[이미지 넣기] ${ adminQnA.userid } ${ adminQnA.coid }</span>
 				<span>[이미지 넣기] ${ adminQnA.q_date }</span>
 				</div>
 				<br clear="all">
 				<div id="qna_content">${ adminQnA.q_content }</div>
 				<div id="qna_answer"><span class="answer"><b style=" color: black; ">답변</b></span></div>
-				<div id="qna_text">${ adminQnA.an_content }</div>
-				<div id="qna_button"><button onclick="location.href='adminQnAlist.ad'">목록</button></div>
+				<div>${ adminQnA.an_content }</div>
+				
+				<c:url var="update" value="adminQnAinsert.ad">
+					<c:param name="q_no" value="${ adminQnA.q_no }"/>
+					<c:param name="page" value="${ page }"/>
+				</c:url>
+				<c:url var="list" value="adminQnAlist.ad">
+					<c:param name="page" value="${ page }"/>
+				</c:url>
+				<div id="qna_text"><button onclick="location.href='${ update }'">답변하기</button></div>
+				<div id="qna_button"><button onclick="location.href='${ list }'">목록</button></div>
 			</div>
 		</div>
 	</div>

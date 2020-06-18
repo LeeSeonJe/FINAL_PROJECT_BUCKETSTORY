@@ -3,21 +3,18 @@ package com.kh.BucketStory.admin.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -102,7 +99,6 @@ public class AdminController {
 		return renameFileName;
 	}
 	
-	
 	/* QnA 게시판 리스트 */
 	@RequestMapping("adminQnAlist.ad")
 	public ModelAndView adminQnAList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
@@ -131,61 +127,58 @@ public class AdminController {
 		return mv;
 	}
 	
-	/* qna 상세페이지(답변) */
+//	/* qna 상세페이지 */
 	@RequestMapping("qnadetail.ad")
-	public ModelAndView adminqnadetail(@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
+	public ModelAndView adminqnadetailview(@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
 		
-		adminQnA adminQnA = bService.adminqnadetail(qno);
-		System.out.println("adminQnA 컨트롤러 " + adminQnA);
+		adminQnA adminQnA = bService.adminqnadetailview(qno);
 		
 		mv.addObject("adminQnA", adminQnA)
 		  .addObject("page", page)
-		  .setViewName("adminQnAinsert");
+		  .setViewName("adminQnADetail");
 		
 		return mv;
 	}
 	
-	
-	
-//	/* qna 답변한 상세페이지 */
-	@RequestMapping("addAnswer.ad")
-	public ModelAndView adminqnaanswer(@ModelAttribute adminQnA ad, @RequestParam("q_no") int qno, @RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
-		
-		System.out.println("AdminController 확인하기 : " + ad);
-		
-		int result = bService.updateQnAanswer(ad);
-//		
-		if(result > 0){
-			mv.addObject("q_no", qno)
+//	/* qna 상세페이지(답변페이지 이동) */
+	@RequestMapping("adminQnAinsert.ad")
+	public ModelAndView adminqnaupdateDetail(@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
+
+		adminQnA adminQnA = bService.adminqnaUpdate(qno);
+
+		if(adminQnA != null) {
+			mv.addObject("adminQnA", adminQnA)
 			  .addObject("page", page)
-			  .setViewName("adminQnADetail");
+			  .setViewName("adminQnAinsert");
+
 			return mv;
-//					
-//					
 		} else {
-			throw new BoardException("답변 등록에 실패하였습니다.");
-		}
+			throw new BoardException("게시글 수정 폼 요청에 실패했습니다.");
+		}	
 	}
-//	
-//	@RequestMapping("readAnswer.ad")
-//	public void adminqnaupdate(@RequestParam("q_no") int qno, @RequestParam("page") int page, HttpServletResponse response) {
-//		
-//		response.setContentType("application/json; charset=UTF-8"); 
-//		
-//		adminQnA adminQnA = bService.adminqnadetail(qno);
-//		System.out.println("adminQnA 컨트롤러 " + adminQnA);
-//		
-//		JSONObject obj = new JSONObject();
-//		
-//		obj.put("an_content", adminQnA.getAn_content());
-//		
-//		try {
-//			PrintWriter out = response.getWriter();
-//			out.println(obj);
-//			out.flush();
-//			out.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+
+	/* qna 상세페이지(답변달기) */
+	@RequestMapping("addAnswer.ad")
+	public ModelAndView adminqnaupdate(@ModelAttribute adminQnA a, @RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
+		
+		int result = bService.adminqnaUpdatedetail(a);
+		
+		if(result > 0) {
+			mv.addObject("page", page)
+			  .addObject("adminQnA", a)
+			  .setViewName("redirect:qnadetail.ad?q_no=" + a.getQ_no());
+			
+		} else {
+			throw new BoardException("게시글 수정에 실패했습니다.");
+		}
+		 
+		return mv;
+	}
+	
+	/* 회원 경고페이지 이동 */
+	@RequestMapping("cautionBoard.ad")
+	public String cautionBoardlist() {
+		return "adminCaution";
+	}
+
 }

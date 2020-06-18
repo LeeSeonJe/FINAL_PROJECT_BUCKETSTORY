@@ -35,13 +35,19 @@
 		values(seq_media.nextval, #{morigin}, #{mweb}, 1, 5, null, null, null, seq_festival.currval, null)
 	</insert>
 	
-	<select id="adminqnadetail" resultMap="QnAResultSet">
+	<select id="adminqnadetailview" resultMap="QnAResultSet">
 		select *
 		from qna
-		where q_no = #{qno} 
+		where q_no = #{q_no}
 	</select>
 	
-	<update id="updateQnAanswer">
+	<select id="adminqnaUpdate" resultMap="QnAResultSet">
+		select *
+		from qna
+		where q_no = #{q_no}
+	</select>
+	
+	<update id="adminqnaUpdatedetail">
 		update qna
 		set answer = 'Y', an_content = #{an_content}, an_date = sysdate
 		where answer = 'N' and q_no = #{q_no}

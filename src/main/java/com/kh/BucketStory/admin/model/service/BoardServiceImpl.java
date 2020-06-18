@@ -38,14 +38,20 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public adminQnA adminqnadetail(int qno) {
-		return bDAO.adminqnadetail(sqlSession, qno);
+	public adminQnA adminqnadetailview(int qno) {
+		return bDAO.adminqnadetailview(sqlSession, qno);
 	}
 
 	@Override
-	public int updateQnAanswer(adminQnA ad) {
-		return bDAO.updateQnAanswer(sqlSession, ad);
+	public adminQnA adminqnaUpdate(int qno) {
+		return bDAO.adminqnaUpdate(sqlSession, qno);
 	}
+
+	@Override
+	public int adminqnaUpdatedetail(adminQnA a) {
+		return bDAO.adminqnaUpdatedetail(sqlSession, a);
+	}
+
 
 
 }
