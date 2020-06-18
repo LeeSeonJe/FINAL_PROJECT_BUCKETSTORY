@@ -6,15 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel ="stylesheet" href ="resources/expert/css/hp_pointList.css">
-<style>
-#point-nav ul li:last-child{
-	background-color: rgba(0,0,0,0.085);
-}
-.active{
-	background:pink;
-}
-</style>
+<link rel ="stylesheet" href ="resources/expert/css/hp_boardList.css">
 </head>
 <body>
 <%-- <jsp:include page="/WEB-INF/views/expert/hp_pointCon.jsp"/> --%>
@@ -99,7 +91,7 @@
 					<button id ="prev">이전</button>
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="pointList2.ex?coid=${coId}">
+					<c:url var="before" value="pointList.ex?">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ before }"><button id ="prev">이전</button></a> 
@@ -112,7 +104,7 @@
 					</c:if>
 					
 					<c:if test="${ p ne pi.currentPage }">
-						<c:url var="pagination" value="pointList2.ex?coid=${coId}">
+						<c:url var="pagination" value="pointList.ex">
 							<c:param name="page" value="${ p }"/>
 						</c:url>
 						<a href="${ pagination }"><button class ="sBtn">${ p }</button></a> 
@@ -124,7 +116,7 @@
 					<button id= "next">다음</button>
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="pointList2.ex?coid=${coId}">
+					<c:url var="after" value="pointList.ex">
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>
 					</c:url> 
 					<a href="${ after }"><button id= "next">다음</button></a>

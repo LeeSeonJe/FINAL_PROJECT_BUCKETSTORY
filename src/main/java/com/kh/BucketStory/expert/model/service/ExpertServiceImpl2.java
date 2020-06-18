@@ -63,7 +63,14 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 		return exDAO2.insertQnA(sqlSession,aQ);
 	}
 
+	@Override
+	public int getListQnACount(String coId) {
+		return exDAO2.getListQnACount(sqlSession,coId);
+	}
 
-
+	@Override
+	public ArrayList<adminQnA> selectQnAList(PageInfo pi, String coId) {
+		return exDAO2.selectQnAList(sqlSession, pi, coId);
+	}
 
 }

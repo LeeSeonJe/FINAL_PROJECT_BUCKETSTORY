@@ -1,8 +1,11 @@
 package com.kh.BucketStory.expert.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,18 @@ public class ExpertController2 {
 	
 	@Autowired
 	private ExpertService2 ExService2;
+	
+	// Ajax용
+	private static void ajaxWriter(HttpServletResponse response,String msg) {
+		try {
+			PrintWriter out = response.getWriter();
+			out.append(msg);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	// 테스트
 	@RequestMapping("gogo.ex")
@@ -260,7 +275,7 @@ public class ExpertController2 {
 //		return mv;
 //	}
 	
-	@RequestMapping("pointList.ex")
+	@RequestMapping("pointListAll.ex")
 	public ModelAndView pointList(@RequestParam(value = "page", required = false) Integer page, 
 			ModelAndView mv, HttpServletRequest request) {
 
@@ -292,7 +307,7 @@ public class ExpertController2 {
 	
 	
 	// 포인트 내역 페이지	
-	@RequestMapping(value = "pointList2.ex", method = RequestMethod.GET)
+	@RequestMapping(value = "pointList.ex", method = RequestMethod.GET)
 		public ModelAndView pointList(HttpSession session,
 									  @RequestParam(value = "page", required = false) Integer page, ModelAndView mv){
 
@@ -335,11 +350,60 @@ public class ExpertController2 {
 	// 헬퍼 qna 문의확인 페이지
 	@RequestMapping("helperQnA.ex")
 	public String goHelperQnA() {
-		return "hp_QnA";
+		return "hp_QnAList";
 	}
 
+	
+	// qna 문의 : ajax 방식으로 변경
+	@RequestMapping("insertQnAjax.ex")
+	public void insertQnAjax(HttpSession session,HttpServletRequest request,HttpServletResponse response) {
+		
+		System.out.println("진입");
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		adminQnA aQ = new adminQnA(title,content,null,coId);
+		int result = ExService2.insertQnA(aQ);
+		
+		if (result > 0) {
+//			System.out.println("성공");
+			ajaxWriter(response,"ok");
+		} else {
+			ajaxWriter(response,"fail");
+		}	
+	}
+	
+		// Qna 내역 페이지	
+		@RequestMapping(value = "helperQnaList.ex", method = RequestMethod.GET)
+			public ModelAndView showQnAList(HttpSession session,
+										  @RequestParam(value = "page", required = false) Integer page, 
+										  ModelAndView mv){
+
+			String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+				int currentPage = 1;
+				if (page != null) {
+					currentPage = page;
+				}
+
+				int listCount = ExService2.getListQnACount(coId);
+				PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+				ArrayList<adminQnA> list = ExService2.selectQnAList(pi, coId);
+				
+				if (list != null) {
+					mv.addObject("list", list);
+					mv.addObject("pi", pi);
+					mv.addObject("coId", coId);
+					mv.setViewName("hp_QnAList");
+				} else {
+					throw new ExpertException("QnA 내역 조회에 실패했습니다.");
+				}
+				return mv;
+			}
+
+	/*
 	@RequestMapping("insertQnA.ex")
-	public String insertQnA(HttpSession session,HttpServletRequest request) {
+	public void insertQnA(HttpSession session,HttpServletRequest request) {
 		System.out.println("진입");
 		
 		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
@@ -357,7 +421,7 @@ public class ExpertController2 {
 		
 		if (result > 0) {
 			System.out.println("질문 완료");
-			return "hp_sendQnASuccess";
+			//return "hp_sendQnASuccess";
 		} else {
 			throw new ExpertException("질문에 실패하였습니다.");
 		}
@@ -366,6 +430,6 @@ public class ExpertController2 {
 	@RequestMapping("insertQnAS.ex")
 	public String goHelperQnASuccess() {
 		return "hp_sendQnASuccess";
-	}
+	}*/
 	
 }
