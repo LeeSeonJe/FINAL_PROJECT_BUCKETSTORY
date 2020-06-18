@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel ="stylesheet" href ="resources/expert/css/hp_boardList.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style>
 
 	.background{
@@ -58,7 +59,7 @@
 							<td align="center">${ b.q_title }</td>
 							<td align="center">${ b.q_date }</td>
 							<td align="center">${ b.answer }</td>
-						</tr>
+						</tr>			
 					</c:forEach>
                 </tbody>
             </table>
@@ -119,5 +120,25 @@
         </div>
        </div>
  </section class ="section"> 
+ 
+ <script>
+	$(function() {
+		$('.board td').mouseenter(function() {
+			$(this).parent().css({
+				'background' : 'beige',
+				'cursor' : 'pointer'
+			})
+		}).mouseout(function() {
+			$(this).parent().css({
+				'background' : 'whitesmoke'
+			})
+		})
+		
+		$('.board').click(function() {
+			console.log('클릭했다');
+		});
+	});
+ 
+ </script>
 </body>
 </html>

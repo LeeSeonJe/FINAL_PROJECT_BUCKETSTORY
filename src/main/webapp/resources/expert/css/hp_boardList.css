@@ -78,7 +78,7 @@
     }
     
     #point-nav ul li:last-child{
-	background-color: rgba(0,0,0,0.085);
+	background-color: whitesmoke;
 	}
 	.active{
 		background:pink;
