@@ -22,6 +22,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.main.model.service.MainService;
 import com.kh.BucketStory.member.model.vo.Board;
 
@@ -63,6 +64,34 @@ public class MainController {
 		} else {
 			mv.setViewName("mainCompany");
 		}
+		return mv;
+	}
+	
+	@RequestMapping("Cmain.ho")
+	public ModelAndView CompanyMain(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category,
+									ModelAndView mv, HttpSession session) {
+		
+		ArrayList<Media> blImg = mainService.selectBucketImg();
+		ArrayList<Board> blogList = mainService.selectBlogList();
+		
+		mv.addObject("blImg", blImg);
+		mv.addObject("category", category);
+		mv.addObject("blogList", blogList);
+		
+		if(menuNum == 1) {
+			ArrayList<BucketList> bucketList = mainService.selectBucketList();
+			mv.addObject("bucketList", bucketList);
+			mv.setViewName("CmainList");
+		} else if(menuNum == 2) {
+			mv.setViewName("CmainRanking");
+		} else if(menuNum == 3) {
+			ArrayList<BucketList> bucketList = mainService.selectRecoBucketList();
+			mv.addObject("bucketList", bucketList);
+			mv.setViewName("CmainRecomment");
+		} else {
+			mv.setViewName("CmainCompany");
+		}
+		
 		return mv;
 	}
 	
