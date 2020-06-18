@@ -72,5 +72,13 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	public int updateCompany(Company c) {
 		return exDAO2.updateCompany(sqlSession,c);
 	}
+	@Override
+	public int updateCompanyPoint(Company c) {
+		return exDAO2.updateComapnyPoint(sqlSession,c);	
+	}
+	@Override
+	public ArrayList<Company> selectTop5havingPoint() {
+		return exDAO2.selectTop5havingPoint(sqlSession);
+	}
 
 }

@@ -33,4 +33,9 @@ public interface ExpertService2 {
 	// 기업 소개변경
 	int updateCompany(Company c);
 
+	int updateCompanyPoint(Company c);
+
+	// 상위 Top5 포인트 보유왕
+	ArrayList<Company> selectTop5havingPoint();
+
 }
