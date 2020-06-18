@@ -190,4 +190,85 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("autosearch.ho")
+	public void searchValues(HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+
+		ArrayList<Member> AllMember = mainService.selectAllMember();
+		ArrayList<BucketList> AllBucket = mainService.selectAllBucket();
+		
+		ArrayList<String> searchList = new ArrayList<String>();
+		for(Member m : AllMember) {
+			searchList.add("m:"+m.getNickName());
+		}
+		for(BucketList b : AllBucket) {
+			searchList.add("b:"+b.getBkName());
+			String[] tags = b.getTag().split(",");
+			for(String s : tags) {
+				if(s != "") {
+					searchList.add("t:"+s);
+				}
+			}
+		}
+		
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		try {
+			gson.toJson(searchList, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("searchbucket.ho")
+	public ModelAndView searchBucket(ModelAndView mv, @RequestParam("b") String b, HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
+		
+		ArrayList<Media> blImg = mainService.selectBucketImg();
+		ArrayList<WishList> wishList = mainService.selectWishList(userId);
+		ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+		ArrayList<Board> blogList = mainService.selectBlogList();
+		
+		ArrayList<BucketList> bucketList = mainService.selectSearchBucket(b);
+		System.out.println(bucketList);
+		
+		mv.addObject("searchValue", b);
+		mv.addObject("blImg", blImg);
+		mv.addObject("wishList", wishList);
+		mv.addObject("shareList", shareList);
+		mv.addObject("blogList", blogList);
+		mv.addObject("bucketList", bucketList);
+		
+		mv.setViewName("searchBucket");
+		return mv;
+	}
+	
+	@RequestMapping("searchTag.ho")
+	public ModelAndView searchTag(ModelAndView mv, @RequestParam("t") String t, HttpSession session) {
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String userId = loginUser.getUserId();
+		
+		ArrayList<Media> blImg = mainService.selectBucketImg();
+		ArrayList<WishList> wishList = mainService.selectWishList(userId);
+		ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+		ArrayList<Board> blogList = mainService.selectBlogList();
+		
+		ArrayList<BucketList> bucketList = mainService.selectSearchTag(t);
+		System.out.println(bucketList);
+		
+		mv.addObject("searchValue", t);
+		mv.addObject("blImg", blImg);
+		mv.addObject("wishList", wishList);
+		mv.addObject("shareList", shareList);
+		mv.addObject("blogList", blogList);
+		mv.addObject("bucketList", bucketList);
+		
+		mv.setViewName("searchBucket");
+		return mv;
+	}
 }

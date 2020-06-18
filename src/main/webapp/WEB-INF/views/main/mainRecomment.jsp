@@ -11,7 +11,6 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-	<c:set var="menuNum" value="1" scope="application"/>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
@@ -145,8 +144,6 @@
 		</div>
 		
 	</div>
-	
-	
 </body>
 <script>
 //버킷 좋아요 올리기

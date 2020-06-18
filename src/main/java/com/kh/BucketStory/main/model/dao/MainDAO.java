@@ -115,5 +115,21 @@ public class MainDAO {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectBlogList");
 	}
 
+	public ArrayList<Member> selectAllMember(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectAllMember");
+	}
+
+	public ArrayList<BucketList> selectAllBucket(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectAllBucket");
+	}
+
+	public ArrayList<BucketList> selectSearchBucket(SqlSessionTemplate sqlSession, String b) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectSearchBucket", b);
+	}
+
+	public ArrayList<BucketList> selectSearchTag(SqlSessionTemplate sqlSession, String t) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectSearchTag", t);
+	}
+
 	
 }

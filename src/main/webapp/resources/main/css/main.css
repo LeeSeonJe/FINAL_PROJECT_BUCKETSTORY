@@ -52,7 +52,6 @@ section{
 	min-width:1200px;
 	min-height:70px;
 	overflow:hidden;
-	background:blue;
 }
 .bucket{
 	transform-origin: 50% 50%;
