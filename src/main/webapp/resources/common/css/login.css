@@ -1,10 +1,22 @@
 @charset "UTF-8";
 
+	p {
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 16px;
+      }
+    p.a {
+        font-weight: 400;
+      }
+
 body{
 		margin:0;
 		padding: 0;
 	}
 	
+	.select {
+		width:108px;
+		height:20px;
+	}
 /* ---------------------------------------- */
 	
 	#loginback{
@@ -42,12 +54,13 @@ body{
 		float: left;
 	    margin-top: 140px;
 	    margin-left: 320px;
-	    width: 600px;
-	    height: 780px;
+	    width: 580px;
+	    height: 640px;
 	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75); /* 서서히 나타남 */
 	    display: none;
 	    /* filter: blur(4px);
  		-webkit-filter: blur(4px); */
+ 		
 	 } 
 	
 	#modal1-wrapper.open {
@@ -81,8 +94,8 @@ body{
 		float: left;
 	    margin-top: 220px;
 	    margin-left: 320px;
-	    width: 600px;
-	    height: 240px;
+	    width: 580px;
+	    height: 300px;
 	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75); /* 서서히 나타남 */
 	    display: none;
 	   /*  filter: blur(4px);
@@ -103,8 +116,8 @@ body{
 		float: left;
 	    margin-top: 220px;
 	    margin-left: 320px;
-	    width: 600px;
-	    height: 240px;
+	    width: 580px;
+	    height: 300px;
 	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75); /* 서서히 나타남 */
 	    display: none;
 	    /* filter: blur(4px);
@@ -205,7 +218,8 @@ body{
     .joinBtn:after 
 	}
 	.joinBtn3, .joinBtn4 {
-	  margin-top: 43.9px;
+	  margin-bottom: 8px;
+	  /* margin-top: 43.9px; */
 	  background: none;
 	  border: 3px solid #fff;
 	  border-radius: 5px;
@@ -295,7 +309,8 @@ body{
 	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75);
 	}
 	
-	#cancel:hover, #reset:hover, #finish:hover {
+	/* 인증메일 버튼 */
+	#emailAuthBtn:hover, #emailBtn:hover {
 		color: #3f4c5fd4;
 	    text-decoration: none;
 	    text-decoration-line: none;
@@ -306,16 +321,64 @@ body{
 	    /* background-color: rgba(255, 255, 255, 0.3); */
 	}
 	
-	#cancel:after, #reset:after,  #finish:after {
+	#emailAuthBtn:after, #emailBtn:after {
 	  -webkit-transition: all 0.3s;
 		-moz-transition: all 0.3s;
 	  -o-transition: all 0.3s;
 		transition: all 0.3s;
 	}
-	#cancel, #reset, #finish {
+	#emailAuthBtn, #emailBtn {
+	  height:50px;
+	  background: none;
+	  border: 3px solid #fff;
+	  border-radius: 5px;
+	  color: #fff;
+	  font-size: 12px;
+	  font-weight: bold;
+	  position: relative;
+	  text-transform: uppercase;
+	}
+	
+	#emailAuthBtn:before, #emailBtn:before,
+	#emailAuthBtn:after, #emailBtn:after {
+	  background: #fff;
+	  content: '';
+	  position: absolute;
+	  z-index: -1;
+	}
+	#emailAuthBtn:after, #emailBtn:after{
+	  height: 0;
+	  left: 0;
+	  top: 0;
+	  width: 100%;
+	}
+	
+	#emailAuthBtn, #emailBtn {
+	  height: 100%;
+	}
+	
+	/* 취소, 가입하기 버튼 */
+	#cancel:hover, #finish:hover, #finish2:hover {
+		color: #3f4c5fd4;
+	    text-decoration: none;
+	    text-decoration-line: none;
+	    text-decoration-style: initial;
+	    text-decoration-color: initial;
+	    background-color: white;
+	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75);
+	    /* background-color: rgba(255, 255, 255, 0.3); */
+	}
+	
+	#cancel:after, #finish:after, #finish2:after {
+	  -webkit-transition: all 0.3s;
+		-moz-transition: all 0.3s;
+	  -o-transition: all 0.3s;
+		transition: all 0.3s;
+	}
+	#cancel, #finish, #finish2 {
 	  height:40px;
 	  width:157.2px;
-	  margin-top: 43.9px;
+	  margin-top: 10px;
 	  background: none;
 	  border: 3px solid #fff;
 	  border-radius: 5px;
@@ -327,27 +390,28 @@ body{
 	  text-transform: uppercase;
 	}
 	
-	#cancel:before, #reset:before,  #finish:before,
-	#cancel:after, #reset:after, #finish:after {
+	#cancel:before, #finish:before,, #finish2:before,
+	#cancel:after, #finish:after, #finish2:after {
 	  background: #fff;
 	  content: '';
 	  position: absolute;
 	  z-index: -1;
 	}
-	#cancel:after, #cancel:reset, #finish:after {
+	#cancel:after, #finish:after, #finish2:after {
 	  height: 0;
 	  left: 0;
 	  top: 0;
 	  width: 100%;
 	}
 	
-	#cancel:hover:after, #reset:hover:after, #finish:hover:after {
+	#cancel:hover:after, #finish:hover:after, #finish2:hover:after {
 	  height: 100%;
 	}
 	#facebookBtn{
 		width: 328px;
     	height: 40px;
 	    border-radius: 5px;
+	    margin-top: 8px;
 	    margin-bottom: 5px;
 	    text-align: center;
 	    font-weight: bold;
@@ -385,7 +449,7 @@ body{
 	  background-color: hsl(0,0%,20%);
 	}
 	
-	input {
+	input, select {
 	  -webkit-appearance: none; /* remove default */
 	  display: inline-block; 
 	 /*  margin: 10px; */
@@ -406,26 +470,26 @@ body{
 	  width: 24px;	
 	  height: 24px;
 	}
-	input:checked {
+	input:checked, select:checked {
 	  -webkit-transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1),
 	    -webkit-transform .25s cubic-bezier(0, 0, .2, 1);
 	}
-	input:active {
+	input:active,, select:active {
 	  -webkit-transform: scale(1.5);
 	  -webkit-transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
 	}
 	
 	
 	/* The up/down direction logic */
-	input,
-	input:active {
+	input, select,
+	input:active, select:active  {
 	  background-position: 24px 24px;
 	}
-	input:checked {
+	input:checked, select:checked {
 	  background-position: 0 0;
 	}
-	input:checked ~ input,
-	input:checked ~ input:active {
+	input:checked ~ input, select:checked ~ select,
+	input:checked ~ input:active, select:checked ~ select:active {
 	  background-position: -24px 24px;
 	}
 	
@@ -490,7 +554,7 @@ body{
 	  
 	}
 	
-	input:active {
+	input:active, select:active {
 	  -webkit-transform: scale(1.5);
 	  -webkit-transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
 	}
