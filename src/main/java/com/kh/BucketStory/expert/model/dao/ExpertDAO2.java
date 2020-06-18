@@ -33,6 +33,7 @@ public class ExpertDAO2 {
 		return (ArrayList) sqlSession.selectList("exMapper2.selectList2", coId, rowBounds);
 	}
 	
+	// Point 
 	public int insertPoint(SqlSessionTemplate sqlSession, Pay p) {
 		return sqlSession.insert("exMapper2.insertPoint", p);
 	}
@@ -56,8 +57,16 @@ public class ExpertDAO2 {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAList", coId, rowBounds);
 	}
+	
+	// Company
 	public int updateCompany(SqlSessionTemplate sqlSession, Company c) {
 		return sqlSession.update("exMapper2.updateCompany", c);
+	}
+	public int updateComapnyPoint(SqlSessionTemplate sqlSession, Company c) {
+		return sqlSession.update("exMapper2.updateCompanyPoint", c);
+	}
+	public ArrayList<Company> selectTop5havingPoint(SqlSessionTemplate sqlSession) {
+		return (ArrayList) sqlSession.selectList("exMapper2.selectTop5havingPoint");
 	}
 
 

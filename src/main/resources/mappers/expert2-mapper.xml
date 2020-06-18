@@ -20,6 +20,22 @@
 		where COID=#{coId}
 		</if>
 	</update>
+	
+	<!-- 기업 보유 포인트 갱신 -->
+	<update id ="updateCompanyPoint">
+		update COMPANY
+		set POINT = #{point}
+		where COID = #{coId}
+	</update>
+	
+	<!-- 기업 Top5 포인트 랭킹왕 -->
+	<!-- ROWNUM 걍 넣으면 부등호떔에 에러나서 [CDATA] 넣어야함 -->
+	<select id = "selectTop5havingPoint" resultMap="CompanyResultSet">
+		select *
+		from(select POINT,COID,CATENUM from company  order by point desc)
+		where  <![CDATA[ ROWNUM <= 5 ]]>
+	</select>
+	
 	<resultMap id="CompanyResultSet" type="Company">
 		<id property="coId" column="COID"/>
 		<result property="pwd" column="COPWD"/>

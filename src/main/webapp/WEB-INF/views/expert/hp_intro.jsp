@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 <% 			SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
 			String today = dateFormat.format(new Date());
+			int num = 1;
 %>
 
 <!DOCTYPE html>
@@ -83,7 +84,22 @@
 	font-size:24px;
 	font-weight: bold;
 }
-
+#top5pointer{
+	background: rgba(0,0,0,0.25);
+	color:#fff;
+	border-radius: 15px;
+	width:220px;
+	height:auto;
+	position:absolute;
+	left: 2%;
+	top: 20%;
+	padding:20px;
+}
+#top5pointer p{
+	font-size:large;
+	color:red;
+	padding:5px;
+}
 </style>
 </head>
 <body>
@@ -107,10 +123,25 @@
 <!-- 	</div> -->
 	
 <%-- 	<iframe src = "<%=request.getContextPath()%>/hp_cal.html" width="100%" height="500"></iframe> --%>
-	
 <%-- 	<jsp:include page="/WEB-INF/views/expert/hp_cal.jsp"/> --%>
-	
-	
-	
+
+	<div id="top5pointer">
+		<table>
+		<caption><p>Top 5 Point Rank</p></caption>
+			<tr>
+				<th width="5%"></th>
+				<th width="10%">아이디</th>
+				<th width="10%">보유포인트</th>
+			</tr>
+		<c:forEach var="b" items="${ list }">
+			<tr>
+				<td class="rowp" scope="row" align="center"><%=num++ %></td>
+				<td align="center">${ b.coId }</td>
+				<td align="center">${ b.point }</td>
+			</tr>
+		</c:forEach>
+		</table>
+	</div>
+
 </body>
 </html>

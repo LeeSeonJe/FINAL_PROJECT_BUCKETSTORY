@@ -63,6 +63,12 @@ public class ExpertController2 {
 		String coId = loginCom.getCoId();
 		System.out.println("기업아이디 :" + coId +"로 로그인하셨습니다.");
 		
+		
+		// 상위 Top 5 포인트 보유왕
+		ArrayList<Company> list = ExService2.selectTop5havingPoint();
+		
+		System.out.println(list);
+		mv.addObject("list",list);
 		mv.addObject("coid",coId);
 		mv.setViewName("hp_intro");
 		return mv;
@@ -230,23 +236,25 @@ public class ExpertController2 {
 							  @ModelAttribute Pay p,
 							  HttpServletRequest request) {
 		
-		//String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		System.out.println(p);
 		
 		// PAY 테이블에 Point 집어넣기
-		int result = ExService2.insertPoint(p);
+		int result = ExService2.insertPoint(p);	
 		
-		//ExService2.updateCompanyPoint(coId, getPoint(coId));
+		Company c = new Company();
 		
-		// COMPANY 테이블에 보유 포인트 갱신
-		/* update COMPANY set POINT = POINT + p.getPa_pay()
-		   where COID = p.getCoid() */
+		c.setCoId(coId);
+		c.setPoint(getPoint(coId));
 		
-		if (result > 0) {
+		// Company 에 보유포인트 갱신
+		int result2 = ExService2.updateCompanyPoint(c);
+		
+		if (result > 0 && result2 > 0) {
 //			System.out.println("완료");
 			return "redirect:point.ex";
 		} else {
-			throw new ExpertException("포인트 충전에 실패하였습니다.");
+			throw new ExpertException("실패하였습니다.");
 		}
 
 	}
