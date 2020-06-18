@@ -58,16 +58,16 @@
             <li><a href=#>헬퍼4</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item3">
-            <li><a href=#>견적서 관리5</a></li>
+            <li><a href="esrequest.ex?coId=TEST&bkNo=3">견적서 관리5</a></li>
             <li><a href=#>헬퍼6</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item4">
             <li><a href="point.ex">포인트 충전</a></li>  
-            <li><a href="pointList2.ex">포인트 내역</a></li> <!-- pointList.ex -->
+            <li><a href="pointList.ex">포인트 내역</a></li> <!-- pointList.ex -->
         </ul>
         <ul class='sub-c' id ="sub-item5">
             <li><a href="helperSendQnA.ex">1:1 문의</a></li>
-            <li><a href="helperQnA.ex">문의내용 확인</a></li>
+            <li><a href="helperQnaList.ex">문의내용 확인</a></li>
         </ul>
     </div>
 

@@ -29,4 +29,8 @@ public interface ExpertService2 {
 	// 질문
 	int insertQnA(adminQnA aQ);
 
+	int getListQnACount(String coId);
+
+	ArrayList<adminQnA> selectQnAList(PageInfo pi, String coId);
+
 }

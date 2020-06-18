@@ -52,6 +52,16 @@ public class ExpertDAO2 {
 	public int insertQnA(SqlSessionTemplate sqlSession, adminQnA aQ) {
 		return sqlSession.insert("exMapper2.insertQnA", aQ);
 	}
+	
+	// QNA 리스트 게시판
+	public int getListQnACount(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getListQnACount",coId);
+	}
+	public ArrayList<adminQnA> selectQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAList", coId, rowBounds);
+	}
 
 
 }

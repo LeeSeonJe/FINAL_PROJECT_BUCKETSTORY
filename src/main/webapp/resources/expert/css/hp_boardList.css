@@ -69,11 +69,19 @@
         padding-right: 10px;
         background:whitesmoke;
         border-radius: 5px;
+        cursor:pointer;
     }
-
-
     .p-section{
     	text-align: center;
     	padding-top: 50px;
     	z-index:-1;
     }
+    
+    #point-nav ul li:last-child{
+	background-color: rgba(0,0,0,0.085);
+	}
+	.active{
+		background:pink;
+	}
+	
+	
