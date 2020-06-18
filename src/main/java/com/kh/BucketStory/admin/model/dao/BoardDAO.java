@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.admin.model.exception.BoardException;
 import com.kh.BucketStory.admin.model.vo.Festival;
+import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
@@ -47,6 +48,14 @@ public class BoardDAO {
 
 	public int adminqnaUpdatedetail(SqlSessionTemplate sqlSession, adminQnA a) {
 		return sqlSession.update("boardMapper.adminqnaUpdatedetail", a);
+	}
+
+	public ArrayList<Notify> notifyselectList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.notifyselectList", null, rowBounds);
 	}
 
 

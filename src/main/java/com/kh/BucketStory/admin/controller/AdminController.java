@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.BucketStory.admin.model.exception.BoardException;
 import com.kh.BucketStory.admin.model.service.BoardService;
 import com.kh.BucketStory.admin.model.vo.Festival;
+import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
@@ -180,5 +180,31 @@ public class AdminController {
 	public String cautionBoardlist() {
 		return "adminCaution";
 	}
+	
+	
+	/* 회원 경고페이지 리스트 */
+	@RequestMapping("cautionlist.ad")
+	public ModelAndView cautionlist(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, 0);
+		
+		ArrayList<Notify> list = bService.notifyselectList(pi);
+		
+		if(list != null) {
+			
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("adminCaution");
+		} else {
+			throw new BoardException("게시글 전체 조회에 실패했습니다.");
+		}
+		return mv;
+	}
+	
 
 }
