@@ -278,7 +278,6 @@ public class ExpertController2 {
 	@RequestMapping("pointListAll.ex")
 	public ModelAndView pointList(@RequestParam(value = "page", required = false) Integer page, 
 			ModelAndView mv, HttpServletRequest request) {
-
 		char check = request.getParameter("check").charAt(0);
 		String keyword = request.getParameter("keyword");
 		
