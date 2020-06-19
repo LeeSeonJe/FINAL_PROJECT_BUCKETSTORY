@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.BucketStory.common.model.service.CommonService;
@@ -42,7 +43,6 @@ public class CommonController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
-	
 	@RequestMapping("login.co")
 	public String LoginView() {
 		return "login";
@@ -172,7 +172,7 @@ public class CommonController {
     
     // ID 유효성 체크
     @RequestMapping("dupid.co")
-	  public void idDuplicateCheck(@RequestParam("id") String id, HttpServletResponse response) {
+	  public void idDuplicateCheck(@RequestParam("userId") String id, HttpServletResponse response) {
 		  
 		  int result = cService.idDuplicateCheck(id);
 		 
@@ -186,6 +186,7 @@ public class CommonController {
 		  }
 	  }
     
+ 
  // 회원가입 이메일 인증
     @RequestMapping(value = "sendMail/auth.co", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
@@ -200,6 +201,25 @@ public class CommonController {
         return mailService.send(subject, sb.toString(), "pbmin1993@gmail.com", email, null);
     }
 
+    
+ // 아이디 찾기
+//    @RequestMapping(value = "compareEmail.co", method = RequestMethod.POST, produces = "application/json")
+//    public ModelAndView emailCompare(HttpSession session, @RequestParam("email") String email, @RequestParam("email_1") String email_1, @RequestParam("email_2") String email_2, ModelAndView mv) { 
+//		
+//    	int member = cService.compareEmail(email);
+//		
+//		if(email != null) {
+//			email = "redirect:login.co";
+//			
+//		} else {
+//			System.out.println("실패");
+//		}
+//		
+//		return mv;
+//	
+//	}	
+		
+    
 
  // 비밀번호 찾기
     @RequestMapping(value = "/sendMail/password", method = RequestMethod.POST)
@@ -224,7 +244,7 @@ public class CommonController {
             String subject = "임시 비밀번호 발급 안내 입니다.";
             StringBuilder sb = new StringBuilder();
             sb.append("귀하의 임시 비밀번호는 " + password + " 입니다.");
-            mailService.send(subject, sb.toString(), "아이디@gmail.com", email, null);
+            mailService.send(subject, sb.toString(), "pbmin1993@gmail.com", email, null);
             ra.addFlashAttribute("resultMsg", "귀하의 이메일 주소로 새로운 임시 비밀번호를 발송 하였습니다.");
         } else {
             ra.addFlashAttribute("resultMsg", "귀하의 이메일로 가입된 아이디가 존재하지 않습니다.");
@@ -232,18 +252,6 @@ public class CommonController {
         return "redirect:/find/password";
     }
 
-
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
 }  
     
 	

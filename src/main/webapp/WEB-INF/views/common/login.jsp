@@ -297,7 +297,7 @@
 			</div>
 			  <!-- 회원 아이디 찾기 -->
 		      <form id="MemidFind" action="memberidFind.co" method="post" style="margin-top:50px;">
-		      <h4 align=center><p id="tp" style="color: white; font-size: 16px;">회원</p> 아이디 찾기</h4>
+		      <h3 align=center><p id="tp" style="color: white; font-size: 18px; font-weight: bold">회원</p> 아이디 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
 					<th align=right>E-mail</th>
@@ -312,31 +312,17 @@
 									<option value="nate.com">nate.com</option>
 									<option value="gmail.com">gmail.com</option>
 							</select>  <!-- 본인 이메일로 이동하여 인증확인!-->
-						</td>
-					<tr>
-						<th align=right>인증 번호 확인</th>
-					<td>
-						<input type="text" id="email_injeung" name="email_injeung" class="user" placeholder="인증번호를 입력하세요.">
-							<span>
-
-								<button type="button" class="btn btn-info2" id="emailBtn" style='cursor:pointer;'>이메일 발송</button>
-								<button type="button" class="btn btn-info" id="emailAuthBtn" style='cursor:pointer;'>이메일 인증</button>
-								<img id="emailChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
-								<img id="emailChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
-							</span>
-							<!-- 본인 이메일로 이동하여 인증확인!-->
-						</td>
-					</tr>
-					<tr>
-						<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-						<td align=right><button id="finish" onclick="validate(); location.href='login.co'" style='cursor:pointer'>확인</button></td>
-					</tr>
+					</td>
+				</tr>
+				<tr>
+					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
+					<td align=right><button id="good" style='cursor:pointer'>확인</button></td>
 				</tr>
 		    </table>
 		    </form>
 		    <!-- 기업 아이디 찾기 -->
 		     <form id="ComidFind" action="companyidFind.co" method="post" style="margin-top:50px;">
-		      <h4 align=center>기업 아이디 찾기</h4>
+		      <h3 align=center>기업 아이디 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
 					<th align=right>E-mail</th>
@@ -352,23 +338,10 @@
 									<option value="gmail.com">gmail.com</option>
 							</select>  <!-- 본인 이메일로 이동하여 인증확인!-->
 					</td>
-					<tr>
-						<th align=right>인증 번호 확인</th>
-						<td>
-						<input type="text" id="email_injeung" name="email_injeung" class="company" placeholder="인증번호를 입력하세요.">
-							<span>
-								<button type="button" class="btn btn-info2" id="emailBtn" style='cursor:pointer;'>이메일 발송</button>
-								<button type="button" class="btn btn-info" id="emailAuthBtn" style='cursor:pointer;'>이메일 인증</button>
-								<img id="emailChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
-								<img id="emailChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
-							</span>
-							<!-- 본인 이메일로 이동하여 인증확인!-->
-						</td>
-					</tr>
-					<tr>
-						<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-						<td align=right><button id="finish" onclick="validate(); location.href='login.co'" style='cursor:pointer'>확인</button></td>
-					</tr>
+				</tr>
+				<tr>
+					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
+					<td align=right><button id="good2" style='cursor:pointer'>확인</button></td>
 				</tr>
 		    </table>
 		    </form>
@@ -391,7 +364,7 @@
 				
 		      <!-- 회원 비번 찾기 -->
 		      <form id="MempwdFind" action="mempwdFind.co" method="post" style="margin-top:50px;">
-		      <h4 align=center><p id="tp" style="color: white; font-size: 16px;">회원</p> 비밀번호 찾기</h4>
+		      <h3 align=center><p id="tp" style="color: white; font-size: 18px; font-weight: bold;">회원</p> 비밀번호 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
 					<th align=right>ID</th>
@@ -416,13 +389,13 @@
 				</tr>
 				<tr>
 					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-					<td align=right><button id="finish" onclick="validate(); location.href='login.co'" style='cursor:pointer'>확인</button></td>
+					<td align=right><button id="yeah" onclick="validate(); location.href='login.co'" style='cursor:pointer'>확인</button></td>
 				</tr>
 		      </table>
 		      </form>
 		       <!-- 기업 비번 찾기 -->
 		      <form id="CompwdFind" action="compwdFind.co" method="post" style="margin-top:50px;">
-		      <h4 align=center>기업 비밀번호 찾기</h4>
+		      <h3 align=center>기업 비밀번호 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
 					<th align=right>ID</th>
@@ -445,9 +418,22 @@
 							</select>  <!-- 본인 이메일로 이동하여 인증확인!-->
 					</td>
 				</tr>
+				<!-- <tr>
+					<th align=right>인증 번호 확인</th>
+					<td>
+						<input type="text" id="email_injeung" name="email_injeung" class="user" placeholder="인증번호를 입력하세요.">
+							<span>
+								<button type="button" class="btn btn-info2" id="emailBtn" style='cursor:pointer;'>이메일 발송</button>
+								<button type="button" class="btn btn-info" id="emailAuthBtn" style='cursor:pointer;'>이메일 인증</button>
+								<img id="emailChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+								<img id="emailChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
+							</span>
+							본인 이메일로 이동하여 인증확인!
+					</td>
+				</tr> -->
 				<tr>
 					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-					<td align=right><button id="finish" onclick="validate(); location.href='login.co'" style="'cursor:pointer' 'margin-right:50px;'">확인</button></td>
+					<td align=right><button id="yeah2" style="'cursor:pointer' 'margin-right:50px;'">확인</button></td>
 				</tr>
 		      </table>
 		      </form>

@@ -22,4 +22,7 @@ public interface CommonService {
 	}
 
 	Member findAccount(String email);
+
+	int compareEmail(String email);
+
 }
