@@ -43,7 +43,6 @@ public class MainController {
 		}
 		
 		
-		
 		ArrayList<Media> blImg = mainService.selectBucketImg();
 		if(userId != null) {
 			ArrayList<WishList> wishList = mainService.selectWishList(userId);
