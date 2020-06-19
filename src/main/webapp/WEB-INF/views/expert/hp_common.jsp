@@ -38,7 +38,7 @@
     <nav>
     <div id="menu-area">
         <ul class='menu-c'>
-            <li id ="menu-item1"><a href='#'>헬퍼마이페이지</a></li>
+            <li id ="menu-item1"><a href='expertIntro.ex'>헬퍼마이페이지</a></li>
             <li id ="menu-item2"><a href='#'>헬퍼버킷리스트</a></li>
             <li id ="menu-item3"><a href='#'>견적서 관리</a></li>
             <li id ="menu-item4"><a href='#'>포인트 관리</a></li>
@@ -51,7 +51,7 @@
 
     <div id="sub-area">
         <ul class='sub-c' id ="sub-item1">
-            <li><a href="helperEdit.ex">기본정보변경</a></li>
+            <li><a href="helperView.ex">기업소개보기</a></li>
             <li><a href="helperEdit2.ex">기업소개변경</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item2">
@@ -91,6 +91,7 @@
         
         //오버레이로 덮고 스크롤 금지.
         function overlay_show(){
+        	$('html').scrollTop(0); // 스크롤 맨위
         	$('#overlay-2').css({'display':'block'}); scrollDisable();
         }
         
