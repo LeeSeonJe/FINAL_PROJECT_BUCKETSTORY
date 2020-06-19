@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%
 	int index = (int) request.getAttribute("index");
@@ -202,9 +203,7 @@
 							var last = "${ bList.size() }"
 							var go = $('#goElement').val();
 							if(go > 1) {
-								console.log(go)
 								go--;
-								console.log(go)
 								$('.blogBucket').eq(parseInt(go)-1).children('input').next().focus();
 								$('#goElement').val(go);																													
 							} else {
@@ -217,9 +216,7 @@
 							var last = "${ bList.size() }"
 							var go = $('#goElement').val();
 							if(last > go) {
-								console.log(go)
 								go++;
-								console.log(go)
 								$('.blogBucket').eq(parseInt(go)-1).children('input').next().focus();
 								$('#goElement').val(go);																													
 							} else {
@@ -287,6 +284,7 @@
 			</div>		
 			<c:if test="${ !empty bList }">
 				<c:forEach items="${ bList }" var="bl" varStatus="status">
+					<!-- 블로그 내용 -->
 					<div class="blogBucket">
 						<input type="hidden" value="${ bl.bNo }" />
 						<input type="text" readonly="readonly" value="${ status.index }" style="width:0px; height:0px; font-size: 0px; border: none;">
@@ -300,18 +298,171 @@
 						<div>
 							${ bl.bContent }
 						</div>
-						<div class="reply">
-							<div class="reply_profile_area">
+						
+						<!-- 댓글 쓰기 -->
+						<div class="comment">
+							<div class="write_comment_profile_area">
 								<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
 								<span>${ loginUser.nickName }</span>
 							</div>
-							<div class="reply_content">
-								<textarea name="cmcontent" class="cmcontent" cols="10" rows="5" style="width: 100%;"></textarea>
+							<div class="write_comment_content">
+								<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;"></textarea>
+								<div class="write_comment_submit">
+									<label><input type="checkbox" name="secret" value="1">비밀댓글 </label>
+									<label class="counter">0/300</label>
+									<input type="hidden" value="${ bl.bNo }" />
+									<button type="button" onclick="comment_btn(this);">등록</button>
+								</div>
 							</div>
-							<div>
-								
-							</div>
+						</div>			
+						<div class="comment_list">
+							<c:forEach items="${ bl.boardCommnet }" var="bl_bc">
+								<c:set var="bcSum" value="0"/>
+								<!-- 댓글 -->
+								<c:if test="${ bl_bc.cmNo != 0 && fn:contains(bl_bc.status, 'Y') }">
+									<c:set var="bcSum" value="${ bcSum + 1 }"/>
+									<div class="comment_profile_area">
+										<input type="hidden" value="${ bl_bc.cmNo }" />
+										<img src="/BucketStory/resources/member/images/profiles/${ bl_bc.member.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+										<c:if test="${ loginUser.nickName eq bl_bc.member.nickName }">	
+											<span>${ bl_bc.member.nickName }</span>
+											<span class="commentUpdate" onclick="commentUpdate(this);">수정</span>
+											<span class="commentDelete" onclick="commentDelete(this);">삭제</span>
+										</c:if>
+										<c:if test="${ loginUser.nickName ne bl_bc.member.nickName }">
+											<span><a href="myBlog.me?nickName=${ bl_bc.member.nickName }&page=1">${ bl_bc.member.nickName }</a></span>
+										</c:if>
+										<c:if test="${ bl_bc.member.nickName eq getMember.nickName }">	
+											<button type="button">블로그주인</button>
+										</c:if>
+										<c:if test="${ loginUser.nickName ne bl_bc.member.nickName }">
+											<span>신고</span>
+										</c:if>
+										<span>${ bl_bc.enrollDate }</span>
+									</div>
+									
+									<!-- 비밀글 여부 -->
+									<c:if test="${ bl_bc.secret == 1}">
+										<div class="comment_content">
+											<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;" readonly="readonly" >${ bl_bc.cmContent }</textarea>
+										</div>
+										<div class="comment_submit">
+											<c:set var="sum" value="0"/>
+											<c:forEach items="${ bl_bc.reply }" var="reply" varStatus="status">
+												<c:if test="${ reply.rpNo != 0 && fn:contains(reply.status, 'Y') }">
+													<c:set var="sum" value="${ sum + 1 }"/>
+												</c:if>
+											</c:forEach>
+											<c:if test="${ reply.rpNo == 0 }">
+												<label>0</label>개의 답글
+											</c:if>
+											<label>${ sum }</label>개의 답글
+											<button type="button" onclick="reply_list_open(this);">답글 쓰기</button>
+										</div>
+									</c:if>
+									<c:if test="${ bl_bc.secret == 2 }">
+										<c:choose>
+											<c:when test="${ loginUser.nickName eq bl_bc.member.nickName }">
+												<div class="comment_content">
+													<img src="/BucketStory/resources/member/images/secret.png" style="width: 23px; height: 23px;" />
+													<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;" readonly="readonly" >${ bl_bc.cmContent }</textarea>
+												</div>
+												<div class="comment_submit">
+													<c:set var="sum" value="0"/>
+													<c:forEach items="${ bl_bc.reply }" var="reply" varStatus="status">
+														<c:if test="${ reply.rpNo != 0 && fn:contains(reply.status, 'Y') }">
+															<c:set var="sum" value="${ sum + 1 }"/>
+														</c:if>
+													</c:forEach>
+													<c:if test="${ reply.rpNo == 0 }">
+														<label>0</label>개의 답글
+													</c:if>
+													<label>${ sum }</label>개의 답글
+													<button type="button" onclick="reply_list_open(this);">답글 쓰기</button>
+												</div>
+											</c:when>
+											<c:when test="${ loginUser.nickName eq getMember.nickName }">
+												<div class="comment_content">
+													<img src="/BucketStory/resources/member/images/secret.png" style="width: 23px; height: 23px;"/>
+													<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;" readonly="readonly" >${ bl_bc.cmContent }</textarea>
+												</div>
+												<div class="comment_submit">
+													<c:set var="sum" value="0"/>
+													<c:forEach items="${ bl_bc.reply }" var="reply" varStatus="status">
+														<c:if test="${ reply.rpNo != 0 && fn:contains(reply.status, 'Y') }">
+															<c:set var="sum" value="${ sum + 1 }"/>
+														</c:if>
+													</c:forEach>
+													<c:if test="${ reply.rpNo == 0 }">
+														<label>0</label>개의 답글
+													</c:if>
+													<label>${ sum }</label>개의 답글
+													<button type="button" onclick="reply_list_open(this);">답글 쓰기</button>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="comment_content">
+													<img src="/BucketStory/resources/member/images/secret.png" style="width: 23px; height: 23px; " />
+													<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;" readonly="readonly" >비밀글입니다.</textarea>
+												</div>												
+											</c:otherwise>
+										</c:choose>
+									</c:if>
+									
+									<!-- 답글 -->
+									<div class="reply_list" style="display: none;">
+										<div class="rList">
+										<c:forEach items="${ bl_bc.reply }" var="reply">
+											<c:if test="${ reply.rpNo != 0 && fn:contains(reply.status, 'Y') }">
+												<div class="reply_profile_area">
+													<input type="hidden" value="${ reply.rpNo }" />
+													<img src="/BucketStory/resources/member/images/profiles/${ reply.rmember.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+													<c:if test="${ loginUser.nickName eq reply.rmember.nickName }">
+														<span>${ reply.rmember.nickName }</span>
+														<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>
+														<span class="replyDelete" onclick="replyDelete(this)">삭제</span>
+													</c:if>
+													<c:if test="${ loginUser.nickName ne reply.rmember.nickName }">
+														<span><a href="myBucket.me?nickName=${ reply.rmember.nickName }&page=1">${ reply.rmember.nickName }</a></span>
+													</c:if>
+													<c:if test="${ reply.rmember.nickName eq getMember.nickName }">		
+														<button type="button">블로그주인</button>
+													</c:if>
+													<c:if test="${ loginUser.nickName ne reply.rmember.nickName }">
+														<span>신고</span>
+													</c:if>
+													<span>${ reply.rpDate }</span>
+												</div>
+												<div class="reply_content">
+													<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" style="width: 98%; padding: 7px;" readonly="readonly">${ reply.rpContent }</textarea>
+												</div>					
+											</c:if>
+										</c:forEach>
+										</div>
+										<div class="reply">
+											<div class="reply_profile_area">
+												<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+												<span>${ loginUser.nickName }</span>
+											</div>
+											<div class="reply_content">
+												<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" style="width: 98%; padding: 7px; background: white; border: 1px solid;"></textarea>
+												<div class="reply_submit">
+													<label class="counter">0/300</label>
+													<input type="hidden" value="${ bl_bc.cmNo }" />
+													<button type="button" onclick="reply_btn(this);">등록</button>
+												</div>
+											</div>
+										</div>	
+									</div>					
+								</c:if>
+							</c:forEach>
+							<c:if test="${ bl_bc.cmNo == 0 || bcSum == 0}">
+								<div class="comment_content">
+									등록된 댓글이 없습니다.
+								</div>
+							</c:if>
 						</div>
+						<!-- 댓글 부분 -->
 					</div>	
 				</c:forEach>
 			</c:if>
@@ -403,6 +554,7 @@
 					</c:if>
 				</div>
 			</div>
+			
 		</section>
 	</div>
 <script>
@@ -431,17 +583,271 @@
 		}
 	})
 	
+	/* 댓글 열기 스크립트 */
+	
+	function reply_list_open(b) {
+		if($(b).text().trim() == "답글 쓰기"){
+			$(b).parent().next().css('display', 'block');
+			$(b).text("답글 닫기");
+		} else {
+			$(b).parent().next().css('display', 'none');
+			$(b).text("답글 쓰기");			
+		}
+	}
+	
+	var save1 = "";
+	function commentUpdate(u) {
+		console.log($(u).prev().prev().prev().val());
+		$div = $('<div class="write_comment_submit">');
+		$label = $('<label class="counter">0/300</label>');
+		$hidden = $('<input type="hidden">').val($(u).prev().prev().prev().val());
+		$button = $('<button type="button" onclick="commentUpdate_btn(this);">등록</button>');
+		$div.append($label, $hidden, $button);	
+			
+		if($(u).text().trim() == "수정"){
+			save1 = $(u).parent().next().find('textarea').text();
+			$(u).parent().next().find('textarea').prop('readonly', false);
+			$(u).parent().next().find('textarea').css('background', 'white');
+			$(u).text("취소");
+			$(u).parent().next().append($div)
+		} else if ($(u).text().trim() == "취소"){
+			$(u).parent().next().find('textarea').val(save1);
+			$(u).parent().next().find('textarea').prop('readonly', true);
+			$(u).parent().next().find('textarea').css('background', '#fafafa');
+			$(u).text("수정");
+			$(u).parent().next().children('div').remove();
+		}
+	}
+	
+	function commentUpdate_btn(b) {
+		if($(b).parent().prev().val().trim().length == 0){
+			alert("내용을 입력해주세요.");
+		} else {
+			var cmNo = $(b).prev().val();
+			var cmContent = $(b).parent().prev().val();
+			console.log(cmNo)
+			console.log(cmContent)
+			$.ajax({
+				url: "bCommentUpdate.me",
+				type: "POST",
+				data: {
+					cmNo:cmNo, 
+					cmContent:cmContent,
+				},
+				success: function(data) {
+					console.log(data)
+					$(b).parent().prev().text(data.cmContent);
+					$(b).parent().prev().prop('readonly', true);
+					$(b).parent().prev().css('background', '#fafafa');
+					$(b).parent().parent().prev().children('span[class=commentUpdate]').html("수정")	;			
+					$(b).parent().remove()
+				}
+			})
+		}
+	}
+	
+	var save2 = "";
+	function replyUpdate(u) {
+		$div = $('<div class="reply_submit">');
+		$label = $('<label class="counter">0/300</label>');
+		$hidden = $('<input type="hidden">').val($(u).prev().prev().prev().val());
+		$button = $('<button type="button" onclick="replyUpdate_btn(this);">등록</button>');
+		$div.append($label, $hidden, $button);	
+		
+		console.log($(u))
+		if($(u).text().trim() == "수정"){
+			save1 = $(u).parent().next().find('textarea').text();
+			$(u).parent().next().find('textarea').prop('readonly', false);
+			$(u).parent().next().find('textarea').css('background', 'white');
+			$(u).text("취소");
+			$(u).parent().next().append($div)
+		} else if ($(u).text().trim() == "취소"){
+			$(u).parent().next().find('textarea').val(save1);
+			$(u).parent().next().find('textarea').prop('readonly', true);
+			$(u).parent().next().find('textarea').css('background', '#fafafa');
+			$(u).text("수정");
+			$(u).parent().next().children('div').remove();
+		}
+	}
+	
+	function replyUpdate_btn(b) {
+		if($(b).parent().prev().val().trim().length == 0){
+			alert("내용을 입력해주세요.");
+		} else {
+			var rpNo = $(b).prev().val();
+			var rpContent = $(b).parent().prev().val();
+			console.log(rpNo)
+			console.log(rpContent)
+			$.ajax({
+				url: "replyUpdate.me",
+				type: "POST",
+				data: {
+					rpNo:rpNo, 
+					rpContent:rpContent,
+				},
+				success: function(data) {
+					console.log(data)
+					$(b).parent().prev().text(data.rpContent);
+					$(b).parent().prev().prop('readonly', true);
+					$(b).parent().prev().css('background', '#fafafa');
+					$(b).parent().parent().prev().children('span[class=replyUpdate]').html("수정")	;			
+					$(b).parent().remove()
+				}
+			})
+		}
+	}
+	
+	function commentDelete(d) {
+		console.log($(d))
+		var result = confirm("댓글을 삭제하시겠습니까?");
+		if(result) {
+			var cmNo = $(d).prev().prev().prev().prev().val();
+			alert("삭제되었습니다.");
+			$.ajax({
+				url: "commentDelete.me",
+				data: {
+					cmNo:cmNo
+				},
+				success: function(data) {
+					location.reload();	
+				}
+			})
+		} else {
+			
+		}
+	}
+	
+	function replyDelete(d) {
+		console.log($(d))
+		var result = confirm("댓글을 삭제하시겠습니까?");
+		if(result) {
+			var rpNo = $(d).prev().prev().prev().prev().val();
+			alert("삭제되었습니다.");
+			$.ajax({
+				url: "replyDelete.me",
+				data: {
+					rpNo:rpNo
+				},
+				success: function(data) {
+					location.reload();	
+				}
+			})
+		} else {
+			
+		}
+	}
+	
 	/* 글자수 스크립트 */
-	$('.reply_TEXT').keyup(function (e){
-       var content = $(this).val();
-       $('#counter').html(content.length+"/200");//글자수 실시간 카운팅
+	function commentCount(t) {
+		var content = $(t).val();
+		var length = $(t).val().length
+		$(t).next().children('label[class=counter]').text(length+"/300");
 
-       if (content.length > 300){
-           alert("최대 200자까지 입력 가능합니다.");
-           $(this).val(content.substring(0, 200));
-           $('#counter').html("200/200");
-       }
-   });
+		if (length > 300){
+			alert("최대 300자까지 입력 가능합니다.");
+			$(t).val(content.substring(0, 300));
+			$(t).next().children('label[class=counter]').html("300/300");
+		}
+	}
+	
+	function replyCount(t) {
+		var content = $(t).val();
+		var length = $(t).val().length
+		$(t).next().children('label[class=counter]').html(content.length+"/300");//글자수 실시간 카운팅
+		
+		if (length > 300){
+		    alert("최대 300자까지 입력 가능합니다.");
+		    $(t).val(content.substring(0, 300));
+		    $(t).next().children('label[class=counter]').html("300/300");
+		}
+	}
+	
+	/* 댓글 등록 ajax */
+	
+	function comment_btn(b) {
+		if($(b).parent().prev().val().trim().length == 0){
+			alert("내용을 입력해주세요.");
+		} else {
+			var bNo = $(b).prev().val();
+			var cmContent = $(b).parent().prev().val();
+			var secret = $('input:checkbox[name=secret]:checked').length + 1;
+			$.ajax({
+				url: "bCommentInsert.me",
+				type: "POST",
+				data: {
+					bNo:bNo, 
+					cmContent:cmContent,
+					secret:secret
+				},
+				success: function(data) {
+					location.reload();	
+				}
+			})
+		}
+	}
+	
+	/* 답글 등록 ajax */
+	
+	function reply_btn(b) {
+		if($(b).parent().prev().val().trim().length == 0){
+			console.log($(b))
+			alert("내용을 입력해주세요.");
+		} else {
+			var cmNo = $(b).prev().val();
+			var rpContent = $(b).parent().prev().val();
+			var count = $(b).parent().parent().parent().parent().prev().children('label').text();
+			console.log(count)
+			$.ajax({
+				url: "replyInsert.me",
+				dataType: 'json',
+				type: "POST",
+				data: {
+					cmNo:cmNo, 
+					rpContent:rpContent
+				},
+				success: function(data) {
+					console.log(data);		
+					count++;
+					var nickName1 = '${ loginUser.nickName }'
+					var nickName2 = '${ getMember.nickName }'
+					if(data[data.length-1].status == 'Y') {
+						
+						if(nickName1 == nickName2) {
+							$div = $('<div class="reply_profile_area">');
+							$input = $('<input type="hidden">').val(data[data.length-1].rpNo);
+							$prImg = $('<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;">');
+							$span1 = $('<span>${ loginUser.nickName }</span>');
+							$span2 = $('<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>');
+							$span3 = $('<span class="replyDelete" onclick="replyDelete(this)">삭제</span>');
+							$button = $('<button type="button">블로그주인</button>')
+							$span4 = $('<span></span>').text(data[data.length-1].rpDate);
+							$div.append($input, $prImg, $span1, $span2, $span3, $button, $span4)
+						} else {
+							$div = $('<div class="reply_profile_area">');
+							$input = $('<input type="hidden">').val(data[data.length-1].rpNo);
+							$prImg = $('<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;">');
+							$span1 = $('<span>${ loginUser.nickName }</span>');
+							$span2 = $('<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>');
+							$span3 = $('<span class="replyDelete" onclick="replyDelete(this)">삭제</span>');
+							$span4 = $('<span></span>').text(data[data.length-1].rpDate);
+							$div.append($input, $prImg, $span1, $span2, $span3, $span4)							
+						}
+						
+						
+						$div2 = $('<div class="reply_content">')
+						$textarea = $('<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" style="width: 98%; padding: 7px;" readonly="readonly">').text(data[data.length-1].rpContent)
+						
+						$div2.append($textarea)
+						$(b).parent().parent().parent().prev().append($div, $div2);
+						$(b).parent().prev().val("");
+						$(b).prev().prev().text("0/300");
+// 						console.log(count)
+						$(b).parent().parent().parent().parent().prev().children('label').text(count);
+					}
+				}					
+			})
+		}
+	}
 	
 	function listSH() {
 		if($('#listBtn').text() == '목록열기'){
