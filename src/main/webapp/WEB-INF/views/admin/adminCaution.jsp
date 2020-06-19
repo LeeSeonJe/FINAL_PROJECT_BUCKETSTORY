@@ -48,34 +48,32 @@ div > h2 {
 	</div>
 	
 	<div>
-	<thead>
 		<table id="ad_declare">
+			<thead>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>번호</td>
+					<td>말머리</td>
+					<td>제목</td>
+					<td width="220px;">내용</td>
+					<td>아이디</td>
+					<td>신고일</td>
+					<td>상태</td>
+					<td>신고자</td>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="b" items="${ list }">
 			<tr>
-				<td><input type="checkbox"></td>
-				<td>번호</td>
-				<td>말머리</td>
-				<td>제목</td>
-				<td width="220px;">내용</td>
-				<td>아이디</td>
-				<td>신고일</td>
-				<td>상태</td>
-				<td>신고자</td>
-			</tr>
-		</table>
-	</thead>
-	<tbody>
-			<c:forEach var="Notify" items="${ list }">
-			<tr>
-				<td>${ Notify.no_no }</td>
-				<td>${ Notify.no_kind }</td>
-				<td>${ Notify.no_check }</td>
-				<td>${ Notify.pigouser }</td>
-				<td>${ Notify.enrolldata }</td>
-				<td>${ Notify.sinuser }</td>
+				<td>${ b.no_no }</td>
+				<td>${ b.enrolldata }</td>
+				<td>${ b.no_kind }</td>
+				<td>${ b.no_check }</td>
+				<td>${ b.pigouser }</td>
+				<td>${ b.sinuser }</td>
 			</tr>
 			</c:forEach>
-	</tbody>
-			<table style=" margin: 0 auto; ">
+			</tbody>
 					<!-- 페이징 처리 -->
 				<tr align="center" height="20" id="buttonTab">
 					<td colspan="6">

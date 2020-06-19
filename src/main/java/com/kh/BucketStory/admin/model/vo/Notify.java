@@ -3,16 +3,16 @@ package com.kh.BucketStory.admin.model.vo;
 import java.sql.Date;
 
 public class Notify {
-	private int no_no;
-	private Date enrolldata;
-	private char status;
-	private int no_kind;
-	private char no_check;
-	private int bno;
-	private int cmno;
-	private int rpno;
-	private String sinuser;
-	private String pigouser;
+	private int no_no; // 신고번호
+	private Date enrolldata; // 신고일
+	private char status; // status
+	private int no_kind; // 신고종류
+	private char no_check; // 처리여부
+	private int bno; // 글번호
+	private int cmno; // 댓글 번호
+	private int rpno; // 답글 번호
+	private String sinuser; // 신고자
+	private String pigouser; //피고자
 	
 	public Notify() {}
 

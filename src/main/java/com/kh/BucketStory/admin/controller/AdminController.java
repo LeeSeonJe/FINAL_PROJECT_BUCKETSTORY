@@ -191,7 +191,9 @@ public class AdminController {
 			currentPage = page;
 		}
 		
-		PageInfo pi = Pagination.getPageInfo(currentPage, 0);
+		int listCount = bService.getcautionListCount();
+				
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Notify> list = bService.notifyselectList(pi);
 		
