@@ -36,19 +36,26 @@ public class MainController {
 	public ModelAndView Main(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category,
 						ModelAndView mv, HttpSession session) {
 		
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String userId = loginUser.getUserId();
+		String userId = null;
+		if(session.getAttribute("loginUser") != null) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			userId = loginUser.getUserId();
+		}
+		
 		
 		
 		ArrayList<Media> blImg = mainService.selectBucketImg();
-		ArrayList<WishList> wishList = mainService.selectWishList(userId);
-		ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+		if(userId != null) {
+			ArrayList<WishList> wishList = mainService.selectWishList(userId);
+			ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+			mv.addObject("wishList", wishList);
+			mv.addObject("shareList", shareList);
+		}
+		
 		ArrayList<Board> blogList = mainService.selectBlogList();
 		
 		mv.addObject("blImg", blImg);
-		mv.addObject("wishList", wishList);
 		mv.addObject("category", category);
-		mv.addObject("shareList", shareList);
 		mv.addObject("blogList", blogList);
 		
 		if(menuNum == 1) {

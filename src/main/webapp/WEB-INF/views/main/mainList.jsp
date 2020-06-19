@@ -78,6 +78,9 @@
 						<c:set var="Sloop_flag" value="true"/>
 					</c:if>
 				</c:forEach>
+				
+				<!-- 회원만 해당(시작) -->
+				<c:if test="${ not empty loginUser}">
 				<c:if test="${not Sloop_flag}">
 				<div class="c-Add ${ b.bkNo }" id="c-Add${ b.bkNo }">
 					<div class="c-addBtn" onclick="sharebl(${ b.bkNo }, '${ b.userId }');"> + ADD</div>
@@ -98,6 +101,9 @@
 						<c:if test="${not loop_flag}"><label class="wishlabel">등록</label></c:if>
 					</div>
 				</div>
+				</c:if>
+				<!-- 회원만 해당(끝) -->
+				
 			</div>
 		</div>
 <script>
@@ -107,9 +113,12 @@
 	}, function(){
 		$('.c-likewish.${ b.bkNo }').hide();
 	});
-	if('${loginUser.nickName}' == '${b.userId}'){
-		$('.c-Add.${b.bkNo}').hide();
+	if(${loginUser} != null){
+		if('${loginUser.nickName}' == '${b.userId}'){
+			$('.c-Add.${b.bkNo}').hide();
+		}
 	}
+	
 </script>
 		</c:if>
 		</c:forEach>
@@ -125,9 +134,16 @@
 				<div id="buckettitle">리틀 포레스트에 나오는 음식 따라 만들기</div>
 				<div id="bucketleft">〈</div>
 				<div id="bucketright">〉</div>
+				
+				<!-- 회원만 해당(시작) -->
+				<c:if test="${ not empty loginUser}">
 				<div id="bucketAdd"> + ADD                       </div>
 				<div id="bucketlike">♡ </div>
 				<div id="bucketwish">☆ </div>
+				</c:if>
+				<!-- 회원만 해당(끝) -->
+				
+				
 			</div>
 			<div id="bucketcp">
 				<div id="bucketTag">
@@ -327,51 +343,55 @@ $(function(){
 	
 	//위시 등록취소하기
 	function wishRegist(bkNo, userId){
-		if('${loginUser.userId}' == userId){
-			alert("나의 버킷은 위시등록 할 수 없습니다.");
-		} else{
-			$.ajax({
-				url:'wishRegi.ho',
-				data:{
-					bkNo:bkNo
-				},
-				async : false,
-				success:function(data){
-					var blwish = '.c-wishBtn.'+bkNo+'>label';
-					$(blwish).text(data);
-				}
-			});
-		}
-		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
-			$('#bucketwish').css('color', '#10ccc3');
-		} else if($('.c-wishBtn.'+bkNo+'>label').text() == '등록'){
-			$('#bucketwish').css('color', 'white');
+		if(${loginUser} != null){
+			if('${loginUser.userId}' == userId){
+				alert("나의 버킷은 위시등록 할 수 없습니다.");
+			} else{
+				$.ajax({
+					url:'wishRegi.ho',
+					data:{
+						bkNo:bkNo
+					},
+					async : false,
+					success:function(data){
+						var blwish = '.c-wishBtn.'+bkNo+'>label';
+						$(blwish).text(data);
+					}
+				});
+			}
+			if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
+				$('#bucketwish').css('color', '#10ccc3');
+			} else if($('.c-wishBtn.'+bkNo+'>label').text() == '등록'){
+				$('#bucketwish').css('color', 'white');
+			}
 		}
 	}
 	
 	// 공유버킷등록
 	function sharebl(bkNo, userId){
-		if('${loginUser.nickName}' == userId){
-			alert("나의 버킷은 공유할 수 없습니다.");
-		} else{
-			var result = confirm("이 버킷리스트를 공유하시겠습니까?");
-			if(result){
-				$.ajax({
-					url:'sharebl.ho',
-					data:{
-						bkNo:bkNo
-					},
-					success:function(data){
-						if(data == 'success'){
-							var blshare = '.c-Add.'+bkNo;
-							$(blshare).hide();
-							$('#bucketAdd').hide();
-							alert("나의 버킷에 공유되었습니다.");
-						}
-					}
-				});
+		if(${loginUser} != null){
+			if('${loginUser.nickName}' == userId){
+				alert("나의 버킷은 공유할 수 없습니다.");
 			} else{
-				alert("공유 취소");
+				var result = confirm("이 버킷리스트를 공유하시겠습니까?");
+				if(result){
+					$.ajax({
+						url:'sharebl.ho',
+						data:{
+							bkNo:bkNo
+						},
+						success:function(data){
+							if(data == 'success'){
+								var blshare = '.c-Add.'+bkNo;
+								$(blshare).hide();
+								$('#bucketAdd').hide();
+								alert("나의 버킷에 공유되었습니다.");
+							}
+						}
+					});
+				} else{
+					alert("공유 취소");
+				}
 			}
 		}
 	}
@@ -472,19 +492,21 @@ $(function(){
 					$('#bucketwithPro').html('');
 					$('#bucketwithCount>span').text(data.length);
 					for(var key in data){
-						if(data[key].nickName == '${loginUser.nickName}'){
-							$('#bucketAdd').hide();
-						}
-						if(data[key].userId != 'admin'){
-							if(data[key].prImage != null){
-								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-								$('#bucketwithPro').append($div);
-							} else{
-								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-								$('#bucketwithPro').append($div);
+						if(${loginUser} != null){
+							if(data[key].nickName == '${loginUser.nickName}'){
+								$('#bucketAdd').hide();
 							}
-						} else{
-							$('#bucketwithCount>span').text(data.length-1);
+							if(data[key].userId != 'admin'){
+								if(data[key].prImage != null){
+									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+									$('#bucketwithPro').append($div);
+								} else{
+									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+									$('#bucketwithPro').append($div);
+								}
+							} else{
+								$('#bucketwithCount>span').text(data.length-1);
+							}
 						}
 					}
 				} else{
