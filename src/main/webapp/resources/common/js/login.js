@@ -481,7 +481,7 @@
 	     });			
 
 
-// 내용 작성 부분의 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
+// 파일 첨부 창이 뜨도록 설정하는 함수
 				$(function(){
 					
 					$("#inputImg").hide();
@@ -505,15 +505,47 @@
 					}
 				}
 
-// 아이디 찾기				
+// 아이디 찾기
+				$('#good').click(function(){
+		     		var email = $('#email').val();
+		     		
+				$.ajax({  // 입력한 이메일을 디비랑 비교하기
+					url: 'compareEmail.co',
+					data: {email:email},
+					success: function(data){
+						console.log(data);
+					
+					if(data == 'success'){
+						alert("회원님의 아이디는" + "#userId" + "입니다");
+						$('#pwdcheck').text('비밀번호가 일치합니다');
+					}else{
+						alert("이메일을 올바르게 입력해주세요");
+					}
+				}
+	        });
+	     });
+//				$(function(){
+//					$('#finish').click(function(){
+//						
+//						var emailfind_1 = $('#emailfind_1').val();
+//						var emailfind_2 = $('#emailfind_2').val());
+//						var loginEmail = <%= loginUser.getEmail() %>;
+//						
+//						if(emailfind_1 == loginPwd and emailfind_2 = == loginPwd){
+//							response.sendRedirect("views/myPage/pwdUpdate.jsp");
+//							if(result){
+//								alert("'회원님의 아이디는' + '' + '입니다'");
+//							} else {
+//								alert("비밀번호 변경 실패! 다시 시도해주시길 바랍니다.");
+//								location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
+//							}
+//						}
+//					});
+//				});
+				
 				
 // 비밀번호 찾기		
-				$(function(){
-					$("#").hide();
-					$('.fileInput').click(function(){
-						$("#checkImg").click();
-					});
-				});	  
+				 
 
 // 이메일 관련 스크립트
 				/*이메일 중복 확인메일 발송  */ //emailResult

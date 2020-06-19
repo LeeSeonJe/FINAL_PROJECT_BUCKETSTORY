@@ -95,7 +95,7 @@ body{
 	    margin-top: 220px;
 	    margin-left: 320px;
 	    width: 580px;
-	    height: 300px;
+	    height: 250px;
 	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75); /* 서서히 나타남 */
 	    display: none;
 	   /*  filter: blur(4px);
@@ -153,7 +153,7 @@ body{
 	    margin-bottom: 10px;
 	}
 	.idPwd{
-		height:40px;
+		height:42px;
 		width:210px;
 		margin-top:5px;
 		font-size:20px;
@@ -358,7 +358,8 @@ body{
 	}
 	
 	/* 취소, 가입하기 버튼 */
-	#cancel:hover, #finish:hover, #finish2:hover {
+	#cancel:hover, #finish:hover, #finish2:hover, #good:hover, #good2:hover, 
+	#yeah:hover, #yeah2:hover {
 		color: #3f4c5fd4;
 	    text-decoration: none;
 	    text-decoration-line: none;
@@ -369,13 +370,15 @@ body{
 	    /* background-color: rgba(255, 255, 255, 0.3); */
 	}
 	
-	#cancel:after, #finish:after, #finish2:after {
+	#cancel:after, #finish:after, #finish2:after, #good:hover, #good2:hover, 
+	#yeah:after, #yeah2:after {
 	  -webkit-transition: all 0.3s;
 		-moz-transition: all 0.3s;
 	  -o-transition: all 0.3s;
 		transition: all 0.3s;
 	}
-	#cancel, #finish, #finish2 {
+	#cancel, #finish, #finish2, #good, #good2,
+	#yeah, #yeah2 {
 	  height:40px;
 	  width:157.2px;
 	  margin-top: 10px;
@@ -390,21 +393,22 @@ body{
 	  text-transform: uppercase;
 	}
 	
-	#cancel:before, #finish:before,, #finish2:before,
-	#cancel:after, #finish:after, #finish2:after {
+	#cancel:before, #finish:before,, #finish2:before, #good:before, #good2:before, #yeah:before, #yeah2:before,
+	#cancel:after, #finish:after, #finish2:after, #good:after, #good2:after, #yeah:after, #yeah2:after {
 	  background: #fff;
 	  content: '';
 	  position: absolute;
 	  z-index: -1;
 	}
-	#cancel:after, #finish:after, #finish2:after {
+	#cancel:after, #finish:after, #finish2:after, #good:after, #good2:after, #yeah:after, #yeah2:after {
 	  height: 0;
 	  left: 0;
 	  top: 0;
 	  width: 100%;
 	}
 	
-	#cancel:hover:after, #finish:hover:after, #finish2:hover:after {
+	#cancel:hover:after, #finish:hover:after, #finish2:hover:after,
+	#good:hover:after, #good2:hover:after, #yeah:hover:after, #yeah2:hover:after {
 	  height: 100%;
 	}
 	#facebookBtn{
@@ -509,26 +513,33 @@ body{
 	/* The slider */
 	.slider {
 	  position: absolute;
-	  cursor: pointer;
+	 
 	  top: 0;
 	  left: 0;
 	  right: 0;
 	  bottom: 0;
 	  background-color: hsla(0,0%,0%,.2);
+	  box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.4) 0 0 0 1px; 
+	  background-repeat: no-repeat;
 	  
 	  -webkit-transition: .4s;
 	  transition: .4s;
+	  
+	  border-style: inset;
+      border-color: -internal-light-dark-color(rgb(118, 118, 118), rgb(195, 195, 195));
+      border-image: initial;
 	}
 	
 	.slider:before {
 	  -webkit-appearance: none;
 	  position: absolute;
+	  cursor: pointer;
 	  content: "";
 	  height: 26px;
 	  width: 26px;
-	  left: 4px;
-	  bottom: 4px;
-	  box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+	  left: 1px;
+	  bottom: 1px;
+	  /* box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px; */
 	  background-color: hsla(0,0%,0%,.2);
 	  background-image: -webkit-radial-gradient( hsla(200,100%,90%,1) 0%, hsla(200,100%,70%,1) 40%, hsla(200,100%,60%,.3) 60%, hsla(200,100%,30%,0) 110% );
 	  background-repeat: no-repeat;

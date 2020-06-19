@@ -19,7 +19,7 @@
 		<result property="prImage" column="PR_IMAGE"/>
 		<result property="fwCount" column="FW_COUNT"/>
 		<result property="enrollDate" column="ENROLLDATE"/>
-		<result property="state" column="STATE"/>
+		<result property="status" column="STATUS"/>
 	</resultMap>
 	
 	<insert id="insertMember" parameterType="Member">
