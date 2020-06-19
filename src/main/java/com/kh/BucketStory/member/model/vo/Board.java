@@ -1,6 +1,9 @@
 package com.kh.BucketStory.member.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
+import com.kh.BucketStory.common.model.vo.Member;
 
 public class Board {
 	private int bNo;
@@ -12,6 +15,7 @@ public class Board {
 	private String status;
 	private String userid;
 	private int bkNo;
+	private ArrayList<BoardComment> boardCommnet;
 
 	public Board() {
 	}
@@ -42,6 +46,21 @@ public class Board {
 		this.status = status;
 		this.userid = userid;
 		this.bkNo = bkNo;
+	}
+
+	public Board(int bNo, String bTitle, String bContent, int bLike, int bCount, Date enrollDate, String status,
+			String userid, int bkNo, ArrayList<BoardComment> boardCommnet) {
+		super();
+		this.bNo = bNo;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bLike = bLike;
+		this.bCount = bCount;
+		this.enrollDate = enrollDate;
+		this.status = status;
+		this.userid = userid;
+		this.bkNo = bkNo;
+		this.boardCommnet = boardCommnet;
 	}
 
 	public int getbNo() {
@@ -116,11 +135,19 @@ public class Board {
 		this.bkNo = bkNo;
 	}
 
+	public ArrayList<BoardComment> getBoardCommnet() {
+		return boardCommnet;
+	}
+
+	public void setBoardCommnet(ArrayList<BoardComment> boardCommnet) {
+		this.boardCommnet = boardCommnet;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bLike=" + bLike + ", bCount="
 				+ bCount + ", enrollDate=" + enrollDate + ", status=" + status + ", userid=" + userid + ", bkNo=" + bkNo
-				+ "]";
+				+ ", boardCommnet=" + boardCommnet + "]";
 	}
 
 }

@@ -10,17 +10,17 @@
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.Pay" alias="Pay"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.BucketList" alias="Bucket"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.ComInBucket" alias="ComInBucket"/>
-    <typeAlias type="com.kh.BucketStory.bucket.model.vo.Media" alias="Media"/>
+    	<typeAlias type="com.kh.BucketStory.bucket.model.vo.Media" alias="Media"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.WishList" alias="WishList"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.ShareBucket" alias="ShareBucket"/>
 		<typeAlias type="com.kh.BucketStory.common.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.BucketStory.member.model.vo.MemberMyBucketList" alias="MemberMyBucketList"/>
 		<typeAlias type="com.kh.BucketStory.admin.model.vo.Festival" alias="Festival"/>
 		<typeAlias type="com.kh.BucketStory.admin.model.vo.adminQnA" alias="adminQnA"/>
-
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.EsRequest" alias="Esrequest"/>
-    <typeAlias type="com.kh.BucketStory.member.model.vo.Board" alias="Board"/>
-    <typeAlias type="com.kh.BucketStory.member.model.vo.Board" alias="Board"/>
+    	<typeAlias type="com.kh.BucketStory.member.model.vo.Board" alias="Board"/>
+    	<typeAlias type="com.kh.BucketStory.member.model.vo.BoardComment" alias="BoardComment"/>
+    	<typeAlias type="com.kh.BucketStory.member.model.vo.Reply" alias="Reply"/>    	
 
 	</typeAliases>
 	

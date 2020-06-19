@@ -99,14 +99,14 @@ h2 {
 }
 
 input {
-	border: none;
-	border-bottom: 1px solid black;
-	background: #fafafa;
-	outline: none;
-	padding: 3px;
-	width: 600px;
-	font-size: 18px;
-	height: 30px;
+/* 	border: none; */
+/* 	border-bottom: 1px solid black; */
+/* 	background: #fafafa; */
+/* 	outline: none; */
+/* 	padding: 3px; */
+/* 	width: 600px; */
+/* 	font-size: 18px; */
+/* 	height: 30px; */
 }
 
 select {
@@ -291,13 +291,14 @@ a:hover {
 	margin-left: 100px;
 }
 
-.profile-area>span, .reply_profile_area>span {
+.profile-area>span, .comment_profile_area>span, .reply_profile_area>span, .write_comment_profile_area>span {
 	margin-left: 15px;
 	font-size: 14px;
+	margin-right: 15px;
 }
 
 /* 댓글 */
-.reply {
+.comment {
 	width: 820px;
 	margin: 0 auto;
 	margin-top: 130px;
@@ -306,7 +307,7 @@ a:hover {
 	padding: 20px;
 }
 
-.reply_profile_area {
+.comment_profile_area, .reply_profile_area, .write_comment_profile_area {
 	display: flex;
 	align-items: center;
 }
@@ -316,4 +317,69 @@ a:hover {
 	height: 55px;
 	margin-top: 10px;
 	resize: none;
+}
+
+.comment_submit, .reply_submit, .write_comment_submit {
+	text-align: left;
+	margin-bottom: 20px;
+}
+
+.comment_submit label, .reply_submit label, .write_comment_submit label{
+	font-size: 14px;
+}
+
+.comment_submit button, .reply_submit button, .write_comment_submit button {
+	float: right;
+}
+
+.comment_list {
+	width: 820px;
+	margin: 0 auto;
+	border: 1px solid #ddcbda;
+	border-radius: 5px;
+	padding: 20px;
+	margin-top: 20px;
+}
+
+.comment_content, .write_comment_content {
+	margin-bottom: 10px;
+}
+
+.comment_list textarea {
+	border: 1px solid #ddcbda;
+	background: #fafafa;
+}
+
+.reply_list {
+	margin: 0 auto;
+	width: 630px;
+}
+
+.reply_content {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.rpContent {
+	outline: none;
+	resize: none;
+}
+
+.comment_profile_area button, .reply_profile_area button {
+	margin: 3px 0 0 6px;
+    padding: 0 8px;
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-radius: 17px;
+    font-size: 11px;
+    background: #e4f6ff;
+    outline: none;
+}
+
+.rpContent {
+	background: white;
+}
+
+.commentUpdate, .commentDelete, .replyUpdate, .replyDelete {
+	cursor: pointer;
 }

@@ -106,7 +106,7 @@
 		<result property="caution" column="CAUTION"/>
 		<result property="prImage" column="PR_IMAGE"/>
 		<result property="fwCount" column="FW_COUNT"/>
-		<result property="enrollDate" column="ENROLLDATE2"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
 		<result property="status" column="STATUS"/>
 	</resultMap>
 	
@@ -128,10 +128,32 @@
 	</select>
 	
 	<select id="getBoard" parameterType="hashMap" resultMap="BoardResultSet">
-		select *
-		from board
-		where userid = #{ userid } and bkno = #{ bn } and status = 'Y'
-		order by enrolldate
+<!-- 		select * -->
+<!-- 		from board -->
+<!-- 		where userid = #{ userid } and bkno = #{ bn } and status = 'Y' -->
+<!-- 		order by enrolldate -->
+
+<!-- 			select * -->
+<!-- 			from board b -->
+<!-- 			left join BOARDCOMMENT bc using (bno) -->
+<!-- 			left join member mm on (mm.userid = bc.userid) -->
+<!-- 			left join reply r using (cmno) -->
+<!-- 			left join member m on (r.userid = m.userid) -->
+<!-- 			where b.userid = #{ userid } and bkno = #{ bn } and b.status = 'Y' -->
+<!-- 			order by b.enrolldate, bc.enrolldate desc, rpdate -->
+
+			select BNO, BTITLE, BCONTENT, BLIKE, BCOUNT, b.ENROLLDATE B_ENROLLDATE, B.STATUS B_STATUS, B.USERID B_USERID, BKNO,
+			            CMNO, CMCONTENT, BC.ENROLLDATE BC_ENROLLDATE, BC.USERID BC_USERID, SECRET, BC.STATUS BC_STATUS,
+			            MM.NICKNAME BC_NICKNAME, MM.PR_IMAGE BC_PR_IMAGE, MM.STATUS BC_M_STATUS,
+			            RPNO, RPCONTENT, RPDATE, R.USERID RP_USERID, RPSTATUS, 
+			            M.NICKNAME RP_NICKNAME, M.PR_IMAGE RP_PR_IMAGE, M.STATUS RP_M_STATUS
+			from board b
+			left join BOARDCOMMENT bc using (bno)
+			left join member mm on (mm.userid = bc.userid)
+			left join reply r using (cmno)
+			left join member m on (r.userid = m.userid)
+			where b.userid = #{ userid } and bkno = #{ bn } and b.status = 'Y'
+			order by b.enrolldate, bc.enrolldate desc, rpdate
 	</select>
 	
 	<resultMap type="Board" id="BoardResultSet">
@@ -140,11 +162,47 @@
 		<result property="bContent" column="BCONTENT"></result>
 		<result property="bLike" column="BLIKE"></result>
 		<result property="bCount" column="BCOUNT"></result>
-		<result property="enrollDate" column="ENROLLDATE"></result>
-		<result property="status" column="STATUS"></result>
-		<result property="userid" column="USERID"></result>
+		<result property="enrollDate" column="B_ENROLLDATE"></result>
+		<result property="status" column="B_STATUS"></result>
+		<result property="userid" column="B_USERID"></result>
 		<result property="bkNo" column="BKNO"></result>
+		<collection property="boardCommnet" javaType="java.util.ArrayList" resultMap="BoardCommentResultSet"></collection>
 	</resultMap>
+	
+	<resultMap type="BoardComment" id="BoardCommentResultSet">
+		<result property="cmNo" column="CMNO"/>
+		<result property="cmContent" column="CMCONTENT"/>
+		<result property="enrollDate" column="BC_ENROLLDATE"/>
+		<result property="bNo" column="BNO"/>
+		<result property="userid" column="BC_USERID"/>
+		<result property="secret" column="SECRET"/>
+		<result property="status" column="BC_STATUS"/>
+		<association property="member" resultMap="memberResultSet2"></association>
+		<collection property="reply" javaType="java.util.ArrayList" resultMap="ReplyResultSet"></collection>
+	</resultMap>
+	
+	<resultMap id="memberResultSet2" type="Member">
+		<result property="nickName" column="BC_NICKNAME"/>
+		<result property="prImage" column="BC_PR_IMAGE"/>
+		<result property="status" column="BC_M_STATUS"/>
+	</resultMap>
+	
+	<resultMap type="Reply" id="ReplyResultSet">
+		<result property="rpNo" column="RPNO"/>
+		<result property="rpContent" column="RPCONTENT"/>
+		<result property="cmNo" column="CMNO"/>
+		<result property="rpDate" column="RPDATE"/>
+		<result property="userid" column="RP_USERID"/>
+		<result property="status" column="RPSTATUS"/>
+		<association property="rmember" resultMap="memberResultSet3"></association>
+	</resultMap>
+	
+	<resultMap id="memberResultSet3" type="Member">
+		<result property="nickName" column="RP_NICKNAME"/>
+		<result property="prImage" column="RP_PR_IMAGE"/>
+		<result property="status" column="RP_M_STATUS"/>
+	</resultMap>
+	
 	
 	<select id="getListCount" resultType="_int">
 		select count(*)
@@ -169,7 +227,84 @@
 		order by ENROLLDATE desc
 	</select>
 	
+	<insert id="bCommentInsert">
+		insert into BOARDCOMMENT
+		values (SEQ_BOARDCOMMENT.nextval, #{ cmContent }, SYSDATE, #{ bNo }, #{ userid }, #{ secret }, 'Y')
+	</insert>
+	
+	<select id="getBoardCommentList" resultMap="BoardCommentResultSet">
+		select *
+		from boardcomment
+		left join reply using (cmNo)
+		where bno = #{ bNo } and STATUS ='Y'
+		order by enrolldate desc, rpdate
+	</select>
+	
+	<insert id="replyInsert">
+		insert into reply
+		values (seq_reply.nextval, #{ rpContent }, #{ cmNo }, SYSDATE, #{ userid },  'Y')
+	</insert>
+	
+	<select id="getReplyList" resultMap="ReplyResultSet2">
+		select RPNO, RPCONTENT, CMNO, RPDATE, NICKNAME, RPSTATUS
+		from reply
+		join member using (userid)
+		where cmno = #{ cmNo } and RPSTATUS = 'Y'
+		order by RPdate
+	</select>
+	
+	<resultMap type="Reply" id="ReplyResultSet2">
+		<result property="rpNo" column="RPNO"/>
+		<result property="rpContent" column="RPCONTENT"/>
+		<result property="cmNo" column="CMNO"/>
+		<result property="rpDate" column="RPDATE"/>
+		<result property="userid" column="NICKNAME"/>
+		<result property="status" column="RPSTATUS"/>
+	</resultMap>
+	
+	<update id="bCommentUpdate">
+		update boardcomment 
+		set cmcontent = #{ cmContent }
+		where cmno = #{ cmNo }
+	</update>
+	
+	<select id="getBoardComment" resultMap="BoardCommentResultSet2">
+		select *
+		from boardcomment
+		where cmno = #{ cmNo } and status='Y'
+	</select>
 
+	<resultMap type="BoardComment" id="BoardCommentResultSet2">
+		<result property="cmNo" column="CMNO"/>
+		<result property="cmContent" column="CMCONTENT"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+		<result property="bNo" column="BNO"/>
+		<result property="userid" column="USERID"/>
+		<result property="secret" column="SECRET"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
+
+	<update id="replyUpdate">
+		update reply 
+		set RPCONTENT = #{ rpContent }
+		where RPNO = #{ rpNo }
+	</update>
 	
+	<select id="getReply" resultMap="ReplyResultSet2">
+		select *
+		from reply
+		where RPNO = #{ rpNo } and RPSTATUS='Y'
+	</select>
 	
+	<update id="commentDelete">
+		update boardcomment 
+		set status = 'N'
+		where cmno = #{ cmNo }
+	</update>
+	
+	<update id="replyDelete">
+		update reply 
+		set RPSTATUS = 'N'
+		where RPNO = #{ rpNo }
+	</update>
 </mapper>

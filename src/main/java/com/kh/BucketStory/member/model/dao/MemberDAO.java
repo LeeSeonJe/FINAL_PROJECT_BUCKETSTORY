@@ -13,7 +13,9 @@ import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.vo.Board;
+import com.kh.BucketStory.member.model.vo.BoardComment;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
+import com.kh.BucketStory.member.model.vo.Reply;
 
 @Repository("mDAO")
 public class MemberDAO {
@@ -61,5 +63,49 @@ public class MemberDAO {
 
 	public Member getMEmber(SqlSessionTemplate sqlSession, String nickName) {
 		return sqlSession.selectOne("memberMapper.getMember", nickName);
+	}
+
+	public ArrayList<BoardComment> bCommentInsert(SqlSessionTemplate sqlSession, BoardComment boardComment) {
+		int result = sqlSession.insert("memberMapper.bCommentInsert", boardComment);
+		if(result > 0) {
+			ArrayList<BoardComment> bCommentList = (ArrayList) sqlSession.selectList("memberMapper.getBoardCommentList", boardComment);
+			return bCommentList;
+		}
+		return null;
+	}
+
+	public ArrayList<Reply> replyInsert(SqlSessionTemplate sqlSession, Reply reply) {
+		int result = sqlSession.insert("memberMapper.replyInsert", reply);
+		if(result > 0) {
+			ArrayList<Reply> replyList = (ArrayList) sqlSession.selectList("memberMapper.getReplyList", reply);
+			return replyList;
+		}
+		return null;
+	}
+
+	public BoardComment bCommentUpdate(SqlSessionTemplate sqlSession, BoardComment boardComment) {
+		int result = sqlSession.update("memberMapper.bCommentUpdate", boardComment);
+		if(result > 0) {
+			BoardComment bc = sqlSession.selectOne("memberMapper.getBoardComment", boardComment);
+			return bc;
+		}
+		return null;
+	}
+
+	public Reply replyUpdate(SqlSessionTemplate sqlSession, Reply reply) {
+		int result = sqlSession.update("memberMapper.replyUpdate", reply);
+		if(result > 0) {
+			Reply r = sqlSession.selectOne("memberMapper.getReply", reply);
+			return r;
+		}
+		return null;
+	}
+
+	public int commentDelete(SqlSessionTemplate sqlSession, Integer cmNo) {
+		return sqlSession.update("memberMapper.commentDelete", cmNo);
+	}
+
+	public int replyDelete(SqlSessionTemplate sqlSession, Integer rpNo) {
+		return sqlSession.update("memberMapper.replyDelete", rpNo);
 	}
 }

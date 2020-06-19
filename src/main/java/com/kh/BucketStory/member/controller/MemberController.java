@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
@@ -29,9 +33,9 @@ import com.kh.BucketStory.common.Pagination;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.service.MemberService;
 import com.kh.BucketStory.member.model.vo.Board;
+import com.kh.BucketStory.member.model.vo.BoardComment;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
-
-import sun.reflect.generics.tree.Tree;
+import com.kh.BucketStory.member.model.vo.Reply;
 
 @Controller
 public class MemberController {
@@ -115,13 +119,13 @@ public class MemberController {
 			@RequestParam(value = "page", required = false) Integer page, @RequestParam("nickName") String nickName,
 			@RequestParam(value = "bNo", required = false) String bNo) {
 		String flag = "false";
+		session.setAttribute("nickName", nickName);
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		int currentPage = 1;
 
 		if (page != null) {
 			currentPage = page;
 		}
-
 		int listCount = 0;
 		ArrayList<MemberMyBucketList> myBucketList = new ArrayList<MemberMyBucketList>();
 		PageInfo pi = null;
@@ -189,14 +193,14 @@ public class MemberController {
 			return "bucketBlog";
 		}
 	}
-
+	
+	// 
 	@RequestMapping(value = "bInsert.me", method = RequestMethod.POST)
 	public String BucketInsert(@ModelAttribute BucketList BL, @RequestParam("uploadFile") MultipartFile uploadFile,
 			@RequestParam("tags") List<String> tags, HttpServletRequest request, HttpSession session,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		response.setContentType("text/html;charset=UTF-8");
 		String nickName = (String) session.getAttribute("nickName");
-		System.out.println(nickName);
 		Media m = new Media();
 		String tag = String.join(",", tags);
 		BL.setTag(tag);
@@ -246,5 +250,107 @@ public class MemberController {
 
 		return renameFileName;
 	}
-
+	
+	
+//	댓글 등록 
+	@RequestMapping(value = "bCommentInsert.me", method = RequestMethod.POST)
+	public void bCommentInsert(@ModelAttribute BoardComment boardComment, HttpSession session, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		Member m = (Member) session.getAttribute("loginUser");
+		boardComment.setUserid(m.getUserId());
+		ArrayList<BoardComment> bCommentList =  mService.bCommentInsert(boardComment);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		try {
+			gson.toJson(bCommentList, response.getWriter());
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+//	댓글의 답글 등록
+	@RequestMapping(value = "replyInsert.me", method = RequestMethod.POST)
+	public void replyInsert(@ModelAttribute Reply reply, HttpSession session, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		Member m = (Member) session.getAttribute("loginUser");
+		reply.setUserid(m.getUserId());
+		ArrayList<Reply> replyList = mService.replyInsert(reply);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		try {
+			gson.toJson(replyList, response.getWriter());
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value = "bCommentUpdate.me", method = RequestMethod.POST)
+	public void bCommentUpdate(@ModelAttribute BoardComment boardComment, HttpSession session, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		Member m = (Member) session.getAttribute("loginUser");
+		boardComment.setUserid(m.getUserId());
+		BoardComment bc = mService.bCommentUpdate(boardComment);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		try {
+			gson.toJson(bc, response.getWriter());
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value = "replyUpdate.me", method = RequestMethod.POST)
+	public void replyUpdate(@ModelAttribute Reply reply, HttpSession session, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		Member m = (Member) session.getAttribute("loginUser");
+		reply.setUserid(m.getUserId());
+		Reply r = mService.replyUpdate(reply);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		try {
+			gson.toJson(r, response.getWriter());
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("commentDelete.me")
+	@ResponseBody
+	public String commentDelete(@RequestParam Integer cmNo, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		int result = mService.commentDelete(cmNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
+	@RequestMapping("replyDelete.me")
+	@ResponseBody
+	public String replyDelete(@RequestParam Integer rpNo, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		int result = mService.replyDelete(rpNo);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 }
