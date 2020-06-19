@@ -24,6 +24,8 @@ public interface BoardService {
 
 	ArrayList<Notify> notifyselectList(PageInfo pi);
 
+	int getcautionListCount();
+
 
 
 

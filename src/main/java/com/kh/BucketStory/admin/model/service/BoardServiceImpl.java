@@ -58,6 +58,11 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.notifyselectList(sqlSession, pi);
 	}
 
+	@Override
+	public int getcautionListCount() {
+		return bDAO.cautionListCount(sqlSession);
+	}
+
 
 
 

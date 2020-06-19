@@ -58,6 +58,10 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectList("boardMapper.notifyselectList", null, rowBounds);
 	}
 
+	public int cautionListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("boardMaper.cautionListCount");
+	}
+
 
 
 
