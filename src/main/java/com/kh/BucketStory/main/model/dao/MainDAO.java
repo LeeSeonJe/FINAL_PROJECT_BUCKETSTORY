@@ -131,5 +131,9 @@ public class MainDAO {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectSearchTag", t);
 	}
 
+	public ArrayList<BucketList> selectRankBucketList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectRankBucketList");
+	}
+
 	
 }

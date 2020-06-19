@@ -11,7 +11,8 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-	<c:set var="menuNum" value="4" scope="application"/>
+	<!-- 카테고리 변경 때 필요 -->
+	<c:set var="menuNum" value="4"/>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
@@ -25,7 +26,7 @@
 	</div>
 	<%@ include file="searchscreen.jsp" %>
 	<section>
-		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
+		<%@ include file="/WEB-INF/views/layout/mainLeftSide.jsp" %>
 		<div class="bucket">
 			<div class="bucketContent">
 				<div class="c-category">FOOD</div>

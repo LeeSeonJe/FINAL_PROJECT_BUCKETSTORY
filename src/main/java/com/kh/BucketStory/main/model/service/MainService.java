@@ -41,4 +41,6 @@ public interface MainService {
 
 	ArrayList<BucketList> selectSearchTag(String t);
 
+	ArrayList<BucketList> selectRankBucketList();
+
 }

@@ -20,7 +20,7 @@
 		<div id="alertBtn" class="Rmenu"></div>
 		<div id="logoutBtn" class="Rmenu"></div>
 		<div id="logo-wrap">
-			<div id="logo"><a href="main.ho?menuNum=1&category=0">Bucket Story</a></div>
+			<div id="logo"><a href="main.ho?menuNum=1&category=0"><img src="resources/layout/images/mainlogo.png"></a></div>
 		</div>
 	</header>
 </body>
@@ -28,12 +28,7 @@
 	$('#logoutBtn').click(function(){
 		var result = confirm("로그아웃 하시겠습니까?");
 		if(result){
-			if('${loginUser}' != null){
-				location.href='logout.co';
-			} else if('${loginCompany}' != null){
-				location.href='Clogout.co';
-			}
-			
+			location.href='logout.co';
 		} else{
 			alert("로그아웃 취소");
 		}

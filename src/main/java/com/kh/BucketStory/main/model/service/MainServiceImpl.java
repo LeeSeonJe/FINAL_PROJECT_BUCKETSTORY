@@ -98,4 +98,9 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.selectSearchTag(sqlSession, t);
 	}
 
+	@Override
+	public ArrayList<BucketList> selectRankBucketList() {
+		return mainDAO.selectRankBucketList(sqlSession);
+	}
+
 }
