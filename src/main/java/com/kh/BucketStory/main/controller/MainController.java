@@ -62,6 +62,8 @@ public class MainController {
 			mv.addObject("bucketList", bucketList);
 			mv.setViewName("mainList");
 		} else if(menuNum == 2) {
+			ArrayList<BucketList> bucketList = mainService.selectRankBucketList();
+			mv.addObject("bucketList", bucketList);
 			mv.setViewName("mainRanking");
 		} else if(menuNum == 3) {
 			ArrayList<BucketList> bucketList = mainService.selectRecoBucketList();
@@ -261,21 +263,25 @@ public class MainController {
 	
 	@RequestMapping("searchbucket.ho")
 	public ModelAndView searchBucket(ModelAndView mv, @RequestParam("b") String b, HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String userId = loginUser.getUserId();
+		String userId = null;
+		if(session.getAttribute("loginUser") != null) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			userId = loginUser.getUserId();
+		}
 		
 		ArrayList<Media> blImg = mainService.selectBucketImg();
-		ArrayList<WishList> wishList = mainService.selectWishList(userId);
-		ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+		if(userId != null) {
+			ArrayList<WishList> wishList = mainService.selectWishList(userId);
+			ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+			mv.addObject("wishList", wishList);
+			mv.addObject("shareList", shareList);
+		}
 		ArrayList<Board> blogList = mainService.selectBlogList();
 		
 		ArrayList<BucketList> bucketList = mainService.selectSearchBucket(b);
-		System.out.println(bucketList);
 		
 		mv.addObject("searchValue", b);
 		mv.addObject("blImg", blImg);
-		mv.addObject("wishList", wishList);
-		mv.addObject("shareList", shareList);
 		mv.addObject("blogList", blogList);
 		mv.addObject("bucketList", bucketList);
 		
@@ -285,21 +291,25 @@ public class MainController {
 	
 	@RequestMapping("searchTag.ho")
 	public ModelAndView searchTag(ModelAndView mv, @RequestParam("t") String t, HttpSession session) {
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String userId = loginUser.getUserId();
+		String userId = null;
+		if(session.getAttribute("loginUser") != null) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			userId = loginUser.getUserId();
+		}
 		
 		ArrayList<Media> blImg = mainService.selectBucketImg();
-		ArrayList<WishList> wishList = mainService.selectWishList(userId);
-		ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+		if(userId != null) {
+			ArrayList<WishList> wishList = mainService.selectWishList(userId);
+			ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+			mv.addObject("wishList", wishList);
+			mv.addObject("shareList", shareList);
+		}
 		ArrayList<Board> blogList = mainService.selectBlogList();
 		
 		ArrayList<BucketList> bucketList = mainService.selectSearchTag(t);
-		System.out.println(bucketList);
 		
 		mv.addObject("searchValue", t);
 		mv.addObject("blImg", blImg);
-		mv.addObject("wishList", wishList);
-		mv.addObject("shareList", shareList);
 		mv.addObject("blogList", blogList);
 		mv.addObject("bucketList", bucketList);
 		

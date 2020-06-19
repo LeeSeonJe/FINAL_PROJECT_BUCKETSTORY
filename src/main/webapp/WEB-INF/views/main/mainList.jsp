@@ -12,6 +12,8 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
+	<!-- 카테고리 변경 때 필요 -->
+	<c:set var="menuNum" value="1"/>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
@@ -20,12 +22,13 @@
 	<div id="extra"></div>
 	<div id="search">
 		<div id="search-wrap">
+		
 			<img id="search-img" src="resources/layout/images/검색창버튼.png">
 		</div>
 	</div>
 	<%@ include file="searchscreen.jsp" %>
 	<section>
-		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
+		<%@ include file="/WEB-INF/views/layout/mainLeftSide.jsp" %>
 		<c:forEach var="b" items="${ bucketList }">
 		<c:if test="${ b.cateNum == category || category == 0}">
 		<div class="bucket ${ b.bkNo }" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
@@ -323,199 +326,199 @@ $(function(){
 	});
 	
 });
-	//버킷 좋아요 올리기
-	function blLikeUp(bkNo){
-		$.ajax({
-			url:'blLike.ho',
-			data:{
-				bkNo:bkNo
-			},
-			success:function(data){
-				var blLike = '.c-likeBtn.'+bkNo+'>label';
-				$(blLike).text(data);
-				$('#bucketlike').text(data);
-				setTimeout(function(){
-					$('#bucketlike').text('♡');
-				}, 2000);
-			}
-		});
+//버킷 좋아요 올리기
+function blLikeUp(bkNo){
+	$.ajax({
+		url:'blLike.ho',
+		data:{
+			bkNo:bkNo
+		},
+		success:function(data){
+			var blLike = '.c-likeBtn.'+bkNo+'>label';
+			$(blLike).text(data);
+			$('#bucketlike').text(data);
+			setTimeout(function(){
+				$('#bucketlike').text('♡');
+			}, 2000);
+		}
+	});
+}
+
+//위시 등록취소하기
+function wishRegist(bkNo, userId){
+	if('${loginUser}' != null){
+		if('${loginUser.userId}' == userId){
+			alert("나의 버킷은 위시등록 할 수 없습니다.");
+		} else{
+			$.ajax({
+				url:'wishRegi.ho',
+				data:{
+					bkNo:bkNo
+				},
+				async : false,
+				success:function(data){
+					var blwish = '.c-wishBtn.'+bkNo+'>label';
+					$(blwish).text(data);
+				}
+			});
+		}
+		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
+			$('#bucketwish').css('color', '#10ccc3');
+		} else if($('.c-wishBtn.'+bkNo+'>label').text() == '등록'){
+			$('#bucketwish').css('color', 'white');
+		}
 	}
-	
-	//위시 등록취소하기
-	function wishRegist(bkNo, userId){
-		if('${loginUser}' != null){
-			if('${loginUser.userId}' == userId){
-				alert("나의 버킷은 위시등록 할 수 없습니다.");
-			} else{
+}
+
+// 공유버킷등록
+function sharebl(bkNo, userId){
+	if('${loginUser}' != null){
+		if('${loginUser.nickName}' == userId){
+			alert("나의 버킷은 공유할 수 없습니다.");
+		} else{
+			var result = confirm("이 버킷리스트를 공유하시겠습니까?");
+			if(result){
 				$.ajax({
-					url:'wishRegi.ho',
+					url:'sharebl.ho',
 					data:{
 						bkNo:bkNo
 					},
-					async : false,
 					success:function(data){
-						var blwish = '.c-wishBtn.'+bkNo+'>label';
-						$(blwish).text(data);
+						if(data == 'success'){
+							var blshare = '.c-Add.'+bkNo;
+							$(blshare).hide();
+							$('#bucketAdd').hide();
+							alert("나의 버킷에 공유되었습니다.");
+						}
 					}
 				});
-			}
-			if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
-				$('#bucketwish').css('color', '#10ccc3');
-			} else if($('.c-wishBtn.'+bkNo+'>label').text() == '등록'){
-				$('#bucketwish').css('color', 'white');
-			}
-		}
-	}
-	
-	// 공유버킷등록
-	function sharebl(bkNo, userId){
-		if('${loginUser}' != null){
-			if('${loginUser.nickName}' == userId){
-				alert("나의 버킷은 공유할 수 없습니다.");
 			} else{
-				var result = confirm("이 버킷리스트를 공유하시겠습니까?");
-				if(result){
-					$.ajax({
-						url:'sharebl.ho',
-						data:{
-							bkNo:bkNo
-						},
-						success:function(data){
-							if(data == 'success'){
-								var blshare = '.c-Add.'+bkNo;
-								$(blshare).hide();
-								$('#bucketAdd').hide();
-								alert("나의 버킷에 공유되었습니다.");
-							}
-						}
-					});
-				} else{
-					alert("공유 취소");
-				}
+				alert("공유 취소");
 			}
 		}
 	}
-	
-	function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
-		first = 1;
-		dataNum = 0;
-		$('#bucketimg>ul').css('left', 0);
-		$('#bucketimg>ul').html('');
-		switch(cateNum){
-		case 1: $('#bucketcate').html('<span style="color:#00c5bc;">Travel</span>'); break;
-		case 2: $('#bucketcate').html('<span style="color:#fd8ab1;">Sport</span>'); break;
-		case 3: $('#bucketcate').html('<span style="color:#fd8b42;">Food</span>'); break;
-		case 4: $('#bucketcate').html('<span style="color:#c78646;">New Skill</span>'); break;
-		case 5: $('#bucketcate').html('<span style="color:#9f7ed7;">Culture</span>'); break;
-		case 6: $('#bucketcate').html('<span style="color:#6fc073;">Outdoor</span>'); break;
-		case 7: $('#bucketcate').html('<span style="color:#efc648;">Shopping</span>'); break;
-		case 8: $('#bucketcate').html('<span style="color:#87adf8;">Lifestyle</span>'); break;
-		}
-		$('#buckettitle').text(bkName);
-		$('#bucketexplain').text(bkContent);
-		$('#bucketlike').attr('onclick', 'blLikeUp('+bkNo+');');
-		$('#bucketAdd').attr('onclick', 'sharebl('+bkNo+',"'+userId+'");');
-		$('#bucketwish').attr('onclick', 'wishRegist('+bkNo+',"'+userId+'");');
-		$('#bucketleft').attr('onclick', 'left('+bkNo+',"'+userId+'","'+bkName+'");');
-		$('#bucketright').attr('onclick', 'right('+bkNo+',"'+userId+'");');
-		$('#bucketright')
-		var tags = tag.split(',');
-		$('#bucketTag').html('');
-		for(var i in tags){
-			$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
-		}
-		$('#bucketAdd').show();
-		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
-			$('#bucketwish').css('color', '#10ccc3');
-		}
-		// 버킷사진 가져오기
-		if(1<=bkNo&&bkNo<=10){
-			$.ajax({
-				url:'bkDetailMedia.ho',
-				data:{
-					bkNo:bkNo
-				},
-				async : false,
-				success:function(data){
-					var value = data.substring(0,5);
-					var $li = '<li><img src="http://images.hwlife.hscdn.com//library/'+value+'_view_01.jpg"></li>';
-					$('#bucketimg>ul').append($li);
-				}
-			});
-		} else{
-			$.ajax({
-				url:'bkDetailMedia.ho',
-				data:{
-					bkNo:bkNo
-				},
-				async : false,
-				success:function(data){
-					var $li = '<li><img src="resources/muploadFiles/'+data+'"></li>';
-					$('#bucketimg>ul').append($li);
-				}
-			});
-		}
-		// 블로그 사진 가져오기
-		$('#bucketGoBlog').show();
-		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
-		if(userId == '관리자찡'){
-			$('#bucketGoBlog').hide();
-		}
+}
+
+function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
+	first = 1;
+	dataNum = 0;
+	$('#bucketimg>ul').css('left', 0);
+	$('#bucketimg>ul').html('');
+	switch(cateNum){
+	case 1: $('#bucketcate').html('<span style="color:#00c5bc;">Travel</span>'); break;
+	case 2: $('#bucketcate').html('<span style="color:#fd8ab1;">Sport</span>'); break;
+	case 3: $('#bucketcate').html('<span style="color:#fd8b42;">Food</span>'); break;
+	case 4: $('#bucketcate').html('<span style="color:#c78646;">New Skill</span>'); break;
+	case 5: $('#bucketcate').html('<span style="color:#9f7ed7;">Culture</span>'); break;
+	case 6: $('#bucketcate').html('<span style="color:#6fc073;">Outdoor</span>'); break;
+	case 7: $('#bucketcate').html('<span style="color:#efc648;">Shopping</span>'); break;
+	case 8: $('#bucketcate').html('<span style="color:#87adf8;">Lifestyle</span>'); break;
+	}
+	$('#buckettitle').text(bkName);
+	$('#bucketexplain').text(bkContent);
+	$('#bucketlike').attr('onclick', 'blLikeUp('+bkNo+');');
+	$('#bucketAdd').attr('onclick', 'sharebl('+bkNo+',"'+userId+'");');
+	$('#bucketwish').attr('onclick', 'wishRegist('+bkNo+',"'+userId+'");');
+	$('#bucketleft').attr('onclick', 'left('+bkNo+',"'+userId+'","'+bkName+'");');
+	$('#bucketright').attr('onclick', 'right('+bkNo+',"'+userId+'");');
+	$('#bucketright')
+	var tags = tag.split(',');
+	$('#bucketTag').html('');
+	for(var i in tags){
+		$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
+	}
+	$('#bucketAdd').show();
+	if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
+		$('#bucketwish').css('color', '#10ccc3');
+	}
+	// 버킷사진 가져오기
+	if(1<=bkNo&&bkNo<=10){
 		$.ajax({
-			url:'blogMedia.ho',
-			data:{
-				bkNo:bkNo,
-				nickName:userId
-			},
-			async : false,
-			success:function(data){
-				if(data.length > 0){
-					$('#bucketright').show();
-					for(var key in data){
-						var $li = '<li><img src="resources/member/images/blogUploade/'+data[key]+'"></li>';
-						$('#bucketimg>ul').append($li);
-					}
-				} else{
-					$('#bucketright').hide();
-				}
-			}
-		});
-		// 공유한 사람
-		$.ajax({
-			url:'bkDetailShare.ho',
+			url:'bkDetailMedia.ho',
 			data:{
 				bkNo:bkNo
 			},
 			async : false,
 			success:function(data){
-				if(data.length > 0){
-					$('#bucketwithPro').html('');
-					$('#bucketwithCount>span').text(data.length);
-					for(var key in data){
-						if('${loginUser}' != null){
-							if(data[key].nickName == '${loginUser.nickName}'){
-								$('#bucketAdd').hide();
-							}
-							if(data[key].userId != 'admin'){
-								if(data[key].prImage != null){
-									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-									$('#bucketwithPro').append($div);
-								} else{
-									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-									$('#bucketwithPro').append($div);
-								}
-							} else{
-								$('#bucketwithCount>span').text(data.length-1);
-							}
-						}
-					}
-				} else{
-					$('#bucketwithPro').html('');
-					$('#bucketwithCount>span').text('0');
-				}
+				var value = data.substring(0,5);
+				var $li = '<li><img src="http://images.hwlife.hscdn.com//library/'+value+'_view_01.jpg"></li>';
+				$('#bucketimg>ul').append($li);
+			}
+		});
+	} else{
+		$.ajax({
+			url:'bkDetailMedia.ho',
+			data:{
+				bkNo:bkNo
+			},
+			async : false,
+			success:function(data){
+				var $li = '<li><img src="resources/muploadFiles/'+data+'"></li>';
+				$('#bucketimg>ul').append($li);
 			}
 		});
 	}
+	// 블로그 사진 가져오기
+	$('#bucketGoBlog').show();
+	$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
+	if(userId == '관리자찡'){
+		$('#bucketGoBlog').hide();
+	}
+	$.ajax({
+		url:'blogMedia.ho',
+		data:{
+			bkNo:bkNo,
+			nickName:userId
+		},
+		async : false,
+		success:function(data){
+			if(data.length > 0){
+				$('#bucketright').show();
+				for(var key in data){
+					var $li = '<li><img src="resources/member/images/blogUploade/'+data[key]+'"></li>';
+					$('#bucketimg>ul').append($li);
+				}
+			} else{
+				$('#bucketright').hide();
+			}
+		}
+	});
+	// 공유한 사람
+	$.ajax({
+		url:'bkDetailShare.ho',
+		data:{
+			bkNo:bkNo
+		},
+		async : false,
+		success:function(data){
+			if(data.length > 0){
+				$('#bucketwithPro').html('');
+				$('#bucketwithCount>span').text(data.length);
+				for(var key in data){
+					if('${loginUser}' != null){
+						if(data[key].nickName == '${loginUser.nickName}'){
+							$('#bucketAdd').hide();
+						}
+						if(data[key].userId != 'admin'){
+							if(data[key].prImage != null){
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
+							} else{
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
+							}
+						} else{
+							$('#bucketwithCount>span').text(data.length-1);
+						}
+					}
+				}
+			} else{
+				$('#bucketwithPro').html('');
+				$('#bucketwithCount>span').text('0');
+			}
+		}
+	});
+}
 function left(bkNo, userId, bkName){
 	first--;
 	$.ajax({
@@ -620,6 +623,9 @@ function searchReset(){
 	$('#searchTag>ul').html('');
 }
 $(function(){
+	$('#searchtext').focus(function(){
+		$('#searchscreen').show();
+	});
 	var searchSource = new Array();
 	$.ajax({
 		url:'autosearch.ho',

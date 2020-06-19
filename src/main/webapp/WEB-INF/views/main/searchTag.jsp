@@ -22,7 +22,7 @@
 	<%@ include file="searchscreen.jsp" %>
 	<section>
 		<c:forEach var="b" items="${ bucketList }">
-		<div class="bucket" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
+		<div class="bucket ${ b.bkNo }" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
 			<!-- 버킷 사진 -->
 			<c:forEach var="m" items="${blImg}">
 				<c:if test="${ m.bkno == b.bkNo }">
@@ -54,14 +54,16 @@
 						<c:set var="Sloop_flag" value="true"/>
 					</c:if>
 				</c:forEach>
+				<!-- 회원만 해당(시작) -->
+				<c:if test="${ not empty loginUser}">
 				<c:if test="${not Sloop_flag}">
-				<div class="c-Add" id="c-Add${ b.bkNo }">
+				<div class="c-Add ${ b.bkNo }" id="c-Add${ b.bkNo }">
 					<div class="c-addBtn" onclick="sharebl(${ b.bkNo }, '${ b.userId }');"> + ADD</div>
 				</div>
 				</c:if>
-				<div class="c-likewish" id="c-likewish${ b.bkNo }">
-					<div class="c-likeBtn" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bkLike }</label></div>
-					<div class="c-wishBtn" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
+				<div class="c-likewish ${ b.bkNo }" id="c-likewish${ b.bkNo }">
+					<div class="c-likeBtn ${ b.bkNo }" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bkLike }</label></div>
+					<div class="c-wishBtn ${ b.bkNo }" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
 						<span class="wishhover" style="font-size:20px">☆ </span>
 						위시 
 						<c:set var="loop_flag" value="false"/>
@@ -74,15 +76,22 @@
 						<c:if test="${not loop_flag}"><label class="wishlabel">등록</label></c:if>
 					</div>
 				</div>
+				</c:if>
+				<!-- 회원만 해당(끝) -->
 			</div>
 		</div>
 <script>
 	//좋아요위시버튼 나오게하기
-	$('#bucket${ b.bkNo }').hover(function(){
-		$('#c-likewish${ b.bkNo }').show();
+	$('.bucket.${ b.bkNo }').hover(function(){
+		$('.c-likewish.${ b.bkNo }').show();
 	}, function(){
-		$('#c-likewish${ b.bkNo }').hide();
+		$('.c-likewish.${ b.bkNo }').hide();
 	});
+	if('${loginUser}' != null){
+		if('${loginUser.nickName}' == '${b.userId}'){
+			$('.c-Add.${b.bkNo}').hide();
+		}
+	}
 </script>
 		</c:forEach>
 	</section>
@@ -97,9 +106,13 @@
 				<div id="buckettitle">리틀 포레스트에 나오는 음식 따라 만들기</div>
 				<div id="bucketleft">〈</div>
 				<div id="bucketright">〉</div>
+				<!-- 회원만 해당(시작) -->
+				<c:if test="${ not empty loginUser}">
 				<div id="bucketAdd"> + ADD                       </div>
 				<div id="bucketlike">♡ </div>
 				<div id="bucketwish">☆ </div>
+				</c:if>
+				<!-- 회원만 해당(끝) -->
 			</div>
 			<div id="bucketcp">
 				<div id="bucketTag">
@@ -153,11 +166,30 @@ $(function(){
 		$('#bucketimg').css('height', bkhg);
 		var bkcphg = $('#bucketimg').width()-411;
 		$('#bucketcp').css('width', bkcphg);
+		$('#bucketleft').css('top', bkhg/2);
+		$('#bucketright').css('top', bkhg/2);
+		$('#bucketimg img').css('width', $('#bucketimg').width());
+		$('#bucketimg img').css('height', bkhg);
 	});
+	
 	//검색text항시보여줌
 	$('#searchscreen').show();
 	$('#searchscreen').css('height', '0');
 	$('#searchtext').val('${searchValue}');
+	
+	$('#searchtext').focus(function(){
+		$('body').css('height', '100%');
+		$('body').css('overflow', 'hidden');
+		$('#searchscreen').css('height', '100%');
+		$('#searchresult').show(800);
+	});
+	$('#searchtextBtn').click(function(){
+		$('body').css('height', 'auto');
+		$('body').css('overflow', 'visible');
+		$('#searchresult').hide();
+		$('#searchscreen').css('height', '0');
+	});
+	
 	// 좋아요위시 특수문자 색
 	$('.c-likeBtn').hover(function(){
 		$('.likehover').css('color', '#10ccc3');
@@ -183,8 +215,12 @@ $(function(){
 			$('#FullOverLay').show();
 			var bkhg = $('#bucketDatail').width()/16 * 9;
 			$('#bucketimg').css('height', bkhg);
+			$('#bucketleft').css('top', bkhg/2);
+			$('#bucketright').css('top', bkhg/2);
 			var bkcphg = $('#bucketimg').width()-411;
 			$('#bucketcp').css('width', bkcphg);
+			$('#bucketimg img').css('width', $('#bucketimg').width());
+			$('#bucketimg img').css('height', bkhg);
 		}
 	});
 	// 버킷리스트 상세보기 닫기
@@ -223,55 +259,62 @@ function blLikeUp(bkNo){
 		}
 	});
 }
+
 //위시 등록취소하기
 function wishRegist(bkNo, userId){
-	if('${loginUser.userId}' == userId){
-		alert("나의 버킷은 위시등록 할 수 없습니다.");
-	} else{
-		$.ajax({
-			url:'wishRegi.ho',
-			data:{
-				bkNo:bkNo
-			},
-			async : false,
-			success:function(data){
-				var blwish = '.c-wishBtn.'+bkNo+'>label';
-				$(blwish).text(data);
-			}
-		});
-	}
-	if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
-		$('#bucketwish').css('color', '#10ccc3');
-	} else if($('.c-wishBtn.'+bkNo+'>label').text() == '등록'){
-		$('#bucketwish').css('color', 'white');
-	}
-}
-//공유버킷등록
-function sharebl(bkNo, userId){
-	if('${loginUser.nickName}' == userId){
-		alert("나의 버킷은 공유할 수 없습니다.");
-	} else{
-		var result = confirm("이 버킷리스트를 공유하시겠습니까?");
-		if(result){
+	if('${loginUser}' != null){
+		if('${loginUser.userId}' == userId){
+			alert("나의 버킷은 위시등록 할 수 없습니다.");
+		} else{
 			$.ajax({
-				url:'sharebl.ho',
+				url:'wishRegi.ho',
 				data:{
 					bkNo:bkNo
 				},
+				async : false,
 				success:function(data){
-					if(data == 'success'){
-						var blshare = '.c-Add.'+bkNo;
-						$(blshare).hide();
-						$('#bucketAdd').hide();
-						alert("나의 버킷에 공유되었습니다.");
-					}
+					var blwish = '.c-wishBtn.'+bkNo+'>label';
+					$(blwish).text(data);
 				}
 			});
-		} else{
-			alert("공유 취소");
+		}
+		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
+			$('#bucketwish').css('color', '#10ccc3');
+		} else if($('.c-wishBtn.'+bkNo+'>label').text() == '등록'){
+			$('#bucketwish').css('color', 'white');
 		}
 	}
 }
+
+// 공유버킷등록
+function sharebl(bkNo, userId){
+	if('${loginUser}' != null){
+		if('${loginUser.nickName}' == userId){
+			alert("나의 버킷은 공유할 수 없습니다.");
+		} else{
+			var result = confirm("이 버킷리스트를 공유하시겠습니까?");
+			if(result){
+				$.ajax({
+					url:'sharebl.ho',
+					data:{
+						bkNo:bkNo
+					},
+					success:function(data){
+						if(data == 'success'){
+							var blshare = '.c-Add.'+bkNo;
+							$(blshare).hide();
+							$('#bucketAdd').hide();
+							alert("나의 버킷에 공유되었습니다.");
+						}
+					}
+				});
+			} else{
+				alert("공유 취소");
+			}
+		}
+	}
+}
+
 function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 	first = 1;
 	dataNum = 0;
@@ -368,19 +411,21 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 				$('#bucketwithPro').html('');
 				$('#bucketwithCount>span').text(data.length);
 				for(var key in data){
-					if(data[key].nickName == '${loginUser.nickName}'){
-						$('#bucketAdd').hide();
-					}
-					if(data[key].userId != 'admin'){
-						if(data[key].prImage != null){
-							var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-							$('#bucketwithPro').append($div);
-						} else{
-							var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-							$('#bucketwithPro').append($div);
+					if('${loginUser}' != null){
+						if(data[key].nickName == '${loginUser.nickName}'){
+							$('#bucketAdd').hide();
 						}
-					} else{
-						$('#bucketwithCount>span').text(data.length-1);
+						if(data[key].userId != 'admin'){
+							if(data[key].prImage != null){
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
+							} else{
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
+							}
+						} else{
+							$('#bucketwithCount>span').text(data.length-1);
+						}
 					}
 				}
 			} else{
@@ -413,7 +458,6 @@ function left(bkNo, userId, bkName){
 		},
 		async : false,
 		success:function(data){
-			console.log(first);
 			if(first==1){
 				$('#buckettitle').text(bkName);
 				$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
@@ -488,16 +532,7 @@ function right(bkNo, userId){
 		}
 	}
 }
-//검색어 포커스 시
-$('#searchtext').focus(function(){
-	$('#searchscreen').css('height', '100%');
-	$('#searchresult').show(800);
-});
-$('#searchtextBtn').click(function(){
-	$('#searchscreen').css('height', '0');
-	$('#searchresult').hide();
-});
-//검색어 자동완성
+// 검색어 자동완성
 function searchReset(){
 	$('#searchMem>ul').html('');
 	$('#searchBucket>ul').html('');
@@ -512,7 +547,6 @@ $(function(){
 			for(var key in data){
 				searchSource[key] = data[key];
 			}
-			console.log(searchSource);
 		}
 	});
 	$("#searchtext").autocomplete({  //오토 컴플릿트 시작

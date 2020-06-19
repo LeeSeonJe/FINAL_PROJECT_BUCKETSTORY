@@ -20,7 +20,7 @@
 
         	 <div class="gnb_menu">
                     <ul class="gnb_menu_ul">
-                        <li >expertIntro.ex
+                        <li>
                         <c:if test="${not empty loginUser}">
                             <a id="test" href="myBucket.me?nickName=${ loginUser.nickName }" class="gnb1 mot2" onclick='eventTrack("", "menu_discover");'>
                                 <div class="text mot2">

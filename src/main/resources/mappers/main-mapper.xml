@@ -36,6 +36,21 @@
 		where nickname = '관리자찡'
 	</select>
 	
+	<!-- 메인 Ranking -->
+	<select id="selectRankBucketList" resultMap="BucketResultSet">
+		select *
+		from
+		    (select BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join member using(userid)
+		    UNION
+		    select b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join SHAREBUCKET s on (b.bkNo = s.bkNo)
+		    join member m on (s.userid = m.userid))
+		order by bklike desc, ENROLLDATE desc
+	</select>
+	
 	<select id="selectBLImg" resultMap="MediaResultSet">
 		select *
 		from media
