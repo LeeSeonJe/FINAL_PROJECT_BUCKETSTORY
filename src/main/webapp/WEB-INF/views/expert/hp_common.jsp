@@ -29,8 +29,8 @@
 
 
 	<header>
-<%-- 		<jsp:include page="/WEB-INF/views/layout/header.jsp"/> --%>
-			<jsp:include page="/WEB-INF/views/expert/hp_header.jsp"/>
+		<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+<%-- 			<jsp:include page="/WEB-INF/views/expert/hp_header.jsp"/> --%>
 	</header>
 	
 	<!-- 전문가 로그인 아이디 coid를 가져와서 집어넣어야 한다. -->
@@ -64,7 +64,7 @@
         </ul>
         <ul class='sub-c' id ="sub-item4">
             <li><a href="point.ex">포인트 충전</a></li>  
-            <li><a href="pointList.ex">포인트 내역</a></li> <!-- pointList.ex -->
+            <li><a href="pointListYN.ex?search=all">포인트 내역</a></li> <!-- pointList.ex -->
         </ul>
         <ul class='sub-c' id ="sub-item5">
             <li><a href="helperSendQnA.ex">1:1 문의</a></li>

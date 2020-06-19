@@ -38,4 +38,12 @@ public interface ExpertService2 {
 	// 상위 Top5 포인트 보유왕
 	ArrayList<Company> selectTop5havingPoint();
 
+	int getListCountY(String coId);
+
+	int getListCountN(String coId);
+
+	ArrayList<Pay> selectListY(PageInfo pi, String coId);
+
+	ArrayList<Pay> selectListN(PageInfo pi, String coId);
+
 }

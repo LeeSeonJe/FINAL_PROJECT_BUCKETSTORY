@@ -1,7 +1,6 @@
 package com.kh.BucketStory.expert.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,21 +15,37 @@ import com.kh.BucketStory.expert.model.vo.Pay;
 public class ExpertDAO2 {
 
 	public int getListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("exMapper2.getListCount");
+		return sqlSession.selectOne("exMapper2.getListCountAll");
 	}
 	public int getListCount(SqlSessionTemplate sqlSession, String coId) {
-		return sqlSession.selectOne("exMapper2.getListCount2",coId);
+		return sqlSession.selectOne("exMapper2.getListCount",coId);
+	}
+	public int getListCountY(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getListCountY",coId);
+	}
+	public int getListCountN(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getListCountN",coId);
 	}
 	
 	public ArrayList<Pay> selectList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("exMapper2.selectList", null, rowBounds);
+		return (ArrayList) sqlSession.selectList("exMapper2.selectListAll", null, rowBounds);
 	}
 	public ArrayList<Pay> selectList(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("exMapper2.selectList2", coId, rowBounds);
+		return (ArrayList) sqlSession.selectList("exMapper2.selectList", coId, rowBounds);
+	}
+	public ArrayList<Pay> selectListY(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectListY", coId, rowBounds);
+	}
+	public ArrayList<Pay> selectListN(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectListN", coId, rowBounds);
 	}
 	
 	// Point 
@@ -68,6 +83,9 @@ public class ExpertDAO2 {
 	public ArrayList<Company> selectTop5havingPoint(SqlSessionTemplate sqlSession) {
 		return (ArrayList) sqlSession.selectList("exMapper2.selectTop5havingPoint");
 	}
+
+
+
 
 
 }
