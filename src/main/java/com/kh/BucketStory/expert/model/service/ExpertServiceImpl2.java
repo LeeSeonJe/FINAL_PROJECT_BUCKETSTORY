@@ -21,6 +21,7 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	//
 	@Override
 	public int getListCount() {
 		return exDAO2.getListCount(sqlSession);
@@ -28,6 +29,14 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	@Override
 	public int getListCount(String coId) {
 		return exDAO2.getListCount(sqlSession,coId);
+	}
+	@Override
+	public int getListCountY(String coId) {
+		return exDAO2.getListCountY(sqlSession,coId);
+	}
+	@Override
+	public int getListCountN(String coId) {
+		return exDAO2.getListCountN(sqlSession,coId);
 	}
 
 	@Override
@@ -38,7 +47,17 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	public ArrayList<Pay> selectList(PageInfo pi, String coId) {
 		return exDAO2.selectList(sqlSession, pi,coId);
 	}
+	@Override
+	public ArrayList<Pay> selectListY(PageInfo pi, String coId) {
+		return exDAO2.selectListY(sqlSession, pi,coId);
+	}
+	@Override
+	public ArrayList<Pay> selectListN(PageInfo pi, String coId) {
+		return exDAO2.selectListN(sqlSession, pi,coId);
+	}
 
+	
+	
 	@Override
 	public int insertPoint(Pay p) {
 		return  exDAO2.insertPoint(sqlSession, p);

@@ -58,19 +58,64 @@
 
 
     <!-- PAY 내역리스트 총 개수 구한다. -->
-	<select id = "getListCount" resultType ="_int">
+	<select id = "getListCountAll" resultType ="_int">
 	select count(*)
 	from PAY
 	</select>
 	
 	<!-- 특정 기업아이디와 일치하는 PAY 내역리스트 개수 구한다. -->
-	<select id ="getListCount2"  resultType ="_int">
+	<select id ="getListCount"  resultType ="_int">
 	select count(*)
 	from PAY
 	where COID = #{coId}
 	</select>
 	
-    
+	<select id ="getListCountY"  resultType ="_int">
+	select count(*)
+	from PAY
+	where COID = #{coId} AND STATUS = 'Y'
+	</select>
+	
+	<select id ="getListCountN"  resultType ="_int">
+	select count(*)
+	from PAY
+	where COID = #{coId} AND STATUS = 'N'
+	</select>
+	
+		
+	<!-- PAY 전체 리스트 -->
+	<select id="selectListAll" resultMap = "PayResultSet">
+	select *
+	from PAY
+	order by PA_NO desc
+	</select>
+	
+	
+	<!-- PAY 리스트(coid) -->
+	<select id="selectList" resultMap = "PayResultSet">
+	select *
+	from PAY
+	where COID = #{coId}
+	order by PA_NO desc
+	</select>
+	
+    <!-- PAY 리스트(coid) Y -->
+	<select id="selectListY" resultMap = "PayResultSet">
+	select *
+	from PAY
+	where COID = #{coId} AND STATUS = 'Y'
+	order by PA_NO desc
+	</select>
+	
+	<!-- PAY 리스트(coid) N-->
+	<select id="selectListN" resultMap = "PayResultSet">
+	select *
+	from PAY
+	where COID = #{coId} AND STATUS = 'N'
+	order by PA_NO desc
+	</select>
+	
+	
 	<!-- PAY 충전금액 합계  -->
 	<select id = "getYCount" resultType ="_int">
 	select NVL(SUM(PA_PAY) ,0)
@@ -87,22 +132,7 @@
 	GROUP BY COID
 	</select>
 	
-	
-	<!-- PAY 전체 리스트 -->
-	<select id="selectList" resultMap = "PayResultSet">
-	select *
-	from PAY
-	order by PA_NO desc
-	</select>
-	
-	
-	<!-- PAY 리스트(coid) -->
-	<select id="selectList2" resultMap = "PayResultSet">
-	select *
-	from PAY
-	where COID = #{coId}
-	order by PA_NO desc
-	</select>
+
 	
 	
 	<insert id ="insertPoint">
