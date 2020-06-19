@@ -52,7 +52,6 @@ section{
 	min-width:1200px;
 	min-height:70px;
 	overflow:hidden;
-	background:blue;
 }
 .bucket{
 	transform-origin: 50% 50%;
@@ -414,7 +413,7 @@ section{
 }
 
 #bucketwith{
-	width:410px;
+	width:400px;
 	float:left;
 	height:300px;
 	border-left: 1px solid gray;

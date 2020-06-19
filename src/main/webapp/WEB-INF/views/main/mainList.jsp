@@ -9,10 +9,11 @@
 <meta charset="UTF-8">
 <title>최신순버킷</title>
 	<link rel="stylesheet" href="resources/main/css/main.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-	<c:set var="menuNum" value="1" scope="application"/>
+	<!-- 카테고리 변경 때 필요 -->
+	<c:set var="menuNum" value="1"/>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
@@ -21,12 +22,13 @@
 	<div id="extra"></div>
 	<div id="search">
 		<div id="search-wrap">
+		
 			<img id="search-img" src="resources/layout/images/검색창버튼.png">
 		</div>
 	</div>
 	<%@ include file="searchscreen.jsp" %>
 	<section>
-		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
+		<%@ include file="/WEB-INF/views/layout/mainLeftSide.jsp" %>
 		<c:forEach var="b" items="${ bucketList }">
 		<c:if test="${ b.cateNum == category || category == 0}">
 		<div class="bucket ${ b.bkNo }" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
@@ -79,6 +81,9 @@
 						<c:set var="Sloop_flag" value="true"/>
 					</c:if>
 				</c:forEach>
+				
+				<!-- 회원만 해당(시작) -->
+				<c:if test="${ not empty loginUser}">
 				<c:if test="${not Sloop_flag}">
 				<div class="c-Add ${ b.bkNo }" id="c-Add${ b.bkNo }">
 					<div class="c-addBtn" onclick="sharebl(${ b.bkNo }, '${ b.userId }');"> + ADD</div>
@@ -99,6 +104,9 @@
 						<c:if test="${not loop_flag}"><label class="wishlabel">등록</label></c:if>
 					</div>
 				</div>
+				</c:if>
+				<!-- 회원만 해당(끝) -->
+				
 			</div>
 		</div>
 <script>
@@ -108,9 +116,12 @@
 	}, function(){
 		$('.c-likewish.${ b.bkNo }').hide();
 	});
-	if('${loginUser.nickName}' == '${b.userId}'){
-		$('.c-Add.${b.bkNo}').hide();
+	if('${loginUser}' != null){
+		if('${loginUser.nickName}' == '${b.userId}'){
+			$('.c-Add.${b.bkNo}').hide();
+		}
 	}
+	
 </script>
 		</c:if>
 		</c:forEach>
@@ -126,9 +137,16 @@
 				<div id="buckettitle">리틀 포레스트에 나오는 음식 따라 만들기</div>
 				<div id="bucketleft">〈</div>
 				<div id="bucketright">〉</div>
+				
+				<!-- 회원만 해당(시작) -->
+				<c:if test="${ not empty loginUser}">
 				<div id="bucketAdd"> + ADD                       </div>
 				<div id="bucketlike">♡ </div>
 				<div id="bucketwish">☆ </div>
+				</c:if>
+				<!-- 회원만 해당(끝) -->
+				
+				
 			</div>
 			<div id="bucketcp">
 				<div id="bucketTag">
@@ -307,28 +325,28 @@ $(function(){
 		}
 	});
 	
-	//버킷슬라이드 버튼 숨기기
 });
-	//버킷 좋아요 올리기
-	function blLikeUp(bkNo){
-		$.ajax({
-			url:'blLike.ho',
-			data:{
-				bkNo:bkNo
-			},
-			success:function(data){
-				var blLike = '.c-likeBtn.'+bkNo+'>label';
-				$(blLike).text(data);
-				$('#bucketlike').text(data);
-				setTimeout(function(){
-					$('#bucketlike').text('♡');
-				}, 2000);
-			}
-		});
-	}
-	
-	//위시 등록취소하기
-	function wishRegist(bkNo, userId){
+//버킷 좋아요 올리기
+function blLikeUp(bkNo){
+	$.ajax({
+		url:'blLike.ho',
+		data:{
+			bkNo:bkNo
+		},
+		success:function(data){
+			var blLike = '.c-likeBtn.'+bkNo+'>label';
+			$(blLike).text(data);
+			$('#bucketlike').text(data);
+			setTimeout(function(){
+				$('#bucketlike').text('♡');
+			}, 2000);
+		}
+	});
+}
+
+//위시 등록취소하기
+function wishRegist(bkNo, userId){
+	if('${loginUser}' != null){
 		if('${loginUser.userId}' == userId){
 			alert("나의 버킷은 위시등록 할 수 없습니다.");
 		} else{
@@ -350,9 +368,11 @@ $(function(){
 			$('#bucketwish').css('color', 'white');
 		}
 	}
-	
-	// 공유버킷등록
-	function sharebl(bkNo, userId){
+}
+
+// 공유버킷등록
+function sharebl(bkNo, userId){
+	if('${loginUser}' != null){
 		if('${loginUser.nickName}' == userId){
 			alert("나의 버킷은 공유할 수 없습니다.");
 		} else{
@@ -377,103 +397,105 @@ $(function(){
 			}
 		}
 	}
-	
-	function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
-		first = 1;
-		dataNum = 0;
-		$('#bucketimg>ul').css('left', 0);
-		$('#bucketimg>ul').html('');
-		switch(cateNum){
-		case 1: $('#bucketcate').html('<span style="color:#00c5bc;">Travel</span>'); break;
-		case 2: $('#bucketcate').html('<span style="color:#fd8ab1;">Sport</span>'); break;
-		case 3: $('#bucketcate').html('<span style="color:#fd8b42;">Food</span>'); break;
-		case 4: $('#bucketcate').html('<span style="color:#c78646;">New Skill</span>'); break;
-		case 5: $('#bucketcate').html('<span style="color:#9f7ed7;">Culture</span>'); break;
-		case 6: $('#bucketcate').html('<span style="color:#6fc073;">Outdoor</span>'); break;
-		case 7: $('#bucketcate').html('<span style="color:#efc648;">Shopping</span>'); break;
-		case 8: $('#bucketcate').html('<span style="color:#87adf8;">Lifestyle</span>'); break;
-		}
-		$('#buckettitle').text(bkName);
-		$('#bucketexplain').text(bkContent);
-		$('#bucketlike').attr('onclick', 'blLikeUp('+bkNo+');');
-		$('#bucketAdd').attr('onclick', 'sharebl('+bkNo+',"'+userId+'");');
-		$('#bucketwish').attr('onclick', 'wishRegist('+bkNo+',"'+userId+'");');
-		$('#bucketleft').attr('onclick', 'left('+bkNo+',"'+userId+'","'+bkName+'");');
-		$('#bucketright').attr('onclick', 'right('+bkNo+',"'+userId+'");');
-		$('#bucketright')
-		var tags = tag.split(',');
-		$('#bucketTag').html('');
-		for(var i in tags){
-			$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
-		}
-		$('#bucketAdd').show();
-		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
-			$('#bucketwish').css('color', '#10ccc3');
-		}
-		// 버킷사진 가져오기
-		if(1<=bkNo&&bkNo<=10){
-			$.ajax({
-				url:'bkDetailMedia.ho',
-				data:{
-					bkNo:bkNo
-				},
-				async : false,
-				success:function(data){
-					var value = data.substring(0,5);
-					var $li = '<li><img src="http://images.hwlife.hscdn.com//library/'+value+'_view_01.jpg"></li>';
-					$('#bucketimg>ul').append($li);
-				}
-			});
-		} else{
-			$.ajax({
-				url:'bkDetailMedia.ho',
-				data:{
-					bkNo:bkNo
-				},
-				async : false,
-				success:function(data){
-					var $li = '<li><img src="resources/muploadFiles/'+data+'"></li>';
-					$('#bucketimg>ul').append($li);
-				}
-			});
-		}
-		// 블로그 사진 가져오기
-		$('#bucketGoBlog').show();
-		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
-		if(userId == '관리자찡'){
-			$('#bucketGoBlog').hide();
-		}
+}
+
+function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
+	first = 1;
+	dataNum = 0;
+	$('#bucketimg>ul').css('left', 0);
+	$('#bucketimg>ul').html('');
+	switch(cateNum){
+	case 1: $('#bucketcate').html('<span style="color:#00c5bc;">Travel</span>'); break;
+	case 2: $('#bucketcate').html('<span style="color:#fd8ab1;">Sport</span>'); break;
+	case 3: $('#bucketcate').html('<span style="color:#fd8b42;">Food</span>'); break;
+	case 4: $('#bucketcate').html('<span style="color:#c78646;">New Skill</span>'); break;
+	case 5: $('#bucketcate').html('<span style="color:#9f7ed7;">Culture</span>'); break;
+	case 6: $('#bucketcate').html('<span style="color:#6fc073;">Outdoor</span>'); break;
+	case 7: $('#bucketcate').html('<span style="color:#efc648;">Shopping</span>'); break;
+	case 8: $('#bucketcate').html('<span style="color:#87adf8;">Lifestyle</span>'); break;
+	}
+	$('#buckettitle').text(bkName);
+	$('#bucketexplain').text(bkContent);
+	$('#bucketlike').attr('onclick', 'blLikeUp('+bkNo+');');
+	$('#bucketAdd').attr('onclick', 'sharebl('+bkNo+',"'+userId+'");');
+	$('#bucketwish').attr('onclick', 'wishRegist('+bkNo+',"'+userId+'");');
+	$('#bucketleft').attr('onclick', 'left('+bkNo+',"'+userId+'","'+bkName+'");');
+	$('#bucketright').attr('onclick', 'right('+bkNo+',"'+userId+'");');
+	$('#bucketright')
+	var tags = tag.split(',');
+	$('#bucketTag').html('');
+	for(var i in tags){
+		$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
+	}
+	$('#bucketAdd').show();
+	if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
+		$('#bucketwish').css('color', '#10ccc3');
+	}
+	// 버킷사진 가져오기
+	if(1<=bkNo&&bkNo<=10){
 		$.ajax({
-			url:'blogMedia.ho',
-			data:{
-				bkNo:bkNo,
-				nickName:userId
-			},
-			async : false,
-			success:function(data){
-				if(data.length > 0){
-					$('#bucketright').show();
-					for(var key in data){
-						var $li = '<li><img src="resources/member/images/blogUploade/'+data[key]+'"></li>';
-						$('#bucketimg>ul').append($li);
-					}
-				} else{
-					$('#bucketright').hide();
-				}
-			}
-		});
-		// 공유한 사람
-		$.ajax({
-			url:'bkDetailShare.ho',
+			url:'bkDetailMedia.ho',
 			data:{
 				bkNo:bkNo
 			},
 			async : false,
 			success:function(data){
-				if(data.length > 0){
-					$('#bucketwithPro').html('');
-					$('#bucketwithCount>span').text(data.length);
-					for(var key in data){
+				var value = data.substring(0,5);
+				var $li = '<li><img src="http://images.hwlife.hscdn.com//library/'+value+'_view_01.jpg"></li>';
+				$('#bucketimg>ul').append($li);
+			}
+		});
+	} else{
+		$.ajax({
+			url:'bkDetailMedia.ho',
+			data:{
+				bkNo:bkNo
+			},
+			async : false,
+			success:function(data){
+				var $li = '<li><img src="resources/muploadFiles/'+data+'"></li>';
+				$('#bucketimg>ul').append($li);
+			}
+		});
+	}
+	// 블로그 사진 가져오기
+	$('#bucketGoBlog').show();
+	$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
+	if(userId == '관리자찡'){
+		$('#bucketGoBlog').hide();
+	}
+	$.ajax({
+		url:'blogMedia.ho',
+		data:{
+			bkNo:bkNo,
+			nickName:userId
+		},
+		async : false,
+		success:function(data){
+			if(data.length > 0){
+				$('#bucketright').show();
+				for(var key in data){
+					var $li = '<li><img src="resources/member/images/blogUploade/'+data[key]+'"></li>';
+					$('#bucketimg>ul').append($li);
+				}
+			} else{
+				$('#bucketright').hide();
+			}
+		}
+	});
+	// 공유한 사람
+	$.ajax({
+		url:'bkDetailShare.ho',
+		data:{
+			bkNo:bkNo
+		},
+		async : false,
+		success:function(data){
+			if(data.length > 0){
+				$('#bucketwithPro').html('');
+				$('#bucketwithCount>span').text(data.length);
+				for(var key in data){
+					if('${loginUser}' != null){
 						if(data[key].nickName == '${loginUser.nickName}'){
 							$('#bucketAdd').hide();
 						}
@@ -489,13 +511,14 @@ $(function(){
 							$('#bucketwithCount>span').text(data.length-1);
 						}
 					}
-				} else{
-					$('#bucketwithPro').html('');
-					$('#bucketwithCount>span').text('0');
 				}
+			} else{
+				$('#bucketwithPro').html('');
+				$('#bucketwithCount>span').text('0');
 			}
-		});
-	}
+		}
+	});
+}
 function left(bkNo, userId, bkName){
 	first--;
 	$.ajax({
@@ -519,7 +542,6 @@ function left(bkNo, userId, bkName){
 		},
 		async : false,
 		success:function(data){
-			console.log(first);
 			if(first==1){
 				$('#buckettitle').text(bkName);
 				$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
@@ -593,6 +615,75 @@ function right(bkNo, userId){
 			$('#bucketright').show();
 		}
 	}
+}
+// 검색어 자동완성
+function searchReset(){
+	$('#searchMem>ul').html('');
+	$('#searchBucket>ul').html('');
+	$('#searchTag>ul').html('');
+}
+$(function(){
+	$('#searchtext').focus(function(){
+		$('#searchscreen').show();
+	});
+	var searchSource = new Array();
+	$.ajax({
+		url:'autosearch.ho',
+		dataType: "json",
+		success: function(data){
+			for(var key in data){
+				searchSource[key] = data[key];
+			}
+		}
+	});
+	$("#searchtext").autocomplete({  //오토 컴플릿트 시작
+        source : searchSource,    // source 는 자동 완성 대상
+        select : function(event, ui) {    //아이템 선택시
+        },
+        focus : function(event, ui) {    //포커스 가면
+            return false;//한글 에러 잡기용도로 사용됨
+        },
+        minLength: 1,// 최소 글자수
+        autoFocus: true, //첫번째 항목 자동 포커스 기본값 false
+        classes: {    //잘 모르겠음
+            "ui-autocomplete": "highlight"
+        },
+        delay: 500,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
+//        disabled: true, //자동완성 기능 끄기
+        position: { my : "right top", at: "right bottom" },    //잘 모르겠음
+        close : function(event){    //자동완성창 닫아질때 호출
+        }
+    }).autocomplete('instance')._renderItem = function(ul, item){
+    	$('#ui-id-1').css('opacity', '0');
+    	if(item.label.charAt(0) == 'm'){
+    		$( "<li>" )
+            .append(item.label.substring(2))    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
+            .attr('onclick', 'searchMember("'+item.label.substring(2)+'");')
+           	.appendTo( $('#searchMem>ul') );
+    	} else if(item.label.charAt(0) == 'b'){
+    		$( "<li>" )
+            .append(item.label.substring(2))    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
+            .attr('onclick', 'searchBucket("'+item.label.substring(2)+'");')
+           	.appendTo( $('#searchBucket>ul') );
+    	} else if(item.label.charAt(0) == 't'){
+    		$( "<li>" )
+            .append('#'+item.label.substring(2))    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
+            .attr('onclick', 'searchTag("'+item.label.substring(2)+'");')
+           	.appendTo( $('#searchTag>ul') );
+    	}
+    	
+    	return $('<li>').appendTo(ul);
+    };
+});
+//검색내용클릭
+function searchMember(m){
+	location.href="myBucket.me?nickName="+m;
+}
+function searchBucket(b){
+	location.href="searchbucket.ho?b="+b;
+}
+function searchTag(t){
+	location.href="searchTag.ho?t="+t;
 }
 </script>
 </html>

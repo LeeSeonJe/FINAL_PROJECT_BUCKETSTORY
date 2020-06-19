@@ -22,7 +22,7 @@
  <section class ="p-section">
 <!--         <p id ="title">포인트 내역</p> -->
  
-  	<h3>포인트 내역 : ${ pi.listCount }</h3>
+  	<h3>포인트 게시글 갯수 : ${ pi.listCount }</h3>
 		
         <!-- 게시판 목록 영역-->
         <div id ="board-area">

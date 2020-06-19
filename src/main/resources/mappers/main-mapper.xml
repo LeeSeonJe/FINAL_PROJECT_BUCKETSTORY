@@ -36,6 +36,21 @@
 		where nickname = '관리자찡'
 	</select>
 	
+	<!-- 메인 Ranking -->
+	<select id="selectRankBucketList" resultMap="BucketResultSet">
+		select *
+		from
+		    (select BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join member using(userid)
+		    UNION
+		    select b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join SHAREBUCKET s on (b.bkNo = s.bkNo)
+		    join member m on (s.userid = m.userid))
+		order by bklike desc, ENROLLDATE desc
+	</select>
+	
 	<select id="selectBLImg" resultMap="MediaResultSet">
 		select *
 		from media
@@ -179,4 +194,45 @@
 		<result property="bkNo" column="BKNO"/>
 	</resultMap>
 	
+	<!-- 검색하기위해서 불러올 값들 -->
+	<select id="selectAllMember" resultMap="memberResultSet">
+	 	select *
+	 	from member
+	 	where userid != 'admin' and status = 'Y'
+	</select>
+	<select id="selectAllBucket" resultType="Bucket">
+		select *
+		from bucketlist
+	</select>
+	
+	<!-- 검색한 버킷리스트 -->
+	<select id="selectSearchBucket" resultMap="BucketResultSet">
+		select *
+		from
+		    (select BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join member using(userid)
+		    UNION
+		    select b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join SHAREBUCKET s on (b.bkNo = s.bkNo)
+		    join member m on (s.userid = m.userid))
+		where BKNAME like '%' || #{b} || '%'    
+		order by ENROLLDATE desc
+	</select>
+	
+	<select id="selectSearchTag" resultMap="BucketResultSet">
+		select *
+		from
+		    (select BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join member using(userid)
+		    UNION
+		    select b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join SHAREBUCKET s on (b.bkNo = s.bkNo)
+		    join member m on (s.userid = m.userid))
+		where TAG like '%' || #{t} || '%'    
+		order by ENROLLDATE desc
+	</select>
 </mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,9 @@
 <title>Insert title here</title>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<link rel="stylesheet" href="resources/layout/css/mainRightSide.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 	<div id="overlay"></div>
@@ -16,7 +20,8 @@
 
         	 <div class="gnb_menu">
                     <ul class="gnb_menu_ul">
-                        <li >
+                        <li>
+                        <c:if test="${not empty loginUser}">
                             <a id="test" href="myBucket.me?nickName=${ loginUser.nickName }" class="gnb1 mot2" onclick='eventTrack("", "menu_discover");'>
                                 <div class="text mot2">
                                     <span class="en mot2">My BucketStory</span><br>
@@ -24,12 +29,27 @@
                                 </div>
                                 <div class="ico mot2"></div>
                             </a>
+                        </c:if>
+                        <c:if test="${not empty loginCompany}">
+                            <a id="test" href="expertIntro.ex" class="gnb1 mot2" onclick='eventTrack("", "menu_discover");'>
+                                <div class="text mot2">
+                                    <span class="en mot2">Helper MyPage</span><br>
+                    	견적서를 관리하고, 스폰할 버킷을 등록해보세요.
+                                </div>
+                                <div class="ico mot2"></div>
+                            </a>
+                        </c:if>
                         </li>
                         <li>
                             <a href="javascript:goMyBucket();" class="gnb2 mot2" onclick='eventTrack("", "menu_mypage");'>
                                 <div class="text mot2">
                                     <span class="en mot2">My Info</span><br>
+                       	<c:if test="${not empty loginUser}">
                                     내 정보를 수정할 수 있어요.
+                        </c:if>
+                        <c:if test="${not empty loginCompany}">
+                     	기업 정보를 수정할 수 있어요.
+                        </c:if>
                                 </div>
                                 <div class="ico mot2"></div>
                             </a>

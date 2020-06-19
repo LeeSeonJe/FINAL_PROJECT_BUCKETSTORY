@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="boardMapper">
+
+	<!-- QnA 게시판  -->
 	<select id="getListCount" resultType="_int">
 		select count(*)
 		from QNA
@@ -35,15 +37,49 @@
 		values(seq_media.nextval, #{morigin}, #{mweb}, 1, 5, null, null, null, seq_festival.currval, null)
 	</insert>
 	
-	<select id="adminqnadetail" resultMap="QnAResultSet">
+	<select id="adminqnadetailview" resultMap="QnAResultSet">
 		select *
 		from qna
-		where q_no = #{qno} 
+		where q_no = #{q_no}
 	</select>
 	
-	<update id="updateQnAanswer">
+	<select id="adminqnaUpdate" resultMap="QnAResultSet">
+		select *
+		from qna
+		where q_no = #{q_no}
+	</select>
+	
+	<update id="adminqnaUpdatedetail">
 		update qna
 		set answer = 'Y', an_content = #{an_content}, an_date = sysdate
 		where answer = 'N' and q_no = #{q_no}
 	</update>
+	
+	<!-- 신고게시판 -->
+	
+	<select id="cautionListCount" resultType="_int">
+		select count(*)
+		from notify
+	
+	</select>
+	
+	<select id="notifyselectList" resultMap="notifyResultSet">
+		select *
+		from notify
+		order by no_no desc;
+	</select>
+	
+	<resultMap type="notify" id="notifyResultSet">
+		<id property="no_no" column="NO_NO"/>
+		<result property="enrolldata" column="ENROLLDATA"/>
+		<result property="status" column="STATUS"/>
+		<result property="no_kind" column="NO_KIND"/>
+		<result property="no_check" column="NO_CHECK"/>
+		<result property="bno" column="BNO"/>
+		<result property="cmno" column="CMNO"/>
+		<result property="rpno" column="RPNO"/>
+		<result property="sinuser" column="SINUSER"/>
+		<result property="pigouser" column="PIGOUSER"/>
+	</resultMap>
+	
 </mapper >

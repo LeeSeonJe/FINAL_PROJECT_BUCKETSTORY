@@ -30,6 +30,7 @@
 
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"/>
+<%-- 			<jsp:include page="/WEB-INF/views/expert/hp_header.jsp"/> --%>
 	</header>
 	
 	<!-- 전문가 로그인 아이디 coid를 가져와서 집어넣어야 한다. -->
@@ -50,24 +51,24 @@
 
     <div id="sub-area">
         <ul class='sub-c' id ="sub-item1">
-            <li><a href="helperView.ex">헬퍼뷰어</a></li>
-            <li><a href="helperEdit.ex">헬퍼수정</a></li>
+            <li><a href="helperEdit.ex">기본정보변경</a></li>
+            <li><a href="helperEdit2.ex">기업소개변경</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item2">
             <li><a href="helperBucketList.ex">헬퍼버킷리스트</a></li>
             <li><a href=#>헬퍼4</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item3">
-            <li><a href=#>견적서 관리5</a></li>
+            <li><a href="esrequest.ex?coId=TEST&bkNo=3">견적서 관리5</a></li>
             <li><a href=#>헬퍼6</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item4">
             <li><a href="point.ex">포인트 충전</a></li>  
-            <li><a href="pointList2.ex">포인트 내역</a></li> <!-- pointList.ex -->
+            <li><a href="pointListYN.ex?search=all">포인트 내역</a></li> <!-- pointList.ex -->
         </ul>
         <ul class='sub-c' id ="sub-item5">
             <li><a href="helperSendQnA.ex">1:1 문의</a></li>
-            <li><a href="helperQnA.ex">문의내용 확인</a></li>
+            <li><a href="helperQnaList.ex">문의내용 확인</a></li>
         </ul>
     </div>
 

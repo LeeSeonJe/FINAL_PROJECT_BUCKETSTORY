@@ -22,6 +22,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.main.model.service.MainService;
 import com.kh.BucketStory.member.model.vo.Board;
 
@@ -35,19 +36,25 @@ public class MainController {
 	public ModelAndView Main(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category,
 						ModelAndView mv, HttpSession session) {
 		
-		Member loginUser = (Member)session.getAttribute("loginUser");
-		String userId = loginUser.getUserId();
+		String userId = null;
+		if(session.getAttribute("loginUser") != null) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			userId = loginUser.getUserId();
+		}
 		
 		
 		ArrayList<Media> blImg = mainService.selectBucketImg();
-		ArrayList<WishList> wishList = mainService.selectWishList(userId);
-		ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+		if(userId != null) {
+			ArrayList<WishList> wishList = mainService.selectWishList(userId);
+			ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+			mv.addObject("wishList", wishList);
+			mv.addObject("shareList", shareList);
+		}
+		
 		ArrayList<Board> blogList = mainService.selectBlogList();
 		
 		mv.addObject("blImg", blImg);
-		mv.addObject("wishList", wishList);
 		mv.addObject("category", category);
-		mv.addObject("shareList", shareList);
 		mv.addObject("blogList", blogList);
 		
 		if(menuNum == 1) {
@@ -55,6 +62,8 @@ public class MainController {
 			mv.addObject("bucketList", bucketList);
 			mv.setViewName("mainList");
 		} else if(menuNum == 2) {
+			ArrayList<BucketList> bucketList = mainService.selectRankBucketList();
+			mv.addObject("bucketList", bucketList);
 			mv.setViewName("mainRanking");
 		} else if(menuNum == 3) {
 			ArrayList<BucketList> bucketList = mainService.selectRecoBucketList();
@@ -63,6 +72,34 @@ public class MainController {
 		} else {
 			mv.setViewName("mainCompany");
 		}
+		return mv;
+	}
+	
+	@RequestMapping("Cmain.ho")
+	public ModelAndView CompanyMain(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category,
+									ModelAndView mv, HttpSession session) {
+		
+		ArrayList<Media> blImg = mainService.selectBucketImg();
+		ArrayList<Board> blogList = mainService.selectBlogList();
+		
+		mv.addObject("blImg", blImg);
+		mv.addObject("category", category);
+		mv.addObject("blogList", blogList);
+		
+		if(menuNum == 1) {
+			ArrayList<BucketList> bucketList = mainService.selectBucketList();
+			mv.addObject("bucketList", bucketList);
+			mv.setViewName("CmainList");
+		} else if(menuNum == 2) {
+			mv.setViewName("CmainRanking");
+		} else if(menuNum == 3) {
+			ArrayList<BucketList> bucketList = mainService.selectRecoBucketList();
+			mv.addObject("bucketList", bucketList);
+			mv.setViewName("CmainRecomment");
+		} else {
+			mv.setViewName("CmainCompany");
+		}
+		
 		return mv;
 	}
 	
@@ -189,5 +226,94 @@ public class MainController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("autosearch.ho")
+	public void searchValues(HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+
+		ArrayList<Member> AllMember = mainService.selectAllMember();
+		ArrayList<BucketList> AllBucket = mainService.selectAllBucket();
+		
+		ArrayList<String> searchList = new ArrayList<String>();
+		for(Member m : AllMember) {
+			searchList.add("m:"+m.getNickName());
+		}
+		for(BucketList b : AllBucket) {
+			searchList.add("b:"+b.getBkName());
+			String[] tags = b.getTag().split(",");
+			for(String s : tags) {
+				if(s != "") {
+					searchList.add("t:"+s);
+				}
+			}
+		}
+		
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		try {
+			gson.toJson(searchList, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("searchbucket.ho")
+	public ModelAndView searchBucket(ModelAndView mv, @RequestParam("b") String b, HttpSession session) {
+		String userId = null;
+		if(session.getAttribute("loginUser") != null) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			userId = loginUser.getUserId();
+		}
+		
+		ArrayList<Media> blImg = mainService.selectBucketImg();
+		if(userId != null) {
+			ArrayList<WishList> wishList = mainService.selectWishList(userId);
+			ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+			mv.addObject("wishList", wishList);
+			mv.addObject("shareList", shareList);
+		}
+		ArrayList<Board> blogList = mainService.selectBlogList();
+		
+		ArrayList<BucketList> bucketList = mainService.selectSearchBucket(b);
+		
+		mv.addObject("searchValue", b);
+		mv.addObject("blImg", blImg);
+		mv.addObject("blogList", blogList);
+		mv.addObject("bucketList", bucketList);
+		
+		mv.setViewName("searchBucket");
+		return mv;
+	}
+	
+	@RequestMapping("searchTag.ho")
+	public ModelAndView searchTag(ModelAndView mv, @RequestParam("t") String t, HttpSession session) {
+		String userId = null;
+		if(session.getAttribute("loginUser") != null) {
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			userId = loginUser.getUserId();
+		}
+		
+		ArrayList<Media> blImg = mainService.selectBucketImg();
+		if(userId != null) {
+			ArrayList<WishList> wishList = mainService.selectWishList(userId);
+			ArrayList<ShareBucket> shareList = mainService.selectShareList(userId);
+			mv.addObject("wishList", wishList);
+			mv.addObject("shareList", shareList);
+		}
+		ArrayList<Board> blogList = mainService.selectBlogList();
+		
+		ArrayList<BucketList> bucketList = mainService.selectSearchTag(t);
+		
+		mv.addObject("searchValue", t);
+		mv.addObject("blImg", blImg);
+		mv.addObject("blogList", blogList);
+		mv.addObject("bucketList", bucketList);
+		
+		mv.setViewName("searchBucket");
+		return mv;
 	}
 }

@@ -3,16 +3,18 @@
 				check.click(function(){
 					var p = $("#tp");
 					if(p.text() =='회원'){
-						p.text('기업');
+						p.text('기업').css('color', 'black');
 					} else {
-						p.text('회원');
+						p.text('회원').css('color', 'white');
 					}
 					if(p.text()=='회원'){
 						$('#User').css('display','block');
 						$('#Company').css('display','none');
+						$('#modal1').css('height', '640px');
 					} else {
 						$('#Company').css('display','block');
 						$('#User').css('display','none');
+						$('#modal1').css('height', '890px');
 					}
 				});
 				
@@ -21,9 +23,9 @@
 				check.click(function(){
 					var p = $("#ctp");
 					if(p.text() =='회원'){
-						p.text('기업');
+						p.text('기업').css('color', 'black');
 					} else {
-						p.text('회원');
+						p.text('회원').css('color', 'white');
 					}
 					if(p.text()=='회원'){
 						$('#login').css('display','block');
@@ -31,6 +33,7 @@
 					} else {
 						$('#Clogin').css('display','block');
 						$('#login').css('display','none');
+						$('.input').css('background-image', '#fac 0%, hsl(0, 100%, 70%) 15%, rgba(255, 0, 0, 0.3) 28%, hsla(0, 100%, 30%, 0) 70% );');
 					}
 				});		
 				
@@ -39,9 +42,9 @@
 				check.click(function(){
 					var p = $("#idtp");
 					if(p.text() =='회원'){
-						p.text('기업');
+						p.text('기업').css('color', 'black');
 					} else {
-						p.text('회원');
+						p.text('회원').css('color', 'white');
 					}
 					if(p.text()=='회원'){
 						$('#MemidFind').css('display','block');
@@ -57,9 +60,9 @@
 				check.click(function(){
 					var p = $("#pwdtp");
 					if(p.text() =='회원'){
-						p.text('기업');
+						p.text('기업').css('color', 'black');
 					} else {
-						p.text('회원');
+						p.text('회원').css('color', 'white');
 					}
 					if(p.text()=='회원'){
 						$('#MempwdFind').css('display','block');
@@ -111,13 +114,11 @@
 				  });
 				});
 		
-// 취소하기 버튼 누르면 취소됨 
-			$(function() {
-				  $('.cancel').on('click', function() {
-					  if($('#modal1').css('display') == 'none'){
-						  $('#modal1').css('display','none');
-					  } 
-				  });
+// 취소하기 버튼 누르면 모달이 꺼짐 
+			$('.cancel').on('click', function(){
+				$('#modal1').css('display', 'none');
+				$('#modal2').css('display', 'none');
+				$('#modal3').css('display', 'none');
 				});
 		
 // 이메일 직접입력 스크립트		
@@ -480,7 +481,7 @@
 	     });			
 
 
-// 내용 작성 부분의 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
+// 파일 첨부 창이 뜨도록 설정하는 함수
 				$(function(){
 					
 					$("#inputImg").hide();
@@ -504,12 +505,143 @@
 					}
 				}
 
-// 아이디 찾기				
+// 아이디 찾기
+				$('#good').click(function(){
+		     		var email = $('#email').val();
+		     		
+				$.ajax({  // 입력한 이메일을 디비랑 비교하기
+					url: 'compareEmail.co',
+					data: {email:email},
+					success: function(data){
+						console.log(data);
+					
+					if(data == 'success'){
+						alert("회원님의 아이디는" + "#userId" + "입니다");
+						$('#pwdcheck').text('비밀번호가 일치합니다');
+					}else{
+						alert("이메일을 올바르게 입력해주세요");
+					}
+				}
+	        });
+	     });
+//				$(function(){
+//					$('#finish').click(function(){
+//						
+//						var emailfind_1 = $('#emailfind_1').val();
+//						var emailfind_2 = $('#emailfind_2').val());
+//						var loginEmail = <%= loginUser.getEmail() %>;
+//						
+//						if(emailfind_1 == loginPwd and emailfind_2 = == loginPwd){
+//							response.sendRedirect("views/myPage/pwdUpdate.jsp");
+//							if(result){
+//								alert("'회원님의 아이디는' + '' + '입니다'");
+//							} else {
+//								alert("비밀번호 변경 실패! 다시 시도해주시길 바랍니다.");
+//								location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
+//							}
+//						}
+//					});
+//				});
+				
 				
 // 비밀번호 찾기		
-				$(function(){
-					$("#").hide();
-					$('.fileInput').click(function(){
-						$("#checkImg").click();
+				 
+
+// 이메일 관련 스크립트
+				/*이메일 중복 확인메일 발송  */ //emailResult
+				var ismailUsable = false; 	// 이메일 중복 시false, 사용가능시 true
+//			 	var ismailChecked = false;	// 이메일 중복확인을 했는지 안했는지 검사
+				
+				$('#email_1,#email_2').on('paste keyup', function(){
+					ismailChecked = false;
+				});
+				
+				function sendMail(){
+					var email_1 = $('#email_1'); 
+					var email_2 = $('#email_2'); 
+					var email = email_1.val() + '@' + email_2.val();
+					var email_Confirm =$('#email_Confirm');
+					
+					
+					$.ajax({  //이메일이 중복되는지 확인
+						url: '<%= request.getContextPath() %>/email.mem',
+						data: {email:email},
+						success: function(data){
+							
+							if(email_1.val() != "" && email_2.val() != "" && data == 'success'){ //중복아니라면 success =>인증메일 발송 가능
+								$.ajax({ //이메일 보내기
+									url: '<%= request.getContextPath() %>/send.do',
+									data: {email:email},
+									success: function(data1){
+
+//			 							$('#emailResult').text('이메일 인증을 진행해주세요.');
+										alert('입력하신 이메일로 인증메일이 발송되었습니다.');
+										
+										if($('#emailResult_check').css("display")=="none"){
+									 		$('#emailResult_check').show();
+									 		$('#emailResult_checked').hide();
+										 }
+										
+										$('#chkNum').click(function(){ //인증확인 버튼을 눌렀을 때
+											if(data1.trim() == $('#email_Confirm').val().trim()){ //인증번호와 사용자 입력이 일치하면
+//			 									$('#emailResult').text('이메일 인증에 성공하였습니다.');
+												ismailUsable = true;
+											
+											if($('#emailChkResult_check').css("display")=="none"){
+										 		$('#emailChkResult_check').show();
+										 		$('#emailChkResult_checked').hide();
+											 }	
+												
+												
+											} else{
+//			 									$('#emailResult').text('인증번호가 다릅니다.');
+												ismailUsable = false;
+												alert('인증번호가 일치하지 않습니다.');
+												if($('#emailChkResult_checked').css("display")=="none"){
+											 		$('#emailChkResult_checked').show();
+											 		$('#emailChkResult_check').hide();
+												 }
+												
+											}
+										})
+									}
+								})
+							} else{ //중복이라서 인증메일 발송 불가
+								alert('중복된 이메일이거나 없는 이메일은 사용할 수 없습니다.');
+								email_1.select();
+								ismailUsable = false;
+//			 					$('#emailResult').text('중복된 이메일은 사용할 수 없습니다.');
+								if($('#emailResult_checked').css("display")=="none"){
+							 		$('#emailResult_checked').show();
+							 		$('#emailResult_check').hide();
+								 }
+							}
+						}
 					});
-				});	  
+					
+				}
+				
+				/* 이메일 인증번호 안적었는데 인증확인 먼저 눌렀을때 */
+				$('#chkNum').click(function(){
+					var email_Confirm = $('#email_Confirm');	
+				
+					if(email_Confirm.val() == ""){
+						if($('#emailChkResult_checked').css("display")=="none"){
+							alert('인증번호를 입력하여 주시기 바랍니다.');
+							email_Confirm.focus();
+					 		$('#emailChkResult_checked').show();
+					 		$('#emailChkResult_check').hide();
+						}
+					}
+				});
+				
+				/* 메일인증 안하고 가입하기 눌렀을때 */
+				function emalivalidate(){
+					if(ismailUsable){
+						return true; //가입
+					}else{
+						alert('메일인증을 진행해주세요.');
+						email_Confirm.focus();
+						return false; //반려
+					}
+				}

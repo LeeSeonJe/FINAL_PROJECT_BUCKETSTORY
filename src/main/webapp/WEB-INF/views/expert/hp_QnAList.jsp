@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,75 +9,71 @@
 <link rel ="stylesheet" href ="resources/expert/css/hp_boardList.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style>
-	.pboard{
-		font-size: large;
+
+	.background{
+		 background: url("resources/common/images/Mountain.jpg");
+	 background-size:cover;
 	}
-	.rowp{
-		background:#fff;
+	#inner{
+		width:980px;
+		height:auto;
+		margin:0 auto;
+		padding: 50px;
+		background: #fff;
+		border-radius: 7px;
 	}
+
 </style>
 </head>
 <body>
-<%-- <jsp:include page="/WEB-INF/views/expert/hp_pointCon.jsp"/> --%>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
- <section class ="p-section">
-<!--         <p id ="title">포인트 내역</p> -->
  
-    <h3>${coId} 님 환영합니다!</h3>
-  	<h3>포인트 충전/사용 횟수 : ${ pi.listCount }</h3>
-	<h3>보유 포인트 : ${hp }</h3>
-	
+ <section class ="p-section background">
+ 
+ 	<div id ="inner">
+ 	<h3>${coId} 님 환영합니다!</h3>
+  	<h3>문의 횟수 : ${ pi.listCount }</h3>
         <!-- 게시판 목록 영역-->
         <div id ="board-area">
            
-            <table class="board pboard">
+            <table class="board">
                 <thead>
                 <tr>
-                    <th scope="cols" width="8%">번호</th>
-                    <th scope="cols" width="20%">충전/사용</th>
-                    <th scope="cols" width="30%">포인트</th>
-                    <th scope="cols" width="32%">날짜</th>
+                    <th scope="cols" >번호</th>
+                    <th scope="cols" >제목</th>
+                    <th scope="cols" >작성일</th>
+                    <th scope="cols" >답변여부</th>
                 </tr>
                 </thead>
                 <tbody>
-
-
-					<c:if test ="${empty list }">
+        
+        		<c:if test ="${empty list }">
 					  <tr>
-					  	<td colspan="5">포인트 충전내역이 없습니다.</td>
+					  	<td colspan="4">문의 내역이 없습니다.</td>
 					  </tr>
-					</c:if>
-					
-					<c:forEach var="b" items="${ list }">
+				</c:if>
+				
+				<c:forEach var="b" items="${ list }">
 						<tr>
-							<td class ="rowp" scope="row" align="center">${ b.pa_no }</td>
-						<!--  char 형과 비교 -->
-						<c:if test="${b.status eq 'Y'.charAt(0)}"> 
-						      <td align="center">충전</td>
-						</c:if>
-						<c:if test="${b.status eq 'N'.charAt(0)}"> 
-						      <td align="center">사용</td>
-						</c:if>
-					
-							<td align="center">${ b.pa_pay }</td>
-							<td align="center">${ b.pdate }</td>
-						</tr>
+							<td scope="row" align="center">${ b.q_no }</td>
+							<td align="center">${ b.q_title }</td>
+							<td align="center">${ b.q_date }</td>
+							<td align="center">${ b.answer }</td>
+						</tr>			
 					</c:forEach>
-					
-				</tbody>
+                </tbody>
             </table>
         
 
             <!-- 게시판 페이징 영역-->
             <div id="board-paging">
-            
-            	
+    
 				<!-- [이전] -->
 				<c:if test="${ pi.currentPage <= 1 }">
 					<button id ="prev">이전</button>
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="pointList.ex?">
+					<c:url var="before" value="helperQnaList.ex">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ before }"><button id ="prev">이전</button></a> 
@@ -90,7 +86,7 @@
 					</c:if>
 					
 					<c:if test="${ p ne pi.currentPage }">
-						<c:url var="pagination" value="pointList.ex">
+						<c:url var="pagination" value="helperQnaList.ex">
 							<c:param name="page" value="${ p }"/>
 						</c:url>
 						<a href="${ pagination }"><button class ="sBtn">${ p }</button></a> 
@@ -102,40 +98,30 @@
 					<button id= "next">다음</button>
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="pointList.ex">
+					<c:url var="after" value="helperQnaList.ex">
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>
 					</c:url> 
 					<a href="${ after }"><button id= "next">다음</button></a>
 				</c:if>
-				
-<!--                 <div><button id ="prev">이전</button></div>  -->
-<!--                 <div><button class ="sBtn">1</button></div> -->
-<!--                 <div><button class ="sBtn">2</button></div> -->
-<!--                 <div><button class ="sBtn">3</button></div> -->
-
-<!--                 <div><button id= "next">다음</button></div> -->
             </div>
-            
-            
 
                <!-- 게시판 필터 영역-->
                <div id="board-filter">
                 <div>
                     <select>
                         <option>전체</option>
-                        <option>충전</option>
-                        <option>사용</option>
+                        <option>답변</option>
+                        <option>미답변</option>
                     </select>
-                    <input type="text" placeholder="기업검색">
+                    <input type="text" placeholder="">
                     <button id ="searchBtn">검색</button>
                 </div>
             </div>
-
-
         </div>
-       
+       </div>
  </section class ="section"> 
-   <script>
+ 
+ <script>
 	$(function() {
 		$('.board td').mouseenter(function() {
 			$(this).parent().css({
@@ -147,7 +133,12 @@
 				'background' : 'whitesmoke'
 			})
 		})
+		
+		$('.board').click(function() {
+			console.log('클릭했다');
+		});
 	});
+ 
  </script>
 </body>
 </html>

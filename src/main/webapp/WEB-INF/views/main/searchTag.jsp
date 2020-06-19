@@ -12,51 +12,25 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-	<!-- 카테고리 변경 때 필요 -->
-	<c:set var="menuNum" value="2"/>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
 	<nav><jsp:include page="/WEB-INF/views/layout/mainNav.jsp"/></nav>
 	<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"/>
 	<div id="extra"></div>
-	<div id="search">
-		<div id="search-wrap">
-			<img id="search-img" src="resources/layout/images/검색창버튼.png">
-		</div>
-	</div>
+	<div id="search"></div>
 	<%@ include file="searchscreen.jsp" %>
 	<section>
-		<%@ include file="/WEB-INF/views/layout/mainLeftSide.jsp" %>
 		<c:forEach var="b" items="${ bucketList }">
-		<c:if test="${ b.cateNum == category || category == 0}">
 		<div class="bucket ${ b.bkNo }" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
-		
 			<!-- 버킷 사진 -->
 			<c:forEach var="m" items="${blImg}">
 				<c:if test="${ m.bkno == b.bkNo }">
 <script>
-	$('.bucket.${ b.bkNo }').css('background-image', 'url("resources/muploadFiles/${m.mweb}")');
+	$('#bucket${m.bkno}').css('background-image', 'url("resources/muploadFiles/${m.mweb}")');
 </script>
 				</c:if>
 			</c:forEach>
-			
-			<!-- 버킷 주인 -->
-			<c:if test="${ b.userId ne '관리자찡' }">
-			<div class="bucketStoryNick">${ b.userId }</div>
-			</c:if>
-			<c:if test="${ b.userId eq '관리자찡' }">
-			<div class="bucketStoryNick">추천</div>
-			</c:if>
-			
-			<c:set var="bCount" value="0"/>
-			<c:forEach var="blog" items="${ blogList }">
-				<c:if test="${ blog.userid == b.userId && blog.bkNo == b.bkNo}">
-					<c:set var="bCount" value="${ bCount + 1 }"/>
-				</c:if>
-			</c:forEach>
-			<div class="bucketStoryStory">${ bCount }</div>
-			
 			<div class="bucketContent">
 				<div class="c-category">
 					<c:choose>
@@ -80,7 +54,6 @@
 						<c:set var="Sloop_flag" value="true"/>
 					</c:if>
 				</c:forEach>
-				
 				<!-- 회원만 해당(시작) -->
 				<c:if test="${ not empty loginUser}">
 				<c:if test="${not Sloop_flag}">
@@ -105,7 +78,6 @@
 				</div>
 				</c:if>
 				<!-- 회원만 해당(끝) -->
-				
 			</div>
 		</div>
 <script>
@@ -120,9 +92,7 @@
 			$('.c-Add.${b.bkNo}').hide();
 		}
 	}
-	
 </script>
-		</c:if>
 		</c:forEach>
 	</section>
 	<div id="FullOverLay">
@@ -136,7 +106,6 @@
 				<div id="buckettitle">리틀 포레스트에 나오는 음식 따라 만들기</div>
 				<div id="bucketleft">〈</div>
 				<div id="bucketright">〉</div>
-				
 				<!-- 회원만 해당(시작) -->
 				<c:if test="${ not empty loginUser}">
 				<div id="bucketAdd"> + ADD                       </div>
@@ -144,8 +113,6 @@
 				<div id="bucketwish">☆ </div>
 				</c:if>
 				<!-- 회원만 해당(끝) -->
-				
-				
 			</div>
 			<div id="bucketcp">
 				<div id="bucketTag">
@@ -182,63 +149,13 @@
 			</div>
 			<div id="bucketcpEvent"></div>
 		</div>
-		
 	</div>
-	
-	
 </body>
 <script>
-	first = 1;
-	dataNum = 0;
+first = 1;
+dataNum = 0;
 $(function(){
-	// --현재 메뉴바 표시
-	$('#cssmenu>ul>li:eq(1)>a').css({'color':'#5B5AFF','border-bottom':'2px solid #3a7af8'});
-	//console.log($(window).width());
-	
-	
-	// 카테고리 종류
-	var category = ${category};
-	if(category == 0){
-		$('#categoryImg1').prop('src','resources/layout/images/allhover.png');
-		$('#category1').css('background','silver');
-		$('#category1').unbind('mouseover mouseout');
-	} else if(category == 1){
-		$('#categoryImg2').prop('src','resources/layout/images/여행hover.png');
-		$('#category2').css('background','#D4F4FA');
-		$('#category2').unbind('mouseover mouseout');
-	} else if(category == 2){
-		$('#categoryImg3').prop('src','resources/layout/images/운동hover.png');
-		$('#category3').css('background','#FF4848');
-		$('#category3').unbind('mouseover mouseout');
-	} else if(category == 3){
-		$('#categoryImg4').prop('src','resources/layout/images/foodhover.png');
-		$('#category4').css('background','#FFCD12');
-		$('#category4').unbind('mouseover mouseout');
-	} else if(category == 4){
-		$('#categoryImg5').prop('src','resources/layout/images/skillhover.png');
-		$('#category5').css('background','#FFF612');
-		$('#category5').unbind('mouseover mouseout');
-	} else if(category == 5){
-		$('#categoryImg6').prop('src','resources/layout/images/culturehover.png');
-		$('#category6').css('background','#2FED28');
-		$('#category6').unbind('mouseover mouseout');
-	} else if(category == 6){
-		$('#categoryImg7').prop('src','resources/layout/images/campinghover.png');
-		$('#category7').css('background','#1266FF');
-		$('#category7').unbind('mouseover mouseout');
-	} else if(category == 7){
-		$('#categoryImg8').prop('src','resources/layout/images/shoppinghover.png');
-		$('#category8').css('background','#4D48E1');
-		$('#category8').unbind('mouseover mouseout');
-	} else if(category == 8){
-		$('#categoryImg9').prop('src','resources/layout/images/lifestylehover.png');
-		$('#category9').css('background','#B95AFF');
-		$('#category9').unbind('mouseover mouseout');
-	}
-	
-	
-	
-	// --section 버킷들 width에 따라 height변화
+	//--section 버킷들 width에 따라 height변화
 	var hg = $('.bucket').css('width');
 	$('.bucket').css('height', hg);
 	
@@ -255,18 +172,22 @@ $(function(){
 		$('#bucketimg img').css('height', bkhg);
 	});
 	
-	// 검색창 나오게 하기
-	$('#search-img').click(function(){
+	//검색text항시보여줌
+	$('#searchscreen').show();
+	$('#searchscreen').css('height', '0');
+	$('#searchtext').val('${searchValue}');
+	
+	$('#searchtext').focus(function(){
 		$('body').css('height', '100%');
 		$('body').css('overflow', 'hidden');
-		$('#searchscreen').show();
+		$('#searchscreen').css('height', '100%');
 		$('#searchresult').show(800);
 	});
 	$('#searchtextBtn').click(function(){
 		$('body').css('height', 'auto');
 		$('body').css('overflow', 'visible');
-		$('#searchscreen').hide();
 		$('#searchresult').hide();
+		$('#searchscreen').css('height', '0');
 	});
 	
 	// 좋아요위시 특수문자 색
@@ -280,7 +201,6 @@ $(function(){
 	}, function(){
 		$('.wishhover').css('color', 'white');
 	});
-	
 	// 버킷리스트 상세보기 클릭 종류
 	$('.bucket').click(function(e){
 		if($(e.target).hasClass('c-likeBtn') || $(e.target).hasClass('likehover') || $(e.target).hasClass('likelabel')){
@@ -303,14 +223,12 @@ $(function(){
 			$('#bucketimg img').css('height', bkhg);
 		}
 	});
-	
 	// 버킷리스트 상세보기 닫기
 	$('#bucketexit').click(function(){
 		$('#FullOverLay').hide();
 		$('body').css('height', 'auto');
 		$('body').css('overflow', 'visible');
 	});
-	
 	// 행사 펼치기
 	$('#bucketcpeventD>button').click(function(){
 		if($('#bucketcpEvent').css('display') == 'none'){
@@ -323,7 +241,6 @@ $(function(){
 			$('#bucketcpeventD>button').text("행사 펼치기");
 		}
 	});
-	
 });
 //버킷 좋아요 올리기
 function blLikeUp(bkNo){
@@ -615,16 +532,13 @@ function right(bkNo, userId){
 		}
 	}
 }
-<!-- 검색어 자동완성 -->
+// 검색어 자동완성
 function searchReset(){
 	$('#searchMem>ul').html('');
 	$('#searchBucket>ul').html('');
 	$('#searchTag>ul').html('');
 }
 $(function(){
-	$('#searchtext').focus(function(){
-		$('#searchscreen').show();
-	});
 	var searchSource = new Array();
 	$.ajax({
 		url:'autosearch.ho',

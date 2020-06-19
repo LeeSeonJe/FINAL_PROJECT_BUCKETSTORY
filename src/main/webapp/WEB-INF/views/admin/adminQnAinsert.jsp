@@ -82,52 +82,34 @@ span.answer:after {
 				</ul>
 			</div>
 		</nav>
-		<div class="ad_Detail">
-			<div>
-				<h2>QnA 상세보기</h2>
-			</div>
-			<div>
-				<div id="qna_title"><b> ${ adminQnA.q_title }</b></div>
-				<div id="qna_info">
-				<span>[이미지 넣기] ${ adminQnA.userid }</span>
-				<span>[이미지 넣기] ${ adminQnA.q_date }</span>
+		<form action="addAnswer.ad" method="post">
+		<input type="hidden" name="page" value="${ page }">
+		<input type="hidden" name="q_no" value="${ adminQnA.q_no }">
+		
+			<div class="ad_Detail">
+				<div>
+					<h2>QnA 상세보기</h2>
 				</div>
-				<br clear="all">
-				<div id="qna_content">${ adminQnA.q_content }</div>
-				<div id="qna_answer"><span class="answer"><b style=" color: black; ">답변</b></span></div>
-				<div id="qna_text"><textarea rows="50" cols="1000" style=" width: 90%; height: 100px; " id="QnA_answer"></textarea>
-				<button id="qna_success">답변하기</button></div>
-				<textarea id="id"></textarea>
-				
+				<div>
+					<div id="qna_title">
+						<b> ${ adminQnA.q_title }</b>
+					</div>
+					<div id="qna_info">
+						<span>[이미지 넣기] ${ adminQnA.userid } ${ adminQnA.coid }</span> 
+						<span>[이미지 넣기] ${ adminQnA.q_date }</span>
+					</div>
+					<br clear="all">
+					<div id="qna_content">${ adminQnA.q_content }</div>
+					<div id="qna_answer">
+						<span class="answer"><b style="color: black;">답변</b></span>
+					</div>
+					<div id="qna_text">
+						<textarea rows="50" cols="1000" style="width: 90%; height: 100px;" name="an_content"></textarea>
+						<button id="qna_success" type="submit">답변하기</button>
+					</div>
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
-
-<script>
-
-//답변 보내기
-//  $('#qna_success').on('click', function(){
-// 	 	var QnA_answer = $('#QnA_answer').val();
-// 	 	var q_no = ${ adminQnA.q_no };
-// 	 	var page = ${ page };
-	
-// 	 	$.ajax({
-// 	 		url: "readAnswer.ad",
-// 	 		data:{an_content:QnA_answer, q_no:q_no, page:page},
-// 	 		dataType: "json",
-// 	 		success: function(data){
-//  				var tt = data.an_content;
-//  				console.log(tt);
-	 			
-//  				$('#id').val(tt);
-// //  				$('#QnA_answer').children().remove();
-// //  				$('#QnA_answer').val(tt);
-// 	 		}	 		
-// 	 		});
-//  	});
- 
-
-</script>		
-
 </body>
 </html>

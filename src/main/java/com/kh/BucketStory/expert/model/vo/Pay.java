@@ -13,6 +13,9 @@ public class Pay {
 	private char status; // 충전여부
 	private Date pdate; // 날짜
 	
+	public Pay() {
+		
+	}
 	public Pay(int pa_no, int pa_pay, String coid, char status, Date pdate) {
 		super();
 		this.pa_no = pa_no;

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,17 +49,73 @@ div > h2 {
 	
 	<div>
 		<table id="ad_declare">
+			<thead>
+				<tr>
+					<td><input type="checkbox"></td>
+					<td>번호</td>
+					<td>말머리</td>
+					<td>제목</td>
+					<td width="220px;">내용</td>
+					<td>아이디</td>
+					<td>신고일</td>
+					<td>상태</td>
+					<td>신고자</td>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="b" items="${ list }">
 			<tr>
-				<td><input type="checkbox"></td>
-				<td>번호</td>
-				<td>말머리</td>
-				<td>제목</td>
-				<td width="220px;">내용</td>
-				<td>아이디</td>
-				<td>신고일</td>
-				<td>상태</td>
+				<td>${ b.no_no }</td>
+				<td>${ b.enrolldata }</td>
+				<td>${ b.no_kind }</td>
+				<td>${ b.no_check }</td>
+				<td>${ b.pigouser }</td>
+				<td>${ b.sinuser }</td>
 			</tr>
-		</table>
+			</c:forEach>
+			</tbody>
+					<!-- 페이징 처리 -->
+				<tr align="center" height="20" id="buttonTab">
+					<td colspan="6">
+						<!-- [이전] --> 
+						
+						<c:if test="${ pi.currentPage <= 1 }">
+						[이전] &nbsp;
+						</c:if> 
+						<c:if test="${ pi.currentPage > 1 }">
+							<c:url var="before" value="cautionlist.ad">
+								<c:param name="page" value="${ pi.currentPage - 1 }" />
+							</c:url>
+							<a href="${ before }">[이전]</a> &nbsp;
+						</c:if>
+						 
+						<!-- 페이지 --> 
+						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:if test="${ p eq pi.currentPage }">
+								<font color="red" size="4"><b>[${ p }]</b></font>
+							</c:if>
+
+							<c:if test="${ p ne pi.currentPage }">
+								<c:url var="pagination" value="cautionlist.ad">
+									<c:param name="page" value="${ p }" />
+								</c:url>
+								<a href="${ pagination }">${ p }</a> &nbsp;
+							</c:if>
+						</c:forEach> 
+						
+						<!-- [다음] --> 
+						<c:if test="${ pi.currentPage >= pi.maxPage }">
+							[다음]
+						</c:if> 
+						<c:if test="${ pi.currentPage < pi.maxPage }">
+							<c:url var="after" value="cautionlist.ad">
+								<c:param name="page" value="${ pi.currentPage + 1 }" />
+							</c:url>
+							<a href="${ after }">[다음]</a>
+						</c:if>
+					</td>
+				</tr>
+			</table>
 	</div>
 	<div id="ad_de_search">
 		<select>
