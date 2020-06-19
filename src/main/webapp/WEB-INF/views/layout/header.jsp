@@ -28,7 +28,12 @@
 	$('#logoutBtn').click(function(){
 		var result = confirm("로그아웃 하시겠습니까?");
 		if(result){
-			location.href='logout.co';
+			if('${loginUser}' != null){
+				location.href='logout.co';
+			} else if('${loginCompany}' != null){
+				location.href='Clogout.co';
+			}
+			
 		} else{
 			alert("로그아웃 취소");
 		}

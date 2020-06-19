@@ -102,7 +102,7 @@ public class CommonController {
   
 	  if(bcryptPasswordEncoder.matches(c.getCoPwd(), loginUser.getCoPwd())) {
 		  model.addAttribute("loginCompany", loginUser);
-		  return "redirect:expertIntro.ex";
+		  return "redirect:main.ho?menuNum=1&category=0";
 	  } else {
 		  System.out.println("실패");
 		  return "redirect:login.co";
