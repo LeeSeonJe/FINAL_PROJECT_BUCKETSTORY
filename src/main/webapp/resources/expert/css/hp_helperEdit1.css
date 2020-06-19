@@ -1,0 +1,71 @@
+@charset "UTF-8";
+    .inner_content{
+        background: url("../images/moon.jpg");
+        background-size: cover;
+        width: 100%;
+        height: auto;
+    }
+    .inner_content .helperEdit{
+        width: 980px;
+        margin: 0 auto;
+        height: 800px;
+        background-color: rgba(0,0,0,0.075);
+        border-radius: 25px;
+        padding : 20px;
+		z-index:-1;
+    }
+    
+	.pwdCheck{
+        width:auto;
+        height:15px;
+        display:none;
+	}
+	.pwdImg{
+		width:15px;
+	    height:15px;
+	      float: left; 
+	}
+
+    .title{
+        font-size: 20px;
+        padding: 10px;
+        color: #333;
+        background-color:rgba(0,0,0,0.075);
+        border-radius: 5px;
+    }
+    table.et{
+        margin: 0 auto;
+        background:#eee;
+        border-radius: 5px;
+        width: 700px;
+    }
+    .rown{
+        font-weight: 500x;
+        font-size: 17px;
+        padding: 5px;
+        width: 140px;
+    
+    }
+    #textArea{
+        width: 450px;
+        height: 200px;
+        resize: none;
+    }
+
+    .inner_content input{
+        width: 180px;
+        height: 22px;
+        border-radius: 4px;
+    }
+    .inner_content textarea{
+        border-radius: 4px;
+    }
+
+    #submitBtn-Area{text-align: center;}
+    #submitBtn{ margin:0 auto; }
+    #img-area, img{
+        width: 360px;
+        height: 250px;
+        background-size: cover;
+        border-radius: 4px;
+    }

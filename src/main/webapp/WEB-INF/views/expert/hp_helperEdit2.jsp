@@ -73,12 +73,20 @@
 				<br>
  			</form> 
 		</div>
+		<input type="hidden" id ="insertResult" value ="${result }">
 	</section>
 	<script type="text/javascript">
-	
+		(function(){
+			
+			var result = $('#insertResult').val();
+			console.log(result);
+			if(result == 'ok'){
+				alert('기업소개가 성공적으로 변경되었습니다.')
+			}
+			
+		})();
+		
 // 		$('#submitBtn').click(function(){
-			
-			
 // 			colsole.log('진입');
 // 			$.ajax({
 // 				url : "comUpdate.ex",

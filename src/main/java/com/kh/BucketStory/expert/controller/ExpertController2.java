@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,9 +52,10 @@ public class ExpertController2 {
 		}
 	}
 
-	// 전문가 메인페이지
+	// 헬퍼 메인페이지
 	@RequestMapping("expertIntro.ex")
-	public ModelAndView expertInfo2(ModelAndView mv, HttpSession session) {
+	public ModelAndView expertInfo2(ModelAndView mv, HttpSession session,
+									@RequestParam(value = "result") @Nullable String result) {
 
 		Company loginCom = (Company) session.getAttribute("loginCompany");
 		// System.out.println(loginCom);
@@ -64,14 +66,34 @@ public class ExpertController2 {
 
 		// 상위 Top 5 포인트 보유왕
 		ArrayList<Company> list = ExService2.selectTop5havingPoint();
+	//	System.out.println(list);
+	
+		Company company = ExService.selectCompanyInfo(coId);
 
-		System.out.println(list);
+		mv.addObject("com", company);	
+		mv.addObject("result", result);
 		mv.addObject("list", list);
-		mv.addObject("coid", coId);
+
 		mv.setViewName("hp_intro");
 		return mv;
 	}
 
+	// 헬퍼수정 페이지
+	// 스프링5 부터 @Nullable 어노테이션 사용가능
+	// 리퀘스트파람 Null 허용
+	@RequestMapping("helperEdit2.ex")
+	public ModelAndView goHelperEdit2(HttpSession session, ModelAndView mv,
+								@RequestParam(value = "result") @Nullable String result) {
+
+		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
+		Company company = ExService.selectCompanyInfo(coId);
+
+		mv.addObject("result", result);
+		mv.addObject("com", company);
+		mv.setViewName("hp_helperEdit2");
+		return mv;
+	}
+	
 	// 헬퍼뷰어 페이지
 	@RequestMapping("helperView.ex")
 	public ModelAndView goHelperView(HttpSession session, ModelAndView mv) {
@@ -94,7 +116,7 @@ public class ExpertController2 {
 
 	// 기업소개 변경
 	@RequestMapping("comUpdate.ex")
-	public String comUpdate(HttpSession session, HttpServletRequest request,
+	public String comUpdate(HttpSession session, HttpServletRequest request, /*HttpServletResponse response,*/
 			@RequestParam("uploadFile") MultipartFile uploadFile) {
 
 		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
@@ -116,11 +138,15 @@ public class ExpertController2 {
 
 		if (result > 0) {
 			// resWriter(response,"ok");
-			return "redirect:comUpdateSuccess.ex";
+			// return "redirect:comUpdateSuccess.ex";
+			// return "redirect:helperEdit2.ex?result=ok";
+			return "redirect:expertIntro.ex?result=ok";
 		} else {
-			// resWriter(response,"fail");
+			 //resWriter(response,"fail");
 			throw new ExpertException("기업소개 변경에 실패하였습니다.");
 		}
+		
+		
 	}
 
 	@RequestMapping("comUpdateSuccess.ex")
@@ -192,17 +218,7 @@ public class ExpertController2 {
 		return mv;
 	}
 
-//	// 헬퍼수정 페이지
-	@RequestMapping("helperEdit2.ex")
-	public ModelAndView goHelperEdit2(HttpSession session, ModelAndView mv) {
 
-		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
-		Company company = ExService.selectCompanyInfo(coId);
-
-		mv.addObject("com", company);
-		mv.setViewName("hp_helperEdit2");
-		return mv;
-	}
 
 	// 헬퍼수정 비번일치확인
 	@RequestMapping("helperPwdCheck.ex")
