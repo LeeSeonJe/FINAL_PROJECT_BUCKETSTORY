@@ -82,9 +82,18 @@
 	</resultMap>
 	
 	
-	<update id="waringmember">
-		update 	notify
-		set status = "Y"
-		where no_no = #{no_no}
+<!-- 	<update id="waringmember"> -->
+<!-- 		update 	notify -->
+<!-- 		set status = "Y" -->
+<!-- 		where no_no = #{no_no} -->
+<!-- 	</update> -->
+
+	<update id="warningMember">
+		update notify
+		set no_check = 'Y'
+		where no_no = #{no} and no_check = 'N'
+		
 	</update>
+	
+	
 </mapper >

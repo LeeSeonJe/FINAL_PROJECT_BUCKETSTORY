@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -204,25 +205,49 @@ public class AdminController {
 	}
 	
 //	/* 경고 받은 회원 넘겨주기 */
-	@RequestMapping("warning.ad")
-	public String waringmember(@RequestParam(value="notify") String[] no) {
-			int [] no_no = new int [no.length];
-		
-		for(int i = 0; i < no.length; i++) {
-			 no_no[i] = Integer.parseInt(no[i]);
-
-		}
-			
-		
-		
+//	@RequestMapping("warning.ad")
+//	public String waringmember(@RequestParam(value="no_no") String[] no) {
+//			int [] no_no = new int [no.length];
+//		
+//		for(int i = 0; i < no.length; i++) {
+//			 no_no[i] = Integer.parseInt(no[i]);
+//
+//		}
+//		
 //		System.out.println("n 값이 나오나요 ?" + no_no);
-		int result = bService.waringmember(no_no);
+//		
+//		int result = bService.waringmember(no_no);
+//	
+//		if(result > 0) {
+//			return "success";
+//			
+//		} else {
+//			throw new BoardException("경고 받은 회원 실패");
+//		}
+//	}
 	
+	/* 경고 받은 회원 넘겨주기 2번째*/
+	@RequestMapping("warning.ad")
+	public String waringmember(@RequestParam(value="Notify[]") List<String> no_no) {
+		
+		 int[] no = new int [no_no.size()];
+		for(int i = 0; i < no.length; i++) {
+			
+			no[i] = Integer.parseInt(no_no.get(i));
+		}
+		
+		System.out.println("no 값 보기 " + no);
+		
+		int result = bService.warningMember(no);
+		
+		System.out.println("result 값 보기 " + result);
+		
 		if(result > 0) {
 			return "success";
-			
 		} else {
 			throw new BoardException("경고 받은 회원 실패");
 		}
 	}
+	
+		
 }
