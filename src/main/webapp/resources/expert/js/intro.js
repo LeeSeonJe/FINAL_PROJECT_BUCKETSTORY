@@ -2,7 +2,7 @@
 	var result = $('#insertResult').val();
 	console.log(result);
 	if (result == 'ok') {
-		alert('기업소개가 성공적으로 변경되었습니다.')
+		alert('정보가 성공적으로 변경되었습니다.')
 	}
 	
 })();

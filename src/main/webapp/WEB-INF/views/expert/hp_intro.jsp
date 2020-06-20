@@ -15,7 +15,7 @@
     
     <link rel="stylesheet" href="resources/expert/css/hp_intro.css">
     <link rel="stylesheet" href="resources/expert/css/hp_helperEdit1.css">
-      
+    <link rel="stylesheet" href="resources/expert/css/hp_helperEdit2.css">
     <title>helper MyPage</title>
 
 </head>
@@ -59,10 +59,10 @@
         <input type="hidden" id ="insertResult" value ="${result }">
         <div class="inner_content" id="HelperEdit">
             <div class ="helperEdit">
-                <h1 align="center">Helper Edit</h1>
+                <h1 align="center">1</h1>
                 <br>
                 <form id="submitform" action="comUpdate.ex" method="post" enctype="Multipart/form-data"> 
-                    <table class="et th2">
+                    <table class="et th1">
                         <tr>
                             <th colspan="3" class="title">기업소개 변경</th>
                         </tr>
@@ -75,11 +75,27 @@
                                     <img id="foo" src="resources/muploadFiles/${com.checkImg }" /></div></td>
                             <td><input type="file" name="uploadFile" id="imgInp"></td>
                         </tr>
+                        <script>
+                        function readURL(input) {
+                        	if (input.files && input.files[0]) {
+                        		var reader = new FileReader();
+                        		reader.onload = function(e) {
+                        			$('#foo').attr('src', e.target.result);
+                        		}
+                        		reader.readAsDataURL(input.files[0]);
+                        	}
+                        }
+
+                        $("#imgInp").change(function() {
+                        	readURL(this);
+                        });
+
+                        </script>
                         <tr>
                             <td class="rown"><p>업체이름</p></td>
                             <td><input type="text" value="${com.coName }" name="coName"></td>
                         </tr>
-    
+    					
                         <tr>
                             <td class="rown"><p>업종명</p></td>
                             <td><input type="text" value="${com.compaName }"
@@ -88,7 +104,7 @@
     
                         <tr>
                             <td class="rown"><p>카테고리</p></td>
-                            <td><input type="text" value="${com.cateNum }" readonly></td>
+                            <td><input type="text" value="${cateName}" readonly></td> <%--${com.cateNum } --%>
                             <td>변경 <select id="cateNum" name="cateNum">
                                     <option value="1">Travel</option>
                                     <option value="2">Sport</option>
@@ -101,6 +117,18 @@
                             </select>
                             </td>
                         </tr>
+                        
+<!--                        	select 에서 DB에서 cateNum 을 가지고 기본으로 option selected 된것을 정한다. -->
+                        <script>
+                        $(document).ready(function(){
+                        	  $('#cateNum option').each(function(){
+                        	    if($(this).val()=="${com.cateNum}"){
+                        	      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+                        	    }
+                        	  });
+
+                        	});
+                        </script>
                         <tr>
                             <td class="rown"><p>업체소개</p></td>
                             <td colspan="2"><textarea id="textArea" name="coIntro">${com.coIntro}</textarea></td>
@@ -120,12 +148,12 @@
             </div>
         </div>
         
-           <div class="inner_content" id="HelperEdit2">
-            <div class ="helperEdit">
-			<h1 align="center">회원정보수정</h1>
+           <div class="inner_content2" id="HelperEdit2">
+            <div class ="helperEdit2">
+			<h1 align="center">2</h1>
 			<br>
-			<form id="submitform" action="helperUpdate.ex">
-				<table class="et th1">
+			<form id="submitform2" action="helperUpdate.ex">
+				<table class="et th2">
 					<tr>
 						<th colspan="3" class="title">회원정보 수정(헬퍼)</th>
 					</tr>
@@ -161,7 +189,7 @@
 					</tr>
 					<tr>
 						<td class="rown">새로운 비밀번호</td>
-						<td><input type="text" id="newPwd"></td>
+						<td><input type="text" id="newPwd" name="coPwd"></td>
 						<td>
 							<div class="pwdCheck" id="pwdCheck3">
 								<img class="pwdImg" src="resources/common/images/GreenCheck.png">
@@ -175,17 +203,17 @@
 					</tr>
 					<tr>
 						<td class="rown">Email</td>
-						<td><input type="text" value="${com.busiEmail}"></td>
+						<td><input type="text" value="${com.busiEmail}" name="busiEmail"></td>
 					</tr>
 					<tr>
 						<td class="rown">Phone</td>
 						<td><input type="text" placeholder="-는 빼고 입력해주세요."
-							value="${com.coTel}"></td>
+							value="${com.coTel}" name="coTel"></td>
 					</tr>
 
 					<tr>
 						<td class="rown">Hompage</td>
-						<td><input type="text" value="${com.homePage}"></td>
+						<td><input type="text" value="${com.homePage}" name="homePage"></td>
                     </tr>
                     
                     <tr>
@@ -201,6 +229,80 @@
             </form>
             </div>
         </div>
+       	<script type="text/javascript">
+       	
+       	$(function(){
+       		$('pwdCheck').hide();
+       		
+       		var result = $('#insertResult').val();
+       			console.log(result);
+   			if (result == 'ok') {
+   				alert('정보가 성공적으로 변경되었습니다.')
+   			}
+
+       	});
+    
+       	// F5 키보드 키를 눌러서 새로고침시 GET 파라미터 제거 후 새로고침 하기
+   	  // kcode 아스키코드 116 : F5
+     window.onkeydown = function() {
+     	var kcode = event.keyCode;
+     	if(kcode == 116) {
+     		history.replaceState({}, null, location.pathname);
+     		}
+     	}
+
+       	
+		var oldPwd = document.getElementById('oldPwd');
+		var newPwd = document.getElementById('newPwd');
+		
+		// 기존비밀번호 일치 확인
+		oldPwd.onchange = function(){
+			
+// 			if(oldPwd.value == '${com.coPwd}'){
+// 				$('#pwdCheck1').show();
+// 				$('#pwdCheck2').hide();
+// 			}else{
+// 				$('#pwdCheck2').show();
+// 				$('#pwdCheck1').hide();
+// 			}
+ 			$.ajax({  //현재 아이디 보내서 비교해서 값을 받아오기
+				url: 'helperPwdCheck.ex',
+				data: {
+					   npwd: oldPwd
+				},
+				success: function(data){
+					console.log(data);
+				
+				if(data == 'success'){
+					$('#pwdCheck1').show();
+	 				$('#pwdCheck2').hide();
+				}else{
+					$('#pwdCheck2').show();
+	 				$('#pwdCheck1').hide();
+				}
+	
+			}
+        });
+			
+		}
+
+		// 비밀번호 규칙 : 비밀번호는 영문 숫자 7~11자리 
+		var re4 = /^[a-zA-Z\d]{7,11}$/;
+
+		newPwd.onchange = function() {
+
+			if (!re4.test(newPwd.value)) {
+				// alert('비밀번호는 영문 숫자7~11자리 ');
+				$('#pwdCheck3').show();
+				$('#pwdCheck4').hide();
+				//   console.log(newPwd.value);
+			} else {
+				$('#pwdCheck4').show();
+				$('#pwdCheck3').hide();
+			}
+		};
+        </script>
+        
           <div class="inner_content" id ="footer">
           	<div class ="helperEdit">
           	sdfdsf
@@ -210,7 +312,7 @@
         
     </div>
     <jsp:include page="/WEB-INF/views/expert/hp_upper.jsp" />
-    <script src="resources/expert/js/intro.js"></script>
+<!--     <script src="resources/expert/js/intro.js"></script> -->
   
 </body>
 </html>

@@ -41,7 +41,7 @@
             <li id ="menu-item1"><a href='expertIntro.ex'>헬퍼마이페이지</a></li>
             <li id ="menu-item2"><a href='#'>헬퍼버킷리스트</a></li>
             <li id ="menu-item3"><a href='#'>견적서 관리</a></li>
-            <li id ="menu-item4"><a href='#'>포인트 관리</a></li>
+            <li id ="menu-item4"><a href='point.ex?search=none'>포인트 관리</a></li>
             <li id ="menu-item5"><a href='#'>Q & A</a></li>
         </ul>
     </div>
@@ -55,7 +55,7 @@
             <li><a href="helperEdit2.ex">기업소개변경</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item2">
-            <li><a href="helperBucketList.ex">헬퍼버킷리스트</a></li>
+            <li><a href="#">헬퍼버킷리스트</a></li>
             <li><a href=#>헬퍼4</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item3">
@@ -63,7 +63,7 @@
             <li><a href=#>헬퍼6</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item4">
-            <li><a href="point.ex">포인트 충전</a></li>  
+            <li><a href="point.ex?search=none">포인트 충전</a></li>  
             <li><a href="pointListYN.ex?search=all">포인트 내역</a></li> <!-- pointList.ex -->
         </ul>
         <ul class='sub-c' id ="sub-item5">

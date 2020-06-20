@@ -1,15 +1,20 @@
 @charset "UTF-8";
-    .inner_content{
+    .inner_content2{
         background: url("../images/moon.jpg");
         background-size: cover;
         width: 100%;
         height: auto;
     }
-    .inner_content .helperEdit{
-/*         width: 980px; */
-/*         margin: 0 auto; */
-/*         height: 800px; */
-         width: 1200px; 
+    .inner_content2 .helperEdit2{
+/*         width: 980px;
+        margin: 0 auto;
+        height: 800px;
+        background-color: rgba(0,0,0,0.075);
+        border-radius: 25px; */
+        padding : 20px;
+		z-index:-1;
+		
+		         width: 1200px; 
          margin: 0 auto; 
          height: 1000px;
          background: url("../images/imac.png");
@@ -19,39 +24,53 @@
         padding : 20px;
 		z-index:-1;
     }
-    #submitform{
-/*     	 background: url("../images/co2.jpg"); */
+    
+    #submitform2{
+/*     	 background: url("../images/com.jpg"); */
 /*         background-size: cover; */
-		background:#f3f1df;
+		background:#dff0f3;
     	width:1100px;
-    	height:710px;
+    	height:700px;
     	margin: 0 auto;
     	border-radius: 25px;
     	border: 40px solid #333;
     }
-     table.title{
+	.pwdCheck{
+        width:auto;
+        height:15px;
+        display:none;
+	}
+	.pwdCheck .pwdImg{
+		width:15px;
+	    height:15px;
+	    float: left; 
+	}
+	.pwdCheck p{
+		
+	}
+    .title{
         font-size: 20px;
         padding: 10px;
-        padding-left:15px;
-        padding-right:15px;
         color: #333;
-/*         background-color:rgba(0,0,0,0.075); */
-        border-radius: 15px;
+        background-color:rgba(0,0,0,0.075);
+        border-radius: 5px;
     }
-    table.th1{
+    table.th2{
         margin: 0 auto;
+        margin-top: 150px;
         background:rgba(0,0,0,0.075);
         padding-left:15px;
         padding-right:15px;
         border-radius: 15px;
         width: 700px;
+        
     }
-    table.rown{
-        font-weight: 800x;
+    .rown{
+        font-weight: 500x;
         font-size: 17px;
         padding: 5px;
         width: 140px;
-    	
+    
     }
     #textArea{
         width: 450px;
