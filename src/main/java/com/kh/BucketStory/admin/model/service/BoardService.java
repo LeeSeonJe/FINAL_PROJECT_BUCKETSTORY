@@ -1,6 +1,7 @@
 package com.kh.BucketStory.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.admin.model.vo.Notify;
@@ -26,7 +27,13 @@ public interface BoardService {
 
 	int getcautionListCount();
 
-	int waringmember(int[] no_no);
+//	int waringmember(int[] no_no);
+
+//	int warningMember(List<String> no);
+
+	int warningMember(int[] no);
+
+
 
 
 

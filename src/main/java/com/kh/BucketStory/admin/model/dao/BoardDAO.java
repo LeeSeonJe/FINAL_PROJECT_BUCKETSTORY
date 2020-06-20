@@ -1,6 +1,7 @@
 package com.kh.BucketStory.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -62,18 +63,40 @@ public class BoardDAO {
 		return sqlSession.selectOne("adminMapper.cautionListCount");
 	}
 	
-	public int waringmember(SqlSessionTemplate sqlSession, int[] no_no) {
+//	public int waringmember(SqlSessionTemplate sqlSession, int[] no_no) {
+//		int result = 0;
+//		for(int i = 0; i < no_no.length; i++) {
+//			result += sqlSession.update("adminMapper.waringmember", no_no[i]);
+//		}
+//		
+//		if(result == no_no.length) {
+//			return result;
+//		} else {
+//			throw new BoardException("실패");
+//		}
+//	}
+
+//	public int warningMember(SqlSessionTemplate sqlSession, List<String> no) {
+//		return sqlSession.update("adminMapper.warningMember", no);
+//	}
+
+	public int waringmember(SqlSessionTemplate sqlSession, int[] no) {
 		int result = 0;
-		for(int i = 0; i < no_no.length; i++) {
-			result += sqlSession.update("adminMapper.waringmember", no_no[i]);
+		
+		for(int i = 0; i < no.length; i++) {
+			
+			result += sqlSession.update("adminMapper.warningMember", no[i]);
 		}
 		
-		if(result == no_no.length) {
+		if(result == no.length) {
 			return result;
 		} else {
 			throw new BoardException("실패");
 		}
+		
 	}
+
+
 
 
 
