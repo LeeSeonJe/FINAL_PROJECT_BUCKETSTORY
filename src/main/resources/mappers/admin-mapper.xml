@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="boardMapper">
+<mapper namespace="adminMapper">
 
 	<!-- QnA 게시판  -->
 	<select id="getListCount" resultType="_int">
@@ -60,13 +60,12 @@
 	<select id="cautionListCount" resultType="_int">
 		select count(*)
 		from notify
-	
 	</select>
 	
 	<select id="notifyselectList" resultMap="notifyResultSet">
 		select *
 		from notify
-		order by no_no desc;
+		order by no_no desc
 	</select>
 	
 	<resultMap type="notify" id="notifyResultSet">
@@ -82,4 +81,10 @@
 		<result property="pigouser" column="PIGOUSER"/>
 	</resultMap>
 	
+	
+	<update id="waringmember">
+		update 	notify
+		set status = "Y"
+		where no_no = #{no_no}
+	</update>
 </mapper >

@@ -175,13 +175,6 @@ public class AdminController {
 		return mv;
 	}
 	
-	/* 회원 경고페이지 이동 */
-	@RequestMapping("cautionBoard.ad")
-	public String cautionBoardlist() {
-		return "adminCaution";
-	}
-	
-	
 	/* 회원 경고페이지 리스트 */
 	@RequestMapping("cautionlist.ad")
 	public ModelAndView cautionlist(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
@@ -197,6 +190,8 @@ public class AdminController {
 		
 		ArrayList<Notify> list = bService.notifyselectList(pi);
 		
+//		System.out.println("경고 페이지 리스트 " + list);
+		
 		if(list != null) {
 			
 			mv.addObject("list", list);
@@ -208,5 +203,26 @@ public class AdminController {
 		return mv;
 	}
 	
+//	/* 경고 받은 회원 넘겨주기 */
+	@RequestMapping("warning.ad")
+	public String waringmember(@RequestParam(value="notify") String[] no) {
+			int [] no_no = new int [no.length];
+		
+		for(int i = 0; i < no.length; i++) {
+			 no_no[i] = Integer.parseInt(no[i]);
 
+		}
+			
+		
+		
+//		System.out.println("n 값이 나오나요 ?" + no_no);
+		int result = bService.waringmember(no_no);
+	
+		if(result > 0) {
+			return "success";
+			
+		} else {
+			throw new BoardException("경고 받은 회원 실패");
+		}
+	}
 }

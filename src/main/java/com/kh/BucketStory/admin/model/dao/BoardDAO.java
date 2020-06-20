@@ -18,16 +18,16 @@ public class BoardDAO {
 
 
 	public int insertfestival(SqlSessionTemplate sqlSession, Festival f, Media m) {
-		int result = sqlSession.insert("boardMapper.insertfestival", f);
+		int result = sqlSession.insert("adminMapper.insertfestival", f);
 		if(result > 0) {
-			return sqlSession.insert("boardMapper.insertfestivalimg", m);
+			return sqlSession.insert("adminMapper.insertfestivalimg", m);
 		} else {
 			throw new BoardException("게시물 등록에 실패하였습니다.");
 		}
 	}
 
 	public int getListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("boardMapper.getListCount");
+		return sqlSession.selectOne("adminMapper.getListCount");
 	}
 
 	public ArrayList<adminQnA> adminQnAselectList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -35,19 +35,19 @@ public class BoardDAO {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("boardMapper.adminQnAselectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("adminMapper.adminQnAselectList", null, rowBounds);
 	}
 
 	public adminQnA adminqnadetailview(SqlSessionTemplate sqlSession, int qno) {
-		return sqlSession.selectOne("boardMapper.adminqnadetailview", qno);
+		return sqlSession.selectOne("adminMapper.adminqnadetailview", qno);
 	}
 
 	public adminQnA adminqnaUpdate(SqlSessionTemplate sqlSession, int qno) {
-		return sqlSession.selectOne("boardMapper.adminqnaUpdate", qno);
+		return sqlSession.selectOne("adminMapper.adminqnaUpdate", qno);
 	}
 
 	public int adminqnaUpdatedetail(SqlSessionTemplate sqlSession, adminQnA a) {
-		return sqlSession.update("boardMapper.adminqnaUpdatedetail", a);
+		return sqlSession.update("adminMapper.adminqnaUpdatedetail", a);
 	}
 
 	public ArrayList<Notify> notifyselectList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -55,12 +55,26 @@ public class BoardDAO {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("boardMapper.notifyselectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("adminMapper.notifyselectList", null, rowBounds);
 	}
 
 	public int cautionListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("boardMaper.cautionListCount");
+		return sqlSession.selectOne("adminMapper.cautionListCount");
 	}
+	
+	public int waringmember(SqlSessionTemplate sqlSession, int[] no_no) {
+		int result = 0;
+		for(int i = 0; i < no_no.length; i++) {
+			result += sqlSession.update("adminMapper.waringmember", no_no[i]);
+		}
+		
+		if(result == no_no.length) {
+			return result;
+		} else {
+			throw new BoardException("실패");
+		}
+	}
+
 
 
 
