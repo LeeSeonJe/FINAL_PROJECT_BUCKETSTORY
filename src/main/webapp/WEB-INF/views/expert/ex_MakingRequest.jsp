@@ -17,6 +17,7 @@
 			<ul>
 				<li><a href="getRequest.ex?coId=${ coId }">받은요청 &nbsp</a></li>
 				<li><h3 style="display: inline;">진행중 &nbsp</h3></li>
+				<li><a href="roadingRequestView.ex?coId=${ coId }">대기중 &nbsp</a></li>
 				<li><a href="completeRequestView.ex?coId=${ coId }">완료요청</a></li>
 			</ul>
 		</div>
@@ -24,71 +25,42 @@
 		<br clear="left">
 		<h2 style="text-align:center;margin-bottom: 73px;margin-top: 76px;">작성중인 견적서 화면입니다.</h2>		
 		
-		<div id="requestMember">
-			<table style="width: 780px;">
-				<tr>
-					<td rowspan="3" style="width:100px;">
-						<img id="requestImage" src="<%=request.getContextPath() %>/views/프로필.png" id="profileImage">
-					</td>
-					<td>
-						<h3 style="display:inline">요청보낸사람 닉네임</h3>
-					</td>
-					<td>
-						요청일 2020-05-06
-					</td>
-				</tr>
-				<tr>
-					<td>
-						요청보낸사람의 버킷리스트 카테고리
-					</td>
-					<td>
-						마감일 2020-05-10
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div id="bucketListDetail">작성중인 견적서 조회</div>
-					</td>
-					<td>
-						<div id="delete">삭제</div>
-					</td>
-				</tr>
-			</table>
-		</div>
+		<c:forEach var="es" items="${estimate }">
+			<div id="requestMember">
+			
+				<table style="width: 780px;">
+				
+					<tr>
+						<td rowspan="3" style="width:100px;">
+							<img id="requestImage" src="resources/expert/images/photo.jpg" id="profileImage">
+						</td>
+						<td>
+							<h3 style="display:inline">${ es.userId }</h3>
+						</td>
+						<td>
+							요청일 : ${ es.enrollDate }
+						</td>
+					</tr>
+					<tr>
+						<td>
+							요청보낸사람의 버킷리스트 카테고리
+						</td>
+						<td>
+							마감일 2020-05-10
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div id="bucketListDetail"><a href="makingEstimate.ex?es_no=${ es.es_no }">견적서 완성하기</a></div>
+						</td>
+						<td>
+							<div id="delete">삭제</div>
+						</td>
+					</tr>
+				</table>
+			</div>
 		<hr style="width:840px">
-		<div id="requestMember">
-			<table style="width: 780px;">
-				<tr>
-					<td rowspan="3" style="width:100px;">
-						<img id="requestImage" src="<%=request.getContextPath() %>/views/프로필.png" id="profileImage">
-					</td>
-					<td>
-						<h3 style="display:inline">요청보낸사람 닉네임</h3>
-					</td>
-					<td>
-						요청일 2020-05-06
-					</td>
-				</tr>
-				<tr>
-					<td>
-						요청보낸사람의 버킷리스트 카테고리
-					</td>
-					<td>
-						마감일 2020-05-10
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div id="bucketListDetail">작성중인 견적서 조회</div>
-					</td>
-					<td>
-						<div id="delete">삭제</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<hr style="width:840px;">
-		
+		</c:forEach>
 		<div id="ListAdd">
 			<div id="ListArea">
 				<h4 style="display:inline">더보기</h4>

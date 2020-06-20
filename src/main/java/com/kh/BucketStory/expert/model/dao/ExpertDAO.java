@@ -9,8 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.ComInBucket;
+import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
+import com.kh.BucketStory.expert.model.vo.Esoption;
+import com.kh.BucketStory.expert.model.vo.Estimate;
 
 @Repository("exDAO")
 public class ExpertDAO {
@@ -50,4 +54,54 @@ public class ExpertDAO {
 	public EsRequest RequestDetail(SqlSessionTemplate sqlSession, String esr_no) {
 		return sqlSession.selectOne("exMapper.RequestDetail",esr_no);
 	}
+
+	public Member selectMember(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("commonMapper.memberLogin", userId);
+	}
+
+	public int insertEstimate(SqlSessionTemplate sqlSession, Estimate es) {
+		return sqlSession.insert("exMapper.insertEstimate",es);
+	}
+
+	public int insertEsMedia(SqlSessionTemplate sqlSession, Media media) {
+		return sqlSession.insert("exMapper.insertEsmedia", media);
+	}
+
+	public ArrayList<Estimate> selectEstimateList(SqlSessionTemplate sqlSession, String coId) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectEstimateList", coId);
+	}
+
+	public Estimate selectEstimate(SqlSessionTemplate sqlSession, String esno) {
+		return sqlSession.selectOne("exMapper.selectEstimate",esno);
+	}
+
+	public EsRequest selectEsRequestOne(SqlSessionTemplate sqlSession, int esr_no) {
+		return sqlSession.selectOne("exMapper.selectEsRequestOne",esr_no);
+	}
+
+	public ArrayList<Media> selectMediaList(SqlSessionTemplate sqlSession, int es_no) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectMediaList",es_no);
+	}
+
+	public ArrayList<Estimate> selectMakingEstimateList(SqlSessionTemplate sqlSession, String coId) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectMakingEstimateList",coId);
+	}
+
+	public int updateEstimate(SqlSessionTemplate sqlSession, Estimate es) {
+		return sqlSession.update("exMapper.updateEstimate", es);
+	}
+
+	public int deleteMedia(SqlSessionTemplate sqlSession, String mnumber) {
+		return sqlSession.delete("exMapper.deleteMedia", mnumber);
+	}
+
+	public int updateEsRequestPosition(SqlSessionTemplate sqlSession, int esr_no) {
+		return sqlSession.update("exMapper.updateEsRequestPosition", esr_no);
+	}
+
+	public int updateEsmedia(SqlSessionTemplate sqlSession, Media media) {
+		return sqlSession.insert("exMapper.updateEsmedia", media);
+	}
+
+	
 }
