@@ -63,6 +63,12 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.cautionListCount(sqlSession);
 	}
 
+	@Override
+	public int waringmember(int[] no_no) {
+		return bDAO.waringmember(sqlSession, no_no);
+	}
+
+
 
 
 

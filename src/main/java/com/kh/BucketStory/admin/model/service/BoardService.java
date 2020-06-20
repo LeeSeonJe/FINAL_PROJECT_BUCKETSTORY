@@ -26,6 +26,10 @@ public interface BoardService {
 
 	int getcautionListCount();
 
+	int waringmember(int[] no_no);
+
+
+
 
 
 

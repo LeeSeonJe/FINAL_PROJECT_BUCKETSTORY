@@ -59,17 +59,17 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="b" items="${ list }">
+					<c:forEach var="qna" items="${ list }">
 						<tr>
 							<c:url var="qnadetail" value="qnadetail.ad">
-								<c:param name="q_no" value="${ b.q_no }" />
+								<c:param name="q_no" value="${ qna.q_no }" />
 								<c:param name="page" value="${ pi.currentPage }" />
 							</c:url>
-							<td>${ b.q_no }</td>
-							<td><a href="${qnadetail}">${ b.q_title }</a></td>
-							<td>${ b.userid }${ b.coid }</td>
-							<td>${ b.q_date }</td>
-							<td>${ b.answer }</td>
+							<td>${ qna.q_no }</td>
+							<td><a href="${qnadetail}">${ qna.q_title }</a></td>
+							<td>${ qna.userid }${ b.coid }</td>
+							<td>${ qna.q_date }</td>
+							<td>${ qna.answer }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

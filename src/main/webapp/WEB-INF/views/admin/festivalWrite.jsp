@@ -85,7 +85,7 @@ form>div>div>ul>li{
 						<a href="">통계</a>
 					</li>
 					<li>
-						<a href="cautionBoard.ad">신고</a>
+						<a href="cautionlist.ad">신고</a>
 					</li>
 					<li>
 						<a href="adminQnAlist.ad">QnA</a>
