@@ -22,51 +22,60 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/${ loginUser.prImage }" />
+						<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 30px;">${ loginUser.nickName }</td>
+					<td colspan="3" style="font-size: 30px;">${ getMember.nickName }</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 20px;">${ loginUser.userName }</td>
+					<td colspan="3" style="font-size: 20px;">${ getMember.userName }</td>
 				</tr>
 				<tr>
-					<td>게시물 ${ myBucketList.size() }</td>
-					<td>팔로워 ${ loginUser.fwCount }</td>
+					<td>게시물 ${ list }</td>
+					<td>팔로워 ${ getMember.fwCount }</td>
 					<td>팔로우 30</td>
 				</tr>
 			</table>
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
-			<c:forEach var="b" items="${ myBucketList }" varStatus="status">
-				<div class="bucket">
-				<script>
-					$('.bucket').eq(${ status.index }).css('background-image', 'url(resources/muploadFiles/${ b.media.mweb })');
-				</script>
-					<div class="bucketContent">
-						<div class="c-category">${ b.cateName }</div>
-						<div class="c-bucket">
-							<div class="c-bucket-1">${ b.bucket.bkName }</div>
+			<c:if test="${ empty myBucketList }">
+				<div>등록된 버킷이 없습니다.</div>
+			</c:if>
+			<c:if test="${ !empty myBucketList }">
+				<c:forEach var="b" items="${ myBucketList }" varStatus="status">
+					<div class="bucket">
+					<script>
+						$('.bucket').eq(${ status.index }).css('background-image', 'url(resources/muploadFiles/${ b.media.mweb })');
+					</script>
+						<div class="bucketContent">
+							<div class="c-category">${ b.cateName }</div>
+							<div class="c-bucket">
+								<div class="c-bucket-1">${ b.bucket.bkName }</div>
+							</div>
+							<div class="c-Add">
+								<div class="c-addBtn"> + ADD</div>
+							</div>
+							<div class="c-likewish">
+								<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
+								<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
+							</div>
 						</div>
-						<div class="c-Add">
-							<div class="c-addBtn"> + ADD</div>
-						</div>
-						<div class="c-likewish">
-							<div class="c-likeBtn"><span class="likehover" style="font-size:20px">♡ </span>좋아요</div>
-							<div class="c-wishBtn"><span class="wishhover" style="font-size:20px">☆ </span>위시 등록</div>
-						</div>
-					</div>
-				</div>			
-			</c:forEach>
-			<div id="bucketAddBtn"></div>
+					</div>			
+				</c:forEach>
+			</c:if>
+			<c:if test="${ flag eq 'true' }">
+				<div id="bucketAddBtn"></div>
+			</c:if>
+			<c:if test="${ flag eq 'false' }">
+			</c:if>
 		</section>
 	</div>
 </body>
 <script>	
 	$('#bucketAddBtn').on('click', function(){
-		location.href="bucketWrite.me";
+		location.href="bucketWrite.me?nickName=${ getMember.nickName }";
 	});
 	
 	$('#overlay').css('top','-2px');

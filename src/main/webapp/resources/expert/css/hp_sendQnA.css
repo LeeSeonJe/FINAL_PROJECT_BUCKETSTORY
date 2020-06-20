@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+.comb{
+	width: 700px;
+	height: auto;
+	border-radius: 20px;
+	text-align: center;
+	padding: 20px;
+	margin: 0 auto;
+	margin-top:50px;
+	text-align: center;
+	background-color: white;
+}
+.comb table{
+	margin: 0 auto;
+}
+
+.divbody>div>ul>li {
+	text-align: center;
+	list-style: none;
+}
+
+#title{
+	width : 350px;
+	height: 25px;
+	border-radius: 4px;
+	border: 1px solid rgba(0,0,0,0.5);
+	background: rgba(0,0,0,0.02);
+	font-size:18px;
+}
+#content{
+	margin-left:10px;
+	border-radius: 4px;
+	width: 500px;
+	height:250px;
+	font-size:18px;
+	border: 1px solid rgba(0,0,0,0.5);
+	background: rgba(0,0,0,0.02);
+}
+.rowT{
+	font-size:19px;
+}
+#su-msg {
+	margin-top: 20px;
+}
+
+#su-msg p {
+	padding: 10px;
+}
+
+#su-title {
+	font-size: 30px;
+	border-style: bold;
+	font-family: "굴림";
+	color: skyblue;
+}
+
+#sucessform{
+	display:none;
+}

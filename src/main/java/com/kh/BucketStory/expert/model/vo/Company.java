@@ -12,8 +12,8 @@ public class Company {
 	private String homePage;
 	private String coTel;
 	private Date enrollDate;
-	private char status;
-	private char approval;
+	private String status;
+	private String approval;
 	private String busiEmail;
 	private int cpCheck;
 	private String checkImg;
@@ -23,10 +23,10 @@ public class Company {
 	private String coInfo;
 	
 	public Company() {}
-	
+
 	public Company(String coId, String coPwd, String coName, String compaName, String apName, String homePage,
-			String coTel, Date enrollDate, char status, char approval, String busiEmail, int cpCheck, String checkImg,
-			int point, int cateNum, String coIntro, String coInfo) {
+			String coTel, Date enrollDate, String status, String approval, String busiEmail, int cpCheck,
+			String checkImg, int point, int cateNum, String coIntro, String coInfo) {
 		super();
 		this.coId = coId;
 		this.coPwd = coPwd;
@@ -47,22 +47,17 @@ public class Company {
 		this.coInfo = coInfo;
 	}
 
-	public Company(String coId, String coName, String homePage, String coTel, Date enrollDate, String busiEmail,
-			int cpCheck, String checkImg, int cateNum, String coIntro, String coInfo) {
+	// 기업소개변경용 생성자
+	public Company(String coId, String coName, String compaName, String checkImg, int cateNum, String coIntro) {
 		super();
 		this.coId = coId;
 		this.coName = coName;
-		this.homePage = homePage;
-		this.coTel = coTel;
-		this.enrollDate = enrollDate;
-		this.busiEmail = busiEmail;
-		this.cpCheck = cpCheck;
+		this.compaName = compaName;
 		this.checkImg = checkImg;
 		this.cateNum = cateNum;
 		this.coIntro = coIntro;
-		this.coInfo = coInfo;
 	}
-
+	
 	public String getCoId() {
 		return coId;
 	}
@@ -127,19 +122,19 @@ public class Company {
 		this.enrollDate = enrollDate;
 	}
 
-	public char getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(char status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public char getApproval() {
+	public String getApproval() {
 		return approval;
 	}
 
-	public void setApproval(char approval) {
+	public void setApproval(String approval) {
 		this.approval = approval;
 	}
 
@@ -207,6 +202,7 @@ public class Company {
 				+ ", checkImg=" + checkImg + ", point=" + point + ", cateNum=" + cateNum + ", coIntro=" + coIntro
 				+ ", coInfo=" + coInfo + "]";
 	}
+
 	
 	
 	

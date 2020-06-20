@@ -29,9 +29,22 @@ public class CommonServiceImpl implements CommonService {
 
 	@Override
 	public Company companyLogin(Company c) {
-		// TODO Auto-generated method stub
-		return null;
+		return cDAO.companyLogin(sqlSession, c);
 	}
 	
-	
+	@Override
+	public int insertCompany(Company c) {
+		return cDAO.insertCompany(sqlSession, c);
+	}
+
+	@Override
+	public int idDuplicateCheck(String id) {
+		return cDAO.idDuplicateCheck(sqlSession, id);
+	}
+
+	@Override
+	public Member findAccount(String email) {
+		return cDAO.findAccount(sqlSession, email);
+	}
+
 }

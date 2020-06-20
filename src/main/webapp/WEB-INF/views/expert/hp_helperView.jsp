@@ -9,9 +9,9 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
-<%--  <jsp:include page="/WEB-INF/views/expert/hp_helperCon.jsp"/> --%>
+
     <section class="section">
-       
+       <p>${com }</p>
         <div class="inner">
             <div class="inner__header">
                 <p>Helper Viewer</p>
@@ -27,11 +27,12 @@
                     <table class ="tbh">
                         <tr>
                             <td><p class="t-title">업체이름</p></td>
-                            <td><input type="text" value ="화장품" style="margin-left: 50px; " readonly></td>
+                            <td><input type="text" value ="${com.coName }" style="margin-left: 50px; " readonly style="color:red"></td>
                         </tr>
                         <tr>
                             <td><p class="t-title">업체소개</p></td>
-                            <td><textarea id="textArea" readonly>저희 업체는 의상디자인 전문업체입니다.세상에 단 하나뿐인 옷을 만들고 싶으신분? 저희가 도와드립니다. 어쩌구~~</textarea></td>
+                            <!-- 저희 업체는 의상디자인 전문업체입니다.세상에 단 하나뿐인 옷을 만들고 싶으신분? 저희가 도와드립니다. 어쩌구~~ -->
+                            <td><textarea id="textArea" readonly>${com.coIntro}</textarea></td>
                         </tr>
                     </table>
                     <br>

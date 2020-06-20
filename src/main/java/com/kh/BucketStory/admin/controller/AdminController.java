@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.BucketStory.admin.model.exception.BoardException;
 import com.kh.BucketStory.admin.model.service.BoardService;
 import com.kh.BucketStory.admin.model.vo.Festival;
+import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
@@ -98,7 +99,6 @@ public class AdminController {
 		return renameFileName;
 	}
 	
-	
 	/* QnA 게시판 리스트 */
 	@RequestMapping("adminQnAlist.ad")
 	public ModelAndView adminQnAList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
@@ -121,17 +121,17 @@ public class AdminController {
 			mv.addObject("pi", pi);
 			mv.setViewName("adminQnAboard");
 		} else {
-			throw new BoardException("게시물 등록에 실패하였습니다.");
+			throw new BoardException("실패하였습니다.");
 		}
 		
 		return mv;
 	}
 	
-	/* qna 상세페이지 */
+//	/* qna 상세페이지 */
 	@RequestMapping("qnadetail.ad")
-	public ModelAndView adminqnadetail(@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
+	public ModelAndView adminqnadetailview(@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
 		
-		adminQnA adminQnA = bService.adminqnadetail(qno);
+		adminQnA adminQnA = bService.adminqnadetailview(qno);
 		
 		mv.addObject("adminQnA", adminQnA)
 		  .addObject("page", page)
@@ -139,4 +139,74 @@ public class AdminController {
 		
 		return mv;
 	}
+	
+//	/* qna 상세페이지(답변페이지 이동) */
+	@RequestMapping("adminQnAinsert.ad")
+	public ModelAndView adminqnaupdateDetail(@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
+
+		adminQnA adminQnA = bService.adminqnaUpdate(qno);
+
+		if(adminQnA != null) {
+			mv.addObject("adminQnA", adminQnA)
+			  .addObject("page", page)
+			  .setViewName("adminQnAinsert");
+
+			return mv;
+		} else {
+			throw new BoardException("게시글 수정 폼 요청에 실패했습니다.");
+		}	
+	}
+
+	/* qna 상세페이지(답변달기) */
+	@RequestMapping("addAnswer.ad")
+	public ModelAndView adminqnaupdate(@ModelAttribute adminQnA a, @RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
+		
+		int result = bService.adminqnaUpdatedetail(a);
+		
+		if(result > 0) {
+			mv.addObject("page", page)
+			  .addObject("adminQnA", a)
+			  .setViewName("redirect:qnadetail.ad?q_no=" + a.getQ_no());
+			
+		} else {
+			throw new BoardException("게시글 수정에 실패했습니다.");
+		}
+		 
+		return mv;
+	}
+	
+	/* 회원 경고페이지 이동 */
+	@RequestMapping("cautionBoard.ad")
+	public String cautionBoardlist() {
+		return "adminCaution";
+	}
+	
+	
+	/* 회원 경고페이지 리스트 */
+	@RequestMapping("cautionlist.ad")
+	public ModelAndView cautionlist(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = bService.getcautionListCount();
+				
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Notify> list = bService.notifyselectList(pi);
+		
+		if(list != null) {
+			
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("adminCaution");
+		} else {
+			throw new BoardException("게시글 전체 조회에 실패했습니다.");
+		}
+		return mv;
+	}
+	
+
 }

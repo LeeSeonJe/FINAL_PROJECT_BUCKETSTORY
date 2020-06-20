@@ -6,14 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel ="stylesheet" href ="resources/expert/css/hp_pointList.css">
+<link rel ="stylesheet" href ="resources/expert/css/hp_boardList.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style>
-#point-nav ul li:last-child{
-	background-color: rgba(0,0,0,0.085);
-}
-.active{
-	background:pink;
-}
+	.pboard{
+		font-size: large;
+	}
+	.rowp{
+		background:#fff;
+	}
 </style>
 </head>
 <body>
@@ -22,44 +23,34 @@
  <section class ="p-section">
 <!--         <p id ="title">포인트 내역</p> -->
  
-  	<h3>포인트 내역 : ${ pi.listCount }</h3>
+    <h3>${coId} 님 환영합니다!</h3>
+  	<h3>포인트 충전/사용 횟수 : ${ pi.listCount }</h3>
 	<h3>보유 포인트 : ${hp }</h3>
 	
         <!-- 게시판 목록 영역-->
         <div id ="board-area">
            
-            <table class="board">
+            <table class="board pboard">
                 <thead>
                 <tr>
-                    <th scope="cols" width="10%">번호</th>
-                    <th scope="cols" width="10%">충전/사용</th>
-                    <th scope="cols" width="25%">금액</th>
-                    <th scope="cols" width="25%">아이디</th>
-                    <th scope="cols" width="25%">날짜</th>
+                    <th scope="cols" width="8%">번호</th>
+                    <th scope="cols" width="20%">충전/사용</th>
+                    <th scope="cols" width="30%">포인트</th>
+                    <th scope="cols" width="32%">날짜</th>
                 </tr>
                 </thead>
                 <tbody>
- 
-<!--                 <tr> -->
-<!--                     <td scope="row">3</td> -->
-<!--                     <td>사용</td> -->
-<!--                     <td>2000 포인트 사용</td> -->
-<!--                     <td>KH COMPANY</td> -->
-<!--                     <td>2020.05.14</td> -->
-<!--                 </tr> -->
-<!--                 <tr> -->
-<!--                     <td scope="row">2</td> -->
-<!--                     <td>충전</td> -->
-<!--                     <td>3000 포인트 충전</td> -->
-<!--                     <td>KH COMPANY</td> -->
-<!--                     <td>2020.05.08</td> -->
-<!--                 </tr> -->
 
+
+					<c:if test ="${empty list }">
+					  <tr>
+					  	<td colspan="5">포인트 충전내역이 없습니다.</td>
+					  </tr>
+					</c:if>
+					
 					<c:forEach var="b" items="${ list }">
 						<tr>
-							<td scope="row" align="center">${ b.pa_no }</td>
-						
-						
+							<td class ="rowp" scope="row" align="center">${ b.pa_no }</td>
 						<!--  char 형과 비교 -->
 						<c:if test="${b.status eq 'Y'.charAt(0)}"> 
 						      <td align="center">충전</td>
@@ -67,16 +58,12 @@
 						<c:if test="${b.status eq 'N'.charAt(0)}"> 
 						      <td align="center">사용</td>
 						</c:if>
-							
-							<!-- Y : 충전 , N : 사용 -->
-<%-- 						<td align="center">${ b.status }</td> --%>
-							
-							
+					
 							<td align="center">${ b.pa_pay }</td>
-							<td align="center">${ b.coid }</td>
 							<td align="center">${ b.pdate }</td>
 						</tr>
 					</c:forEach>
+					
 				</tbody>
             </table>
         
@@ -90,7 +77,7 @@
 					<button id ="prev">이전</button>
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="pointList.ex">
+					<c:url var="before" value="pointList.ex?">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ before }"><button id ="prev">이전</button></a> 
@@ -148,6 +135,19 @@
         </div>
        
  </section class ="section"> 
-  
+   <script>
+	$(function() {
+		$('.board td').mouseenter(function() {
+			$(this).parent().css({
+				'background' : 'beige',
+				'cursor' : 'pointer'
+			})
+		}).mouseout(function() {
+			$(this).parent().css({
+				'background' : 'whitesmoke'
+			})
+		})
+	});
+ </script>
 </body>
 </html>

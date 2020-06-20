@@ -12,6 +12,7 @@ import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.main.model.dao.MainDAO;
+import com.kh.BucketStory.member.model.vo.Board;
 
 @Service("mainService")
 public class MainServiceImpl implements MainService {
@@ -60,6 +61,46 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public ArrayList<Member> selectShareMList(int bkNo) {
 		return mainDAO.selectShareMList(sqlSession, bkNo);
+	}
+
+	@Override
+	public ArrayList<BucketList> selectRecoBucketList() {
+		return mainDAO.selectRecoBucketList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectBlogList() {
+		return mainDAO.selectBlogList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Board> selectbMList(int bkNo, String nickName) {
+		return mainDAO.selectbMList(sqlSession, bkNo, nickName);
+	}
+
+	@Override
+	public ArrayList<Member> selectAllMember() {
+		return mainDAO.selectAllMember(sqlSession);
+	}
+
+	@Override
+	public ArrayList<BucketList> selectAllBucket() {
+		return mainDAO.selectAllBucket(sqlSession);
+	}
+
+	@Override
+	public ArrayList<BucketList> selectSearchBucket(String b) {
+		return mainDAO.selectSearchBucket(sqlSession, b);
+	}
+
+	@Override
+	public ArrayList<BucketList> selectSearchTag(String t) {
+		return mainDAO.selectSearchTag(sqlSession, t);
+	}
+
+	@Override
+	public ArrayList<BucketList> selectRankBucketList() {
+		return mainDAO.selectRankBucketList(sqlSession);
 	}
 
 }

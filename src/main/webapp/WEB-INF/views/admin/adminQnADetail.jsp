@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="resources/admin/css/adminDefault.css">
 <style>
 .ad_Detail {
@@ -28,6 +30,43 @@ span.answer:after {
     width: 100%;
     height: 2px;
 }
+
+.answer{
+	position: relative;
+    display: inline-block;
+    width:10%;
+    margin: 10px 0;
+    margin-right: 5px;
+    font-size: 1em;
+    color: #3a8afd;
+}
+
+#qna_title{
+	text-align: center;
+}
+
+#qna_text{
+	margin-top: 2%; 
+	display: inline-block;
+}
+#qna_info{
+	float: right;
+}
+
+#qna_content{
+	height: 350px; 
+	padding-top: 2%;
+}
+
+#qna_answer{
+	border-bottom: 1px solid #d2d1d1; 
+	font-size: 15px;
+}
+
+#qna_button{
+	text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -52,26 +91,27 @@ span.answer:after {
 				<h2>QnA 상세보기</h2>
 			</div>
 			<div>
-				<div style="text-align: center;"><b> ${ adminQnA.q_title }</b></div>
-				<div style="float: right;">
-				<span>[이미지 넣기] ${ adminQnA.userid }</span>
+				<div id="qna_title"><b> ${ adminQnA.q_title }</b></div>
+				<div id="qna_info">
+				<span>[이미지 넣기] ${ adminQnA.userid } ${ adminQnA.coid }</span>
 				<span>[이미지 넣기] ${ adminQnA.q_date }</span>
 				</div>
 				<br clear="all">
-				<div style="height: 350px; padding-top: 2%;">${ adminQnA.q_content }</div>
-				<div style=" border-bottom: 1px solid #d2d1d1; font-size: 15px;"><span class="answer"style="position: relative;
-    display: inline-block;
-    width:10%;
-    margin: 10px 0;
-    margin-right: 5px;
-    font-size: 1em;
-    color: #3a8afd;"><b style="color: black;">답변</b></span></div>
-				<div style="margin-top: 2%; display: inline-block;"><textarea rows="50" cols="1000" style="width: 90%;
-    height: 100px; "></textarea>
-				<button>답변하기</button></div>
+				<div id="qna_content">${ adminQnA.q_content }</div>
+				<div id="qna_answer"><span class="answer"><b style=" color: black; ">답변</b></span></div>
+				<div>${ adminQnA.an_content }</div>
+				
+				<c:url var="update" value="adminQnAinsert.ad">
+					<c:param name="q_no" value="${ adminQnA.q_no }"/>
+					<c:param name="page" value="${ page }"/>
+				</c:url>
+				<c:url var="list" value="adminQnAlist.ad">
+					<c:param name="page" value="${ page }"/>
+				</c:url>
+				<div id="qna_text"><button onclick="location.href='${ update }'">답변하기</button></div>
+				<div id="qna_button"><button onclick="location.href='${ list }'">목록</button></div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

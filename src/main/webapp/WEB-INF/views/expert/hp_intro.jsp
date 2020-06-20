@@ -1,73 +1,216 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.text.SimpleDateFormat, java.util.Date"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<% 			SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+			String today = dateFormat.format(new Date());
+			int num = 1;
+%>
+
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<style type="text/css">
-   *{box-sizing:board-box;}
-    .video-film {box-shadow: rgba(0, 7, 15, 0.7) 0 0 0 9999px; z-index: 100;}
-   .video-background {
-      background: #000; position: fixed;
-      top: 0; right: 0; bottom: 0; left: 0; z-index: -99;
-   }
-   .video-foreground, .video-background iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; pointer-events: none;
-   }
-   @media ( min-aspect-ratio : 16/9) {
-      .video-foreground {height: 300%; top: -100%;}
-   }
-   @media ( max-aspect-ratio : 16/9) {
-      .video-foreground {width: 300%; left: -100%;}
-   }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    
+    <link rel="stylesheet" href="resources/expert/css/hp_intro.css">
+    <link rel="stylesheet" href="resources/expert/css/hp_helperEdit1.css">
+      
+    <title>helper MyPage</title>
+
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
 
-   <div class="video-background">
-      <div class="video-foreground">
-         <div id="muteYouTubeVideoPlayer"></div>
-      </div>
-   </div>
-   
-   <div class="video-film"></div>
-   
+<jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
+<jsp:include page="/WEB-INF/views/expert/hp_introSide.jsp" />
 
-   <script async src="https://www.youtube.com/iframe_api"></script>
-   <script type="text/javascript">
-      var player;
-//       dI0Zub0mCYU
-      function onYouTubePlayerAPIReady(){
-         player = new YT.Player('muteYouTubeVideoPlayer', {
-            videoId : '0mscJXxvR8E',
-            playerVars : {
-               autoplay : 1,       // Auto-play the video on load // 자동 재생 (유)
-               controls : 0,       // Show pause/play buttons in player // 컨트롤러의 유무 (무)
-               rel : 0,         // 해당 영상이 종료된 후 관련 동영상 표시할지
-               start : 105,
-               end : 301,
-               showinfo : 0,       // Hide the video title // 재생 영상에 대한 정보 유무
-               modestbranding : 1, // Hide the Youtube Logo
-               loop : 1,          // Run the video in a loop // 반복 재생에 대한 여부
-               playlist : '0mscJXxvR8E',
-               
-             
-               fs : 0,          // Hide the full screen button
-               cc_load_policy : 0, // Hide closed captions
-               iv_load_policy : 3, // Hide the Video Annotations
-               autohide : 1      // Hide video controls when playing
-            },
-            events:{
-               onReady:function(e){
-                  e.target.mute();
-               }
-            }
-         });
-      }
-   </script>
+    <div class="inner"><a id ="hpTop"></a>
+        <div id ="intro_background"></div>
+        <div id="intro_content">
+            <img src ="resources/common/images/LogoWhite.png" alt="Logo">
+            <p><b>-BucketList 기업/전문가 Home-</b></p><br>
+            <p>어서오세요~~!! </p>
+            <p><span id = "point">${com.coId}</span>님 환영합니다.</p>
+            <p>꿈을 이뤄주는 기업/전문가 회원님들</p>
+            <p>당신들이 있어 세상이 아름답습니다.</p>
+            </div>
+        </div>
+
+        <!-- Top 5 -->
+        <div id="top5pointer">
+            <table>
+            <caption><p>Top 5 Point Rank</p></caption>
+                <tr>
+                    <th width="5%"></th>
+                    <th width="10%">아이디</th>
+                    <th width="10%">보유포인트</th>
+                </tr>
+            <c:forEach var="b" items="${ list }">
+                <tr>
+                    <td class="rowp" scope="row" align="center"><%=num++ %></td>
+                    <td align="center">${ b.coId }</td>
+                    <td align="center">${ b.point }</td>
+                </tr>
+            </c:forEach>
+            </table>
+        </div>
+        
+        <!-- 기업소개 변경 -->
+        <input type="hidden" id ="insertResult" value ="${result }">
+        <div class="inner_content" id="HelperEdit">
+            <div class ="helperEdit">
+                <h1 align="center">Helper Edit</h1>
+                <br>
+                <form id="submitform" action="comUpdate.ex" method="post" enctype="Multipart/form-data"> 
+                    <table class="et th2">
+                        <tr>
+                            <th colspan="3" class="title">기업소개 변경</th>
+                        </tr>
+                        <tr>
+                            <th colspan="3"><p class="op">&nbsp;</p></th>
+                        </tr>
+                        <tr>
+                            <td class="rown"><p>업체사진</p></td>
+                            <td><div id="igm-area">
+                                    <img id="foo" src="resources/muploadFiles/${com.checkImg }" /></div></td>
+                            <td><input type="file" name="uploadFile" id="imgInp"></td>
+                        </tr>
+                        <tr>
+                            <td class="rown"><p>업체이름</p></td>
+                            <td><input type="text" value="${com.coName }" name="coName"></td>
+                        </tr>
+    
+                        <tr>
+                            <td class="rown"><p>업종명</p></td>
+                            <td><input type="text" value="${com.compaName }"
+                                name="compaName"></td>
+                        </tr>
+    
+                        <tr>
+                            <td class="rown"><p>카테고리</p></td>
+                            <td><input type="text" value="${com.cateNum }" readonly></td>
+                            <td>변경 <select id="cateNum" name="cateNum">
+                                    <option value="1">Travel</option>
+                                    <option value="2">Sport</option>
+                                    <option value="3">Food</option>
+                                    <option value="4">New Skill</option>
+                                    <option value="5">Culture</option>
+                                    <option value="6">Outdoor</option>
+                                    <option value="7">Shopping</option>
+                                    <option value="8">LifeStyle</option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="rown"><p>업체소개</p></td>
+                            <td colspan="2"><textarea id="textArea" name="coIntro">${com.coIntro}</textarea></td>
+                        </tr>
+                        <tr>
+                            <th colspan="3"><p class="op">&nbsp;</p></th>
+                        </tr>
+                        <tr>
+                            <td colspan="3" id="submitBtn-Area">
+                                <button type="submit" class="btn btn--primary2" id="submitBtn">클릭하시면
+                                    정보를 변경합니다.</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                 </form> 
+            </div>
+        </div>
+        
+           <div class="inner_content" id="HelperEdit2">
+            <div class ="helperEdit">
+			<h1 align="center">회원정보수정</h1>
+			<br>
+			<form id="submitform" action="helperUpdate.ex">
+				<table class="et th1">
+					<tr>
+						<th colspan="3" class="title">회원정보 수정(헬퍼)</th>
+					</tr>
+					<tr>
+						<th colspan="3"><p class="op">&nbsp;</p></th>
+					</tr>
+					<tr>
+						<td class="rown">가입날짜</td>
+						<td><p>${com.enrollDate }</p></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="rown">회원아이디</td>
+						<td><p style="color: red">${com.coId}</p> <input
+                            type="hidden" value="${com.coId }" name="coId">
+                            <input type ="text" value ="${com.coId}" readonly style="color:red"></td>
+						<td><p style="color:red">아이디는 변경 불가합니다.</p></td>
+					</tr>
+					<tr>
+						<td class="rown">기존 비밀번호</td>
+						<td><input type="text" id="oldPwd"></td>
+						<td>
+
+							<div class="pwdCheck" id="pwdCheck1">
+								<img class="pwdImg" src="resources/common/images/GreenCheck.png">
+								<p>&nbsp;비밀번호가 일치.</p>
+							</div>
+							<div class="pwdCheck" id="pwdCheck2">
+								<img class="pwdImg" src="resources/common/images/RedX.png">
+								<p>&nbsp;비밀번호가 불일치.</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="rown">새로운 비밀번호</td>
+						<td><input type="text" id="newPwd"></td>
+						<td>
+							<div class="pwdCheck" id="pwdCheck3">
+								<img class="pwdImg" src="resources/common/images/GreenCheck.png">
+								<p>&nbsp;사용가능합니다.</p>
+							</div>
+							<div class="pwdCheck" id="pwdCheck4">
+								<img class="pwdImg" src="resources/common/images/RedX.png">
+								<p>&nbsp;사용 불가</p>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="rown">Email</td>
+						<td><input type="text" value="${com.busiEmail}"></td>
+					</tr>
+					<tr>
+						<td class="rown">Phone</td>
+						<td><input type="text" placeholder="-는 빼고 입력해주세요."
+							value="${com.coTel}"></td>
+					</tr>
+
+					<tr>
+						<td class="rown">Hompage</td>
+						<td><input type="text" value="${com.homePage}"></td>
+                    </tr>
+                    
+                    <tr>
+                        <th colspan="3"><p class="op">&nbsp;</p></th>
+                    </tr>
+                    <tr>
+                        <td colspan="3" id="submitBtn-Area">
+                            <button type="submit" class="btn btn--primary2" id="submitBtn">클릭하시면
+                                정보를 변경합니다.</button>
+                        </td>
+                    </tr>
+				</table>
+            </form>
+            </div>
+        </div>
+          <div class="inner_content" id ="footer">
+          	<div class ="helperEdit">
+          	sdfdsf
+         	 dfdd
+         	</div>
+          </div>
+        
+    </div>
+    <jsp:include page="/WEB-INF/views/expert/hp_upper.jsp" />
+    <script src="resources/expert/js/intro.js"></script>
+  
 </body>
 </html>

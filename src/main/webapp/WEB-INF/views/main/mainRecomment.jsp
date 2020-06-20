@@ -11,7 +11,8 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-	<c:set var="menuNum" value="1" scope="application"/>
+	<!-- 카테고리 변경 때 필요 -->
+	<c:set var="menuNum" value="3"/>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
@@ -25,10 +26,10 @@
 	</div>
 	<%@ include file="searchscreen.jsp" %>
 	<section>
-		<jsp:include page="/WEB-INF/views/layout/mainLeftSide.jsp"/>
+		<%@ include file="/WEB-INF/views/layout/mainLeftSide.jsp" %>
 		<c:forEach var="b" items="${ bucketList }">
 		<c:if test="${ b.cateNum == category || category == 0}">
-		<div class="bucket" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
+		<div class="bucket ${ b.bkNo }" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
 			<!-- 버킷 사진 -->
 			<c:forEach var="m" items="${blImg}">
 				<c:if test="${ m.bkno == b.bkNo }">
@@ -60,14 +61,17 @@
 						<c:set var="Sloop_flag" value="true"/>
 					</c:if>
 				</c:forEach>
+				
+				<!-- 회원만 해당(시작) -->
+				<c:if test="${ not empty loginUser}">
 				<c:if test="${not Sloop_flag}">
-				<div class="c-Add" id="c-Add${ b.bkNo }">
+				<div class="c-Add ${ b.bkNo }" id="c-Add${ b.bkNo }">
 					<div class="c-addBtn" onclick="sharebl(${ b.bkNo }, '${ b.userId }');"> + ADD</div>
 				</div>
 				</c:if>
-				<div class="c-likewish" id="c-likewish${ b.bkNo }">
-					<div class="c-likeBtn" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bkLike }</label></div>
-					<div class="c-wishBtn" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
+				<div class="c-likewish ${ b.bkNo }" id="c-likewish${ b.bkNo }">
+					<div class="c-likeBtn ${ b.bkNo }" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bkLike }</label></div>
+					<div class="c-wishBtn ${ b.bkNo }" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
 						<span class="wishhover" style="font-size:20px">☆ </span>
 						위시 
 						<c:set var="loop_flag" value="false"/>
@@ -80,6 +84,9 @@
 						<c:if test="${not loop_flag}"><label class="wishlabel">등록</label></c:if>
 					</div>
 				</div>
+				</c:if>
+				<!-- 회원만 해당(끝) -->
+				
 			</div>
 		</div>
 <script>
@@ -89,6 +96,11 @@
 	}, function(){
 		$('#c-likewish${ b.bkNo }').hide();
 	});
+	if('${loginUser}' != null){
+		if('${loginUser.nickName}' == '${b.userId}'){
+			$('.c-Add.${b.bkNo}').hide();
+		}
+	}
 </script>
 		</c:if>
 		</c:forEach>
@@ -99,9 +111,13 @@
 			<div id="bucketimg">
 				<div id="bucketcate">FOOD</div>
 				<div id="buckettitle">리틀 포레스트에 나오는 음식 따라 만들기</div>
-				<div id="bucketAdd"> + ADD</div>
+				<!-- 회원만 해당(시작) -->
+				<c:if test="${ not empty loginUser}">
+				<div id="bucketAdd"> + ADD                       </div>
 				<div id="bucketlike">♡ </div>
 				<div id="bucketwish">☆ </div>
+				</c:if>
+				<!-- 회원만 해당(끝) -->
 			</div>
 			<div id="bucketcp">
 				<div id="bucketTag">
@@ -135,18 +151,11 @@
 						<div id="profile2">한호성</div>
 					</div>
 				</div>
-				<div id="bucketwithBN">
-					<a id="bucketwithBN-a1">이전</a>
-					<div id="bucketwithBN-Count">1/2</div>
-					<a id="bucketwithBN-a2">다음</a>
-				</div>
 			</div>
 			<div id="bucketcpEvent"></div>
 		</div>
 		
 	</div>
-	
-	
 </body>
 <script>
 //버킷 좋아요 올리기
@@ -169,51 +178,55 @@ function blLikeUp(bkNo){
 
 //위시 등록취소하기
 function wishRegist(bkNo, userId){
-	if('${loginUser.userId}' == userId){
-		alert("나의 버킷은 위시등록 할 수 없습니다.");
-	} else{
-		$.ajax({
-			url:'wishRegi.ho',
-			data:{
-				bkNo:bkNo
-			},
-			async : false,
-			success:function(data){
-				var blwish = '#c-wishBtn'+bkNo+'>label';
-				$(blwish).text(data);
-			}
-		});
-	}
-	if($('#c-wishBtn'+bkNo+'>label').text() == '취소'){
-		$('#bucketwish').css('color', '#10ccc3');
-	} else if($('#c-wishBtn'+bkNo+'>label').text() == '등록'){
-		$('#bucketwish').css('color', 'white');
+	if('${loginUser}' != null){
+		if('${loginUser.userId}' == userId){
+			alert("나의 버킷은 위시등록 할 수 없습니다.");
+		} else{
+			$.ajax({
+				url:'wishRegi.ho',
+				data:{
+					bkNo:bkNo
+				},
+				async : false,
+				success:function(data){
+					var blwish = '.c-wishBtn.'+bkNo+'>label';
+					$(blwish).text(data);
+				}
+			});
+		}
+		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
+			$('#bucketwish').css('color', '#10ccc3');
+		} else if($('.c-wishBtn.'+bkNo+'>label').text() == '등록'){
+			$('#bucketwish').css('color', 'white');
+		}
 	}
 }
 
 // 공유버킷등록
 function sharebl(bkNo, userId){
-	if('${loginUser.userId}' == userId){
-		alert("나의 버킷은 공유할 수 없습니다.");
-	} else{
-		var result = confirm("이 버킷리스트를 공유하시겠습니까?");
-		if(result){
-			$.ajax({
-				url:'sharebl.ho',
-				data:{
-					bkNo:bkNo
-				},
-				success:function(data){
-					if(data == 'success'){
-						var blshare = '#c-Add'+bkNo;
-						$(blshare).hide();
-						$('#bucketAdd').hide();
-						alert("나의 버킷에 공유되었습니다.");
-					}
-				}
-			});
+	if('${loginUser}' != null){
+		if('${loginUser.nickName}' == userId){
+			alert("나의 버킷은 공유할 수 없습니다.");
 		} else{
-			alert("공유 취소");
+			var result = confirm("이 버킷리스트를 공유하시겠습니까?");
+			if(result){
+				$.ajax({
+					url:'sharebl.ho',
+					data:{
+						bkNo:bkNo
+					},
+					success:function(data){
+						if(data == 'success'){
+							var blshare = '.c-Add.'+bkNo;
+							$(blshare).hide();
+							$('#bucketAdd').hide();
+							alert("나의 버킷에 공유되었습니다.");
+						}
+					}
+				});
+			} else{
+				alert("공유 취소");
+			}
 		}
 	}
 }
@@ -240,15 +253,9 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 	for(var i in tags){
 		$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
 	}
-	if(!$('#c-Add'+bkNo).length){
-		$('#bucketAdd').hide();
-	} else{
-		$('#bucketAdd').show();
-	}
+	$('#bucketAdd').show();
 	if($('#c-wishBtn'+bkNo+'>label').text() == '취소'){
 		$('#bucketwish').css('color', '#10ccc3');
-	} else{
-		$('#bucketwish').css('color', 'white');
 	}
 	// 사진 가져오기
 	$.ajax({
@@ -258,7 +265,8 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 		},
 		async : false,
 		success:function(data){
-			$('#bucketimg').css('background-image', 'url("http://images.hwlife.hscdn.com//library/'+data+'_view_01.jpg")');
+			var value = data.substring(0,5);
+			$('#bucketimg').css('background-image', 'url("http://images.hwlife.hscdn.com//library/'+value+'_view_01.jpg")');
 		}
 	});
 	// 공유한 사람
@@ -273,12 +281,21 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 				$('#bucketwithPro').html('');
 				$('#bucketwithCount>span').text(data.length);
 				for(var key in data){
-					if(data[key].prImage != null){
-						var $div = '<div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div>';
-						$('#bucketwithPro').append($div);
-					} else{
-						var $div = '<div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div>';
-						$('#bucketwithPro').append($div);
+					if('${loginUser}' != null){
+						if(data[key].nickName == '${loginUser.nickName}'){
+							$('#bucketAdd').hide();
+						}
+						if(data[key].userId != 'admin'){
+							if(data[key].prImage != null){
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
+							} else{
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
+							}
+						} else{
+							$('#bucketwithCount>span').text(data.length-1);
+						}
 					}
 				}
 			} else{
@@ -413,5 +430,71 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 		});
 		
 	});
+	// 검색어 자동완성
+	function searchReset(){
+		$('#searchMem>ul').html('');
+		$('#searchBucket>ul').html('');
+		$('#searchTag>ul').html('');
+	}
+	$(function(){
+		var searchSource = new Array();
+		$.ajax({
+			url:'autosearch.ho',
+			dataType: "json",
+			success: function(data){
+				for(var key in data){
+					searchSource[key] = data[key];
+				}
+			}
+		});
+		$("#searchtext").autocomplete({  //오토 컴플릿트 시작
+	        source : searchSource,    // source 는 자동 완성 대상
+	        select : function(event, ui) {    //아이템 선택시
+	        },
+	        focus : function(event, ui) {    //포커스 가면
+	            return false;//한글 에러 잡기용도로 사용됨
+	        },
+	        minLength: 1,// 최소 글자수
+	        autoFocus: true, //첫번째 항목 자동 포커스 기본값 false
+	        classes: {    //잘 모르겠음
+	            "ui-autocomplete": "highlight"
+	        },
+	        delay: 500,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
+//	        disabled: true, //자동완성 기능 끄기
+	        position: { my : "right top", at: "right bottom" },    //잘 모르겠음
+	        close : function(event){    //자동완성창 닫아질때 호출
+	        }
+	    }).autocomplete('instance')._renderItem = function(ul, item){
+	    	$('#ui-id-1').css('opacity', '0');
+	    	if(item.label.charAt(0) == 'm'){
+	    		$( "<li>" )
+	            .append(item.label.substring(2))    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
+	            .attr('onclick', 'searchMember("'+item.label.substring(2)+'");')
+	           	.appendTo( $('#searchMem>ul') );
+	    	} else if(item.label.charAt(0) == 'b'){
+	    		$( "<li>" )
+	            .append(item.label.substring(2))    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
+	            .attr('onclick', 'searchBucket("'+item.label.substring(2)+'");')
+	           	.appendTo( $('#searchBucket>ul') );
+	    	} else if(item.label.charAt(0) == 't'){
+	    		$( "<li>" )
+	            .append('#'+item.label.substring(2))    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
+	            .attr('onclick', 'searchTag("'+item.label.substring(2)+'");')
+	           	.appendTo( $('#searchTag>ul') );
+	    	}
+	    	
+	    	return $('<li>').appendTo(ul);
+	    };
+	});
+	//검색내용클릭
+	function searchMember(m){
+		location.href="myBucket.me?nickName="+m;
+	}
+	function searchBucket(b){
+		location.href="searchbucket.ho?b="+b;
+	}
+	function searchTag(t){
+		location.href="searchTag.ho?t="+t;
+	}
 </script>
 </html>

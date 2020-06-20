@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.BucketStory.admin.model.dao.BoardDAO;
 import com.kh.BucketStory.admin.model.vo.Festival;
+import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
@@ -38,8 +39,28 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public adminQnA adminqnadetail(int qno) {
-		return bDAO.adminqnadetail(sqlSession, qno);
+	public adminQnA adminqnadetailview(int qno) {
+		return bDAO.adminqnadetailview(sqlSession, qno);
+	}
+
+	@Override
+	public adminQnA adminqnaUpdate(int qno) {
+		return bDAO.adminqnaUpdate(sqlSession, qno);
+	}
+
+	@Override
+	public int adminqnaUpdatedetail(adminQnA a) {
+		return bDAO.adminqnaUpdatedetail(sqlSession, a);
+	}
+
+	@Override
+	public ArrayList<Notify> notifyselectList(PageInfo pi) {
+		return bDAO.notifyselectList(sqlSession, pi);
+	}
+
+	@Override
+	public int getcautionListCount() {
+		return bDAO.cautionListCount(sqlSession);
 	}
 
 
