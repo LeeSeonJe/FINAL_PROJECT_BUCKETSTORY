@@ -11,7 +11,7 @@
 /*         height: 800px; */
          width: 1200px; 
          margin: 0 auto; 
-         height: 1000px;
+         height: 950px;
          background: url("../images/imac.png");
         background-size: cover;
 /*         background-color: #fff; */
@@ -22,13 +22,29 @@
     #submitform{
 /*     	 background: url("../images/co2.jpg"); */
 /*         background-size: cover; */
-		background:#f3f1df;
+/* 		background:#f3f1df; */
+/*     	width:1100px; */
+/*     	height:710px; */
+/*     	margin: 0 auto; */
+/*     	border-radius: 25px; */
+/*     	border: 40px solid #333; */
+
+    	transition: 1s;
+    }
+    
+    .submitAreaOff1{
+    	transform:translateY(180px);
+   		 zoom: 0.5;
+    }
+     .submitAreaOn1{
+        background:#f3f1df;
     	width:1100px;
     	height:710px;
     	margin: 0 auto;
     	border-radius: 25px;
     	border: 40px solid #333;
-    }
+		zoom: 1;
+     }
      table.title{
         font-size: 20px;
         padding: 10px;
@@ -40,7 +56,8 @@
     }
     table.th1{
         margin: 0 auto;
-        background:rgba(0,0,0,0.075);
+        background:#f3f1df;
+/*         background:rgba(0,0,0,0.075); */
         padding-left:15px;
         padding-right:15px;
         border-radius: 15px;

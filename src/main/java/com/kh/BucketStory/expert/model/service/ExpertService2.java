@@ -51,4 +51,12 @@ public interface ExpertService2 {
 
 	int updatehelper(Company c);
 
+	int getListQnACountY(String coId);
+
+	int getListQnACountN(String coId);
+
+	ArrayList<adminQnA> selectQnAListY(PageInfo pi, String coId);
+
+	ArrayList<adminQnA> selectQnAListN(PageInfo pi, String coId);
+
 }

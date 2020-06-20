@@ -177,11 +177,38 @@
 	where COID = #{coId}
 	</select>	
 	
+	<select id = "getListQnACountY" resultType ="_int">
+	select count(*)
+	from QNA
+	where COID = #{coId} AND ANSWER = 'Y'
+	</select>	
+	
+	<select id = "getListQnACountN" resultType ="_int">
+	select count(*)
+	from QNA
+	where COID = #{coId} AND ANSWER = 'N'
+	</select>	
+	
+	
 	<!-- QNA 리스트(coid) -->
 	<select id="selectQnAList" resultMap = "QnAResultSet">
 	select *
 	from QNA
 	where COID = #{coId}
+	order by Q_NO desc
+	</select>
+	
+	<select id="selectQnAListY" resultMap = "QnAResultSet">
+	select *
+	from QNA
+	where COID = #{coId} AND ANSWER = 'Y'
+	order by Q_NO desc
+	</select>
+	
+	<select id="selectQnAListN" resultMap = "QnAResultSet">
+	select *
+	from QNA
+	where COID = #{coId} AND ANSWER = 'N'
 	order by Q_NO desc
 	</select>
 	

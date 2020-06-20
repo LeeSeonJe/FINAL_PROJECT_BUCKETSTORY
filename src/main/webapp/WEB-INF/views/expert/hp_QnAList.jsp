@@ -28,28 +28,44 @@
 <body>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
  
- <section class ="p-section background">
+ <section class ="p-section background" id="hpTop">
  
  	<div id ="inner">
  	<h3>${coId} 님 환영합니다!</h3>
-  	<h3>문의 횟수 : ${ pi.listCount }</h3>
+  	<h3>Count(${search }): ${ pi.listCount }</h3>
+
         <!-- 게시판 목록 영역-->
         <div id ="board-area">
            
             <table class="board">
-                <thead>
-                <tr>
-                    <th scope="cols" >번호</th>
-                    <th scope="cols" >제목</th>
-                    <th scope="cols" >작성일</th>
-                    <th scope="cols" >답변여부</th>
-                </tr>
-                </thead>
-                <tbody>
+					<thead>
+						<tr>
+							<th colspan="4">
+						</tr>
+						<tr>
+							<th scope="cols">번호</th>
+							<th scope="cols">제목</th>
+							<th scope="cols">작성일</th>
+							<th scope="cols"><c:if test="${search eq 'all'}">
+									<button class="btn btn--primary2" onclick="goShowAll();">전체</button>
+									<button class="btn" onclick="goShowY();">답변</button>
+									<button class="btn" onclick="goShowN();">미답변</button>
+								</c:if> <c:if test="${search eq 'Y'}">
+									<button class="btn" onclick="goShowAll();">전체</button>
+									<button class="btn btn--primary2" onclick="goShowY();">답변</button>
+									<button class="btn" onclick="goShowN();">미답변</button>
+								</c:if> <c:if test="${search eq 'N'}">
+									<button class="btn" onclick="goShowAll();">전체</button>
+									<button class="btn" onclick="goShowY();">답변</button>
+									<button class="btn btn--primary2" onclick="goShowN();">미답변</button>
+								</c:if></th>
+						</tr>
+					</thead>
+					<tbody>
         
         		<c:if test ="${empty list }">
 					  <tr>
-					  	<td colspan="4">문의 내역이 없습니다.</td>
+					  	<td colspan="4">내역이 없습니다.</td>
 					  </tr>
 				</c:if>
 				
@@ -73,7 +89,7 @@
 					<button id ="prev">이전</button>
 				</c:if>
 				<c:if test="${ pi.currentPage > 1 }">
-					<c:url var="before" value="helperQnaList.ex">
+					<c:url var="before" value="helperQnaList.ex?search=${search}">
 						<c:param name="page" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ before }"><button id ="prev">이전</button></a> 
@@ -86,7 +102,7 @@
 					</c:if>
 					
 					<c:if test="${ p ne pi.currentPage }">
-						<c:url var="pagination" value="helperQnaList.ex">
+						<c:url var="pagination" value="helperQnaList.ex?search=${search}">
 							<c:param name="page" value="${ p }"/>
 						</c:url>
 						<a href="${ pagination }"><button class ="sBtn">${ p }</button></a> 
@@ -98,7 +114,7 @@
 					<button id= "next">다음</button>
 				</c:if>
 				<c:if test="${ pi.currentPage < pi.maxPage }">
-					<c:url var="after" value="helperQnaList.ex">
+					<c:url var="after" value="helperQnaList.ex?search=${search}">
 						<c:param name="page" value="${ pi.currentPage + 1 }"/>
 					</c:url> 
 					<a href="${ after }"><button id= "next">다음</button></a>
@@ -106,20 +122,20 @@
             </div>
 
                <!-- 게시판 필터 영역-->
-               <div id="board-filter">
-                <div>
-                    <select>
-                        <option>전체</option>
-                        <option>답변</option>
-                        <option>미답변</option>
-                    </select>
-                    <input type="text" placeholder="">
-                    <button id ="searchBtn">검색</button>
-                </div>
-            </div>
+<!--                <div id="board-filter"> -->
+<!--                 <div> -->
+<!--                     <select> -->
+<!--                         <option>전체</option> -->
+<!--                         <option>답변</option> -->
+<!--                         <option>미답변</option> -->
+<!--                     </select> -->
+<!--                     <input type="text" placeholder=""> -->
+<!--                     <button id ="searchBtn">검색</button> -->
+<!--                 </div> -->
+<!--             </div> -->
         </div>
        </div>
- </section class ="section"> 
+ </section> 
  
  <script>
 	$(function() {
@@ -139,6 +155,16 @@
 		});
 	});
  
+	function goShowAll() {
+		location.href = "helperQnaList.ex?search=all";
+	}
+	function goShowY() {
+		location.href = "helperQnaList.ex?search=Y";
+	}
+	function goShowN() {
+		location.href = "helperQnaList.ex?search=N";
+	}
+	
  </script>
 </body>
 </html>
