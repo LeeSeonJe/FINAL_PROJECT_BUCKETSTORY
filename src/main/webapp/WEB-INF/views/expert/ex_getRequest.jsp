@@ -16,7 +16,8 @@
 		<div id="submenu">
 			<ul>
 				<li><h3 style="display: inline;">받은요청 &nbsp</h3></li>
-				<li><a href="makingRequestView.ex?coId=${ coId }">진행중 &nbsp</a></li>
+				<li><a href="makingRequestView.ex?coId=${ coId }">작성중 &nbsp</a></li>
+				<li><a href="roadingRequestView.ex?coId=${ coId }">대기중&nbsp</a></li>
 				<li><a href="completeRequestView.ex?coId=${ coId }">완료요청</a></li>
 			</ul>
 		</div>
@@ -24,7 +25,7 @@
 		<br clear="left">
 		<h2 style="text-align:center;margin-bottom: 73px;margin-top: 76px;">견적서를 기다리는 버킷리스트</h2>		
 		
-		<c:if test="${ er !=null }">
+		<c:if test="${ er != null }">
 			<c:forEach var="request" items="${ er }" >
 				<div id="requestMember">
 					<table style="width: 780px;">
@@ -56,7 +57,7 @@
 				<hr style="width:840px">
 			</c:forEach>
 		</c:if>
-		<c:if test="${ er eq null }">
+		<c:if test="${ er == null }">
 			<h2 style="text-align:center">받은 견적 요청이 없습니다.</h2>
 		</c:if>
 		

@@ -1,0 +1,39 @@
+#page{width:80%; margin: 0 auto;}
+	#profileImage {
+	    width: 100px;
+	    height: 100px;
+	    margin-left: 41px;
+	    margin-right: 14px;
+	}
+	#helperProfile{
+		width: 80%;
+		height: 200px;
+		margin:auto;}
+	.subtitle{width:80%;margin:auto;}
+	#inputSchedule{
+		width:100%;
+	}
+	#Precautions{display: block;
+   				 margin: auto;
+   				 width:80%;
+   				 height: 100px;
+    			 overflow: scroll;}
+   	#contents{  width: 450px;
+			    height: 420px;
+			    float: left;}
+   	#estimate{width:80%;margin:auto;height:600px}
+   	#costTable{display: inline-table;
+			    width: 50%;
+			    margin-left: 20px;
+			    margin-top: 70px;}
+	button{ border-style: none;
+    		width: 170px;
+  			height: 50px;
+  			cursor:pointer;}
+  	.deleteOption{cursor:pointer;}
+ #estimateContent {
+    width: 46%;
+    height: 400px;
+    overflow: scroll;
+    float: left;
+}

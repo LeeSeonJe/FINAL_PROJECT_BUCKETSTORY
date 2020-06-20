@@ -47,13 +47,13 @@
 	
 	<insert id="insertEsrequest">
 		insert into ESREQUEST
-		values(seq_esrequest.nextval,#{esr_endDate},sysdate,#{userId},#{coId},#{bkNo},#{esr_startDate},#{precautions})
+		values(seq_esrequest.nextval,#{esr_endDate},sysdate,#{userId},#{coId},#{bkNo},#{esr_startDate},#{precautions},'Y')
 	</insert>
 	
 	<select id="selectEsRequest" resultMap="esrequestSet">
 		select * 
 		from esrequest
-		where coid =#{coId}
+		where coid =#{coId} and status ='Y'
 	</select>
 
 	<select id="RequestDetail" resultMap="esrequestSet">
@@ -62,6 +62,86 @@
 		where esr_no =#{ esr_no }
 	</select>
 	
+	<insert id="insertEstimate">
+		insert into estimate
+		values(seq_estimate.nextval,#{es_content},sysdate,#{es_price},
+			#{es_phone},#{userId},#{coId},#{reviewContent},#{reviewScore},
+			#{bkNo},#{status},#{es_option},#{esr_no})
+	</insert>
+	
+	
+	<insert id="insertEsmedia">
+	 insert into media
+		values(seq_media.nextval, #{morigin}, #{mweb},3, 6, null, null,
+		null, null, (select LAST_NUMBER-1 from user_sequences
+						where SEQUENCE_NAME = 'SEQ_ESTIMATE'))
+	</insert>
+	
+	<select id="selectEstimateList" resultMap="estimateSet">
+		select * from estimate
+		where coid=#{coId} and status='1'
+	</select>
+	
+	<select id="selectEstimate" resultMap="estimateSet">
+		select * from estimate 
+		where es_no = #{esno}
+	</select>
+	
+	<select id="selectEsRequestOne" resultMap="esrequestSet">
+		select * from esrequest
+		where esr_no = #{esr_no}
+	</select>
+	
+	<select id="selectMediaList" resultMap="MediaResultSet">
+		select * from media
+		where es_no=#{es_no}
+	</select>
+	
+	<select id="selectMakingEstimateList" resultMap="estimateSet">
+		select * from estimate
+		where coid = #{coId} AND status='2'
+	</select>
+	
+	<update id="updateEstimate">
+		update estimate 
+		set es_content=#{es_content}, es_price=#{es_price},status=#{status},es_option=#{es_option}
+		where es_no=#{es_no}
+	</update>
+	<delete id="deleteMedia">
+		delete from media
+		where mnumber = #{mnumber}
+	</delete>
+	
+	<update id="updateEsRequestPosition">
+		update esrequest
+		set status='N'
+		where esr_no=#{esr_no}
+	</update>
+	
+	<insert id="updateEsmedia">
+	 insert into media
+		values(seq_media.nextval, #{morigin}, #{mweb},3, 6, null, null,
+		null, null, #{esNo})
+	</insert>
+	
+	
+	
+	
+	<resultMap id="estimateSet" type="estimate">
+		<id property="es_no" column="ES_NO"/>
+		<result property="esr_no" column="ESR_NO"/>
+		<result property="es_content" column="ES_CONTENT"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+		<result property="es_price" column="ES_PRICE"/>
+		<result property="es_option" column="ES_OPTION"/>
+		<result property="es_phone" column="ES_PHONE"/>
+		<result property="userId" column="USERID"/>
+		<result property="coId" column="COID"/>
+		<result property="reviewContent" column="REVIEWCONTENT"/>
+		<result property="reviewScore" column="REVIEWSCORE"/>
+		<result property="bkNo" column="BKNO"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
 	
 	<resultMap id="CompanyResultSet" type="Company">
 		<id property="coId" column="COID"/>
@@ -111,5 +191,18 @@
 		<result property="userId" column="USERID"/>
 		<result property="coId" column="COID"/>
 		<result property="bkNo" column="BKNO"/>
+	</resultMap>
+	
+	<resultMap type="Media" id="MediaResultSet">
+		<id property="mnumber" column="MNUMBER"/>
+		<result property="morigin" column="MORIGIN"/>
+		<result property="mweb" column="MWEB"/>
+		<result property="imgvideo" column="IMGVIDEO"/>
+		<result property="muse" column="MUSE"/>
+		<result property="bkno" column="BKNO"/>
+		<result property="bno" column="BNO"/>
+		<result property="coid" column="COID"/>
+		<result property="feno" column="FENO"/>
+		<result property="esNo" column="ES_NO"/>
 	</resultMap>
 </mapper>

@@ -6,8 +6,12 @@ import java.util.Map;
 
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.ComInBucket;
+import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
+import com.kh.BucketStory.expert.model.vo.Esoption;
+import com.kh.BucketStory.expert.model.vo.Estimate;
 
 public interface ExpertService {
 
@@ -29,4 +33,29 @@ public interface ExpertService {
 
 	EsRequest RequestDetail(String esr_no);
 
+	Member selectMember(String userId);
+
+	int insertEstimate(Estimate es);
+
+	int insertEsmedia(Media media);
+
+	ArrayList<Estimate> selectEstimteList(String coId);
+
+	Estimate selectEstimate(String esno);
+
+	EsRequest selectEsRequestOne(int esr_no);
+
+	ArrayList<Media> selectMediaList(int es_no);
+
+	ArrayList<Estimate> selectMakingEstimteList(String coId);
+
+	int updateEstimate(Estimate es);
+
+	int deleteMedia(String mnumber);
+
+	int updateEsRequestPosition(int esr_no);
+
+	int updateEsmedia(Media media);
+
+	
 }
