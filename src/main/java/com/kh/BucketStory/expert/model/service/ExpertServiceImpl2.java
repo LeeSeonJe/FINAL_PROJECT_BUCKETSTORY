@@ -83,11 +83,30 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	public int getListQnACount(String coId) {
 		return exDAO2.getListQnACount(sqlSession,coId);
 	}
+	@Override
+	public int getListQnACountY(String coId) {
+		return exDAO2.getListQnACountY(sqlSession,coId);
+	}
+	@Override
+	public int getListQnACountN(String coId) {
+		return exDAO2.getListQnACountN(sqlSession,coId);
+	}
 
 	@Override
 	public ArrayList<adminQnA> selectQnAList(PageInfo pi, String coId) {
 		return exDAO2.selectQnAList(sqlSession, pi, coId);
 	}
+	
+	@Override
+	public ArrayList<adminQnA> selectQnAListY(PageInfo pi, String coId) {
+		return exDAO2.selectQnAListY(sqlSession, pi, coId);
+	}
+	@Override
+	public ArrayList<adminQnA> selectQnAListN(PageInfo pi, String coId) {
+		return exDAO2.selectQnAListN(sqlSession, pi, coId);
+	}
+
+	
 	@Override
 	public int updateCompany(Company c) {
 		return exDAO2.updateCompany(sqlSession,c);

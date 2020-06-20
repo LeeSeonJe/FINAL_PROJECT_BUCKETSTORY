@@ -9,22 +9,54 @@
 <link rel ="stylesheet" href ="resources/expert/css/hp_common.css">
 <link rel ="stylesheet" href ="resources/expert/css/hp_sendQnA.css">
 <style>
-#background{
-	 background: url("resources/common/images/Mountain.jpg");
+#backgroundAll{
+	 background: url("resources/expert/images/moon.jpg");
 	 background-size:cover;
 	 position: absolute;
-	 left: 0;
-	 right: 0;
-	 top: 0;
-	 bottom: 0;
+	left:0;
+	top:108px;
+	bottom:0;
+	right:0;
+}
+#background{
+	 background: url("resources/expert/images/imac.png");
+	 background-size:cover;
+	 position: absolute;
+	 width:980px;
+	 height: 800px;
+	 left: 450px;
+	 top: 40px;
+}
+
+#qna-top,
+#qna-top video{
+	width: 1980px;
+	height: 500px;
+	margin:0 auto;
+	border-radius: 5px;
+	display:none;
+}
+#moba{
+	position: absolute;
+	bottom:0px;
+	right:0px;
+	z-index:5;
 }
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>`
-	<div id ="background"></div>
-	<section>
-	<div  id ="writeform" class="comb">	
+	<div id="moba"><img src ="resources/expert/images/moba.png"></div>
+<!-- 	<div id ="backgroundAll"></div>  -->
+	<div id ="background"></div> 
+	<section id="hpTop">
+
+<!-- 		<div id="qna-top"> -->
+<!-- 			<video loop="loop" preload="auto"> -->
+<!-- 				<source src="resources/expert/video/vd2.mp4" type="video/mp4"> -->
+<!-- 			</video> -->
+<!-- 		</div> -->
+		<div  id ="writeform" class="comb">	
 		<div>
 			<br>
 			<h2 style ="border-bottom: 1px solid black;">QnA 작성하기</h2>
@@ -71,6 +103,7 @@
 	</section>
 	
 	
+	
 	<script>
 	
 	$('#cancle').click(function(){
@@ -112,7 +145,7 @@
 						setTimeout(function() {
 						$('#sucessform').fadeIn(600);
 						}, 600);
-						
+						$('#qna-top').show();
 					}else{
 						console.log('전송실패');
 						
@@ -124,6 +157,18 @@
 			});
 		}
 	});
+	
+	$(document).ready(function() {
+		var vid = $(this).find("video").get(0);
+		vid.cureentTime = 0;
+
+		vid.play();
+		consolo.log(vid);
+		
+		var scrolltop = $(document).scrollTop();
+
+	});
+
 	</script>
 </body>
 </html>

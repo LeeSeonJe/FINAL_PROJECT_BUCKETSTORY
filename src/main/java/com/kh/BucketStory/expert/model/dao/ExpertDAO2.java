@@ -68,12 +68,28 @@ public class ExpertDAO2 {
 	public int getListQnACount(SqlSessionTemplate sqlSession, String coId) {
 		return sqlSession.selectOne("exMapper2.getListQnACount",coId);
 	}
+	public int getListQnACountY(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getListQnACountY",coId);
+	}
+	public int getListQnACountN(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getListQnACountN",coId);
+	}
 	public ArrayList<adminQnA> selectQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAList", coId, rowBounds);
 	}
-	
+	public ArrayList<adminQnA> selectQnAListY(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListY", coId, rowBounds);
+	}
+	public ArrayList<adminQnA> selectQnAListN(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListN", coId, rowBounds);
+	}
+
 	// Company
 	public int updateCompany(SqlSessionTemplate sqlSession, Company c) {
 		return sqlSession.update("exMapper2.updateCompany", c);
@@ -90,6 +106,7 @@ public class ExpertDAO2 {
 	public int updatehelper(SqlSessionTemplate sqlSession, Company c) {
 		return sqlSession.update("exMapper2.updatehelper", c);
 	}
+
 
 
 

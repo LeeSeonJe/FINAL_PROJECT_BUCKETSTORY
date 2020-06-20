@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.text.SimpleDateFormat, java.util.Date"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+	pageEncoding="UTF-8"
+	import="java.text.SimpleDateFormat, java.util.Date"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% 			SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
 			String today = dateFormat.format(new Date());
 %>
@@ -10,184 +11,101 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/expert/css/hp_point.css">
-<link rel ="stylesheet" href ="resources/expert/css/hp_boardList.css">
+<link rel="stylesheet" href="resources/expert/css/hp_boardList.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
 <body>
 	<jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
-
-	<%-- <jsp:include page="/WEB-INF/views/expert/hp_pointCon.jsp"/>  --%>
-
-<section>
+	<section id="hpTop">
 		<div class="point-inner background">
 
-		   <div id="pointArea">
-			<div class="inner__header">
-				<h2>${coId}님 환영합니다!</h2>
-				<h2>보유 총 포인트 : ${hp} 포인트</h2>
-				<br>
-			</div>
-			<br>
-			<br>
-			
-			<div class="inner__content">
+			<ul id="pointMenu">
+				<li><a href="#hpTop">포인트 충전</a></li>
+				<li><a href="#hpBottom">포인트 내역조회</a></li>
+			</ul>
+			<div id="pointArea">
+				<div class="inner__header">
+					<h2>${coId}님환영합니다!</h2>
+					<h2>보유 총 포인트 : ${hp} 포인트</h2>
+					<br>
+				</div>
+				<br> <br>
 
-				<!-- <br><br>
+				<div class="inner__content">
+
+					<!-- <br><br>
                  <div class="banner">
                     <p>포인트 충전</p>
                 </div>
                 <br> -->
-				<div class="point-img">
+					<div class="point-img">
 
-					<!--  보너스 포인트 10% -->
-					<!--  이벤트배터  할인율 : 30 % 적용 -->
-					<img src="resources/expert/images/sale2.PNG" alt=" " />
+						<!--  보너스 포인트 10% -->
+						<!--  이벤트배터  할인율 : 30 % 적용 -->
+						<img src="resources/expert/images/sale2.PNG" alt=" " />
+					</div>
+					<table class="point">
+						<thead>
+							<tr>
+								<th scope="cols">충전 포인트
+								</td>
+								<th scope="cols">보너스 포인트
+								</td>
+								<th scope="cols">금액
+								</td>
+								<th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>10,000 point</td>
+								<td>+1,000 point</td>
+								<td><p class="p-before">10,000원</p>
+									<p class="p-after">7,000원</p></td>
+								<td><button class="btn btn--primary2"
+										onclick="insertPoint(10000);">결제하기(걍 결제 Test)</button></td>
+							</tr>
+							<tr>
+								<td>20,000 point</td>
+								<td>+2,000 point</td>
+								<td><p class="p-before">20,000원</p>
+									<p class="p-after">14,000원</p></td>
+								<td><button class="btn btn--primary2"
+										onclick="requestPay(20000);">결제하기(카카오페이 Test)</button></td>
+							</tr>
+							<tr>
+								<td>30,000 point</td>
+								<td>+3,000 point</td>
+								<td><p class="p-before">30,000원</p>
+									<p class="p-after">21,000원</p></td>
+								<td><button class="btn btn--primary2"
+										onclick="requestPay(30000);">결제하기</button></td>
+							</tr>
+							<tr>
+								<td>40,000 point</td>
+								<td>+4,000 point</td>
+								<td><p class="p-before">40,000원</p>
+									<p class="p-after">28,000원</p></td>
+								<td><button class="btn btn--primary2"
+										onclick="requestPay(40000);">결제하기</button></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<br> <br>
 				</div>
-				<table class="point">
-					<thead>
-						<tr>
-							<th scope="cols">충전 포인트
-							</td>
-							<th scope="cols">보너스 포인트
-							</td>
-							<th scope="cols">금액
-							</td>
-							<th>
-						</tr>
-					</thead>
 
-					<tbody>
-						<tr>
-							<td>10,000 point</td>
-							<td>+1,000 point</td>
-							<td><p class="p-before">10,000원</p>
-								<p class="p-after">7,000원</p></td>
-							<td><button class="btn btn--primary2"
-									onclick="insertPoint(10000);">결제하기(걍 결제 Test)</button></td>
-						</tr>
-						<tr>
-							<td>20,000 point</td>
-							<td>+2,000 point</td>
-							<td><p class="p-before">20,000원</p>
-								<p class="p-after">14,000원</p></td>
-							<td><button class="btn btn--primary2"
-									onclick="requestPay(20000);">결제하기(카카오페이 Test)</button></td>
-						</tr>
-						<tr>
-							<td>30,000 point</td>
-							<td>+3,000 point</td>
-							<td><p class="p-before">30,000원</p>
-								<p class="p-after">21,000원</p></td>
-							<td><button class="btn btn--primary2"
-									onclick="requestPay(30000);">결제하기</button></td>
-						</tr>
-						<tr>
-							<td>40,000 point</td>
-							<td>+4,000 point</td>
-							<td><p class="p-before">40,000원</p>
-								<p class="p-after">28,000원</p></td>
-							<td><button class="btn btn--primary2"
-									onclick="requestPay(40000);">결제하기</button></td>
-						</tr>
-					</tbody>
-				</table>
-
-	<script>
-	function insertPoint(price){
-		alert(price * (1-dc) +'원을 결제합니다.');
-		 $.ajax({
-			  url:"pinsert.ex",
-	      	  data:{
-	      		 pa_no  : 9999,
-	      		 pa_pay : price * 1.1, //보너스 포인트 포함
-	      		 coid   : "${coId}",
-	      		 status : 'Y',
-	      		 pdate  : "<%=today%>",
-	      	  },
-				success : function(data){
-			        var msg = '결제가 완료되었습니다.';
-			        alert(msg);
-			        location.reload();
-				}		
-	      });
-	}
-	
-  var dc = 0.3; //할인율
-  var IMP = window.IMP; 
-  IMP.init('imp49697884'); 
-  
-	function requestPay(price) {
-		var chkbox = document.getElementsByName('agree');
-
-		//console.log(chkbox);
-		
-		if(chkbox[0].checked){
-			//console.log('체크');
-			alert(price * (1-dc) +'원을 결제합니다.');
-			
-			IMP.request_pay({
-			    pg : 'inicis', 
-			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '주문명:포인트충전',
-			    amount : price * (1-dc),
-			 
-// 			    buyer_email : 'iamport@siot.do',
-			    buyer_name : "${coId}",
-			  /*   buyer_tel : '010-1234-5678',
-			    buyer_addr : '서울특별시 강남구 삼성동',
-			    buyer_postcode : '123-456',
-			    m_redirect_url : 'https://www.yourdomain.com/payments/complete' */
-			    
-			}, function(rsp) {
-			    if ( rsp.success ) {
-			    	
-			      $.ajax({
-					  url:"pinsert.ex",
-// 			    	  method:"POST"
-// 			    	  headers:{"Content-Type":"application/json"}
-			      	  data:{
-			      		 pa_no  : 9999,
-			      		 pa_pay : price * 1.1, //보너스 포인트 포함
-			      		 coid   : "${coId}",
-			      		 status : 'Y',
-			      		 pdate  : "<%=today%>",
-			      	  },
-						success : function(data){
-					        var msg = '결제가 완료되었습니다.';
-					        msg += '고유ID : ' + rsp.imp_uid;
-					        msg += '상점 거래ID : ' + rsp.merchant_uid;
-					        msg += '결제 금액 : ' + rsp.paid_amount;
-					        msg += '카드 승인번호 : ' + rsp.apply_num;
-					        alert(msg);
-					        location.reload();
-						}		
-			      });
-			    } else {
-			        var msg = '결제에 실패하였습니다.';
-			        msg += '에러내용 : ' + rsp.error_msg;
-			    }
-			    alert(msg);
-			});
-			
-		}else{
-			//console.log('안체크');
-			alert('이용약관에 동의해주세요');
-		}	
-	}
-	
-	</script>
-				<br> <br>
-			</div>
-
-			<!-- 동의구함 -->
-			<div id="checkAgree">
-<!-- 			<input type="file" id="fileInput"> -->
-				<div>
-					<b>버킷리스트 통신과금 서비스 이용약관</b>
-				<textarea name="tos" rows=15 cols=100 id="fileDisplayArea" style="overflow-x:hidden;">
+				<!-- 동의구함 -->
+				<div id="checkAgree">
+					<!-- 			<input type="file" id="fileInput"> -->
+					<div>
+						<b>버킷리스트 통신과금 서비스 이용약관</b>
+						<textarea name="tos" rows=15 cols=100 id="fileDisplayArea"
+							style="overflow-x: hidden;">
 제1조 (목적)
 이 약관은 통신과금 서비스를 제공하는 주식회사 버킷리스트(이하 '회사'라 합니다)와 통신과금서비스이용자(이하 ‘이용자’라 합니다) 사이의 통신과금 서비스에 관한 기본적인 사항을 정함으로써 통신과금 서비스의 안정성과 신뢰성을 확보함에 그 목적이 있습니다.
 
@@ -309,207 +227,153 @@
 2.기존에 적용되던 약관(2008.6.30~2013.12.10 적용)은 본 약관으로 대체합니다.					
 </textarea>
 
-			<div id="agreeCheck">
-				 <label>동의</label>
-				 <input type="checkbox" name ="agree">
-			</div>
+						<div id="agreeCheck">
+							<label>동의</label> <input type="checkbox" name="agree">
+						</div>
+					</div>
+
 				</div>
-					
 			</div>
-		</div>	
-			
-	<div class ="p-section">
-<!--         <p id ="title">포인트 내역</p> -->
- 	<img src ="resources/expert/images/moon.jpg">
-<%--     <h3>${coId} 님 환영합니다!</h3> --%>
-    
-  	<c:if test = "${search eq 'Y'}">
-  		<h3>포인트 충전(${search}) 횟수 : ${ pi.listCount }</h3>
-  		<h3>총 충전 포인트 : ${hp }</h3>
-  	</c:if>
-  	<c:if test = "${search eq 'N'}">
-  		<h3>포인트 사용(${search}) 횟수 : ${ pi.listCount }</h3>
-  		<h3>총 사용 포인트 : ${hp }</h3>
-  	</c:if>
-  	<c:if test = "${search eq 'all' || search eq 'none'}">
-  		<h3>포인트 충전/사용(all) 횟수 : ${ pi.listCount }</h3>
-  		<h3>총 보유 포인트 : ${hp }</h3>
-  	</c:if>
 
-  	
-<!--         게시판 목록 영역 -->
-        <div id ="board-area">
-            <table class="board pboard">
-                <thead>
-                <tr>
-                	<th colspan="4">
-                </tr>
-                <tr>
-                    <th scope="cols" width="8%">번호</th>
-                    <th scope="cols" width="20%">
-                    
-                    <c:if test = "${search eq 'all' || search eq 'none'}">
-                       <button class ="btn btn--primary2" onclick="goShowAll();">전체</button>
-                        <button class ="btn" onclick="goShowY();">충전</button>
-                         <button class ="btn" onclick="goShowN();">사용</button>
-                    </c:if>
+			<div class="p-section">
+				<!--         <p id ="title">포인트 내역</p> -->
 
-            		<c:if test = "${search eq 'Y'}">
-            			<button class ="btn" onclick="goShowAll();">전체</button>
-		               <button class ="btn btn--primary2" onclick="goShowY();">충전</button>
-		                <button class ="btn" onclick="goShowN();">사용</button> 
-		            </c:if>
+				<div id="board-top">
+					<video loop="loop" preload="auto">
+						<source src="resources/expert/video/vd1.mp4" type="video/mp4">
+					</video>
+				</div>
+				<script>
+// $(document).ready(function(){
 
-		            <c:if test = "${search eq 'N'}">
-		            <button class ="btn" onclick="goShowAll();">전체</button>
-		            <button class ="btn" onclick="goShowY();">충전</button>
-		               <button class ="btn btn--primary2" onclick="goShowN();">사용</button> 
-		            </c:if>
-		            
-                    </th>
-                    <th scope="cols" width="30%">포인트</th>
-                    <th scope="cols" width="32%">날짜</th>
-                </tr>
-                </thead>
-                <tbody>
+	
+
+// });
+
+</script>
+				<br>
+				<!--  	<img src ="resources/expert/images/moon.jpg"> -->
+				<%--     <h3>${coId} 님 환영합니다!</h3> --%>
+
+				<c:if test="${search eq 'Y'}">
+					<h3>포인트 충전(${search}) 횟수 : ${ pi.listCount }</h3>
+					<h3>총 충전 포인트 : ${hp }</h3>
+				</c:if>
+				<c:if test="${search eq 'N'}">
+					<h3>포인트 사용(${search}) 횟수 : ${ pi.listCount }</h3>
+					<h3>총 사용 포인트 : ${hp }</h3>
+				</c:if>
+				<c:if test="${search eq 'all' || search eq 'none'}">
+					<h3>포인트 충전/사용(all) 횟수 : ${ pi.listCount }</h3>
+					<h3>총 보유 포인트 : ${hp }</h3>
+				</c:if>
 
 
-					<c:if test ="${empty list }">
-					  <tr>
-					  	<td colspan="4">포인트 충전내역이 없습니다.</td>
-					  </tr>
-					</c:if>
-					
-					<c:forEach var="b" items="${ list }">
-						<tr>
-							<td class ="rowp" scope="row" align="center">${ b.pa_no }</td>
-<!-- 						 char 형과 비교 -->
-						<c:if test="${b.status eq 'Y'.charAt(0)}"> 
-						      <td align="center">충전</td>
+				<!--         게시판 목록 영역 -->
+				<div id="board-area">
+					<table class="board pboard" id="hpBottom">
+						<thead>
+							<tr>
+								<th colspan="4">
+							</tr>
+							<tr>
+								<th scope="cols" width="8%">번호</th>
+								<th scope="cols" width="20%"><c:if
+										test="${search eq 'all' || search eq 'none'}">
+										<button class="btn btn--primary2" onclick="goShowAll();">전체</button>
+										<button class="btn" onclick="goShowY();">충전</button>
+										<button class="btn" onclick="goShowN();">사용</button>
+									</c:if> <c:if test="${search eq 'Y'}">
+										<button class="btn" onclick="goShowAll();">전체</button>
+										<button class="btn btn--primary2" onclick="goShowY();">충전</button>
+										<button class="btn" onclick="goShowN();">사용</button>
+									</c:if> <c:if test="${search eq 'N'}">
+										<button class="btn" onclick="goShowAll();">전체</button>
+										<button class="btn" onclick="goShowY();">충전</button>
+										<button class="btn btn--primary2" onclick="goShowN();">사용</button>
+									</c:if></th>
+								<th scope="cols" width="30%">포인트</th>
+								<th scope="cols" width="32%">날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+
+
+							<c:if test="${empty list }">
+								<tr>
+									<td colspan="4">포인트 충전내역이 없습니다.</td>
+								</tr>
+							</c:if>
+
+							<c:forEach var="b" items="${ list }">
+								<tr>
+									<td class="rowp" scope="row" align="center">${ b.pa_no }</td>
+									<!-- 						 char 형과 비교 -->
+									<c:if test="${b.status eq 'Y'.charAt(0)}">
+										<td align="center">충전</td>
+									</c:if>
+									<c:if test="${b.status eq 'N'.charAt(0)}">
+										<td align="center">사용</td>
+									</c:if>
+
+									<td align="center">${ b.pa_pay }</td>
+									<td align="center">${ b.pdate }</td>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+					</table>
+
+
+					<!--             게시판 페이징 영역 -->
+					<div id="board-paging">
+						<!-- 				[이전] -->
+						<c:if test="${ pi.currentPage <= 1 }">
+							<button id="prev">이전</button>
 						</c:if>
-						<c:if test="${b.status eq 'N'.charAt(0)}"> 
-						      <td align="center">사용</td>
+						<c:if test="${ pi.currentPage > 1 }">
+							<c:url var="before" value="point.ex?search=${search }">
+								<c:param name="page" value="${ pi.currentPage - 1 }" />
+							</c:url>
+							<a href="${ before }"><button id="prev">이전</button></a>
 						</c:if>
-					
-							<td align="center">${ b.pa_pay }</td>
-							<td align="center">${ b.pdate }</td>
-						</tr>
-					</c:forEach>
-					
-				</tbody>
-            </table>
-        
 
-<!--             게시판 페이징 영역 -->
-            <div id="board-paging">
-<!-- 				[이전] -->
-				<c:if test="${ pi.currentPage <= 1 }">
-					<button id ="prev">이전</button>
-				</c:if>
-				<c:if test="${ pi.currentPage > 1 }">
-					<c:if test="${search eq 'none'}">
-						<c:url var="before" value="point.ex?search=all">
-						<c:param name="page" value="${ pi.currentPage - 1 }"/>
-						</c:url>
-					</c:if>
-					
-					<c:url var="before" value="point.ex?search=${search }">
-						<c:param name="page" value="${ pi.currentPage - 1 }"/>
-					</c:url>
-					<a href="${ before }"><button id ="prev">이전</button></a> 
-				</c:if>
-				
-<!-- 				페이지 -->
-				<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-					<c:if test="${ p eq pi.currentPage }">
-						<button class ="sBtn active">${ p }</button>
-					</c:if>
-					
-<%-- 					<c:if test="${search eq 'none'}"> --%>
-<%-- 							<c:url var="pagination" value="point.ex?search=all"> --%>
-<%-- 							<c:param name="page" value="${ p }"/> --%>
-<%-- 							</c:url> --%>
-<%-- 						</c:if> --%>
-				
-					<c:if test="${ p ne pi.currentPage }">					
-						<c:url var="pagination" value="point.ex?search=${search}">
-							<c:param name="page" value="${ p }"/>
-						</c:url>
-						<a href="${ pagination }"><button class ="sBtn">${ p }</button></a> 
-					</c:if>
-				</c:forEach>
-				
-<!-- 				[다음] -->
-				<c:if test="${ pi.currentPage >= pi.maxPage }">
-					<button id= "next">다음</button>
-				</c:if>
-				<c:if test="${ pi.currentPage < pi.maxPage }">
-				
-					<c:if test="${search eq 'none'}">
-						<c:url var="after" value="point.ex?search=all">
-						<c:param name="page" value="${ pi.currentPage + 1 }"/>
-						</c:url> 
-					</c:if>
-					<c:url var="after" value="point.ex?search=${search}">
-						<c:param name="page" value="${ pi.currentPage + 1 }"/>
-					</c:url> 
-					<a href="${ after }"><button id= "next">다음</button></a>
-				</c:if>
-            </div>
-        </div>
-       </div>
- 
+						<!-- 				페이지 -->
+						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:if test="${ p eq pi.currentPage }">
+								<button class="sBtn active">${ p }</button>
+							</c:if>
+							<c:if test="${ p ne pi.currentPage }">
+								<c:url var="pagination" value="point.ex?search=${search}">
+									<c:param name="page" value="${ p }" />
+								</c:url>
+								<a href="${ pagination }"><button class="sBtn">${ p }</button></a>
+							</c:if>
+						</c:forEach>
+
+						<!-- 				[다음] -->
+						<c:if test="${ pi.currentPage >= pi.maxPage }">
+							<button id="next">다음</button>
+						</c:if>
+						<c:if test="${ pi.currentPage < pi.maxPage }">
+							<c:url var="after" value="point.ex?search=${search}">
+								<c:param name="page" value="${ pi.currentPage + 1 }" />
+							</c:url>
+							<a href="${ after }"><button id="next">다음</button></a>
+						</c:if>
+					</div>
+				</div>
+			</div>
+
 		</div>
-		
-		<input type="hidden" value ="${check }" id="check">
-		<input type="hidden" id="search" value="${search }">
+
+		<input type="hidden" value="${check }" id="check"> <input
+			type="hidden" id="search" value="${search }">
 	</section>
 
-	<script>
-			$(function() {
-				$('.board td').mouseenter(function() {
-					$(this).parent().css({
-						'background' : 'beige',
-						'cursor' : 'pointer'
-					})
-				}).mouseout(function() {
-					$(this).parent().css({
-						'background' : 'whitesmoke'
-					})
-				})
-				
-					if($('#check').val()=='first'){
-						$('html').scrollTop(0); 
-					}else{
-						document.getElementById('board-area').scrollIntoView();
-					}
-				$('.p-section').hide();
-			});
-			
-			function goShowAll(){ location.href="point.ex?search=all";}
-			function goShowY(){	location.href="point.ex?search=Y";	}
-			function goShowN(){ location.href="point.ex?search=N";  }
-			
-			 $(window).scroll(function() {
-		    		var scrolltop = $(document).scrollTop();
-		    	
-		    		if(scrolltop < 340){
-			    		 //  $("#pointArea").fadeIn(500);
-		    			 $('.p-section').fadeOut(300);	   							
-			    		}
-		    		
-		    		if(scrolltop > 380){
-		    		 //  $("#pointArea").hide();
-	    		  	   $('.p-section').fadeIn(300);
-		    		   							
-		    		}
-		    		
-		    	
-		    	});
-			 
 
-    </script>
-
+	 <jsp:include page="/WEB-INF/views/expert/hp_upper.jsp" />
+	<script src="resources/expert/js/point.js"></script>
 
 </body>
 </html>

@@ -1,160 +1,246 @@
 @charset "UTF-8";
 
-    .point-inner{
-        width: 980px;
-        height: auto;
-        margin: 0 auto;
-        padding-top:50px;
-      
-       background-image: url("../images/fl.jpg");
-       background-size: cover;
-        
-    }
-    .inner__header{
-        text-align: center;
-        height: 100px;
-        align-items: center;
- 
-    }
-    .point-inner .inner__header p{
-        font-size: 24px;
-        font-weight: bolder;
-        color:red;
-        padding: 15px;
-    }
-    .point-inner .inner__content{
-        width: 768px;
-        height: auto;
-        margin: 0 auto;
-        background: #fff; 
-        
-         
-    }
-    .point-inner .banner{
-        width: 150px;
-        height: 30px;
-       
-        background: #fff;
-        
-       /* background: rgb(245, 209, 236);*/
-        margin: 0 auto;
-       /* border-radius: 30px;*/
-        text-align: center;
-    }
-    .point-inner .banner p{
-        font-weight: 600;
-        font-size: 18px;
-    }
-    .point-inner .point-img{
-        text-align: center;
-        background-size: cover;
-        background: #e97575;
-        padding: 5px;
-    }
-    .point-inner .point-img img{     
-        width: 600px;
-        height: 150px;
-        background-size: cover;
-    }
-    /* Table */
-    table.point {
-        border-collapse: collapse;
-        text-align: center;
-        margin-top: 50px;
-        line-height: 1.5;
-        width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-       
-    }
-    table.point thead th {
-        padding: 10px;
-        font-weight: bold;
-        vertical-align: top;
-        color:  plum; 
-        border-bottom: 4px solid plum;
-    }
-    table.point tbody{
-        background: white;
-    }
-    table.point tbody th {
-        width: 150px;
-        padding: 10px;
-        font-weight: bold;
-        vertical-align: top;
-        border-bottom: 1px solid #ccc;
-        background: #f3f6f7;
-    }
-    table.point td {
-        width: 350px;
- 		height: auto;
-        padding: 10px;
-        vertical-align: top;
-        border-bottom: 1px solid #ccc;
-    }
-    
-    .p-before{
-        text-decoration: line-through;
-    }
-    .p-after{
-        color: red;
-    }
-    
-    #payfrom-outer{
-        margin: 0 auto;
-        background: #fff;
-        width: 600px;
-       
-    }
-    #payform{
-        text-align: center;
-        display: inline-block;
-    }
-    #payform-img{
-        float: left;
-        background: #fff;
-        height: 180px;
-    }
-    #payform-img img{
-        padding: 10px;
-        width: 240px;
-        height: 130px;
-        background-size: cover;
-        border-right: 4px solid plum;
-    }
-    #payform-select{
-        float: left;
-        
-    }
-    #payform .payform-radio {
-        clear: both;
-        display: block;
-        width: 300px;
-        height: 50px;
-    }
-    
-    #point-nav ul li:first-child {
-	background-color: rgba(0, 0, 0, 0.085);
-	}
+.point-inner {
+	width: 980px;
+	height: auto;
+	margin: 0 auto;
+	padding-top: 50px;
+	background-image: url("../images/fl.jpg");
+	background-size: cover;
+}
 
-	#checkAgree{
-		background:#fff;
-		width: 768px;
-		height: 400px;
-		margin: 0 auto;
-	}
-	#checkAgree div{
-		width: 740px;
-		height:200px;
-		margin: 0 auto;
-	}
-	
-	#checkAgree div textarea{
-		margin: 0 auto;
-	}
-	#agreeCheck{
-/* 		display:block; */
-		text-align: right;
-		transform: translateX(-120px);
+.inner__header {
+	text-align: center;
+	height: 100px;
+	align-items: center;
+}
+
+a{
+	text-decoration: none;
+}
+.point-inner .inner__header p {
+	font-size: 24px;
+	font-weight: bolder;
+	color: red;
+	padding: 15px;
+}
+
+.point-inner .inner__content {
+	width: 768px;
+	height: auto;
+	margin: 0 auto;
+	background: #fff;
+}
+
+.point-inner .banner {
+	width: 150px;
+	height: 30px;
+	background: #fff;
+	/* background: rgb(245, 209, 236);*/
+	margin: 0 auto;
+	/* border-radius: 30px;*/
+	text-align: center;
+}
+
+.point-inner .banner p {
+	font-weight: 600;
+	font-size: 18px;
+}
+
+.point-inner .point-img {
+	text-align: center;
+	background-size: cover;
+	background: #e97575;
+	padding: 5px;
+}
+
+.point-inner .point-img img {
+	width: 600px;
+	height: 150px;
+	background-size: cover;
+}
+/* Table */
+table.point {
+	border-collapse: collapse;
+	text-align: center;
+	margin-top: 50px;
+	line-height: 1.5;
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table.point thead th {
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: plum;
+	border-bottom: 4px solid plum;
+}
+
+table.point tbody {
+	background: white;
+}
+
+table.point tbody th {
+	width: 150px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: #f3f6f7;
+}
+
+table.point td {
+	width: 350px;
+	height: auto;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
+.p-before {
+	text-decoration: line-through;
+}
+
+.p-after {
+	color: red;
+}
+
+#payfrom-outer {
+	margin: 0 auto;
+	background: #fff;
+	width: 600px;
+}
+
+#payform {
+	text-align: center;
+	display: inline-block;
+}
+
+#payform-img {
+	float: left;
+	background: #fff;
+	height: 180px;
+}
+
+#payform-img img {
+	padding: 10px;
+	width: 240px;
+	height: 130px;
+	background-size: cover;
+	border-right: 4px solid plum;
+}
+
+#payform-select {
+	float: left;
+}
+
+#payform .payform-radio {
+	clear: both;
+	display: block;
+	width: 300px;
+	height: 50px;
+}
+
+#point-nav ul li:first-child {
+	background-color: rgba(0, 0, 0, 0.085);
+}
+
+#checkAgree {
+	background: #fff;
+	width: 768px;
+	height: 400px;
+	margin: 0 auto;
+}
+
+#checkAgree div {
+	width: 740px;
+	height: 200px;
+	margin: 0 auto;
+}
+
+#checkAgree div textarea {
+	margin: 0 auto;
+}
+
+#agreeCheck {
+	/* 		display:block; */
+	text-align: right;
+	transform: translateX(-120px);
 	/* 	display:flex; */
-	}
+}
+
+#board-top {
+	width: 980px;
+	hegiht: 400px;
+	background: red;
+}
+
+#board-top video {
+	width: 980px;
+	hegiht: 400px;
+	border-top: 4px solid red;
+}
+
+#pointMenu {
+	position: fixed;
+	top: 45%;
+	left: 40px;
+	margin-top: -100px;
+	z-index: 1;
+	padding: 24px;
+	border-radius: 8px;
+	width: 220px;
+	overflow: hidden;
+	transition: 1s;
+}
+
+#pointMenu a {
+	display: block;
+	width: 200px;
+	height: 60px;
+	font-family: righteous;
+	font-size: 18px;
+	color: #333;
+	text-align: right;
+	overflow: hidden;
+	box-sizing: border-box;
+	border-top: 1px solid #333;
+	opacity: 0.8;
+	transition: 0.5s;
+}
+
+#pointMenu li {
+	background: #eee;
+}
+
+#pointMenu li:hover a {
+	font-size: 24px;
+	opacity: 1;
+}
+
+#pointMenu li.on a {
+	font-size: 24px;
+	opacity: 1;
+}
+
+#pointMenu li:nth-child(1):hover a {
+	color: #d4164c;
+	border-color: #d4164c;
+}
+
+#pointMenu li:nth-child(2):hover a {
+	color: #5b5aff;
+	border-color: #5b5aff;
+}
+
+#pointMenu li:nth-child(1).on a {
+	color: #d4164c;
+	border-color: #d4164c;
+}
+
+#pointMenu li:nth-child(2).on a {
+	color: #5b5aff;
+	border-color: #5b5aff;
+}

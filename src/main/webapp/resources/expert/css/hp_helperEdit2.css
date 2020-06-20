@@ -16,7 +16,7 @@
 		
 		         width: 1200px; 
          margin: 0 auto; 
-         height: 1000px;
+         height: 950px;
          background: url("../images/imac.png");
         background-size: cover;
 /*         background-color: #fff; */
@@ -28,13 +28,27 @@
     #submitform2{
 /*     	 background: url("../images/com.jpg"); */
 /*         background-size: cover; */
-		background:#dff0f3;
+/* 		background:#dff0f3; */
+/*     	width:1100px; */
+/*     	height:700px; */
+/*     	margin: 0 auto; */
+/*     	border-radius: 25px; */
+/*     	border: 40px solid #333; */
+    	transition: 1s;
+    }
+    .submitAreaOff2{
+    	transform:translateY(5px);
+   		 zoom: 0.5;
+    }
+     .submitAreaOn2{
+        background:#dff0f3;
     	width:1100px;
-    	height:700px;
+    	height:710px;
     	margin: 0 auto;
     	border-radius: 25px;
     	border: 40px solid #333;
-    }
+		zoom: 1;
+     }
 	.pwdCheck{
         width:auto;
         height:15px;
@@ -58,7 +72,8 @@
     table.th2{
         margin: 0 auto;
         margin-top: 150px;
-        background:rgba(0,0,0,0.075);
+         background:#dff0f3;
+/*         background:rgba(0,0,0,0.075); */
         padding-left:15px;
         padding-right:15px;
         border-radius: 15px;
