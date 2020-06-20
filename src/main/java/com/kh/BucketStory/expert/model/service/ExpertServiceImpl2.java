@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.expert.model.dao.ExpertDAO2;
+import com.kh.BucketStory.expert.model.vo.Category;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
@@ -98,6 +99,15 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	@Override
 	public ArrayList<Company> selectTop5havingPoint() {
 		return exDAO2.selectTop5havingPoint(sqlSession);
+	}
+	// 카테고리 이름
+	@Override
+	public Category selectCateName(int cateNum) {
+		return exDAO2.selectCateName(sqlSession, cateNum);
+	}
+	@Override
+	public int updatehelper(Company c) {
+		return exDAO2.updatehelper(sqlSession, c);
 	}
 
 }

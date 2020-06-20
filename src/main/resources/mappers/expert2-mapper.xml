@@ -36,6 +36,23 @@
 		where  <![CDATA[ ROWNUM <= 5 ]]>
 	</select>
 	
+	<select id ="selectCateName" resultMap = "CategoryResultSet">
+		select *
+		from CATEGORY
+		where CATENUM = #{cateNum}
+	</select>
+		
+	<update id ="updatehelper">
+		update COMPANY	
+		set COPWD=#{coPwd},HOMEPAGE=#{homePage},COTEL=#{coTel},BUSIEMAIL=#{busiEmail}
+		where COID=#{coId}
+	</update>
+	
+	<resultMap id="CategoryResultSet" type="Category">
+		<id property="cateNum" column="CATENUM"/>
+		<result property="cateName" column="CATENAME"/>
+	</resultMap>
+	
 	<resultMap id="CompanyResultSet" type="Company">
 		<id property="coId" column="COID"/>
 		<result property="pwd" column="COPWD"/>

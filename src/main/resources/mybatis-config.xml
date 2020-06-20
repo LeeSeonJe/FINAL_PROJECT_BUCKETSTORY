@@ -8,6 +8,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.Company" alias="Company"/>
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.Pay" alias="Pay"/>
+		<typeAlias type="com.kh.BucketStory.expert.model.vo.Category" alias="Category"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.BucketList" alias="Bucket"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.ComInBucket" alias="ComInBucket"/>
     	<typeAlias type="com.kh.BucketStory.bucket.model.vo.Media" alias="Media"/>

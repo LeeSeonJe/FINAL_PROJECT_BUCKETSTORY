@@ -153,6 +153,8 @@
 		margin: 0 auto;
 	}
 	#agreeCheck{
-		text-align:center;
+/* 		display:block; */
+		text-align: right;
+		transform: translateX(-120px);
 	/* 	display:flex; */
 	}

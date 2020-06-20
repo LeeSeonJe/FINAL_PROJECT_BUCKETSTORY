@@ -3,7 +3,6 @@ package com.kh.BucketStory.expert.model.vo;
 import java.sql.Date;
 
 public class Company {
-	
 	private String coId;
 	private String coPwd;
 	private String coName;
@@ -22,8 +21,8 @@ public class Company {
 	private String coIntro;
 	private String coInfo;
 	
-	public Company() {}
-
+	public Company() {
+	}
 	public Company(String coId, String coPwd, String coName, String compaName, String apName, String homePage,
 			String coTel, Date enrollDate, String status, String approval, String busiEmail, int cpCheck,
 			String checkImg, int point, int cateNum, String coIntro, String coInfo) {
@@ -57,7 +56,14 @@ public class Company {
 		this.cateNum = cateNum;
 		this.coIntro = coIntro;
 	}
-	
+	public Company(String coId, String coPwd, String homePage, String coTel, String busiEmail) {
+		this.coId = coId;
+		this.coPwd = coPwd;
+		this.homePage = homePage;
+		this.coTel = coTel;
+		this.busiEmail = busiEmail;		
+	}
+
 	public String getCoId() {
 		return coId;
 	}

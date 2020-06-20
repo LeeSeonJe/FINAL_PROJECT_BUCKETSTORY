@@ -21,7 +21,6 @@
 </style>
 </head>
 <body>
-<%-- <jsp:include page="/WEB-INF/views/expert/hp_pointCon.jsp"/> --%>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp"/>
  <section class ="p-section">
 <!--         <p id ="title">포인트 내역</p> -->

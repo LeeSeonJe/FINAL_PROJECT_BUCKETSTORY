@@ -3,6 +3,7 @@ package com.kh.BucketStory.expert.model.service;
 import java.util.ArrayList;
 
 import com.kh.BucketStory.admin.model.vo.adminQnA;
+import com.kh.BucketStory.expert.model.vo.Category;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
@@ -45,5 +46,9 @@ public interface ExpertService2 {
 	ArrayList<Pay> selectListY(PageInfo pi, String coId);
 
 	ArrayList<Pay> selectListN(PageInfo pi, String coId);
+
+	Category selectCateName(int cateNum);
+
+	int updatehelper(Company c);
 
 }

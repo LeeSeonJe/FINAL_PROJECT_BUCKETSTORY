@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.admin.model.vo.adminQnA;
+import com.kh.BucketStory.expert.model.vo.Category;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
@@ -82,6 +83,12 @@ public class ExpertDAO2 {
 	}
 	public ArrayList<Company> selectTop5havingPoint(SqlSessionTemplate sqlSession) {
 		return (ArrayList) sqlSession.selectList("exMapper2.selectTop5havingPoint");
+	}
+	public Category selectCateName(SqlSessionTemplate sqlSession, int cateNum) {
+		return sqlSession.selectOne("exMapper2.selectCateName",cateNum);
+	}
+	public int updatehelper(SqlSessionTemplate sqlSession, Company c) {
+		return sqlSession.update("exMapper2.updatehelper", c);
 	}
 
 
