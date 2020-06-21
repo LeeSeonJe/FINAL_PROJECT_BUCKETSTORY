@@ -81,18 +81,23 @@
 		<result property="pigouser" column="PIGOUSER"/>
 	</resultMap>
 	
-	
-<!-- 	<update id="waringmember"> -->
-<!-- 		update 	notify -->
-<!-- 		set status = "Y" -->
-<!-- 		where no_no = #{no_no} -->
-<!-- 	</update> -->
-
 	<update id="warningMember">
 		update notify
 		set no_check = 'Y'
 		where no_no = #{no} and no_check = 'N'
-		
+	</update>
+	
+	<select id="Memberlist" resultMap="notifyResultSet">
+		select * 
+		from notify
+		where no_check = 'Y'
+		order by no_no desc
+	</select>
+	
+	<update id="deleteMember">
+		update notify
+		set status = 'Y'
+		where no_no = #{no} and status= 'N'
 	</update>
 	
 	

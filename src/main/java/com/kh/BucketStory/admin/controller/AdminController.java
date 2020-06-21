@@ -204,29 +204,7 @@ public class AdminController {
 		return mv;
 	}
 	
-//	/* 경고 받은 회원 넘겨주기 */
-//	@RequestMapping("warning.ad")
-//	public String waringmember(@RequestParam(value="no_no") String[] no) {
-//			int [] no_no = new int [no.length];
-//		
-//		for(int i = 0; i < no.length; i++) {
-//			 no_no[i] = Integer.parseInt(no[i]);
-//
-//		}
-//		
-//		System.out.println("n 값이 나오나요 ?" + no_no);
-//		
-//		int result = bService.waringmember(no_no);
-//	
-//		if(result > 0) {
-//			return "success";
-//			
-//		} else {
-//			throw new BoardException("경고 받은 회원 실패");
-//		}
-//	}
-	
-	/* 경고 받은 회원 넘겨주기 2번째*/
+	/* 경고 받은 회원 넘겨주기 */
 	@RequestMapping("warning.ad")
 	public String waringmember(@RequestParam(value="Notify[]") List<String> no_no) {
 		
@@ -243,11 +221,58 @@ public class AdminController {
 		System.out.println("result 값 보기 " + result);
 		
 		if(result > 0) {
-			return "success";
+			return "redirect:adminwarning.ad";
 		} else {
 			throw new BoardException("경고 받은 회원 실패");
 		}
 	}
 	
+	/* 회원 삭제 리스트*/
+	@RequestMapping("adminwarning.ad")
+	public ModelAndView memberList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = bService.getListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Notify> list = bService.Memberlist(pi);
+	
+//		System.out.println("경고 받은 회원 확인하기 " + list);
+	
+		if(list != null) {
+			
+			mv.addObject("list", list)
+			  .addObject("pi", pi)
+			  .setViewName("adminMeDelete");
+		} else {
+			throw new BoardException("경고 회원 전체 조회 실패했습니다.");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping("delectMember.ad")
+	public String deleteMember(@RequestParam("Notify[]") List<String> no_no) {
+		
+		int[] no = new int [no_no.size()];
+		for(int i = 0; i < no.length; i++) {
+			no[i] = Integer.parseInt(no_no.get(i));
+		}
+		
+		int result = bService.deleteMember(no);
+		
+		if(result > 0) {
+			return "redirect:adminwarning.ad";
+		} else {
+			throw new BoardException("회원 삭제 실패");
+		}
+		
+	}
 		
 }

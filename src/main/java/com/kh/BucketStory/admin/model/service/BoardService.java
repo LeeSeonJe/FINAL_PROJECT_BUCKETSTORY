@@ -27,11 +27,13 @@ public interface BoardService {
 
 	int getcautionListCount();
 
-//	int waringmember(int[] no_no);
-
-//	int warningMember(List<String> no);
 
 	int warningMember(int[] no);
+
+	ArrayList<Notify> Memberlist(PageInfo pi);
+
+	int deleteMember(int[] no);
+
 
 
 

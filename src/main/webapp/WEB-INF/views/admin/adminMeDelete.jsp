@@ -27,61 +27,40 @@
 			</div>
 		</nav>
 	</div>
-	<div id="board-area">
-	<div>
-		<h2>신고 게시판</h2>
-		<a href="adminwarning.ad">경고 게시판</a>
-	</div>
-			<form action="warning.ad">
-				<table class="board">
+		<div id="board-area">
+		<div>
+			<h2>신고 회원 처리 게시판</h2>
+		</div>
+			<form action="delectMember.ad" id="form">
+			<table class="board">
+				<tr>
+					<td><input type="checkbox" name="chk_head" id="checkAll"></td>
+					<td>번호</td>
+					<td>말머리</td>
+					<td>경고여부</td>
+					<td>아이디</td>
+					<td>상태</td>
+				</tr>
+				<c:forEach var="notify" items="${ list }"> 
 					<tr>
-						<th><input type="checkbox" name="chk_head" id="checkAll">선택</th>
-						<th>번호</th>
-						<th>말머리</th>
-						<th>상태</th>
-						<th>아이디</th>
-						<th>신고자</th>
-						<th>신고일</th>
+						<td><input type="checkbox" name="chk_box" value="${ notify.no_no }"></td>
+						<td>${ notify.no_no }</td>
+						<td>${ notify.no_kind }</td>
+						<td>${ notify.no_check }</td>
+						<td>${ notify.sinuser }</td>
+						<td>${ notify.status }</td>
 					</tr>
-<!-- 					<tr> -->
-<%-- 						<th><c:if test="${search eq'all'}"> --%>
-<!-- 								<button onclick="">전체</button> -->
-<!-- 								<button onclick="">신고</button> -->
-<!-- 								<button onclick="">경고</button> -->
-<%-- 							</c:if> --%>
-<%-- 							<c:if test="${search eq'N'}"> --%>
-<!-- 								<button onclick="">전체</button> -->
-<!-- 								<button onclick="">신고</button> -->
-<!-- 								<button onclick="">경고</button> -->
-<%-- 							</c:if> --%>
-<%-- 							<c:if test="${search eq'Y'}"> --%>
-<!-- 								<button onclick="">전체</button> -->
-<!-- 								<button onclick="">신고</button> -->
-<!-- 								<button onclick="">경고</button> -->
-<%-- 							</c:if> --%>
-<!-- 						</th> -->
-<!-- 					</tr> -->
-					<c:forEach var="notify" items="${ list }">
-						<tr>
-							<td><input type="checkbox" name="chk_box" value="${notify.no_no}" id="checkSelect"></td>
-							<td>${ notify.no_no }</td>
-							<td>${ notify.no_kind }</td>
-							<td>${ notify.no_check }</td>
-							<td>${ notify.sinuser }</td>
-							<td>${ notify.pigouser }</td>
-							<td>${ notify.enrolldata }</td>
-						</tr>
-
-					</c:forEach>
-				</table>
+				</c:forEach>
+			</table>
 			</form>
-			<div id="board-paging">
+		</div>
+				<div id="board-paging">
 					<!-- 페이징 처리 -->
 						<c:if test="${ pi.currentPage <= 1 }">
 						<button id ="prev">이전</button>
 						</c:if> 
 						<c:if test="${ pi.currentPage > 1 }">
-							<c:url var="before" value="cautionlist.ad">
+							<c:url var="before" value="adminwarning.ad">
 								<c:param name="page" value="${ pi.currentPage - 1 }" />
 							</c:url>
 							<a href="${ before }"><button id ="prev">이전</button></a>
@@ -94,7 +73,7 @@
 							</c:if>
 
 							<c:if test="${ p ne pi.currentPage }">
-								<c:url var="pagination" value="cautionlist.ad">
+								<c:url var="pagination" value="adminwarning.ad">
 									<c:param name="page" value="${ p }" />
 								</c:url>
 								<a href="${ pagination }"><button class ="sBtn">${ p }</button></a>
@@ -106,7 +85,7 @@
 							<button id= "next">다음</button>
 						</c:if> 
 						<c:if test="${ pi.currentPage < pi.maxPage }">
-							<c:url var="after" value="cautionlist.ad">
+							<c:url var="after" value="adminwarning.ad">
 								<c:param name="page" value="${ pi.currentPage + 1 }" />
 							</c:url>
 							<a href="${ after }"><button id= "next">다음</button></a>
@@ -115,18 +94,15 @@
 		<div id="ad_search">
 			<select>
 				<option>전체보기</option>
-				<option>게시글</option>
-				<option>댓글</option>
-			</select> 
-				<input type="text">
-				<a href="#">검색</a>
-			<button onclick="chk_warning();" id="waring">회원 경고</button>
-			<button id="delete">전체 삭제</button>
+				<option>회원 ID</option>
+				<option>경고</option>
+				<option>강제탈퇴</option>
+			</select> <input type="text"> <a href="#">검색</a>
+			<button onclick="starting();">강제탈퇴</button>
 		</div>
-	</div>
 <script>
 
-// /* 체크박스 [전체,부분 선택] */
+///* 체크박스 [전체,부분 선택] */
 function allCheck() {
 	if($("[name=chk_box]").prop("checked")){
 		$("[name=chk_box]").prop("checked",false);
@@ -169,71 +145,33 @@ $(function(){
     });
 });
 
-
-// /* 경고 먹는 회원 스크립트 */
+/* 강제 탈퇴 */
+function starting(){
 	
-// function chk_warning(){
-// 	alert("클릭");
+	var del_Arr = [];
 	
-// 	var checkArr = []; // 배열 초기화
-// // 	var check = "";
-	
-// 	$("input[name='chk_box']:checked").each(function(i){
-// 		var va = $(this).val();
-// // 		console.log(va);
-// // 		console.log(typeof(va));
-		
-// 		checkArr.push(va);
-// 		console.log(checkArr);
-// 		console.log(typeof(checkArr));
-// // 		checkArr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
-// 	});
-	
-// // 	console.log(typeof(checkArr));
-		
-// 	$.ajax({
-// 		url: 'warning.ad',
-// 		type: 'POST',
-// 		data: {no_no : va},
-// 		success: function(data){
-// 			if(data == 'success'){
-// 				console.log(data);
-// 			}
-// 		}
-// 	});
-// }
-
-/* 회원 경고 주기 */
-	function chk_warning(){
-	 	alert("클릭");
-
-	
-	var chk_Arr = []; // 배열 초가화
 	$("input[name='chk_box']:checked").each(function(i){
-		chk_Arr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
+		del_Arr.push($(this).val());
 	});
 	
 	$.ajax({
-		url: 'warning.ad',
-		data: {Notify : chk_Arr},
+		url: 'delectMember.ad',
+		data: {Notify : del_Arr},
 		success: function(data){
-
-			}
+			
+		}
 	});
 }
-
-
-/* 리스트 변경 버튼 */
-// 	function goShowAll() {
-// 		location.href = "adminCautQnaList.ex?search=all";
-// 	}
-// 	function goShowY() {
-// 		location.href = "helperQnaList.ex?search=Y";
-// 	}
-// 	function goShowN() {
-// 		location.href = "helperQnaList.ex?search=N";
-// 	}
-
 </script>
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
