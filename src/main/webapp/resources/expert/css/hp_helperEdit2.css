@@ -81,7 +81,7 @@
         
     }
     .rown{
-        font-weight: 500x;
+        font-weight: bold;
         font-size: 17px;
         padding: 5px;
         width: 140px;
@@ -93,12 +93,12 @@
         resize: none;
     }
 
-    .inner_content input{
+    .inner_content2 input{
         width: 180px;
         height: 22px;
         border-radius: 4px;
     }
-    .inner_content textarea{
+    .inner_content2 textarea{
         border-radius: 4px;
     }
 
