@@ -124,8 +124,21 @@
 		null, null, #{esNo})
 	</insert>
 	
+	<select id="selectBucketMedia" resultMap="MediaResultSet">
+		select * from media
+		where IMGVIDEO =1 and MUSE = 1
+	</select>
 	
+	<select id="selectCompleteEstimateList" resultMap="estimateSet">
+		select * 
+		from estimate
+		where coid = #{coId} AND status='3'
+	</select>
 	
+	<select id="selectUserEstimate" resultMap="estimateSet">
+		select * from estimate
+		where userid = #{userId}
+	</select>
 	
 	<resultMap id="estimateSet" type="estimate">
 		<id property="es_no" column="ES_NO"/>

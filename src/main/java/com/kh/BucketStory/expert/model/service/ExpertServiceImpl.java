@@ -113,4 +113,16 @@ public class ExpertServiceImpl implements ExpertService {
 	public int updateEsmedia(Media media) {
 		return exDAO.updateEsmedia(sqlSession,media);
 	}
+	@Override
+	public ArrayList<Media> selectAllBucketMediaList() {
+		return exDAO.selectAllBucketMediaList(sqlSession);
+	}
+	@Override
+	public ArrayList<Estimate> selectCompleteEstimteList(String coId) {
+		return exDAO.selectCompleteEstimateList(sqlSession,coId);
+	}
+	@Override
+	public ArrayList<Estimate> selectUserEstimate(String userId) {
+		return exDAO.selectUserEstimate(sqlSession,userId);
+	}
 }

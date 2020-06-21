@@ -30,7 +30,7 @@
 
 <a href="adminwrite.ad">관리자 이동</a>  
 
-<a href="esrequest.ex?coId=TEST&bkNo=3">견적서 발송</a>
+<a href="esrequest.ex?coId=123&bkNo=3">견적서 발송</a>
 
 </body>
 </html>

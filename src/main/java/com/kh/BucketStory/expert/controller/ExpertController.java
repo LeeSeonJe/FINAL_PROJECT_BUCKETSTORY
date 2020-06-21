@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,28 +44,31 @@ public class ExpertController {
 	private ExpertService ExService;
 
 	@RequestMapping("info.ex")
-	public ModelAndView expertInfo(@RequestParam("coId") String coId, ModelAndView mv) {
-		Company company = ExService.selectCompanyInfo(coId);
-		ArrayList<BucketList> bucket = ExService.selectComBucket(coId);
+	public ModelAndView expertInfo(HttpSession session, ModelAndView mv) {
+		Company loginCom = (Company) session.getAttribute("loginCompany");
+		ArrayList<BucketList> bucket = ExService.selectComBucket(loginCom.getCoId());
 
-		mv.addObject("company", company);
+		mv.addObject("company", loginCom);
 		mv.setViewName("ex_info");
 		if (bucket != null) {
+			ArrayList<Media> media = ExService.selectAllBucketMediaList();
 			mv.addObject("bucket", bucket);
+			mv.addObject("media",media);
 		}
 		return mv;
 	}
 
 	@RequestMapping("ex_infoUpdateForm.ex")
-	public ModelAndView ex_infoUpdateForm(@RequestParam("coId") String coId, ModelAndView mv) {
+	public ModelAndView ex_infoUpdateForm(HttpSession session, ModelAndView mv) {
+		Company loginCom = (Company) session.getAttribute("loginCompany");
+		ArrayList<BucketList> bucket = ExService.selectComBucket(loginCom.getCoId());
 
-		Company company = ExService.selectCompanyInfo(coId);
-		ArrayList<BucketList> bucket = ExService.selectComBucket(coId);
-
-		mv.addObject(company);
+		mv.addObject("company",loginCom);
 		mv.setViewName("ex_infoUpdateForm");
 		if (bucket != null) {
+			ArrayList<Media> media = ExService.selectAllBucketMediaList();
 			mv.addObject("bucket", bucket);
+			mv.addObject("media",media);
 		}
 		return mv;
 	}
@@ -110,10 +114,14 @@ public class ExpertController {
 
 		response.setContentType("application/json; charset=UTF-8");
 		ArrayList<BucketList> list = ExService.selectCateList(catenum);
-
+		ArrayList<Media> media = ExService.selectAllBucketMediaList();
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("list",list);
+		map.put("media", media);
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		try {
-			gson.toJson(list, response.getWriter());
+			gson.toJson(map, response.getWriter());
 		} catch (JsonIOException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -123,15 +131,14 @@ public class ExpertController {
 	}
 
 	@RequestMapping("estimate.ex")
-	public ModelAndView extrimateView(@RequestParam String coId,@RequestParam String esr_no,ModelAndView mv, HttpSession session) {
-		
-		Company company = ExService.selectCompanyInfo(coId);
+	public ModelAndView extrimateView(HttpSession session,@RequestParam String esr_no,ModelAndView mv) {
+		Company loginCom = (Company) session.getAttribute("loginCompany");
 		EsRequest er = ExService.RequestDetail(esr_no);
 		BucketList bucket = ExService.selectBucket(Integer.parseInt(er.getBkNo()));
 		Member member = ExService.selectMember(er.getUserId());
 		
 		mv.addObject("member",member);
-		mv.addObject("company", company);
+		mv.addObject("company", loginCom);
 		mv.addObject("bucket",bucket);
 		mv.addObject("er",er);
 		
@@ -140,12 +147,11 @@ public class ExpertController {
 	}
 
 	@RequestMapping("esrequest.ex")
-	public ModelAndView ex_esrequestView(@RequestParam String coId, @RequestParam int bkNo, ModelAndView mv) {
-
-		Company company = ExService.selectCompanyInfo(coId);
+	public ModelAndView ex_esrequestView(HttpSession session, @RequestParam int bkNo, ModelAndView mv) {
+		Company loginCom = (Company) session.getAttribute("loginCompany");
 		BucketList bl = ExService.selectBucket(bkNo);
-		if (company != null) {
-			mv.addObject("company", company);
+		if (loginCom != null) {
+			mv.addObject("company", loginCom);
 			if (bl != null) {
 				mv.addObject("bucket", bl);
 			}
@@ -161,19 +167,19 @@ public class ExpertController {
 		er.setUserId("user01");
 		int result = ExService.insertEsrequest(er);
 		if (result > 0) {
-			return "redirect:getRequest.ex?coId="+er.getCoId();
+			return "redirect:getRequest.ex";
 		} else {
-			return "redirect:getRequest.ex?coId="+er.getCoId();
+			return "redirect:getRequest.ex";
 		}
 	}
 
 	
 	 @RequestMapping("getRequest.ex")
-	 public ModelAndView ex_getRequestView(@RequestParam String coId,ModelAndView mv) {
-	 
-		 ArrayList<EsRequest> er = ExService.selectEsRequest(coId);
+	 public ModelAndView ex_getRequestView(HttpSession session,ModelAndView mv) {
+		 Company loginCom = (Company) session.getAttribute("loginCompany");
+		 ArrayList<EsRequest> er = ExService.selectEsRequest(loginCom.getCoId());
 		 
-		 mv.addObject("coId",coId);
+		 mv.addObject("coId",loginCom.getCoId());
 		 mv.addObject("er",er);
 		 mv.setViewName("ex_getRequest");
 		 
@@ -181,11 +187,11 @@ public class ExpertController {
 	 }
 	 
 	 @RequestMapping("makingRequestView.ex")
-	 public ModelAndView makingRequestView(ModelAndView mv,@RequestParam String coId) {
+	 public ModelAndView makingRequestView(ModelAndView mv,HttpSession session) {
+		 Company loginCom = (Company) session.getAttribute("loginCompany");
+		 ArrayList<Estimate> arr = ExService.selectMakingEstimteList(loginCom.getCoId()); 
 		 
-		 ArrayList<Estimate> arr = ExService.selectMakingEstimteList(coId); 
-		 
-		 mv.addObject("coId",coId);
+		 mv.addObject("coId",loginCom.getCoId());
 		 mv.addObject("estimate",arr);
 		 mv.setViewName("ex_MakingRequest");
 		 return mv;
@@ -222,20 +228,26 @@ public class ExpertController {
 	 }
 	 
 	 @RequestMapping("completeRequestView.ex")
-	 public ModelAndView completeRequestView(ModelAndView mv,@RequestParam String coId) {
-		 mv.addObject("coId",coId);
+	 public ModelAndView completeRequestView(ModelAndView mv,HttpSession session) {
+		 Company loginCom = (Company) session.getAttribute("loginCompany");
+		 ArrayList<Estimate> estimate = ExService.selectCompleteEstimteList(loginCom.getCoId());
+		 
+		 
+		 mv.addObject("es",estimate);
+		 mv.addObject("coId",loginCom.getCoId());
 		 mv.setViewName("ex_completeRequest");
 		 return mv;
 	 }
 	 @RequestMapping("roadingRequestView.ex")
-	 public ModelAndView roadingRequestView(@RequestParam("coId") String coId,ModelAndView mv) {
-		 ArrayList<Estimate> es = ExService.selectEstimteList(coId);
+	 public ModelAndView roadingRequestView(HttpSession session,ModelAndView mv) {
+		 Company loginCom = (Company) session.getAttribute("loginCompany");
+		 ArrayList<Estimate> es = ExService.selectEstimteList(loginCom.getCoId());
 //		 BucketList bucket = ExService.selectBucket(es.get(0).getBkNo());
 		 
-		 mv.addObject("coId",coId);
+		 mv.addObject("coId",loginCom.getCoId());
 		 mv.addObject("estimate",es);
 //		 mv.addObject("bucket",bucket);
-		 mv.addObject("companyId",coId);
+		 mv.addObject("companyId",loginCom.getCoId());
 		 
 		 mv.setViewName("ex_roadingListView");
 		 
@@ -264,10 +276,6 @@ public class ExpertController {
 			 					@RequestParam(value = "optionPrice", required = false) String optionPrice,
 			 					@RequestParam("uploadFile") MultipartFile[] uploadFile,
 			 					HttpServletRequest request) {
-		 
-		 System.out.println(es.getStatus());
-		 System.out.println(uploadFile);
-		 System.out.println(uploadFile[0].getOriginalFilename());
 		 
 		 String esoption =""; 
 		 
@@ -377,10 +385,6 @@ public class ExpertController {
 							@RequestParam("uploadFile") MultipartFile[] uploadFile,
 							HttpServletRequest request) {
 			
-			System.out.println(es.getStatus());
-			System.out.println(uploadFile);
-			System.out.println(uploadFile[0].getOriginalFilename());
-			
 			String esoption =""; 
 			
 			if(optionName != null && optionPrice !=null) {
@@ -443,9 +447,19 @@ public class ExpertController {
 					e.printStackTrace();
 				}
 		 }
-		 
-		 
-			
 	 }
+	 
+	 @RequestMapping("myEstimateView.ex")
+	 public ModelAndView myEstimate(HttpSession session,ModelAndView mv) {
+		 Member loginUser = (Member) session.getAttribute("loginUser");
+		 
+		 ArrayList<Estimate> es = ExService.selectUserEstimate(loginUser.getUserId());
+		 
+		 mv.addObject("es",es);
+		 mv.setViewName("ex_userEstimate");
+		 
+		 return mv;
+	 }
+	 
 	 
 }

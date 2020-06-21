@@ -103,5 +103,17 @@ public class ExpertDAO {
 		return sqlSession.insert("exMapper.updateEsmedia", media);
 	}
 
+	public ArrayList<Media> selectAllBucketMediaList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectBucketMedia");
+	}
+
+	public ArrayList<Estimate> selectCompleteEstimateList(SqlSessionTemplate sqlSession, String coId) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectCompleteEstimateList", coId);
+	}
+
+	public ArrayList<Estimate> selectUserEstimate(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectUserEstimate", userId);
+	}
+
 	
 }
