@@ -29,7 +29,7 @@
 			<div id="pointArea">
 				<div class="inner__header">
 					<h2>${coId}님환영합니다!</h2>
-					<h2>보유 총 포인트 : ${hp} 포인트</h2>
+<%-- 					<h2>보유 총 포인트 : ${hp} 포인트</h2> --%>
 					<br>
 				</div>
 				<br> <br>

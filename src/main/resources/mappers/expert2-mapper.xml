@@ -217,7 +217,22 @@
 		values(seq_qna.nextval,#{q_title},#{q_content},sysdate,'N',null,null,null,#{coid})
 	</insert>
 	
+	<select id="selectQnAno" resultMap ="QnAResultSet">
+		select *
+		from QNA
+		where Q_NO = #{q_no}
+	</select>
 	
+	<delete id="deleteQnA">
+		delete QNA
+		where Q_NO = #{q_no}
+	</delete>
+	
+	<update id="updateQnA">
+		update QNA 
+		set Q_TITLE = #{q_title}, Q_CONTENT = #{q_content}, Q_Date = sysdate
+		where Q_NO = #{q_no}
+	</update>
 	<resultMap type="adminQnA" id="QnAResultSet">
 		<id property="q_no" column="Q_NO"/>
 		<result property="q_title" column="Q_TITLE"/>

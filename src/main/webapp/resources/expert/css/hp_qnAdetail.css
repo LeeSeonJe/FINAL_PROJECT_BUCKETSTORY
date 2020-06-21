@@ -1,0 +1,50 @@
+@charset "UTF-8";	
+
+	.section{
+        width: 980px;
+        height: auto;
+        margin: 0 auto;
+         /* background-image: url("imac.png");
+        background-size: cover;  */
+        /* background-color: beige; */
+    }
+    .content{
+        margin:0 auto;
+    }
+   /* boardDetail   */
+    #boardDetail label{
+        color: #444;
+    }
+
+    #boardDetail .content{
+        width: 800px;
+        height: auto;
+/*         background: #fff; */
+    }
+    #boardDetail table{
+        padding-top: 50px;
+        font-size: 18px;
+        margin:0 auto;
+        text-align: center;
+        border-collapse: collapse;
+        border-radius: 5px;
+    }
+    #boardDetail table th{
+        border-top: 25px solid #888;
+        border-radius: 5px;
+    }
+    #boardDetail table{
+        background: whitesmoke;
+    }
+    #boardDetail input{
+        width: 99%;
+        height: 20px;
+        font-size: 18px;
+        border-radius: 5px;
+        border: 2px solid #eee;
+    }
+    #boardDetail textarea{
+        font-size: 18px;
+        border-radius: 5px;
+        border: 2px solid #eee;
+    }

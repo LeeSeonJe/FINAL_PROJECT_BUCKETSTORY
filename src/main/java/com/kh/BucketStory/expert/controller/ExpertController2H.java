@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,9 +19,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService;
@@ -320,116 +325,7 @@ public class ExpertController2H {
 		 */
 
 		
-		/*
-		 *  ----------------------------------------------------------------------------------------
-		 *  헬퍼 qna 문의 페이지
-		 *  ----------------------------------------------------------------------------------------
-		 */
+	
 		
-		// qna 문의 페이지로 이동
-		@RequestMapping("helperQnA.ex")
-		public ModelAndView goHelperSendQnAt(HttpSession session, 
-							@RequestParam(value = "page", required = false) Integer page,
-							ModelAndView mv) {
 
-			String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
-			int currentPage = 1;
-			if (page != null) {
-				currentPage = page;
-			}
-
-			int listCount = ExService2.getListQnACount(coId);
-			PageInfo pi = pagination.getPageInfo(currentPage, listCount);
-			ArrayList<adminQnA> list = ExService2.selectQnAList(pi, coId);
-
-			if (list != null) {
-				mv.addObject("list", list);
-				mv.addObject("pi", pi);
-				mv.addObject("coId", coId);
-			mv.setViewName("hp_QnA");
-			} else {
-				throw new ExpertException("QnA 내역 조회에 실패했습니다.");
-			}
-			return mv;
-		}
-		
-		// qna 문의 페이지로 이동
-		@RequestMapping("helperSendQnA.ex")
-		public String goHelperSendQnA() {
-			// String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
-			return "hp_sendQnA";
-		}
-
-		// qna 문의 전송 : ajax 방식으로 변경
-		@RequestMapping("insertQnAjax.ex")
-		public void insertQnAjax(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-
-			System.out.println("진입");
-			String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-
-			adminQnA aQ = new adminQnA(title, content, null, coId);
-			int result = ExService2.insertQnA(aQ);
-
-			if (result > 0) {
-//				System.out.println("성공");
-				resWriter(response, "ok");
-			} else {
-				resWriter(response, "fail");
-			}
-		}
-
-		/*  -------------------------------------------------------------------------------------------------
-		 *  Qna 내역 페이지
-		 *  -------------------------------------------------------------------------------------------------
-		 */
-		@RequestMapping(value = "helperQnaList.ex", method = RequestMethod.GET)
-		public ModelAndView showQnAList(HttpSession session, 
-								@RequestParam(value = "page", required = false) Integer page,
-								@RequestParam(value = "search") @Nullable String search,
-				ModelAndView mv) {
-
-			String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
-			
-			int currentPage = 1;
-			if (page != null) {
-				currentPage = page;
-			}
-			
-			int listCount = 0;
-			PageInfo pi = null;
-			ArrayList<adminQnA> list = null;
-			
-			
-			if(search.equals("all")) {
-				listCount = ExService2.getListQnACount(coId);
-				pi = pagination.getPageInfo(currentPage, listCount);
-				list = ExService2.selectQnAList(pi, coId);
-			}
-			if(search.equals("Y")) {
-				listCount = ExService2.getListQnACountY(coId);
-				pi = pagination.getPageInfo(currentPage, listCount);
-				list = ExService2.selectQnAListY(pi, coId);
-			}
-			if(search.equals("N")) {
-				listCount = ExService2.getListQnACountN(coId);
-				pi = pagination.getPageInfo(currentPage, listCount);
-				list = ExService2.selectQnAListN(pi, coId);
-			}
-
-			if (list != null) {
-				mv.addObject("list", list);
-				mv.addObject("pi", pi);
-				mv.addObject("coId", coId);
-				mv.addObject("search",search);
-				mv.setViewName("hp_QnAList");
-			} else {
-				throw new ExpertException("QnA 내역 조회에 실패했습니다.");
-			}
-			return mv;
-		}
-		
-		
-		
 }
