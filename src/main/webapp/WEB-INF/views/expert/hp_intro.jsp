@@ -135,7 +135,7 @@
             <div class ="helperEdit2">
 			<h1 align="center">2</h1>
 			<br>
-			<form id="submitform2" action="helperUpdate.ex">
+			<form id="submitform2" action="helperUpdate.ex" onsubmit="return submitCheck(this);">
 				<table class="et th2">
 					<tr>
 						<th colspan="3" class="title">회원정보 수정(헬퍼)</th>
@@ -204,8 +204,7 @@
                     </tr>
                     <tr>
                         <td colspan="3" id="submitBtn-Area">
-                            <button type="submit" class="btn btn--primary2" id="submitBtn">클릭하시면
-                                정보를 변경합니다.</button>
+                    <button type="submit" class="btn btn--primary2" id="submitBtn">클릭하시면 정보를 변경합니다.</button>
                         </td>
                     </tr>
 				</table>

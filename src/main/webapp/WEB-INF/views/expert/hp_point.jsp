@@ -243,14 +243,7 @@
 						<source src="resources/expert/video/vd1.mp4" type="video/mp4">
 					</video>
 				</div>
-				<script>
-// $(document).ready(function(){
 
-	
-
-// });
-
-</script>
 				<br>
 				<!--  	<img src ="resources/expert/images/moon.jpg"> -->
 				<%--     <h3>${coId} 님 환영합니다!</h3> --%>

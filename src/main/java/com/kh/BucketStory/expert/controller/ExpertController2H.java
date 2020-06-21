@@ -259,11 +259,12 @@ public class ExpertController2H {
 		 */
 		@RequestMapping("helperPwdCheck.ex")
 		public void helperPwdCheck(HttpSession session,
-								   @RequestParam(value = "npwd") String coPwd,
+								   @RequestParam(value = "oldPwd") String oldPwd,
 								   HttpServletResponse response) {
-
-			String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
-			if(bcryptPasswordEncoder.matches(coPwd,coId)){
+			
+			System.out.println("되나? :"+ oldPwd);
+			String coPwd = ((Company) session.getAttribute("loginCompany")).getCoPwd();
+			if(bcryptPasswordEncoder.matches(oldPwd,coPwd)){
 				resWriter(response, "ok");
 			}else {
 				resWriter(response, "fail");
