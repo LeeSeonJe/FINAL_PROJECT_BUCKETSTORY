@@ -69,16 +69,15 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.waringmember(sqlSession, no);
 	}
 
-//	@Override
-//	public int waringmember(int[] no_no) {
-//		return bDAO.waringmember(sqlSession, no_no);
-//	}
+	@Override
+	public ArrayList<Notify> Memberlist(PageInfo pi) {
+		return bDAO.Memberlist(sqlSession, pi);
+	}
 
-//	@Override
-//	public int warningMember(List<String> no) {
-//		return bDAO.warningMember(sqlSession, no);
-//	}
-
+	@Override
+	public int deleteMember(int[] no) {
+		return bDAO.deleteMember(sqlSession, no);
+	}
 
 
 
