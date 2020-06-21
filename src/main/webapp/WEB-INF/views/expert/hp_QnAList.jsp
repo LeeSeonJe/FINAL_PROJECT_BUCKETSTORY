@@ -42,12 +42,31 @@
 	transform:translateX(-80px);
 	float:right;
 }
-
+#boardDetail{
+	display:none; 
+	transition:1s;
+ 	
+}
+#moba{
+	position: absolute;
+	bottom:0px;
+	right:0px;
+	z-index:5;
+	zoom:0.9;
+}
+#moba-content{
+	position: absolute;
+	bottom:340px;
+	right:320px;
+	z-index:5;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
 	<div id="background"></div>
+	<div id="moba"><img src ="resources/expert/images/moba.png"></div>
+	<div id="moba-content"></div>
 	<section class="p-section" id="hpTop">
 	
 	 <div id="inner">
@@ -204,7 +223,7 @@
 	</section>
 
 
-
+<!-- <script src="resources/expert/js/qnajs"></script> -->
 	<script>
 	
 	function newQnA(){
@@ -213,16 +232,34 @@
 		$('#background').fadeIn(700);
 		$('#board-area').hide();
 		$('#boardDetail').hide();
+		$('#moba-content').html('<div style="color:pink; font-size:32px; transform:translate(50px,50px);"><b>새 문의글을<br>작성합니다.</b></div>');
 	}
+	
+	$('#cancle').on('click',function(){
+		location.reload();
+
+	})
+	
 	$('#submitQnA').on('click',function(){
 		var title = $('#title').val();
 		var content = $('#content').val();
 		
 		$('#sendInner').show();
 		if(title ==""){
-			alert('제목을 입력하세요');
+// 			alert('제목을 입력하세요');
+			
+		$('#moba-content').html('<div style="color:red; font-size:32px; transform:translate(50px,50px);"><b> 제목을<br>입력하세요</b></div>');
+		setTimeout(function() {
+			$('#moba-content').html('');			
+		},1200);
+
 		}else if(content == ""){
-			alert('내용을 입력하세요');
+//			alert('내용을 입력하세요');
+			
+			$('#moba-content').html('<div style="color:red; font-size:32px; transform:translate(50px,50px);"><b> 내용을<br>입력하세요</b></div>');
+			setTimeout(function() {
+				$('#moba-content').html('');			
+			},1200);
 		}else{
 			$.ajax({
 				url: "insertQnAjax.ex",
@@ -237,12 +274,15 @@
 					if(data == 'ok'){
 						console.log('전송성공');
 						// 성공 로직
-						
+						$('#moba-content').html('<div style="color:red; font-size:32px; transform:translate(50px,50px);"><b>문의글<br>전송합니다</b></div>');
+					setTimeout(function() {
+						$('#moba-content').html('');			
+					},1200);
 // 						$('#writeform').hide();
 // 						$('#sucessform').show();
 						
 						$('#writeform').fadeOut(800);
-						setTimeout(function() {
+							setTimeout(function() {
 // 						$('#sucessform').fadeIn(600);
 
 							location.reload();
@@ -263,7 +303,8 @@
 	
 	
 	function qnaUpdate(){
-		var check = confirm('수정합니다.');
+		//var check = confirm('수정합니다.');
+		var check = true;
 		var q_no = $('#q_no').text();
 		var q_title = $('#q_title').val();
 		var q_content = $('#q_content').val();
@@ -288,9 +329,17 @@
  	  				},
  	 				success:function(data){
  	 					console.log(data);
- 	 					alert('수정되었습니다.');
+ 	 					//alert('수정되었습니다.');
  	 					// 리로드
- 	 					location.reload();
+ 	 					$text = '<div style="color:blue; font-size:25px; transform:translate(30px,100px);"><b><span style="color:#333">'
+ 							+ q_no +
+ 							'</span><br>번 문의글<br>수정합니다.</b></div>'
+ 							
+ 							$('#moba-content').html($text);
+ 							
+ 							setTimeout(function() {
+ 								location.reload();			
+ 							},700);
  	 				},
  	 				error:function(request,status,errorData){
 	 					// 실패시 로직
@@ -306,7 +355,8 @@
 	}
 	
 		function qnaDelete(){
-			var check = confirm('삭제합니다.');
+			//var check = confirm('삭제합니다.');
+			var check = true;
 			var q_no = $('#q_no').text();
 			console.log(q_no);
 			
@@ -320,9 +370,20 @@
 	 	  				url:"helperQnaDelete.ex?q_no=" + q_no,
 	 	 				success:function(data){
 	 	 					console.log(data);
-	 	 					alert('삭제되었습니다.');
+	 	 					//alert('삭제되었습니다.');
+	 	 					
+	 						$text = '<div style="color:red; font-size:25px; transform:translate(30px,100px);"><b><span style="color:#333">'
+	 							+ q_no +
+	 							'</span><br>번 문의글<br>삭제합니다.</b></div>'
+	 							
+	 							$('#moba-content').html($text);
+	 							
+	 							setTimeout(function() {
+	 								location.reload();			
+	 							},700);
+	 							
 	 	 					// 리로드
-	 	 					location.reload();
+	 	 					
 	 	 				},
 	 	 				error:function(request,status,errorData){
 		 					// 실패시 로직
@@ -336,36 +397,56 @@
 			}
 		
 		}
+		
+	window.onload = function(){
+		$('#moba-content').html('<div style="color:#333; font-size:25px; transform:translate(30px,100px);"><b>안녕하세요<br>"Q&A"<br>센터입니다.</b></div>');
+	}
+	
 	$(function() {
+		
+		
+		
 		$('#boardQnA td').mouseenter(function() {
 			$(this).parent().css({
-				'background' : 'beige',
+				'background' : 'pink',
 				'cursor' : 'pointer',
 			})
-			$('#boardDetail').show();
+			
+			
 			
 			
 		}).mouseout(function() {
 			$(this).parent().css({
 				'background' : 'whitesmoke'
 			})
+// 			$('#boardDetail').hide();
 		}).click(function() {
 			
 			console.log('01. 클릭했다');
 			$(this).parent().css({
-				'background' : 'pink'
+				'background' : 'beige'
 			})
-			detailChange(this);
-			// 문의 상세보기 폼 show
-// 			$('#board-area').fadeOut(500);
-// 				setTimeout(function() {
-// 			$('#boardDetail').fadeIn(500);
-// 			}, 500);
-			
-			
-			
-			
-		
+				
+				if(${empty list }){
+					
+				}else{
+					
+					$('#boardDetail').show();
+					$('#boardDetail').css({'zoom':'1.3','transform':'translateX(-120px)'});
+					$text = '<div style="color:pink; font-size:25px; transform:translate(30px,100px);"><b><span style="color:red">'
+					+ $(this).parent().children().eq(0).text() +
+					'</span><br>번 문의글<br>상세보기</b></div>'
+					
+					$('#moba-content').html($text);
+					detailChange(this);
+					// 문의 상세보기 폼 show
+//		 			$('#board-area').fadeOut(500);
+//		 				setTimeout(function() {
+//		 			$('#boardDetail').fadeIn(500);
+//		 			}, 500);
+					
+				}	
+				
 		});
 	
 	});
