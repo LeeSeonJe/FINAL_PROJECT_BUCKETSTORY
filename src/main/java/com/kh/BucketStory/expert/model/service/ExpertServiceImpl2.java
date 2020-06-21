@@ -128,5 +128,18 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	public int updatehelper(Company c) {
 		return exDAO2.updatehelper(sqlSession, c);
 	}
+	@Override
+	public adminQnA getQnANo(int q_no) {
+		return exDAO2.getQnAno(sqlSession, q_no);
+	}
+	@Override
+	public int deleteQnA(int q_no) {
+		return exDAO2.deleteQnA(sqlSession,q_no);
+	}
+	@Override
+	public int updateQnA(adminQnA aQ) {
+		return exDAO2.updateQnA(sqlSession,aQ);
+	}
+
 
 }

@@ -59,4 +59,12 @@ public interface ExpertService2 {
 
 	ArrayList<adminQnA> selectQnAListN(PageInfo pi, String coId);
 
+	adminQnA getQnANo(int q_no);
+
+	int deleteQnA(int q_no);
+
+	int updateQnA(adminQnA aQ);
+
+
+
 }

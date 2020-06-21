@@ -106,6 +106,16 @@ public class ExpertDAO2 {
 	public int updatehelper(SqlSessionTemplate sqlSession, Company c) {
 		return sqlSession.update("exMapper2.updatehelper", c);
 	}
+	public adminQnA getQnAno(SqlSessionTemplate sqlSession, int q_no) {
+		return sqlSession.selectOne("exMapper2.selectQnAno", q_no);
+	}
+	public int deleteQnA(SqlSessionTemplate sqlSession, int q_no) {
+		return sqlSession.delete("exMapper2.deleteQnA", q_no);
+	}
+	public int updateQnA(SqlSessionTemplate sqlSession, adminQnA aQ) {
+		return sqlSession.update("exMapper2.updateQnA", aQ);
+	}
+	
 
 
 

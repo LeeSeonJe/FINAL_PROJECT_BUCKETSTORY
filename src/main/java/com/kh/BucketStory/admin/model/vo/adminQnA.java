@@ -39,6 +39,12 @@ public class adminQnA {
 		this.coid = coid;
 	}
 
+	public adminQnA(int q_no, String title, String content) {
+		this.q_no = q_no;
+		this.q_title = title;
+		this.q_content = content;
+	}
+
 	public int getQ_no() {
 		return q_no;
 	}
