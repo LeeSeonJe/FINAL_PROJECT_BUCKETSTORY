@@ -43,13 +43,21 @@ public class MemberController {
 	@Autowired
 	private MemberService mService;
 
-	// 버킷리스트를 하는 과정
+	// 위시리스트 이동 페이지
+	@RequestMapping("myWish.me")
+	public String myWish(@RequestParam String nickName, Model m, HttpSession session) {
+		session.setAttribute("nickName", nickName);
+		return "myPageWishList";
+	}
+	
+	// 블로그에서 버킷에 글 등록 페이지 이동
 	@RequestMapping("blogWrite.me")
 	public String writer(@RequestParam String bkNo, @RequestParam Integer page, Model m) {
 		m.addAttribute("bkNo", bkNo).addAttribute("page", page);
 		return "blogWriter";
 	}
 
+	// 블로그에서 버킷에 글 등록할 때
 	@RequestMapping("BlogInsert.me")
 	public String test(HttpSession session, @RequestParam String bContent, @RequestParam int bkNo,
 			@RequestParam String bTitle, @RequestParam Integer page, Model model) throws UnsupportedEncodingException {
@@ -80,14 +88,17 @@ public class MemberController {
 	// 메인에서 마이페이지로 들어왔을 경우
 	@RequestMapping("myBucket.me")
 	public String MyPageBucket(HttpSession session, Model m, @RequestParam String nickName) {
-		Member loginUser = (Member) session.getAttribute("loginUser");
+		Member loginUser = null;
+		if(session.getAttribute("loginUser") != null) {
+			loginUser = (Member) session.getAttribute("loginUser");			
+		} 
 		session.setAttribute("nickName", nickName);
-
+		
 		ArrayList<MemberMyBucketList> myBucketList = new ArrayList<MemberMyBucketList>();
 		Member getMember = new Member();
 
 		String flag = "false";
-		if (loginUser.getNickName().equals(nickName)) {
+		if (loginUser != null && loginUser.getNickName().equals(nickName)) {
 			getMember = mService.getMember(loginUser.getNickName());
 			myBucketList = mService.myBucketList(loginUser.getNickName());
 			flag = "true";
@@ -107,7 +118,7 @@ public class MemberController {
 		}
 	}
 
-	// 버킷리스트를 추가
+	// 버킷리스트를 추가페이지 이동
 	@RequestMapping("bucketWrite.me")
 	public String BucketWrite() {
 		return "bucketWrite";
@@ -175,7 +186,7 @@ public class MemberController {
 		
 		Member getMember = new Member();
 		ArrayList<Board> bList = new ArrayList<Board>();
-		if (loginUser.getNickName().equals(nickName)) {
+		if (loginUser != null && loginUser.getNickName().equals(nickName)) {
 			bList = mService.getBoard(loginUser.getNickName(), bn);
 			getMember = mService.getMember(loginUser.getNickName());
 			flag = "true";
@@ -194,7 +205,7 @@ public class MemberController {
 		}
 	}
 	
-	// 
+	// 버킷리스트 등록
 	@RequestMapping(value = "bInsert.me", method = RequestMethod.POST)
 	public String BucketInsert(@ModelAttribute BucketList BL, @RequestParam("uploadFile") MultipartFile uploadFile,
 			@RequestParam("tags") List<String> tags, HttpServletRequest request, HttpSession session,
@@ -223,7 +234,8 @@ public class MemberController {
 			return "bucketWrite";
 		}
 	}
-
+	
+	// 파일 업로드
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "\\muploadFiles";
@@ -252,7 +264,7 @@ public class MemberController {
 	}
 	
 	
-//	댓글 등록 
+	//	댓글 등록 
 	@RequestMapping(value = "bCommentInsert.me", method = RequestMethod.POST)
 	public void bCommentInsert(@ModelAttribute BoardComment boardComment, HttpSession session, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
@@ -272,7 +284,7 @@ public class MemberController {
 		}
 	}
 	
-//	댓글의 답글 등록
+	//	댓글의 답글 등록
 	@RequestMapping(value = "replyInsert.me", method = RequestMethod.POST)
 	public void replyInsert(@ModelAttribute Reply reply, HttpSession session, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
@@ -292,6 +304,7 @@ public class MemberController {
 		}
 	}
 	
+	// 댓글 수정
 	@RequestMapping(value = "bCommentUpdate.me", method = RequestMethod.POST)
 	public void bCommentUpdate(@ModelAttribute BoardComment boardComment, HttpSession session, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
@@ -311,6 +324,7 @@ public class MemberController {
 		}
 	}
 	
+	// 댓글의 답글 수정
 	@RequestMapping(value = "replyUpdate.me", method = RequestMethod.POST)
 	public void replyUpdate(@ModelAttribute Reply reply, HttpSession session, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
@@ -330,6 +344,7 @@ public class MemberController {
 		}
 	}
 	
+	// 댓글 삭제
 	@RequestMapping("commentDelete.me")
 	@ResponseBody
 	public String commentDelete(@RequestParam Integer cmNo, HttpServletResponse response) {
@@ -342,6 +357,7 @@ public class MemberController {
 		}
 	}
 	
+	// 댓글의 답글 삭제
 	@RequestMapping("replyDelete.me")
 	@ResponseBody
 	public String replyDelete(@RequestParam Integer rpNo, HttpServletResponse response) {

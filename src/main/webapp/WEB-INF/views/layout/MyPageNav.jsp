@@ -14,7 +14,7 @@
 			<span>&nbsp;♡</span>
 			<span>버킷리스트&nbsp;&nbsp;</span>
 		</a>
-		<a class="myPagemenu">
+		<a class="myPagemenu" href="myWish.me?nickName=${ nickName }">
 			<span>&nbsp;&nbsp;★</span>
 			<span>위시리스트&nbsp;&nbsp;</span>
 		</a>
