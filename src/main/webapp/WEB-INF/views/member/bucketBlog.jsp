@@ -300,21 +300,23 @@
 						</div>
 						
 						<!-- 댓글 쓰기 -->
-						<div class="comment">
-							<div class="write_comment_profile_area">
-								<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
-								<span>${ loginUser.nickName }</span>
-							</div>
-							<div class="write_comment_content">
-								<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;"></textarea>
-								<div class="write_comment_submit">
-									<label><input type="checkbox" name="secret" value="1">비밀댓글 </label>
-									<label class="counter">0/300</label>
-									<input type="hidden" value="${ bl.bNo }" />
-									<button type="button" onclick="comment_btn(this);">등록</button>
+						<c:if test="${ loginUser != null }">
+							<div class="comment">
+								<div class="write_comment_profile_area">
+									<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+									<span>${ loginUser.nickName }</span>
 								</div>
-							</div>
-						</div>			
+								<div class="write_comment_content">
+									<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;"></textarea>
+									<div class="write_comment_submit">
+										<label><input type="checkbox" name="secret" value="1">비밀댓글 </label>
+										<label class="counter">0/300</label>
+										<input type="hidden" value="${ bl.bNo }" />
+										<button type="button" onclick="comment_btn(this);">등록</button>
+									</div>
+								</div>
+							</div>			
+						</c:if>
 						<div class="comment_list">
 							<c:forEach items="${ bl.boardCommnet }" var="bl_bc">
 								<c:set var="bcSum" value="0"/>
@@ -439,20 +441,22 @@
 											</c:if>
 										</c:forEach>
 										</div>
-										<div class="reply">
-											<div class="reply_profile_area">
-												<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
-												<span>${ loginUser.nickName }</span>
-											</div>
-											<div class="reply_content">
-												<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" style="width: 98%; padding: 7px; background: white; border: 1px solid;"></textarea>
-												<div class="reply_submit">
-													<label class="counter">0/300</label>
-													<input type="hidden" value="${ bl_bc.cmNo }" />
-													<button type="button" onclick="reply_btn(this);">등록</button>
+										<c:if test="${ loginUser != null }">
+											<div class="reply">
+												<div class="reply_profile_area">
+													<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+													<span>${ loginUser.nickName }</span>
 												</div>
-											</div>
-										</div>	
+												<div class="reply_content">
+													<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" style="width: 98%; padding: 7px; background: white; border: 1px solid;"></textarea>
+													<div class="reply_submit">
+														<label class="counter">0/300</label>
+														<input type="hidden" value="${ bl_bc.cmNo }" />
+														<button type="button" onclick="reply_btn(this);">등록</button>
+													</div>
+												</div>
+											</div>	
+										</c:if>
 									</div>					
 								</c:if>
 							</c:forEach>

@@ -1,6 +1,7 @@
 package com.kh.BucketStory.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,9 +65,21 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int waringmember(int[] no_no) {
-		return bDAO.waringmember(sqlSession, no_no);
+	public int warningMember(int[] no) {
+		return bDAO.waringmember(sqlSession, no);
 	}
+
+//	@Override
+//	public int waringmember(int[] no_no) {
+//		return bDAO.waringmember(sqlSession, no_no);
+//	}
+
+//	@Override
+//	public int warningMember(List<String> no) {
+//		return bDAO.warningMember(sqlSession, no);
+//	}
+
+
 
 
 

@@ -163,7 +163,7 @@ function oneCheck(a){
 $(function(){
     $("[name=chk_head]").click(function(){
         allCheck(this);
-        console.log(this);
+//         console.log(this);
         //모두동의하기 체크박스 클릭시
     });
     $("[name=chk_box]").each(function(){
@@ -174,37 +174,61 @@ $(function(){
 });
 
 
-/* 경고 먹는 회원 스크립트 */
+// /* 경고 먹는 회원 스크립트 */
 	
-function chk_warning(){
-	alert("클릭");
+// function chk_warning(){
+// 	alert("클릭");
 	
-	var checkArr = []; // 배열 초기화
-// 	var check = "";
+// 	var checkArr = []; // 배열 초기화
+// // 	var check = "";
 	
-	$("input[name='chk_box']:checked").each(function(i){
+// 	$("input[name='chk_box']:checked").each(function(i){
 // 		var va = $(this).val();
-// 		console.log(va);
-// 		console.log(typeof(va));
+// // 		console.log(va);
+// // 		console.log(typeof(va));
+		
+// 		checkArr.push(va);
+// 		console.log(checkArr);
+// 		console.log(typeof(checkArr));
+// // 		checkArr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
+// 	});
+	
+// // 	console.log(typeof(checkArr));
+		
+// 	$.ajax({
+// 		url: 'warning.ad',
+// 		type: 'POST',
+// 		data: {no_no : va},
+// 		success: function(data){
+// 			if(data == 'success'){
+// 				console.log(data);
+// 			}
+// 		}
+// 	});
+// }
 
-		checkArr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
+/* 경고 먹는 회원 스크립트 2번째 시도*/
+	function chk_warning(){
+	 	alert("클릭");
+
+	
+	var chk_Arr = []; // 배열 초가화
+	$("input[name='chk_box']:checked").each(function(i){
+		chk_Arr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
 	});
 	
-// 	console.log(typeof(checkArr));
-		
 	$.ajax({
 		url: 'warning.ad',
-		type: 'POST',
-		data: {notify : checkArr},
+		data: {Notify : chk_Arr},
 		success: function(data){
 			if(data == 'success'){
-				console.log(data);
+			alert("성공");
+			console.log(data);
+
 			}
 		}
 		
-		
 	});
-	
 }
 
 </script>

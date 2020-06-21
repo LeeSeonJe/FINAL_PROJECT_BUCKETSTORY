@@ -28,7 +28,7 @@
 			
 			<table id="helperProfile" style="border:1px solid black; width:600px;height:200px;">
 				<tr>
-					<td rowspan="2"><img src="resources/expert/images/photo.jpg" id="profileImage" ></td>
+					<td rowspan="2" style="width: 150px;"><img src="resources/expert/images/photo.jpg" id="profileImage" ></td>
 					<td><h1>${ company.coId }</h1></td>
 					<td><div class="likebtn"><button>♥좋아요</button></div></td>
 				</tr>
@@ -67,7 +67,7 @@
 					<h4>(5.0)</h4>
 				</div>
 				
-				<div id=reviewbox">
+				<div id="reviewbox">
 					<table style="border:1px solid balck">
 						<tr>
 							<td style="width:86px; height:77px">
@@ -97,19 +97,28 @@
 			</div>
 		</div>
 	</div>
-	<div id="page-2">
-		<ul style="padding-inline-start: 0px;">
-			<li><h5>함께하는 버킷리스트</h5></li>
-			<c:if test="${ bucket eq null }">
-				<li>함께하는 버킷리스트가 없습니다.</li>
-			</c:if>
-			<c:if test="${ bucket !=null }">
-				<c:forEach var="bucket" items="${ bucket }">
-					<li>${ bucket.bkName }</li>
-				</c:forEach>
-			</c:if>
-		</ul>
-		
+	<div id="page-2" style="top:80.6px;">
+		<div style="overflow:auto; width:320px; height:530px;">
+			<table id="choiceBucket" style="padding-inline-start: 0px;width: 100%;">
+				<tr><th colspan="3" style="height: 70px;">함께하는 버킷리스트</th></tr>
+				
+				<c:if test="${ bucket eq null }">
+					<tr><td colspan="2">함께하는 버킷리스트가 없습니다.</td><tr>
+				</c:if>
+				<c:if test="${ bucket !=null }">
+					<c:forEach var="bucket" items="${ bucket }">
+						<tr onclick="modal(${bucket.bkNo});">
+							<c:forEach var="m" items="${ media }">
+								<c:if test="${bucket.bkNo == m.bkno }">
+									<td><img style='width: 90px;'id='bucketListImage' src='resources/muploadFiles/${ m.mweb }'></td>
+								</c:if>
+							</c:forEach>
+							<td>${ bucket.bkName }</td>
+						</tr>
+					</c:forEach>
+				</c:if>
+			</table>
+		</div>
 		<c:url var="getRequest" value="getRequest.ex">
 			<c:param name="coId" value="${ company.coId }"/>
 		</c:url>
@@ -117,8 +126,8 @@
 			<c:param name="coId" value="${ company.coId }"/>
 		</c:url>
 		<div id="subBtn">
-			<button onclick="location.href='${ getRequest }'">받은 견적확인</button>
-			<button onclick="location.href='${ ex_infoUpdate }'">정보수정</button>
+			<button class="btn" onclick="location.href='${ getRequest }'">받은 견적확인</button>
+			<button class="btn" onclick="location.href='${ ex_infoUpdate }'">정보수정</button>
 		</div>
 	</div>
 	<script>
