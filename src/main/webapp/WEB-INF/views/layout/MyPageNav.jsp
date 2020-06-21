@@ -22,7 +22,7 @@
 			<span>&nbsp;♬</span>
 			<span>블로그&nbsp;</span>
 		</a>
-		<a class="myPagemenu">
+		<a class="myPagemenu" href="myEstimateView.ex">
 			<span>&nbsp;▤</span>
 			<span>견적서&nbsp;</span>
 		</a>

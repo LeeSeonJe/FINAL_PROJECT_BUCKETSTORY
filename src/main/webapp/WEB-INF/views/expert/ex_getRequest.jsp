@@ -9,16 +9,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
 <c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
 <c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
+<section>
 	<div id="page">
 		<div id="submenu">
 			<ul>
 				<li><h3 style="display: inline;">받은요청 &nbsp</h3></li>
-				<li><a href="makingRequestView.ex?coId=${ coId }">작성중 &nbsp</a></li>
-				<li><a href="roadingRequestView.ex?coId=${ coId }">대기중&nbsp</a></li>
-				<li><a href="completeRequestView.ex?coId=${ coId }">완료요청</a></li>
+				<li><a href="makingRequestView.ex">작성중 &nbsp</a></li>
+				<li><a href="roadingRequestView.ex">대기중&nbsp</a></li>
+				<li><a href="completeRequestView.ex">완료요청</a></li>
 			</ul>
 		</div>
 		
@@ -54,7 +55,7 @@
 						</tr>
 					</table>
 				</div>
-				<hr style="width:840px">
+				<hr style="width:840px;margin: auto;">
 			</c:forEach>
 		</c:if>
 		<c:if test="${ er == null }">
@@ -69,5 +70,6 @@
 			</div>
 		</div>
 	</div>
+</section>
 </body>
 </html>

@@ -39,41 +39,109 @@
     	background:lightgray;
     	
     }
-    #page-2{width:200px;height:425px; float:right;
-			margin-left:10px;border:1px solid black;
-			background-color:#F0F0F0; position:absolute;
-			margin-top: 60px; right:245px; padding: 3px 10px; text-align: center;}
+    #page-2{   
+    width: 320px;
+    height: 590px;
+    border: 1px solid black;
+    background-color: #F0F0F0;
+	position: absolute;
+    margin-top: 40px;
+    right: 0px;
+    bottom:0px;
+    padding: 3px 10px;
+    text-align: center;}
 
-	#subBtn{    width: 190px;
-	    height: 30px;
+	#subBtn{    width: 100%;
+	    height: 41px;
 	    background: lightblue;
 	    text-align: center;
 	    margin-top: 15px;
 	    line-height: 30px;
-	    cursor:pointer;}
- 	#page-2>ul>li{margin-top:10px;}
- 	
- 	
+	    cursor:pointer;
+	    float:bottom;}
+ 	.btn {
+    border: none;
+    width: 148px;
+    height: 30px;
+    margin-top: 6px;
+    cursor:pointer;
+	}
+	.btn:hover{cursor:pointer; background:#10ccc3;}
+ 	#choiceBucket>tbody>tr:hover{
+ 		cursor:pointer;
+ 		background:#10ccc3;
+ 	}
  	#modal {
- 	  display:none;
-	  position:absolute;
-	  width:100%;
-	  height:100%;
-	  z-index:1;
+	position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 71.8%;
+    min-height: 100px;
+    z-index: 301;
+    margin-left: 3.9%;
+    margin-bottom: 5%;
+    background:white;
 	}
-	
+	#bucketexit{
+	position: absolute;
+    width: 50px;
+    height: 50px;
+    color: rgb(91, 90, 255);
+    top: 10px;
+    right: 0px;
+    font-size: 35px;
+    cursor: pointer;
+    font-weight: 700;
+    z-index: 100;
+}
 	#bucketImage{
-	  width:100%;
-	  height:300px;
-	  margin:0;   
+	width:100%;
+	background:skyblue;
+	background-size: cover;
+	overflow: hidden;
+	position:relative;  
 	}
-	
-	#modal button {
-	  display:inline-block;
-	  width:100px;
-	  margin-left:calc(100% - 100px - 10px);
-	}
-	
+	#bucketcate{
+	position: absolute;
+    bottom: 265px;
+    left: 20px;
+    width: 100px;
+    height: 20px;
+    font-weight: 800;
+    color: orange;
+    font-family: -webkit-pictograph;
+}
+#buckettitle{
+	position: absolute;
+    bottom: 170px;
+    left: 10px;
+    width: 500px;
+    height: 90px;
+    font-size: 30px;
+    color: white;
+    font-weight: 700;
+    font-family: cursive;
+}
+#bucketAdd{
+	position: absolute;
+    width: 141px;
+    height: 50px;
+    border: 1px solid yellow;
+    color: yellow;
+    border-radius: 50px;
+    line-height: 43.5px;
+    font-weight: 700;
+    bottom: 101px;
+    right: 13px;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+#bucketAdd:hover{
+	color:black;
+	background:#10ccc3;
+	border:1px solid #10ccc3;
+}
 	#modal .modal_content {
 	  width:60%;
 	  margin:100px auto;
@@ -81,15 +149,6 @@
 	  border:2px solid #666;
 	}
 	
-	#modal .modal_layer {
-	  position:fixed;
-	  top:0;
-	  left:0;
-	  width:100%;
-	  height:100%;
-	  background:rgba(0, 0, 0, 0.5);
-	  z-index:-1;
-	}   
 	#area1{width: 380px;
     		display: inline-block;
 	}
@@ -98,12 +157,24 @@
     height: 84px;
     margin-left: 13px;
     border: 1px solid black;
+    overflow: scroll;
 	}
-	#controll{
-		display: inline;
-    	float: right;
-    	margin-top: 66px;
-	}
+
 	#delete{
 		cursor:pointer;
 	}
+	#FullOverLay{
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 1200px;
+    z-index: 300;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: none;
+    background:rgb(0,0,0,0.3);
+}

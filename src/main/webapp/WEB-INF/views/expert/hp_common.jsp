@@ -51,15 +51,15 @@
 
     <div id="sub-area">
         <ul class='sub-c' id ="sub-item1">
-            <li><a href="helperView.ex">기업소개보기</a></li>
-            <li><a href="helperEdit2.ex">기업소개변경</a></li>
+            <li><a href="info.ex">기업소개보기</a></li>
+            <li><a href="ex_infoUpdateForm.ex">기업소개변경</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item2">
             <li><a href="helperBucketList.ex">헬퍼버킷리스트</a></li>
             <li><a href=#>헬퍼4</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item3">
-            <li><a href="esrequest.ex?coId=TEST&bkNo=3">견적서 관리5</a></li>
+            <li><a href="getRequest.ex">견적서 관리5</a></li>
             <li><a href=#>헬퍼6</a></li>
         </ul>
         <ul class='sub-c' id ="sub-item4">
