@@ -27,6 +27,11 @@ nav{
 	min-width:1200px;
 	height:110px;
 }
+/* 헬퍼 버킷리스트에서 씀 */
+#section-wrap{
+	margin:0 auto;
+	width:1200px;
+}
 /* 검색버튼 */
 #search{
 	min-width:1200px;
@@ -46,7 +51,6 @@ nav{
     cursor: pointer;
 }
 
-
 /* 섹션 */
 section{
 	min-width:1200px;
@@ -57,17 +61,18 @@ section{
 	transform-origin: 50% 50%;
     transform: translate(0px, 0px);
     opacity: 1;
-	position: relative;
+    position: relative;
     float: left;
-    width: 20%;
+    width: 30%;
     overflow: hidden;
-    cursor: pointer;
-    background-image: url('../images/loginback.jpg');
-    background-size:cover;
+    background-image: url(../images/loginback.jpg);
+    background-size: cover;
     margin: 0;
     padding: 0;
     border: 0;
     display: block;
+    margin-top: 1%;
+    margin-left: 2.5%;
 }
 .bucketStoryNick{
 	position: absolute;
@@ -304,26 +309,6 @@ section{
     cursor: pointer;
 }
 #bucketAdd:hover{
-	color:black;
-	background:#10ccc3;
-	border:1px solid #10ccc3;
-}
-#bucketComAdd{
-	position: absolute;
-    width: 141px;
-    height: 50px;
-    border: 1px solid white;
-    color: white;
-    border-radius: 50px;
-    line-height: 43.5px;
-    font-weight: 700;
-    bottom: 40px;
-    right: 40px;
-    text-align: center;
-    font-size: 25px;
-    cursor: pointer;
-}
-#bucketComAdd:hover{
 	color:black;
 	background:#10ccc3;
 	border:1px solid #10ccc3;

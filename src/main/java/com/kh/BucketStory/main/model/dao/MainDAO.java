@@ -135,5 +135,9 @@ public class MainDAO {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectRankBucketList");
 	}
 
+	public ArrayList<BucketList> selectCoBucket(SqlSessionTemplate sqlSession, String coId) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectCoBucket", coId);
+	}
+
 	
 }
