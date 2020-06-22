@@ -29,6 +29,7 @@ public interface ExpertService2 {
 
 	int getListQnACount(String coId);
 
+	
 	ArrayList<adminQnA> selectQnAList(PageInfo pi, String coId);
 
 	// 기업 소개변경
@@ -64,6 +65,19 @@ public interface ExpertService2 {
 	int deleteQnA(int q_no);
 
 	int updateQnA(adminQnA aQ);
+
+	// 회원용 QnA
+	int getListMQnACount(String userId);
+
+	ArrayList<adminQnA> selectMQnAList(PageInfo pi, String userId);
+
+	ArrayList<adminQnA> selectMQnAListY(PageInfo pi, String userId);
+
+	int getListMQnACountN(String userId);
+
+	ArrayList<adminQnA> selectMQnAListN(PageInfo pi, String userId);
+
+	int getListMQnACountY(String userId);
 
 
 

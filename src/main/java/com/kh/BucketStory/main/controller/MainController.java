@@ -75,34 +75,10 @@ public class MainController {
 		return mv;
 	}
 	
-	@RequestMapping("Cmain.ho")
-	public ModelAndView CompanyMain(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category,
-									ModelAndView mv, HttpSession session) {
-		
-		ArrayList<Media> blImg = mainService.selectBucketImg();
-		ArrayList<Board> blogList = mainService.selectBlogList();
-		
-		mv.addObject("blImg", blImg);
-		mv.addObject("category", category);
-		mv.addObject("blogList", blogList);
-		
-		if(menuNum == 1) {
-			ArrayList<BucketList> bucketList = mainService.selectBucketList();
-			mv.addObject("bucketList", bucketList);
-			mv.setViewName("CmainList");
-		} else if(menuNum == 2) {
-			mv.setViewName("CmainRanking");
-		} else if(menuNum == 3) {
-			ArrayList<BucketList> bucketList = mainService.selectRecoBucketList();
-			mv.addObject("bucketList", bucketList);
-			mv.setViewName("CmainRecomment");
-		} else {
-			mv.setViewName("CmainCompany");
-		}
-		
-		return mv;
+	@RequestMapping("myInfo.ho")
+	public String myInfoView() {
+		return "myInfo";
 	}
-	
 	@RequestMapping("blLike.ho")
 	public void BucketLike(@RequestParam("bkNo") int bkNo, HttpSession session, HttpServletResponse response) {
 		String UserId = ((Member)session.getAttribute("loginUser")).getUserId();

@@ -23,6 +23,7 @@
 	display:none;
 }
 .hidden {height:100%; min-height:100%; overflow:hidden !important; touch-action:none;}
+
 </style>
 </head>
 <body>
@@ -39,10 +40,10 @@
     <div id="menu-area">
         <ul class='menu-c'>
             <li id ="menu-item1"><a href='expertIntro.ex'>헬퍼마이페이지</a></li>
-            <li id ="menu-item2"><a href='http://localhost:9480/BucketStory/main.ho?menuNum=1&category=0'>헬퍼버킷리스트</a></li>
-            <li id ="menu-item3"><a href='#'>견적서 관리</a></li>
+            <li id ="menu-item2"><a href='ex_infoUpdateForm.ex'>헬퍼버킷리스트</a></li>
+            <li id ="menu-item3"><a href='getRequest.ex'>견적서 관리</a></li>
             <li id ="menu-item4"><a href='point.ex?search=none'>포인트 관리</a></li>
-            <li id ="menu-item5"><a href='helperQnaList.ex?search=all'>Q & A</a></li>
+<!--             <li id ="menu-item5"><a href='helperQnaList.ex?search=all'>Q & A</a></li> -->
         </ul>
     </div>
 </nav>

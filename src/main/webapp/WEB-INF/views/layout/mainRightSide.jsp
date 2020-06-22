@@ -41,18 +41,24 @@
                         </c:if>
                         </li>
                         <li>
-                            <a href="javascript:goMyBucket();" class="gnb2 mot2" onclick='eventTrack("", "menu_mypage");'>
+                        	<c:if test="${not empty loginUser}">
+                            <a href="myInfo.ho" class="gnb2 mot2" onclick='eventTrack("", "menu_mypage");'>
                                 <div class="text mot2">
                                     <span class="en mot2">My Info</span><br>
-                       	<c:if test="${not empty loginUser}">
                                     내 정보를 수정할 수 있어요.
-                        </c:if>
-                        <c:if test="${not empty loginCompany}">
-                     	기업 정보를 수정할 수 있어요.
-                        </c:if>
                                 </div>
                                 <div class="ico mot2"></div>
                             </a>
+                            </c:if>
+                             <c:if test="${not empty loginCompany}">
+                             <a href="javascript:goMyBucket();" class="gnb2 mot2" onclick='eventTrack("", "menu_mypage");'>
+                                <div class="text mot2">
+                                    <span class="en mot2">My Info</span><br>
+                                    기업 정보를 수정할 수 있어요.
+                                </div>
+                                <div class="ico mot2"></div>
+                            </a>
+                             </c:if>
                         </li>
                         <li>
                             <a href="festival.ho" class="gnb3 mot2" onclick='eventTrack("", "menu_event");'>
@@ -64,13 +70,24 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/about/about.jsp" class="gnb4 mot2" onclick='eventTrack("", "menu_about");'>
+                        <c:if test="${not empty loginCompany}">
+                            <a href="helperQnaList.ex?search=all" class="gnb4 mot2" onclick='eventTrack("", "menu_about");'>
                                 <div class="text mot2">
                                     <span class="en mot2">QnA</span><br>      
                                     관리자에게 궁금한것을 물어보세요.
                                 </div>
                                 <div class="ico mot2"></div>
                             </a>
+                        </c:if>
+                        <c:if test="${not empty loginUser}">
+                        	<a href="helperMQnaList.ex?search=all" class="gnb4 mot2" onclick='eventTrack("", "menu_about");'>
+                                <div class="text mot2">
+                                    <span class="en mot2">QnA</span><br>      
+                                    관리자에게 궁금한것을 물어보세요.
+                                </div>
+                                <div class="ico mot2"></div>
+                            </a>
+                        </c:if>
                         </li>
                     </ul>
            		</div>
