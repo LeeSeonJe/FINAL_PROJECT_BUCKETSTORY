@@ -13,6 +13,7 @@ import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.common.model.vo.Member;
 
 
 @Service("BoardService")
@@ -64,10 +65,10 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.cautionListCount(sqlSession);
 	}
 
-	@Override
-	public int warningMember(int[] no) {
-		return bDAO.waringmember(sqlSession, no);
-	}
+//	@Override
+//	public int warningMember(int[] no, Member m) {
+//		return bDAO.waringmember(sqlSession, no, m);
+//	}
 
 	@Override
 	public ArrayList<Notify> Memberlist(PageInfo pi) {
@@ -78,6 +79,13 @@ public class BoardServiceImpl implements BoardService {
 	public int deleteMember(int[] no) {
 		return bDAO.deleteMember(sqlSession, no);
 	}
+
+	@Override
+	public int warningMember(List<String> no) {
+		return bDAO.warningMember(sqlSession, no);
+	}
+
+
 
 
 

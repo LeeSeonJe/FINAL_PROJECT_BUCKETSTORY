@@ -26,6 +26,7 @@ import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.Pagination;
+import com.kh.BucketStory.common.model.vo.Member;
 
 @Controller
 public class AdminController {
@@ -39,7 +40,7 @@ public class AdminController {
 		return "festivalWrite";
 	}
 	
-	/* 메인 페이지 에서 페스티벌페이지*/
+	/* 메인 페이지에서 페스티벌페이지*/
 	@RequestMapping("list.ad")
 	public String adminfestivalList() {
 
@@ -204,15 +205,17 @@ public class AdminController {
 		return mv;
 	}
 	
-	/* 경고 받은 회원 넘겨주기 */
+	/* 신고된 회원 경고  */
 	@RequestMapping("warning.ad")
-	public String waringmember(@RequestParam(value="Notify[]") List<String> no_no) {
+	public String waringmember(@RequestParam(value="Notify[]") List<String> no) {
 		
-		 int[] no = new int [no_no.size()];
-		for(int i = 0; i < no.length; i++) {
-			
-			no[i] = Integer.parseInt(no_no.get(i));
-		}
+//		Member m = new Member();
+		
+//		 int[] no = new int [no_no.size()];
+//		for(int i = 0; i < no.length; i++) {
+//			
+//			no[i] = Integer.parseInt(no_no.get(i));
+//		}
 		
 		System.out.println("no 값 보기 " + no);
 		

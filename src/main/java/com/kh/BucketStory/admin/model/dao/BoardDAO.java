@@ -63,20 +63,20 @@ public class BoardDAO {
 		return sqlSession.selectOne("adminMapper.cautionListCount");
 	}
 	
-	public int waringmember(SqlSessionTemplate sqlSession, int[] no) {
-		int result = 0;
-		
-		for(int i = 0; i < no.length; i++) {
-			
-			result += sqlSession.update("adminMapper.warningMember", no[i]);
-		}
-		
-		if(result == no.length) {
-			return result;
-		} else {
-			throw new BoardException("실패");
-		}
-	}
+//	public int waringmember(SqlSessionTemplate sqlSession, int[] no, Member m) {
+//		int result = 0;
+//		
+//		for(int i = 0; i < no.length; i++) {
+//			
+//			result += sqlSession.update("adminMapper.warningMember", no[i]);
+//		}
+//		
+//		if(result == no.length) {
+//			return sqlSession.update("adminMapper.cautionMember", m);
+//		} else {
+//			throw new BoardException("실패");
+//		}
+//	}
 
 	public ArrayList<Notify> Memberlist(SqlSessionTemplate sqlSession, PageInfo pi) {
 		
@@ -100,6 +100,20 @@ public class BoardDAO {
 			throw new BoardException("삭제에 실패하였습니다.");
 		}
 	}
+
+	public int warningMember(SqlSessionTemplate sqlSession, List<String> no) {
+		int result =  sqlSession.update("adminMapper.warningMember", no);
+		
+		System.out.println("DAO 결과 값 " + result );
+		
+		if(result > 0) {
+			return sqlSession.update("adminMapper.cautionMember", no);
+
+		} else {
+			throw new BoardException("업데이트 실패");
+		}
+	}
+
 
 
 
