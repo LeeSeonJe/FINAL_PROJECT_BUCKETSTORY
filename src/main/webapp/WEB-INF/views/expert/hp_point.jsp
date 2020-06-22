@@ -13,8 +13,7 @@
 <link rel="stylesheet" href="resources/expert/css/hp_point.css">
 <link rel="stylesheet" href="resources/expert/css/hp_boardList.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
 <body>
@@ -67,7 +66,7 @@
 								<td><p class="p-before">10,000원</p>
 									<p class="p-after">7,000원</p></td>
 								<td><button class="btn btn--primary2"
-										onclick="insertPoint(10000);">결제하기(걍 결제 Test)</button></td>
+										onclick='requestPay(10000,"${coId}","<%=today%>");'>결제하기</button></td>
 							</tr>
 							<tr>
 								<td>20,000 point</td>
@@ -75,7 +74,7 @@
 								<td><p class="p-before">20,000원</p>
 									<p class="p-after">14,000원</p></td>
 								<td><button class="btn btn--primary2"
-										onclick="requestPay(20000);">결제하기(카카오페이 Test)</button></td>
+										onclick='requestPay(20000,"${coId}","<%=today%>");'>결제하기</button></td>
 							</tr>
 							<tr>
 								<td>30,000 point</td>
@@ -83,7 +82,7 @@
 								<td><p class="p-before">30,000원</p>
 									<p class="p-after">21,000원</p></td>
 								<td><button class="btn btn--primary2"
-										onclick="requestPay(30000);">결제하기</button></td>
+										onclick='requestPay(30000,"${coId}","<%=today%>");'>결제하기</button></td>
 							</tr>
 							<tr>
 								<td>40,000 point</td>
@@ -91,7 +90,7 @@
 								<td><p class="p-before">40,000원</p>
 									<p class="p-after">28,000원</p></td>
 								<td><button class="btn btn--primary2"
-										onclick="requestPay(40000);">결제하기</button></td>
+										onclick='requestPay(40000,"${coId}","<%=today%>");'>결제하기</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -366,7 +365,10 @@
 
 
 	 <jsp:include page="/WEB-INF/views/expert/hp_upper.jsp" />
-	<script src="resources/expert/js/point.js"></script>
+ 	<script src="resources/expert/js/point.js"></script> 
 
+<script>
+
+</script>
 </body>
 </html>
