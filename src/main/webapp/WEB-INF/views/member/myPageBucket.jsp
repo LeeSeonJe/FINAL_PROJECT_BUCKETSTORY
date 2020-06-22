@@ -22,21 +22,38 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />
+						<c:if test="${ getMember.prImage == null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" />					
+						</c:if>
+						<c:if test="${ getMember.prImage != null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />					
+						</c:if>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 30px;">${ getMember.nickName }</td>
+					<td colspan="2" style="font-size: 30px;">${ getMember.nickName }</td>
+					<td>
+						<c:if test="${ loginUser != null && getMember.userId ne loginUser.userId}">
+							<c:if test="${ followCheck == 1 }">
+								<button type="button" id="unFollowBtn" onclick="unfollow(this);">팔로우 취소</button>
+							</c:if>
+							<c:if test="${ followCheck == 0 }">
+								<button type="button" id="followBtn" onclick="follow(this);">팔로우</button>
+							</c:if>
+						</c:if>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="3" style="font-size: 20px;">${ getMember.userName }</td>
 				</tr>
 				<tr>
 					<td>게시물 ${ list }</td>
-					<td>팔로워 ${ getMember.fwCount }</td>
-					<td>팔로우 30</td>
+					<td class="follow-td" onclick="follower(this);" style="cursor: pointer;" >팔로워 <span id="follower">${ followerList.size() }</span></td>
+					<td class="follow-td" onclick="following(this);" style="cursor: pointer;">팔로잉 ${ followingList.size() }</td>
 				</tr>
 			</table>
+<!-- 			<div id="follower-area" class="followList">팔로워</div> -->
+<!-- 			<div id="following-area" class="followList">팔로잉</div> -->
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
@@ -71,9 +88,83 @@
 			<c:if test="${ flag eq 'false' }">
 			</c:if>
 		</section>
+<%-- 		${ followerList } --%>
+<%-- 		${ followingList } --%>
 	</div>
 </body>
 <script>	
+// 	var isPopup = false;
+	
+// 	$(function(){
+// 		$('#follower-area').hide();
+// 		$('#following-area').hide();
+// 	})
+// 	function follower(f) {
+// 		$('#follower-area').toggle();
+// 		isPopup = true;
+// 	}
+	
+// 	function following(f) {
+// 		$('#following-area').toggle();
+// 		isPopup = true;	
+// 	}
+	
+// 	$(".follow-td").on("mouseleave", function(){
+// 		if(!isPopup){
+// 			$('#follower-area').hide();
+// 			$('#following-area').hide();			
+// 		}
+// 	})
+	
+	$(".followList").on("mouseenter", function(){
+		event.stopPropagation();
+  		event.preventDefault();
+	})
+	
+	$(".followList").on("mouseleave", function(){
+		event.stopPropagation();
+  		event.preventDefault();
+  		$('#follower-area').hide();
+		$('#following-area').hide();
+  		isPopup=false;
+	})
+	
+	function follow(f) {
+		var following = '${ loginUser.userId }';
+		var follower = '${ getMember.userId }';
+		var followCount = $('#follower').text();
+		$.ajax({
+			url: "follow.me",
+			data: {
+				following:following,
+				follower:follower
+			}, success: function(data) {
+				$(f).text("팔로우 취소");
+				$(f).attr("id", "unFollowBtn");
+				$(f).attr("onclick", "unfollow(this);")
+				$('#follower').text(parseInt(followCount)+1);
+			}
+		})
+	}
+	
+	function unfollow(f) {
+		var following = '${ loginUser.userId }';
+		var follower = '${ getMember.userId }';
+		var followCount = $('#follower').text();
+		$.ajax({
+			url: "unfollow.me",
+			data: {
+				following:following,
+				follower:follower
+			}, success: function(data) {
+				$(f).text("팔로우");
+				$(f).attr("id", "followBtn");
+				$(f).attr("onclick", "follow(this);")
+				$('#follower').text(followCount-1);
+			}
+		})
+	}
+	
 	$('#bucketAddBtn').on('click', function(){
 		location.href="bucketWrite.me?nickName=${ getMember.nickName }";
 	});

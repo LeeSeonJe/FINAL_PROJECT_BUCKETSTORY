@@ -152,3 +152,44 @@ section {
 	margin-left: 875.8px;
     cursor: pointer;
 }
+
+#followBtn {
+	font-weight: 600;
+    color: white;
+    border: 1px solid transparent;
+    background-color: #0095f6;
+    background-color: rgba(var(--d69,0,149,246),1);
+    width: 130px;
+    height: 25px;
+    border-radius: 3px;
+    font-size: 13px;
+    outline: none;
+}
+
+#unFollowBtn {
+	font-weight: 600;
+    color: white;
+    border: 1px solid transparent;
+    background-color: #0095f6;
+    background-color: rgba(var(--d69,0,149,246),1);
+    width: 130px;
+    height: 25px;
+    border-radius: 3px;
+    font-size: 13px;
+    outline: none;
+}
+
+.followList {
+	display: none;
+    width: 500px;
+    height: 300px;
+    z-index: 2147483647;
+    position: absolute;
+    right: 30%;
+    top: 30%;
+    background: white;
+}
+
+.follow-td {
+	
+}

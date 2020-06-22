@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.dao.MemberDAO;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.BoardComment;
+import com.kh.BucketStory.member.model.vo.Follow;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 import com.kh.BucketStory.member.model.vo.Reply;
 
@@ -90,6 +92,40 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int replyDelete(Integer rpNo) {
 		return mDAO.replyDelete(sqlSession, rpNo);
+	}
+
+	@Override
+	public ArrayList<WishList> getWishList(String nickName) {
+		String userid = mDAO.getUserId(sqlSession, nickName);
+		return mDAO.getWishList(sqlSession, userid);
+	}
+
+	@Override
+	public ArrayList<Follow> getFollowingList(String nickName) {
+		String userid = mDAO.getUserId(sqlSession, nickName);
+		return mDAO.getFollowingList(sqlSession, userid);
+	}
+
+	@Override
+	public ArrayList<Follow> getFollowerList(String nickName) {
+		String userid = mDAO.getUserId(sqlSession, nickName);
+		return mDAO.getFollowerList(sqlSession, userid);
+	}
+
+	@Override
+	public int followCheck(String nickName, String userId) {
+		String userid2 = mDAO.getUserId(sqlSession, nickName);
+		return mDAO.followCheck(sqlSession, userid2, userId);
+	}
+
+	@Override
+	public int follow(Follow follow) {
+		return mDAO.follow(sqlSession, follow);
+	}
+
+	@Override
+	public int unfollow(Follow follow) {
+		return mDAO.unfollow(sqlSession, follow);
 	}
 
 }
