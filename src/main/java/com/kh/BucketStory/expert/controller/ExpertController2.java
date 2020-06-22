@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
+import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
@@ -493,7 +494,51 @@ public class ExpertController2 {
 //		
 	}
 	
-	
+	@RequestMapping(value = "helperMQnaList.ex", method = RequestMethod.GET)
+	public ModelAndView showMQnAList(HttpSession session, 
+							@RequestParam(value = "page", required = false) Integer page,
+							@RequestParam(value = "search") @Nullable String search,
+			ModelAndView mv) {
+
+		String userId = ((Member) session.getAttribute("loginUser")).getUserId();
+		
+		int currentPage = 1;
+		if (page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = 0;
+		PageInfo pi = null;
+		ArrayList<adminQnA> list = null;
+		
+		
+		if(search.equals("all")) {
+			listCount = ExService2.getListQnACount(coId);
+			pi = pagination.getPageInfo(currentPage, listCount);
+			list = ExService2.selectQnAList(pi, coId);
+		}
+		if(search.equals("Y")) {
+			listCount = ExService2.getListQnACountY(coId);
+			pi = pagination.getPageInfo(currentPage, listCount);
+			list = ExService2.selectQnAListY(pi, coId);
+		}
+		if(search.equals("N")) {
+			listCount = ExService2.getListQnACountN(coId);
+			pi = pagination.getPageInfo(currentPage, listCount);
+			list = ExService2.selectQnAListN(pi, coId);
+		}
+
+		if (list != null) {
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.addObject("coId", coId);
+			mv.addObject("search",search);
+			mv.setViewName("hp_MQnAList");
+		} else {
+			throw new ExpertException("QnA 내역 조회에 실패했습니다.");
+		}
+		return mv;
+	}
 	
 
 

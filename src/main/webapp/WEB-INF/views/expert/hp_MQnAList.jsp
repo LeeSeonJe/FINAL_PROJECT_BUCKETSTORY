@@ -59,7 +59,7 @@
 			<!-- Q&A 게시판 목록 영역-->
 			<div id="board-area">
 
-			<h3>${coId}님 환영합니다!</h3>
+			<h3>${loginUser.nickName}님 환영합니다!</h3>
 			<h3>Count(${search }): ${ pi.listCount }</h3>
 			<button id="newQnA" class="btn btn--primary2" onclick ="newQnA();">새로운 문의글 작성하기</button>
 			

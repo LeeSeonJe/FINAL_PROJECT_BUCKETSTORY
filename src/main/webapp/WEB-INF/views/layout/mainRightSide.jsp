@@ -70,13 +70,24 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/about/about.jsp" class="gnb4 mot2" onclick='eventTrack("", "menu_about");'>
+                        <c:if test="${not empty loginCompany}">
+                            <a href="helperQnaList.ex?search=all" class="gnb4 mot2" onclick='eventTrack("", "menu_about");'>
                                 <div class="text mot2">
                                     <span class="en mot2">QnA</span><br>      
                                     관리자에게 궁금한것을 물어보세요.
                                 </div>
                                 <div class="ico mot2"></div>
                             </a>
+                        </c:if>
+                        <c:if test="${not empty loginUser}">
+                        	<a href="helperMQnaList.ex?search=all" class="gnb4 mot2" onclick='eventTrack("", "menu_about");'>
+                                <div class="text mot2">
+                                    <span class="en mot2">QnA</span><br>      
+                                    관리자에게 궁금한것을 물어보세요.
+                                </div>
+                                <div class="ico mot2"></div>
+                            </a>
+                        </c:if>
                         </li>
                     </ul>
            		</div>
