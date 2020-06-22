@@ -31,7 +31,7 @@ public class ExpertDAO {
 		return (ArrayList)sqlSession.selectList("exMapper.selectCateList", catenum);
 	}
 
-	public int insertBucket(SqlSessionTemplate sqlSession, Map<String, Object> hm) {
+	public int insertBucket(SqlSessionTemplate sqlSession, ComInBucket hm) {
 			return sqlSession.insert("exMapper.insertComBucket",hm);
 	}
 

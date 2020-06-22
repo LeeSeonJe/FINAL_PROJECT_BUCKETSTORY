@@ -74,38 +74,18 @@ public class ExpertController {
 	}
 
 	@RequestMapping("expertUpdate.ex")
-	public ModelAndView expertInfoUpdate(@ModelAttribute Company com,
-			@RequestParam(value = "bucket", required = false) String bucket, ModelAndView mv) {
-		int result = ExService.updateExInfo(com);
+	public ModelAndView expertInfoUpdate(HttpSession session,
+			@RequestParam("bucket") String bucket, ModelAndView mv) {
+			
+		Company loginCom = (Company) session.getAttribute("loginCompany");
+		ComInBucket cib = new ComInBucket();
+					cib.setCoId(loginCom.getCoId());
+					cib.setBkNo(bucket);
 
-		if (result > 0) {
-			if (bucket != null) {
-				String[] bucketList = bucket.split(",");
-				List<ComInBucket> list = new ArrayList<ComInBucket>();
-				Map<String, Object> hm = new HashMap<String, Object>();
+				int result2 = ExService.insertBucket(cib);
 
-				for (int i = 0; i < bucketList.length; i++) {
-					ComInBucket cib = new ComInBucket();
-					cib.setCoId(com.getCoId());
-					cib.setBkNo(bucketList[i]);
-
-					list.add(cib);
-				}
-				hm.put("list", list);
-
-				int result2 = ExService.insertBucket(hm);
-
-				if (result2 > 0) {
-					mv.setViewName("redirect:info.ex?coId=" + com.getCoId());
-				} else {
-					throw new ExpertException("버킷리스트 등록에 실패하였습니다.");
-				}
-			} else {
-				mv.setViewName("redirect:info.ex?coId=" + com.getCoId());
-			}
-		} else {
-			throw new ExpertException("게시글 수정에 실패하였습니다.");
-		}
+				mv.setViewName("redirect:info.ex");
+		
 		return mv;
 	}
 
@@ -318,9 +298,12 @@ public class ExpertController {
 				  }
 				 }
 			 }
-				 
+			if(es.getStatus()==1) {
+				return "redirect:getRequest.ex";
+			}else {
+				return "redirect:makingEstimate.ex";
+			}
 		 
-		 return "redirect:getRequest.ex?coId=TEST";
 	 
 	 }
 	 
@@ -454,7 +437,14 @@ public class ExpertController {
 		 Member loginUser = (Member) session.getAttribute("loginUser");
 		 
 		 ArrayList<Estimate> es = ExService.selectUserEstimate(loginUser.getUserId());
+		 ArrayList<BucketList> bucket = new ArrayList<BucketList>();
 		 
+		 for(int i=0;i<es.size();i++) {
+			 BucketList b = ExService.selectBucket(es.get(i).getBkNo());
+			 bucket.add(b);
+		 }
+		 
+		 mv.addObject("bucket",bucket);
 		 mv.addObject("es",es);
 		 mv.setViewName("ex_userEstimate");
 		 

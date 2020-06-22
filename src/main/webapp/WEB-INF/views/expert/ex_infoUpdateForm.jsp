@@ -20,7 +20,7 @@
 <form action="expertUpdate.ex">
 	<div id="page-1">
 		<div id="inputPhoto">
-			<img src="resources/expert/images/배경-1.jpg" id="mainPhoto" name="mainPoto">
+			<img src="resources/expert/images/moon.jpg" id="mainPhoto" name="mainPoto">
 		</div>
 		
 		<div id="sum-upPage">
@@ -30,7 +30,7 @@
 			
 			<table id="helperProfile" style="border:1px solid black; width:600px;height:200px;">
 				<tr>
-					<td rowspan="2"><img src="resources/expert/images/photo.jpg" id="profileImage" ></td>
+					<td rowspan="2"><img src="resources/expert/images/moon.jpg" id="profileImage" ></td>
 					<td><h2>${ company.compaName }</h2></td>
 					<td><input type="hidden" id="coId" name="coId" value="${ company.coId }"></td>
 				</tr>
@@ -168,7 +168,7 @@
 	<div id="FullOverLay">
 		<div id="modal">
 			<div id="bucketexit">X</div>
-			<img id="bucketImage" src="resources/expert/images/배경-1.jpg">
+			<img id="bucketImage" src="resources/expert/images/moon.jpg">
 			<div id="bucketcate">FOOD</div>
 			<div id="buckettitle">리틀 포레스트에 나오는 음식 따라 만들기</div>
 			<div id="bucketAdd"> + ADD </div>

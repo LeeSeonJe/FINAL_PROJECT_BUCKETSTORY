@@ -21,7 +21,7 @@ public interface ExpertService {
 
 	ArrayList<BucketList> selectCateList(int catenum);
 
-	int insertBucket(Map<String, Object> hm);
+	int insertBucket(ComInBucket hm);
 
 	ArrayList<BucketList> selectComBucket(String coId);
 

@@ -41,7 +41,7 @@ public class ExpertServiceImpl implements ExpertService {
 	}
 	
 	@Override
-	public int insertBucket(Map<String, Object> hm) {
+	public int insertBucket(ComInBucket hm) {
 		return exDAO.insertBucket(sqlSession, hm);
 	}
 	@Override
