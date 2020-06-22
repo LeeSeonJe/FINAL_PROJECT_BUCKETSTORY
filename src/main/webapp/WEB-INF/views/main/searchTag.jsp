@@ -363,13 +363,38 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 			async:false,
 			success:function(data){
 				if(data == '1'){
-					
-				} else if(data == '2'){
-					
+					$('#bucketComAdd').hide();
+				} else{
+					$('#bucketComAdd').show();
 				}
 			}
 		});
+		if('${loginCompany.cateNum}' != cateNum){
+			$('#bucketComAdd').hide();
+		}
 	}
+	// 버킷 기업 가져오기
+	$.ajax({
+		url:'bkDetailCompany.ho',
+		data:{
+			bkNo:bkNo
+		},
+		async : false,
+		success:function(data){
+			$('#bucketcompany>ul').html('');
+			for(var key in data){
+				var $value = $('<li>');
+				$value.text(data[key].coName);
+				if('${loginUser}' != ""){
+					var $button = $('<button>');
+					$button.attr('onclick', 'estimate('+bkNo+', "'+data[key].coId+'");');
+					$button.text('견적서 작성');
+					$value.append($button);
+				}
+				$('#bucketcompany>ul').append($value);
+			}
+		}
+	});
 	// 버킷사진 가져오기
 	if(1<=bkNo&&bkNo<=10){
 		$.ajax({
@@ -475,6 +500,15 @@ function InPutCoBucket(bkNo){
 				}
 			}
 		});
+	} else{
+		alert("취소");
+	}
+}
+//견적서 요청 하기
+function estimate(bkNo, coId){
+	var result = confirm("견적서 요청 하시겠습니까?");
+	if(result){
+		location.href="";
 	} else{
 		alert("취소");
 	}

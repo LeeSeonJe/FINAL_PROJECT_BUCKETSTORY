@@ -309,4 +309,38 @@ public class MainController {
 		
 		return "HelperBucket";
 	}
+	
+	@RequestMapping("bkDetailWhatAdd.ho")
+	@ResponseBody
+	public String bucketDetailWhatAdd(@RequestParam("bkNo") int bkNo, HttpSession session) {
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+		
+		String returnString = "";
+		
+		int result = mainService.countDetailWhat(bkNo, coId);
+		if(result > 0) {
+			returnString = "1";
+		} else {
+			returnString = "0";
+		}
+		
+		return returnString;
+	}
+	
+	@RequestMapping("bkDetailCompany.ho")
+	public void bkDetailCompany(@RequestParam("bkNo") int bkNo, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		
+		ArrayList<Company> list = mainService.selectDetailCompany(bkNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		try {
+			gson.toJson(list, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

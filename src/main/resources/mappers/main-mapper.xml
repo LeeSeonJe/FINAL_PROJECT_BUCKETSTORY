@@ -229,7 +229,6 @@
 		where BKNAME like '%' || #{b} || '%'    
 		order by ENROLLDATE desc
 	</select>
-	
 	<select id="selectSearchTag" resultMap="BucketResultSet">
 		select *
 		from
@@ -243,5 +242,20 @@
 		    join member m on (s.userid = m.userid))
 		where TAG like '%' || #{t} || '%'    
 		order by ENROLLDATE desc
+	</select>
+	
+	<!-- 로그인한 기업이 등록한 버킷인지 -->
+	<select id="countDetailWhat" resultType="_int">
+		select count(*)
+		from cominbucket
+		where coid = #{coId} and bkno = #{bkNo}
+	</select>
+	
+	<!-- 버킷에 등록된 기업 -->
+	<select id="selectDetailCompany" resultType="Company">
+		select *
+		from company
+		join cominbucket using(coid)
+		where bkno = #{bkNo}
 	</select>
 </mapper>
