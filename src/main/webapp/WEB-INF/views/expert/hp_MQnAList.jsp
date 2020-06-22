@@ -74,15 +74,15 @@
 							<th scope="cols">작성일</th>
 							<th scope="cols"><c:if test="${search eq 'all'}">
 									<button class="btn btn--primary2" onclick="goShowAll();">전체</button>
-									<button class="btn" onclick="goShowY();">답변</button>
-									<button class="btn" onclick="goShowN();">미답변</button>
+									<button class="btn" onclick="goShowMY();">답변</button>
+									<button class="btn" onclick="goShowMN();">미답변</button>
 								</c:if> <c:if test="${search eq 'Y'}">
-									<button class="btn" onclick="goShowAll();">전체</button>
+									<button class="btn" onclick="goShowMAll();">전체</button>
 									<button class="btn btn--primary2" onclick="goShowY();">답변</button>
-									<button class="btn" onclick="goShowN();">미답변</button>
+									<button class="btn" onclick="goShowMN();">미답변</button>
 								</c:if> <c:if test="${search eq 'N'}">
-									<button class="btn" onclick="goShowAll();">전체</button>
-									<button class="btn" onclick="goShowY();">답변</button>
+									<button class="btn" onclick="goShowMAll();">전체</button>
+									<button class="btn" onclick="goShowMY();">답변</button>
 									<button class="btn btn--primary2" onclick="goShowN();">미답변</button>
 								</c:if></th>
 						</tr>
@@ -115,7 +115,7 @@
 						<button id="prev">이전</button>
 					</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="before" value="helperQnaList.ex?search=${search}">
+						<c:url var="before" value="helperMQnaList.ex?search=${search}">
 							<c:param name="page" value="${ pi.currentPage - 1 }" />
 						</c:url>
 						<a href="${ before }"><button id="prev">이전</button></a>
@@ -128,7 +128,7 @@
 						</c:if>
 
 						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="pagination" value="helperQnaList.ex?search=${search}">
+							<c:url var="pagination" value="helperMQnaList.ex?search=${search}">
 								<c:param name="page" value="${ p }" />
 							</c:url>
 							<a href="${ pagination }"><button class="sBtn">${ p }</button></a>
@@ -140,7 +140,7 @@
 						<button id="next">다음</button>
 					</c:if>
 					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="after" value="helperQnaList.ex?search=${search}">
+						<c:url var="after" value="helperMQnaList.ex?search=${search}">
 							<c:param name="page" value="${ pi.currentPage + 1 }" />
 						</c:url>
 						<a href="${ after }"><button id="next">다음</button></a>
@@ -183,7 +183,7 @@
 	    </div>
 	</section>
 
-<script src="resources/expert/js/qna.js"></script>
+<script src="resources/expert/js/qnaM.js"></script>
 
 </body>
 </html>

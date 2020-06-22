@@ -346,7 +346,7 @@ public class ExpertController2 {
 		return "hp_sendQnA";
 	}
 
-	// qna 문의 전송 : ajax 방식으로 변경
+	// qna 문의 전송(coid): ajax 방식으로 변경
 	@RequestMapping("insertQnAjax.ex")
 	public void insertQnAjax(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
 
@@ -365,6 +365,27 @@ public class ExpertController2 {
 			resWriter(response, "fail");
 		}
 	}
+	
+	// qna 문의 전송(user) : ajax 방식으로 변경
+	@RequestMapping("insertMQnAjax.ex")
+	public void insertMQnAjax(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+
+		System.out.println("진입");
+		String userId = ((Member) session.getAttribute("loginUser")).getUserId();
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+
+		adminQnA aQ = new adminQnA(title, content, null, userId);
+		int result = ExService2.insertQnA(aQ);
+
+		if (result > 0) {
+//			System.out.println("성공");
+			resWriter(response, "ok");
+		} else {
+			resWriter(response, "fail");
+		}
+	}
+	
 	@RequestMapping("helperQnaDelete.ex")
 	public void deleteQnA(@RequestParam(value="q_no") int q_no, 
 							HttpServletResponse response) {
@@ -511,27 +532,29 @@ public class ExpertController2 {
 		PageInfo pi = null;
 		ArrayList<adminQnA> list = null;
 		
+//		adminQnA aq = new adminQnA();
+//		aq.setUserid(userId);
 		
 		if(search.equals("all")) {
-			listCount = ExService2.getListQnACount(coId);
+			listCount = ExService2.getListMQnACount(userId);
 			pi = pagination.getPageInfo(currentPage, listCount);
-			list = ExService2.selectQnAList(pi, coId);
+			list = ExService2.selectMQnAList(pi, userId);
 		}
 		if(search.equals("Y")) {
-			listCount = ExService2.getListQnACountY(coId);
+			listCount = ExService2.getListMQnACountY(userId);
 			pi = pagination.getPageInfo(currentPage, listCount);
-			list = ExService2.selectQnAListY(pi, coId);
+			list = ExService2.selectMQnAListY(pi, userId);
 		}
 		if(search.equals("N")) {
-			listCount = ExService2.getListQnACountN(coId);
+			listCount = ExService2.getListMQnACountN(userId);
 			pi = pagination.getPageInfo(currentPage, listCount);
-			list = ExService2.selectQnAListN(pi, coId);
+			list = ExService2.selectMQnAListN(pi, userId);
 		}
 
 		if (list != null) {
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
-			mv.addObject("coId", coId);
+			mv.addObject("userId", userId);
 			mv.addObject("search",search);
 			mv.setViewName("hp_MQnAList");
 		} else {

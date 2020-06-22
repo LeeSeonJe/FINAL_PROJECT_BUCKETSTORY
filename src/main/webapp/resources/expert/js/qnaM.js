@@ -1,4 +1,4 @@
-// 기업용
+//일반회원용
 /*
  * 초기 로드시 우측에 안내문구
  */
@@ -11,9 +11,9 @@ window.onload = function(){
 /*
  * 요청 URL 링크
  */
-function goShowAll() { location.href = "helperQnaList.ex?search=all";}
-function goShowY() {location.href = "helperQnaList.ex?search=Y";}
-function goShowN() {location.href = "helperQnaList.ex?search=N";}
+function goShowMAll() { location.href = "helperMQnaList.ex?search=all";}
+function goShowMY() {location.href = "helperMQnaList.ex?search=Y";}
+function goShowMN() {location.href = "helperMQnaList.ex?search=N";}
 
 /*====================================================
  * QnA 작성 : Ajax
@@ -54,7 +54,7 @@ function newQnA(){
 			},1200);
 		}else{
 			$.ajax({
-				url: "insertQnAjax.ex",
+				url: "insertMQnAjax.ex",
 				data : 
 				{
 					title: title,
@@ -303,9 +303,10 @@ function newQnA(){
 			
 		}
 	}
+	
 	$('#overlay').css('top','-2px');
 	   $('#sidewrap').css('top','56px');
-
+	
 	$('.gnb_menu .gnb_menu_ul li a.gnb4').css('background','url("resources/layout/images/bg04_on.jpg") no-repeat 0 center #f3f3f2');
 	   $('.gnb_menu .gnb_menu_ul li a.gnb4 .ico').css('background', 'url("resources/layout/images/ico04_on.png") no-repeat 0 0');
 	   $('.gnb_menu .gnb_menu_ul li a.gnb4 .text span').css('color','#fff');
@@ -316,5 +317,5 @@ function newQnA(){
 	      $('.gnb_menu .gnb_menu_ul li a .text:eq(2)').css('color', '#fff');
 	   }
 	   $('.gnb_menu a').css('text-decoration','none');
-	
+	   
 	

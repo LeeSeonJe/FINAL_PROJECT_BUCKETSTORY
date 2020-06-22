@@ -212,9 +212,59 @@
 	order by Q_NO desc
 	</select>
 	
+<!--  user용  QnA-->
+
+	<select id = "getListMQnACount" resultType ="_int">
+	select count(*)
+	from QNA
+	where USERID = #{userid}
+	</select>	
+	
+	<select id = "getListMQnACountY" resultType ="_int">
+	select count(*)
+	from QNA
+	where USERID = #{userid} AND ANSWER = 'Y'
+	</select>	
+	
+	<select id = "getListMQnACountN" resultType ="_int">
+	select count(*)
+	from QNA
+	where USERID = #{userid} AND ANSWER = 'N'
+	</select>	
+	
+	<select id="selectMQnAList" resultMap = "QnAResultSet">
+	select *
+	from QNA
+	where USERID = #{userid}
+	order by Q_NO desc
+	</select>
+	
+	<select id="selectMQnAListY" resultMap = "QnAResultSet">
+	select *
+	from QNA
+	where COID = #{userid} AND ANSWER = 'Y'
+	order by Q_NO desc
+	</select>
+	
+	<select id="selectMQnAListN" resultMap = "QnAResultSet">
+	select *
+	from QNA
+	where COID = #{userid} AND ANSWER = 'N'
+	order by Q_NO desc
+	</select>
+	
+	
+	
 	<insert id ="insertQnA">
-		insert into QNA
-		values(seq_qna.nextval,#{q_title},#{q_content},sysdate,'N',null,null,null,#{coid})
+		insert into QNA	
+		<set>
+			<if test = "coid!=null">
+			values(seq_qna.nextval,#{q_title},#{q_content},sysdate,'N',null,null,null,#{coid})
+			</if>
+			<if test = "coid!=null">
+			values(seq_qna.nextval,#{q_title},#{q_content},sysdate,'N',null,null,#{userId},null)
+			</if>
+		</set>
 	</insert>
 	
 	<select id="selectQnAno" resultMap ="QnAResultSet">

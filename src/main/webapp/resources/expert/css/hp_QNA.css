@@ -89,15 +89,15 @@ section{
 	QNA
 ----------------------------------------*/
 #background{
-	 background: url(../images/imac.png);
-    background-size: cover;
-    position: relative;
-    width: 980px;
-    height: 800px;
-    top: -110px;
-    display: none;
-    z-index: -1;
-    margin: 0 auto;
+/* 	 background: url(../images/imac.png); */
+/*     background-size: cover; */
+/*     position: relative; */
+/*     width: 980px; */
+/*     height: 800px; */
+/*     top: -110px; */
+/*     display: none; */
+/*     z-index: -1; */
+/*     margin: 0 auto; */
 }
 
 #inner {

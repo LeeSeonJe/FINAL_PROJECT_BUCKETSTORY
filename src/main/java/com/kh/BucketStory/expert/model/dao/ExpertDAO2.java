@@ -64,32 +64,6 @@ public class ExpertDAO2 {
 		return sqlSession.insert("exMapper2.insertQnA", aQ);
 	}
 	
-	// QNA 리스트 게시판
-	public int getListQnACount(SqlSessionTemplate sqlSession, String coId) {
-		return sqlSession.selectOne("exMapper2.getListQnACount",coId);
-	}
-	public int getListQnACountY(SqlSessionTemplate sqlSession, String coId) {
-		return sqlSession.selectOne("exMapper2.getListQnACountY",coId);
-	}
-	public int getListQnACountN(SqlSessionTemplate sqlSession, String coId) {
-		return sqlSession.selectOne("exMapper2.getListQnACountN",coId);
-	}
-	public ArrayList<adminQnA> selectQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
-		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAList", coId, rowBounds);
-	}
-	public ArrayList<adminQnA> selectQnAListY(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
-		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListY", coId, rowBounds);
-	}
-	public ArrayList<adminQnA> selectQnAListN(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
-		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListN", coId, rowBounds);
-	}
-
 	// Company
 	public int updateCompany(SqlSessionTemplate sqlSession, Company c) {
 		return sqlSession.update("exMapper2.updateCompany", c);
@@ -116,7 +90,59 @@ public class ExpertDAO2 {
 		return sqlSession.update("exMapper2.updateQnA", aQ);
 	}
 	
+	// QNA 리스트 게시판(기업용)
+	public int getListQnACount(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getListQnACount",coId);
+	}
+	public int getListQnACountY(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getListQnACountY",coId);
+	}
+	public int getListQnACountN(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper2.getListQnACountN",coId);
+	}
+	public ArrayList<adminQnA> selectQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAList", coId, rowBounds);
+	}
+	public ArrayList<adminQnA> selectQnAListY(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListY", coId, rowBounds);
+	}
+	public ArrayList<adminQnA> selectQnAListN(SqlSessionTemplate sqlSession, PageInfo pi, String coId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListN", coId, rowBounds);
+	}
+	
+	// QNA 리스트 게시판(회원용)
+	public int getListMQnACount(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("exMapper2.getListMQnACount",userId);
+	}
 
+	public int getListMQnACountN(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("exMapper2.getListMQnACountN",userId);
+	}
+	public int getListMQnACountY(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("exMapper2.getListMQnACountY",userId);
+	}
+	
+	public ArrayList<adminQnA> selectMQnAListN(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListN", userId, rowBounds);
+	}
+	public ArrayList<adminQnA> selectMQnAListY(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListY", userId, rowBounds);
+	}
+	public ArrayList<adminQnA> selectMQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAList", userId, rowBounds);
+	}
 
 
 
