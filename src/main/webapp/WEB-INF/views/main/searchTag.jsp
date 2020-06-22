@@ -87,7 +87,7 @@
 	}, function(){
 		$('.c-likewish.${ b.bkNo }').hide();
 	});
-	if('${loginUser}' != null){
+	if('${loginUser}' != ""){
 		if('${loginUser.nickName}' == '${b.userId}'){
 			$('.c-Add.${b.bkNo}').hide();
 		}
@@ -262,7 +262,7 @@ function blLikeUp(bkNo){
 
 //위시 등록취소하기
 function wishRegist(bkNo, userId){
-	if('${loginUser}' != null){
+	if('${loginUser}' != ""){
 		if('${loginUser.userId}' == userId){
 			alert("나의 버킷은 위시등록 할 수 없습니다.");
 		} else{
@@ -288,7 +288,7 @@ function wishRegist(bkNo, userId){
 
 // 공유버킷등록
 function sharebl(bkNo, userId){
-	if('${loginUser}' != null){
+	if('${loginUser}' != ""){
 		if('${loginUser.nickName}' == userId){
 			alert("나의 버킷은 공유할 수 없습니다.");
 		} else{
@@ -411,7 +411,7 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 				$('#bucketwithPro').html('');
 				$('#bucketwithCount>span').text(data.length);
 				for(var key in data){
-					if('${loginUser}' != null){
+					if('${loginUser}' != ""){
 						if(data[key].nickName == '${loginUser.nickName}'){
 							$('#bucketAdd').hide();
 						}
