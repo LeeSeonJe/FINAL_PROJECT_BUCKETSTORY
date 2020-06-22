@@ -23,7 +23,6 @@
 	display:none;
 }
 .hidden {height:100%; min-height:100%; overflow:hidden !important; touch-action:none;}
-
 </style>
 </head>
 <body>
@@ -46,10 +45,10 @@
 <!--             <li id ="menu-item5"><a href='helperQnaList.ex?search=all'>Q & A</a></li> -->
         </ul>
     </div>
-</nav>
+	</nav>
+	
 <jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"/>
 
 <div id ="overlay-2"></div>
-
 </body>
 </html>

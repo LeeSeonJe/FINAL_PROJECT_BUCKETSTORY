@@ -174,7 +174,7 @@ table.point td {
 #board-top {
 	width: 980px;
 	hegiht: 400px;
-	background: red;
+/* 	background: red; */
 }
 
 #board-top video {

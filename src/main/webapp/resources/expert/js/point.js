@@ -1,13 +1,13 @@
-function insertPoint(price) {
+function insertPoint(price , coId , today) {
 	alert(price * (1 - dc) + '원을 결제합니다.');
 	$.ajax({
 		url : "pinsert.ex",
 		data : {
 			pa_no : 9999,
 			pa_pay : price * 1.1, //보너스 포인트 포함
-			coid : "${coId}",
+			coid : coId,
 			status : 'Y',
-			pdate : "<%=today%>",
+			pdate : today,
 		},
 		success : function(data) {
 			var msg = '결제가 완료되었습니다.';
@@ -21,7 +21,7 @@ var dc = 0.3; //할인율
 var IMP = window.IMP;
 IMP.init('imp49697884');
 
-function requestPay(price) {
+function requestPay(price , coId , today) {
 	var chkbox = document.getElementsByName('agree');
 
 	//console.log(chkbox);
@@ -38,25 +38,21 @@ function requestPay(price) {
 			amount : price * (1 - dc),
 
 			// 			    buyer_email : 'iamport@siot.do',
-			buyer_name : "${coId}",
-		/*   buyer_tel : '010-1234-5678',
-		  buyer_addr : '서울특별시 강남구 삼성동',
-		  buyer_postcode : '123-456',
-		  m_redirect_url : 'https://www.yourdomain.com/payments/complete' */
+			buyer_name : coId
 
 		}, function(rsp) {
 			if (rsp.success) {
 
 				$.ajax({
 					url : "pinsert.ex",
-					// 			    	  method:"POST"
+//					method:"POST",
 					// 			    	  headers:{"Content-Type":"application/json"}
 					data : {
 						pa_no : 9999,
 						pa_pay : price * 1.1, //보너스 포인트 포함
-						coid : "${coId}",
+						coid : coId,
 						status : 'Y',
-						pdate : "<%=today%>",
+						pdate : today,
 					},
 					success : function(data) {
 						var msg = '결제가 완료되었습니다.';
@@ -80,7 +76,6 @@ function requestPay(price) {
 		alert('이용약관에 동의해주세요');
 	}
 }
-
 $(function() {
 	$('.board td').mouseenter(function() {
 		$(this).parent().css({
@@ -96,7 +91,7 @@ $(function() {
 	if ($('#check').val() == 'first') {
 		$('html').scrollTop(0);
 	} else {
-		document.getElementById('board-area').scrollIntoView();
+		document.getElementById('board-paging').scrollIntoView();
 	}
 	//$('.p-section').hide();
 
@@ -132,7 +127,7 @@ $(document).ready(function() {
 	vid.cureentTime = 0;
 
 	vid.play();
-	consolo.log(vid);
+	//consolo.log(vid);
 	
 	var scrolltop = $(document).scrollTop();
 
@@ -142,6 +137,6 @@ $("a[href^='#']").click(function(event){
 	event.preventDefault();
 	var target = $(this.hash);
 	// 헤더가 fixed 이기 떄문에 header만큼 뻄
-	console.log(target.offset().top-108);
+	//console.log(target.offset().top-108);
 	$('html, body').animate({scrollTop:target.offset().top-108},300);
 });
