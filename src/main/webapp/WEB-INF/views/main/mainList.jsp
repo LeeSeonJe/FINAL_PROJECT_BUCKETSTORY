@@ -116,7 +116,7 @@
 	}, function(){
 		$('.c-likewish.${ b.bkNo }').hide();
 	});
-	if('${loginUser}' != null){
+	if('${loginUser}' != ""){
 		if('${loginUser.nickName}' == '${b.userId}'){
 			$('.c-Add.${b.bkNo}').hide();
 		}
@@ -495,7 +495,7 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 				$('#bucketwithPro').html('');
 				$('#bucketwithCount>span').text(data.length);
 				for(var key in data){
-					if('${loginUser}' != null){
+					if('${loginUser}' != ""){
 						if(data[key].nickName == '${loginUser.nickName}'){
 							$('#bucketAdd').hide();
 						}
