@@ -405,14 +405,17 @@ section{
 }
 #bucketcompany{
 	width: 90%;
+    height: 100px;
     margin-left: 5%;
     overflow: auto;
     max-height: 103.4px;
     margin-top: 15px;
+    border: 1px solid #ded9d9;
 }
 #bucketcompany>ul>li{
 	font-size: 15px;
 	margin-bottom: 2px;
+	border-bottom: 1px solid gray;
 }
 #bucketcompany>ul>li:nth-child(n+2){
 	border-top: 1px solid gray;

@@ -11,6 +11,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.main.model.dao.MainDAO;
 import com.kh.BucketStory.member.model.vo.Board;
 
@@ -106,6 +107,16 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public ArrayList<BucketList> selectCoBucket(String coId) {
 		return mainDAO.selectCoBucket(sqlSession, coId);
+	}
+
+	@Override
+	public int countDetailWhat(int bkNo, String coId) {
+		return mainDAO.countDetailWhat(sqlSession, bkNo, coId);
+	}
+
+	@Override
+	public ArrayList<Company> selectDetailCompany(int bkNo) {
+		return mainDAO.selectDetailCompany(sqlSession, bkNo);
 	}
 
 }

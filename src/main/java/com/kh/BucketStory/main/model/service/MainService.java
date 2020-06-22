@@ -7,6 +7,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.member.model.vo.Board;
 
 public interface MainService {
@@ -44,5 +45,9 @@ public interface MainService {
 	ArrayList<BucketList> selectRankBucketList();
 
 	ArrayList<BucketList> selectCoBucket(String coId);
+
+	int countDetailWhat(int bkNo, String coId);
+
+	ArrayList<Company> selectDetailCompany(int bkNo);
 
 }

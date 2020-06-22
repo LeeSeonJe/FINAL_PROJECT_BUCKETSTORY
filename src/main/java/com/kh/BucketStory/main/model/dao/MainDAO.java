@@ -11,6 +11,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.member.model.vo.Board;
 
 @Repository("mainDAO")
@@ -137,6 +138,17 @@ public class MainDAO {
 
 	public ArrayList<BucketList> selectCoBucket(SqlSessionTemplate sqlSession, String coId) {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectCoBucket", coId);
+	}
+
+	public int countDetailWhat(SqlSessionTemplate sqlSession, int bkNo, String coId) {
+		HashMap<String, String> hashmap = new HashMap<String, String>();
+		hashmap.put("bkNo", ""+bkNo);
+		hashmap.put("coId", coId);
+		return sqlSession.selectOne("mainMapper.countDetailWhat", hashmap);
+	}
+
+	public ArrayList<Company> selectDetailCompany(SqlSessionTemplate sqlSession, int bkNo) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectDetailCompany", bkNo);
 	}
 
 	
