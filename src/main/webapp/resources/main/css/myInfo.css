@@ -34,7 +34,7 @@ header {
 section{
 	width: 100%;
     min-height: 500px;
-    background: rgba(243, 180, 255, 0.8);
+    background: rgb(142, 169, 236);
     overflow: hidden;
     padding-bottom: 50px;
 }
@@ -48,7 +48,7 @@ section{
 	width: 620px;
     min-height: 430px;
     border-top: 3px solid;
-    border-color: #a047c0;
+    border-color: #3a7af8;;
     background: white;
     margin-top: 50px;
 }
