@@ -43,4 +43,6 @@ public interface MainService {
 
 	ArrayList<BucketList> selectRankBucketList();
 
+	ArrayList<BucketList> selectCoBucket(String coId);
+
 }

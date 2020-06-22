@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -291,5 +292,21 @@ public class MainController {
 		
 		mv.setViewName("searchBucket");
 		return mv;
+	}
+	
+	@RequestMapping("helperBucket.ho")
+	public String helperBucketView(Model m,HttpSession session) {
+		
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+		ArrayList<Media> blImg = mainService.selectBucketImg();
+		ArrayList<Board> blogList = mainService.selectBlogList();
+		
+		ArrayList<BucketList> bucketList = mainService.selectCoBucket(coId);
+		
+		m.addAttribute("bucketList", bucketList);
+		m.addAttribute("blogList", blogList);
+		m.addAttribute("blImg", blImg);
+		
+		return "HelperBucket";
 	}
 }

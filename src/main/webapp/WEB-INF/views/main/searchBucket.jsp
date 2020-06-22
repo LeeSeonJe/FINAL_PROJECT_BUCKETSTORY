@@ -114,6 +114,11 @@
 				<div id="bucketwish">☆ </div>
 				</c:if>
 				<!-- 회원만 해당(끝) -->
+				<!-- 기업만 해당(시작) -->
+				<c:if test="${ not empty loginCompany }">
+				<div id="bucketComAdd"> + ADD </div>
+				</c:if>
+				<!-- 기업만 해당(끝) -->
 			</div>
 			<div id="bucketcp">
 				<div id="bucketTag">
@@ -348,6 +353,24 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 	if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
 		$('#bucketwish').css('color', '#10ccc3');
 	}
+	$('#bucketComAdd').attr('onclick', 'InPutCoBucket('+bkNo+');');
+	// 기업 버킷 추가버튼 할지 말지
+	if('${loginCompany.coId}' != ""){
+		$.ajax({
+			url:'bkDetailWhatAdd.ho',
+			data:{
+				bkNo:bkNo
+			},
+			async:false,
+			success:function(data){
+				if(data == '1'){
+					
+				} else if(data == '2'){
+					
+				}
+			}
+		});
+	}
 	// 버킷사진 가져오기
 	if(1<=bkNo&&bkNo<=10){
 		$.ajax({
@@ -416,17 +439,17 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 						if(data[key].nickName == '${loginUser.nickName}'){
 							$('#bucketAdd').hide();
 						}
-						if(data[key].userId != 'admin'){
-							if(data[key].prImage != null){
-								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-								$('#bucketwithPro').append($div);
-							} else{
-								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-								$('#bucketwithPro').append($div);
-							}
+					}
+					if(data[key].userId != 'admin'){
+						if(data[key].prImage != null){
+							var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+							$('#bucketwithPro').append($div);
 						} else{
-							$('#bucketwithCount>span').text(data.length-1);
+							var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+							$('#bucketwithPro').append($div);
 						}
+					} else{
+						$('#bucketwithCount>span').text(data.length-1);
 					}
 				}
 			} else{
@@ -435,6 +458,27 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 			}
 		}
 	});
+}
+//기업 버킷 등록하기
+function InPutCoBucket(bkNo){
+	var result = confirm("이 버킷을 등록하시겠습니까?");
+	
+	if(result){
+		$.ajax({
+			url:'expertUpdate.ex',
+			data:{
+				bucket:bkNo
+			},
+			async : false,
+			success:function(data){
+				if(data == 'success'){
+					$('#bucketComAdd').hide();
+				}
+			}
+		});
+	} else{
+		alert("취소");
+	}
 }
 function left(bkNo, userId, bkName){
 	first--;

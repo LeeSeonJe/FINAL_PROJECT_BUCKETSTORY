@@ -103,4 +103,9 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.selectRankBucketList(sqlSession);
 	}
 
+	@Override
+	public ArrayList<BucketList> selectCoBucket(String coId) {
+		return mainDAO.selectCoBucket(sqlSession, coId);
+	}
+
 }

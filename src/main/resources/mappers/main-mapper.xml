@@ -51,6 +51,15 @@
 		order by bklike desc, ENROLLDATE desc
 	</select>
 	
+	<!-- 헬퍼버킷리스트 -->
+	<select id="selectCoBucket" resultMap="BucketResultSet">
+		select BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
+		    from bucketList b
+		    join member using(userid)
+            join cominbucket using(bkno)
+		where COID = #{coId}
+	</select>
+	
 	<select id="selectBLImg" resultMap="MediaResultSet">
 		select *
 		from media
