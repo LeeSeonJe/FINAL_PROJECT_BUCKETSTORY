@@ -13,6 +13,7 @@ import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.expert.model.vo.Company;
 
 @Repository("bDAO")
 public class BoardDAO {
@@ -86,20 +87,20 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.Memberlist", null, rowBounds);
 	}
 
-	public int deleteMember(SqlSessionTemplate sqlSession, int[] no) {
-		int result = 0;
-		
-		for(int i = 0; i < no.length; i++) {
-			
-			result += sqlSession.update("adminMapper.deleteMember", no[i]);
-		}
-		
-		if(result == no.length) {
-			return result;
-		} else {
-			throw new BoardException("삭제에 실패하였습니다.");
-		}
-	}
+//	public int deleteMember(SqlSessionTemplate sqlSession, int[] no) {
+//		int result = 0;
+//		
+//		for(int i = 0; i < no.length; i++) {
+//			
+//			result += sqlSession.update("adminMapper.deleteMember", no[i]);
+//		}
+//		
+//		if(result == no.length) {
+//			return result;
+//		} else {
+//			throw new BoardException("삭제에 실패하였습니다.");
+//		}
+//	}
 
 	public int warningMember(SqlSessionTemplate sqlSession, List<String> no) {
 		int result =  sqlSession.update("adminMapper.warningMember", no);
@@ -113,6 +114,33 @@ public class BoardDAO {
 			throw new BoardException("업데이트 실패");
 		}
 	}
+
+	public int deleteMember(SqlSessionTemplate sqlSession, List<String> no) {
+		int result = sqlSession.update("adminMapper.deleteNotify", no);
+		
+		if(result > 0) {
+			return sqlSession.update("adminMapper.deleteMember", no);
+		} else {
+			throw new BoardException("회원  삭제 실패");
+		}
+			
+	}
+
+	public ArrayList<Company> companylist(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.companylist", null, rowBounds);
+	}
+
+	public int companyListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.companyListCount");
+	}
+
+	public Company adminCompanyDetail(SqlSessionTemplate sqlSession, String c) {
+		return sqlSession.selectOne("adminMapper.adminCompanyDetail", c);
+	}
+
 
 
 

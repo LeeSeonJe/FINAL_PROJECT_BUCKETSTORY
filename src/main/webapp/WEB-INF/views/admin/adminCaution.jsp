@@ -67,8 +67,8 @@
 							<td>${ notify.no_no }</td>
 							<td>${ notify.no_kind }</td>
 							<td>${ notify.no_check }</td>
-							<td>${ notify.sinuser }</td>
 							<td>${ notify.pigouser }</td>
+							<td>${ notify.sinuser }</td>
 							<td>${ notify.enrolldata }</td>
 						</tr>
 

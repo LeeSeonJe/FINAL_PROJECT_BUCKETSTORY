@@ -9,6 +9,7 @@ import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 
 public interface BoardService {
 
@@ -28,14 +29,20 @@ public interface BoardService {
 
 	int getcautionListCount();
 
-
-//	int warningMember(int[] no, Member m);
-
 	ArrayList<Notify> Memberlist(PageInfo pi);
 
-	int deleteMember(int[] no);
-
 	int warningMember(List<String> no);
+
+//	int deleteMember(int[] no);
+
+	int deleteMember(List<String> no);
+
+	ArrayList<Company> companylist(PageInfo pi);
+
+	int companyListCount();
+
+	Company adminCompanyDetail(String c);
+
 
 
 

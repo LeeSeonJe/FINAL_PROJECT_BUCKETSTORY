@@ -14,6 +14,7 @@ import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 
 
 @Service("BoardService")
@@ -66,8 +67,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 //	@Override
-//	public int warningMember(int[] no, Member m) {
-//		return bDAO.waringmember(sqlSession, no, m);
+//	public int warningMember(int[] no) {
+//		return bDAO.waringmember(sqlSession, no);
 //	}
 
 	@Override
@@ -76,14 +77,36 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int deleteMember(int[] no) {
+	public int warningMember(List<String> no) {
+		return bDAO.warningMember(sqlSession, no);
+	}
+	
+//	@Override
+//	public int deleteMember(int[] no) {
+//		return bDAO.deleteMember(sqlSession, no);
+//	}
+
+	@Override
+	public int deleteMember(List<String> no) {
 		return bDAO.deleteMember(sqlSession, no);
 	}
 
 	@Override
-	public int warningMember(List<String> no) {
-		return bDAO.warningMember(sqlSession, no);
+	public ArrayList<Company> companylist(PageInfo pi) {
+		return bDAO.companylist(sqlSession, pi);
 	}
+
+	@Override
+	public int companyListCount() {
+		return bDAO.companyListCount(sqlSession);
+	}
+
+	@Override
+	public Company adminCompanyDetail(String c) {
+		return bDAO.adminCompanyDetail(sqlSession, c);
+	}
+
+
 
 
 

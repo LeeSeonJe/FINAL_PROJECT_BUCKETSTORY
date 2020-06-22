@@ -111,11 +111,64 @@
 		order by no_no desc
 	</select>
 	
-	<update id="deleteMember">
-		update notify 
-		set status = 'N'
-		where no_no = #{no} and status= 'Y'
+	
+	<update id="deleteNotify" >
+		update notify
+		set status = 'Y'
+		where no_no in
+			<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
 	</update>
 	
+	<update id="deleteMember" parameterType="java.util.List">
+		update member
+		set status = 'N'
+		where userid in (select pigouser
+						 from notify
+						 where no_no in
+						 <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+						 		#{item}
+						 </foreach>
+						 )
+	</update>
+	
+	<!-- 기업승인 -->
+	<select id="companyListCount" resultType="_int">
+		select count(*)
+		from company
+	</select>
+	
+	<select id="companylist" resultMap="CompanyResultSet">
+		select *
+		from company
+		where approval = 'N'
+	</select>
+	
+	<select id="adminCompanyDetail" resultMap="CompanyResultSet">
+		select *
+		from company
+		where coId = #{coId}
+	</select>
+	
+		<resultMap id="CompanyResultSet" type="Company">
+		<id property="coId" column="COID"/>
+		<result property="coPwd" column="COPWD"/>
+		<result property="coName" column="CONAME"/>
+		<result property="compaName" column="COMPANAME"/>
+		<result property="apName" column="APNAME"/>
+		<result property="homePage" column="HOMEPAGE"/>
+		<result property="coTel" column="COTEL"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="approval" column="APPROVAL"/>
+		<result property="busiEmail" column="BUSIEMAIL"/>
+		<result property="cpCheck" column="CPCHECK"/>
+		<result property="checkImg" column="CHECKIMG"/>
+		<result property="point" column="POINT"/>
+		<result property="cateNum" column="CATENUM"/>
+		<result property="coIntro" column="COINTRO"/>
+		<result property="coInfo" column="COINFO"/>
+	</resultMap>
 	
 </mapper >

@@ -27,6 +27,7 @@ import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.Pagination;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 
 @Controller
 public class AdminController {
@@ -137,7 +138,7 @@ public class AdminController {
 		
 		mv.addObject("adminQnA", adminQnA)
 		  .addObject("page", page)
-		  .setViewName("adminQnADetail");
+		  .setViewName("adminQnAinsert");
 		
 		return mv;
 	}
@@ -155,7 +156,7 @@ public class AdminController {
 
 			return mv;
 		} else {
-			throw new BoardException("게시글 수정 폼 요청에 실패했습니다.");
+			throw new BoardException("상세페이지 요청에 실패했습니다.");
 		}	
 	}
 
@@ -209,14 +210,6 @@ public class AdminController {
 	@RequestMapping("warning.ad")
 	public String waringmember(@RequestParam(value="Notify[]") List<String> no) {
 		
-//		Member m = new Member();
-		
-//		 int[] no = new int [no_no.size()];
-//		for(int i = 0; i < no.length; i++) {
-//			
-//			no[i] = Integer.parseInt(no_no.get(i));
-//		}
-		
 		System.out.println("no 값 보기 " + no);
 		
 		int result = bService.warningMember(no);
@@ -230,7 +223,7 @@ public class AdminController {
 		}
 	}
 	
-	/* 회원 삭제 리스트*/
+	/* 경고 회원 리스트*/
 	@RequestMapping("adminwarning.ad")
 	public ModelAndView memberList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 		
@@ -260,14 +253,16 @@ public class AdminController {
 		return mv;
 	}
 	
+	
+	/* 회원 강제 탈퇴 */
 	@RequestMapping("delectMember.ad")
-	public String deleteMember(@RequestParam("Notify[]") List<String> no_no) {
+	public String deleteMember(@RequestParam("Notify[]") List<String> no) {
 		
-		int[] no = new int [no_no.size()];
-		for(int i = 0; i < no.length; i++) {
-			no[i] = Integer.parseInt(no_no.get(i));
-		}
-		
+//		int[] no = new int [no_no.size()];
+//		for(int i = 0; i < no.length; i++) {
+//			no[i] = Integer.parseInt(no_no.get(i));
+//		}
+//		
 		int result = bService.deleteMember(no);
 		
 		if(result > 0) {
@@ -277,5 +272,53 @@ public class AdminController {
 		}
 		
 	}
+	
+	/* 기업 승인 리스트 */
+	@RequestMapping("adminCompany.ad")
+	public ModelAndView companylist(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = bService.companyListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Company> list = bService.companylist(pi);
+		
+		if(list != null) {
+			mv.addObject("list",list)
+			  .addObject("pi", pi)
+			  .setViewName("adminJoinCompanyList");
+		} else {
+			throw new BoardException("리스트 실패");
+		}
+		
+		return mv;
+	}
+	
+	
+	
+	/* 기업 승인 상세페이지 */
+	@RequestMapping("companyDetail.ad")
+	public ModelAndView adminCompanyDetail(@RequestParam("coId") String c, @RequestParam("page") int page, ModelAndView mv) {
+		
+//		System.out.println("c 값 " + c);
+		
+		Company company = bService.adminCompanyDetail(c);
+
+//		System.out.println("company 값 " + company);
+		
+		if(company != null) {
+			mv.addObject("company", company)
+			  .addObject("page", page)
+			  .setViewName("adminJoinCompanyDetail");
+		} else {
+			throw new BoardException("기업 승인 상세보기 실패했습니다.");
+		}	
+		
+		return mv;
+	}
 }
