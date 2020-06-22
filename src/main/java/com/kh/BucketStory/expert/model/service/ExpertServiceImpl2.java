@@ -170,6 +170,10 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	public ArrayList<adminQnA> selectMQnAListN(PageInfo pi, String userId) {
 		return exDAO2.selectMQnAListN(sqlSession, pi, userId);
 	}
+	@Override
+	public int insertMQnA(adminQnA aQ) {
+		return exDAO2.insertMQnA(sqlSession,aQ);
+	}
 
 
 }

@@ -44,6 +44,9 @@
             <li><a href="#footer">Last</a></li>
         </ul>
         
+        <!-- Today -->
+        <div id ="today"><%=today %></div>
+        
         <!-- Top 5 -->
         <div id="top5pointer">
             <table>

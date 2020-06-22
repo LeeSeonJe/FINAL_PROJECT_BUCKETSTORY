@@ -6,6 +6,7 @@
 window.onload = function(){
 	$('#moba-content').html('<div style="color:#333; font-size:25px; transform:translate(30px,100px);"><b>안녕하세요<br>"Q&A"<br>센터입니다.</b></div>');
 // 	$('#board-area').fadeIn(500);
+	
 }
 
 /*
@@ -107,6 +108,7 @@ function newQnA(){
 		console.log(q_no);
 		console.log(q_title);
 		console.log(q_content);
+//		console.log(answer)
 		
 		if(check){
 			if(q_no ==""){
@@ -257,6 +259,7 @@ function newQnA(){
  				success:function(data){
  					// 성공시 로직
  					//console.log(data);
+ 					//alert(data['answer']);
  					
  					// boardDetail 초기화
  					$('#boardDetail tr:nth-child(4)').children().show();
@@ -267,13 +270,14 @@ function newQnA(){
  					$('#an_content').val("");
  					$('#an_date').html("");
  					//var result = "";
+					
  					for(var i in data){
  						// 일치하면 한번씩만 실행된다.
  						if(i=='q_no'){ 	$('#q_no').html(data[i]);	console.log(data['q_no']);}
  						if(i=='q_title'){$('#q_title').val(data[i]);}
  						if(i=='q_content'){	$('#q_content').val(data[i]);}
  						if(i=='q_date'){$('#q_date').html("("+data[i]+")");	}
- 						if(i=='answer'){$('#answer').html(data[i]);	}
+ 						if(i=='answer'){$('#answer').val(data[i]);	console.log(data['answer']);}
  						if(i=='an_date'){$('#an_date').html("("+data[i]+")");}
  						if(i=='an_content'){$('#an_content').val(data[i]);}
  						
@@ -286,6 +290,13 @@ function newQnA(){
 // 						$('#an_date').html("("+data['an_date']+")");
 // 						$('#an_content').val(data['an_content']);
  					}
+ 					
+ 					// 답변이 완료된 문의글은 수정이 불가능하게 한다. 수정버튼 안보이기
+// 					alert($('#answer').val());
+ 					if($('#answer').val()=='Y'){
+ 						$('#qnaEdit').hide();
+ 					}
+ 					
  					var answer = $('#an_content');
 						if(answer.val()==""){
 							$('#boardDetail tr:nth-child(4)').children().hide();

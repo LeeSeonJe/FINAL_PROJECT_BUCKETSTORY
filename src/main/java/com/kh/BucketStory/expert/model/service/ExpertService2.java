@@ -79,6 +79,8 @@ public interface ExpertService2 {
 
 	int getListMQnACountY(String userId);
 
+	int insertMQnA(adminQnA aQ);
+
 
 
 }
