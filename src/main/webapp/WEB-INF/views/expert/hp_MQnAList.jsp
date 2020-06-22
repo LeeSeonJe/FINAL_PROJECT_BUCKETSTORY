@@ -8,7 +8,14 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/expert/css/hp_boardList.css">
 <link rel="stylesheet" href="resources/expert/css/hp_QNA.css">
+<link rel="stylesheet" href="resources/expert/css/hp_QNA.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<style>
+     @media screen and (max-width : 1400px) {
+         #moba{ display:none;}
+         #moba-content{ position: absolute; left:50px; top:100px; width:150px; height:150px;}
+     }
+</style>
 </head>
 <body>
 	<header>
@@ -161,12 +168,12 @@
 	                <tr>
 	                    <td><span id ="q_no" style="color:red"></span></td>
 	                    <td><input type="text" id="q_title"></td>
-	                    <td></td>
+	                    <td><input type="hidden" id="answer"></td>
 	                </tr>
 	                <tr>
 	                    <td><label><b>질문내용▶</b><br></label><span id="q_date">(질문날짜)</span></td>
 	                    <td><textarea rows="10px;" cols="50px;" name="content" id="q_content"></textarea></td>
-	                    <td><button class="btn btn--primary1" onclick="qnaUpdate();">수정</button><br><br>
+	                    <td><button class="btn btn--primary1" onclick="qnaUpdate();" id="qnaEdit">수정</button><br><br>
 	                        <button class="btn btn--primary2" onclick="qnaDelete();">삭제</button></td>
 	                </tr>
 	                <tr>

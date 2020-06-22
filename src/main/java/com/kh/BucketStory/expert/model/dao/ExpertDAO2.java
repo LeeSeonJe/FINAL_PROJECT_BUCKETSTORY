@@ -128,20 +128,25 @@ public class ExpertDAO2 {
 		return sqlSession.selectOne("exMapper2.getListMQnACountY",userId);
 	}
 	
+	public ArrayList<adminQnA> selectMQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectMQnAList", userId, rowBounds);
+	}
+	
 	public ArrayList<adminQnA> selectMQnAListN(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListN", userId, rowBounds);
+		return (ArrayList) sqlSession.selectList("exMapper2.selectMQnAListN", userId, rowBounds);
 	}
 	public ArrayList<adminQnA> selectMQnAListY(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListY", userId, rowBounds);
+		return (ArrayList) sqlSession.selectList("exMapper2.selectMQnAListY", userId, rowBounds);
 	}
-	public ArrayList<adminQnA> selectMQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
-		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAList", userId, rowBounds);
+
+	public int insertMQnA(SqlSessionTemplate sqlSession, adminQnA aQ) {
+		return sqlSession.insert("exMapper2.insertMQnA", aQ);
 	}
 
 

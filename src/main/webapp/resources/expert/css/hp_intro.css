@@ -105,3 +105,12 @@
        opacity: 0.1;
     }
     
+    #today{
+		color: #eee;
+		font-size : 28px;
+		position : absolute;
+		left: 50%;
+		top: 15%;
+		width: 200px;
+		height: 100px;
+	}

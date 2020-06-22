@@ -286,13 +286,19 @@ function newQnA(){
 // 						$('#an_date').html("("+data['an_date']+")");
 // 						$('#an_content').val(data['an_content']);
  					}
+ 					
+ 					// 답변이 완료된 문의글은 수정이 불가능하게 한다. 수정버튼 안보이기
+// 					alert($('#answer').val());
+ 					if($('#answer').val()=='Y'){
+ 						$('#qnaEdit').hide();
+ 					}
+ 						
  					var answer = $('#an_content');
 						if(answer.val()==""){
 							$('#boardDetail tr:nth-child(4)').children().hide();
 							$('#boardDetail tr:nth-child(5)').children().show();
 						}			
  				},
- 				
  				error:function(request,status,errorData){
  					// 실패시 로직
  					console.log("error code :" + request.status + "\n"
