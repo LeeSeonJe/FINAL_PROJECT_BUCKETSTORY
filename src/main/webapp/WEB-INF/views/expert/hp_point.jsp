@@ -29,7 +29,7 @@
 			<div id="pointArea">
 				<div class="inner__header">
 					<h2>${coId}님환영합니다!</h2>
-					<h2>보유 총 포인트 : ${hp} 포인트</h2>
+<%-- 					<h2>보유 총 포인트 : ${hp} 포인트</h2> --%>
 					<br>
 				</div>
 				<br> <br>
@@ -243,14 +243,7 @@
 						<source src="resources/expert/video/vd1.mp4" type="video/mp4">
 					</video>
 				</div>
-				<script>
-// $(document).ready(function(){
 
-	
-
-// });
-
-</script>
 				<br>
 				<!--  	<img src ="resources/expert/images/moon.jpg"> -->
 				<%--     <h3>${coId} 님 환영합니다!</h3> --%>

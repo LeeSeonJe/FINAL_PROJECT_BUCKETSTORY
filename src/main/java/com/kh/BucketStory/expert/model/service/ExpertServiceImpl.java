@@ -41,7 +41,7 @@ public class ExpertServiceImpl implements ExpertService {
 	}
 	
 	@Override
-	public int insertBucket(Map<String, Object> hm) {
+	public int insertBucket(ComInBucket hm) {
 		return exDAO.insertBucket(sqlSession, hm);
 	}
 	@Override
@@ -112,5 +112,17 @@ public class ExpertServiceImpl implements ExpertService {
 	@Override
 	public int updateEsmedia(Media media) {
 		return exDAO.updateEsmedia(sqlSession,media);
+	}
+	@Override
+	public ArrayList<Media> selectAllBucketMediaList() {
+		return exDAO.selectAllBucketMediaList(sqlSession);
+	}
+	@Override
+	public ArrayList<Estimate> selectCompleteEstimteList(String coId) {
+		return exDAO.selectCompleteEstimateList(sqlSession,coId);
+	}
+	@Override
+	public ArrayList<Estimate> selectUserEstimate(String userId) {
+		return exDAO.selectUserEstimate(sqlSession,userId);
 	}
 }

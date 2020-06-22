@@ -21,7 +21,7 @@ public interface ExpertService {
 
 	ArrayList<BucketList> selectCateList(int catenum);
 
-	int insertBucket(Map<String, Object> hm);
+	int insertBucket(ComInBucket hm);
 
 	ArrayList<BucketList> selectComBucket(String coId);
 
@@ -56,6 +56,12 @@ public interface ExpertService {
 	int updateEsRequestPosition(int esr_no);
 
 	int updateEsmedia(Media media);
+
+	ArrayList<Media> selectAllBucketMediaList();
+
+	ArrayList<Estimate> selectCompleteEstimteList(String coId);
+
+	ArrayList<Estimate> selectUserEstimate(String userId);
 
 	
 }

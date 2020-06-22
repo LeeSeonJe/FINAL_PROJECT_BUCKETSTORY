@@ -21,14 +21,9 @@
 	</select>
 	
 	<update id="insertComBucket">
-		insert into cominbucket(COINBUCKET,COID,BKNO,BUCKETENROLL)
-		select seq_cominbucket.nextval,A.* from(
-		<foreach item="item" index="index" collection="list" separator="UNION ALL ">
-			select #{item.coId} as COID,
-				   #{item.bkNo} as BKNO,
-				   sysdate as BUCKETENROLL
-			from dual
-		</foreach>) A
+		insert into cominbucket
+		values(SEQ_COMINBUCKET.nextval,#{coId},#{bkNo],sysdate);
+		
  	</update>
 	
 	<select id="selectComBucket" resultMap="BucketResultSet">
@@ -124,8 +119,21 @@
 		null, null, #{esNo})
 	</insert>
 	
+	<select id="selectBucketMedia" resultMap="MediaResultSet">
+		select * from media
+		where IMGVIDEO =1 and MUSE = 1
+	</select>
 	
+	<select id="selectCompleteEstimateList" resultMap="estimateSet">
+		select * 
+		from estimate
+		where coid = #{coId} AND status='3'
+	</select>
 	
+	<select id="selectUserEstimate" resultMap="estimateSet">
+		select * from estimate
+		where userid = #{userId}
+	</select>
 	
 	<resultMap id="estimateSet" type="estimate">
 		<id property="es_no" column="ES_NO"/>

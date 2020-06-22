@@ -31,7 +31,7 @@ public class ExpertDAO {
 		return (ArrayList)sqlSession.selectList("exMapper.selectCateList", catenum);
 	}
 
-	public int insertBucket(SqlSessionTemplate sqlSession, Map<String, Object> hm) {
+	public int insertBucket(SqlSessionTemplate sqlSession, ComInBucket hm) {
 			return sqlSession.insert("exMapper.insertComBucket",hm);
 	}
 
@@ -101,6 +101,18 @@ public class ExpertDAO {
 
 	public int updateEsmedia(SqlSessionTemplate sqlSession, Media media) {
 		return sqlSession.insert("exMapper.updateEsmedia", media);
+	}
+
+	public ArrayList<Media> selectAllBucketMediaList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectBucketMedia");
+	}
+
+	public ArrayList<Estimate> selectCompleteEstimateList(SqlSessionTemplate sqlSession, String coId) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectCompleteEstimateList", coId);
+	}
+
+	public ArrayList<Estimate> selectUserEstimate(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectUserEstimate", userId);
 	}
 
 	

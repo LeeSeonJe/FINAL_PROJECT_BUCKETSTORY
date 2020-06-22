@@ -135,11 +135,16 @@
 				
 				function sendstatus(val){
 					if(val ==2){
-						if (confirm("임시저장시 첨부파일은 저장되지 않습니다. 계속하시겠습니까?") == true){    //확인
+						if (confirm("임시저장하시겠습니까?") == true){    //확인
 							var input = $("<input>") .attr("type", "hidden") .attr("name", "status").val(val); $('#send').append($(input));
 							$('#send').submit();
-						}else{   //취소
-						    return false;
+						}else if(val==1){
+							if(confirm("견적서를 보낸뒤에는 수정할수 없습니다. \n 계속하시겠습니까?") == true){
+								var input = $("<input>") .attr("type", "hidden") .attr("name", "status").val(val); $('#send').append($(input));
+								$('#send').submit();
+							}else{
+								return false;
+							}
 						}
 
 					}

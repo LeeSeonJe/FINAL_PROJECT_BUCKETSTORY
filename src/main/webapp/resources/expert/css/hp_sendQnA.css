@@ -8,7 +8,7 @@
 	padding: 20px;
 	margin: 0 auto;
 	margin-top:50px;
-	text-align: center;
+	z-index:2;
 }
 .comb table{
 	margin: 0 auto;

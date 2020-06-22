@@ -64,7 +64,33 @@ public class ExpertDAO2 {
 		return sqlSession.insert("exMapper2.insertQnA", aQ);
 	}
 	
-	// QNA 리스트 게시판
+	// Company
+	public int updateCompany(SqlSessionTemplate sqlSession, Company c) {
+		return sqlSession.update("exMapper2.updateCompany", c);
+	}
+	public int updateComapnyPoint(SqlSessionTemplate sqlSession, Company c) {
+		return sqlSession.update("exMapper2.updateCompanyPoint", c);
+	}
+	public ArrayList<Company> selectTop5havingPoint(SqlSessionTemplate sqlSession) {
+		return (ArrayList) sqlSession.selectList("exMapper2.selectTop5havingPoint");
+	}
+	public Category selectCateName(SqlSessionTemplate sqlSession, int cateNum) {
+		return sqlSession.selectOne("exMapper2.selectCateName",cateNum);
+	}
+	public int updatehelper(SqlSessionTemplate sqlSession, Company c) {
+		return sqlSession.update("exMapper2.updatehelper", c);
+	}
+	public adminQnA getQnAno(SqlSessionTemplate sqlSession, int q_no) {
+		return sqlSession.selectOne("exMapper2.selectQnAno", q_no);
+	}
+	public int deleteQnA(SqlSessionTemplate sqlSession, int q_no) {
+		return sqlSession.delete("exMapper2.deleteQnA", q_no);
+	}
+	public int updateQnA(SqlSessionTemplate sqlSession, adminQnA aQ) {
+		return sqlSession.update("exMapper2.updateQnA", aQ);
+	}
+	
+	// QNA 리스트 게시판(기업용)
 	public int getListQnACount(SqlSessionTemplate sqlSession, String coId) {
 		return sqlSession.selectOne("exMapper2.getListQnACount",coId);
 	}
@@ -89,24 +115,34 @@ public class ExpertDAO2 {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListN", coId, rowBounds);
 	}
-
-	// Company
-	public int updateCompany(SqlSessionTemplate sqlSession, Company c) {
-		return sqlSession.update("exMapper2.updateCompany", c);
-	}
-	public int updateComapnyPoint(SqlSessionTemplate sqlSession, Company c) {
-		return sqlSession.update("exMapper2.updateCompanyPoint", c);
-	}
-	public ArrayList<Company> selectTop5havingPoint(SqlSessionTemplate sqlSession) {
-		return (ArrayList) sqlSession.selectList("exMapper2.selectTop5havingPoint");
-	}
-	public Category selectCateName(SqlSessionTemplate sqlSession, int cateNum) {
-		return sqlSession.selectOne("exMapper2.selectCateName",cateNum);
-	}
-	public int updatehelper(SqlSessionTemplate sqlSession, Company c) {
-		return sqlSession.update("exMapper2.updatehelper", c);
+	
+	// QNA 리스트 게시판(회원용)
+	public int getListMQnACount(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("exMapper2.getListMQnACount",userId);
 	}
 
+	public int getListMQnACountN(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("exMapper2.getListMQnACountN",userId);
+	}
+	public int getListMQnACountY(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("exMapper2.getListMQnACountY",userId);
+	}
+	
+	public ArrayList<adminQnA> selectMQnAListN(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListN", userId, rowBounds);
+	}
+	public ArrayList<adminQnA> selectMQnAListY(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAListY", userId, rowBounds);
+	}
+	public ArrayList<adminQnA> selectMQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper2.selectQnAList", userId, rowBounds);
+	}
 
 
 

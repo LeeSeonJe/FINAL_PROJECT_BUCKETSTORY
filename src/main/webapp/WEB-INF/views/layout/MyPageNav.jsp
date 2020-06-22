@@ -24,11 +24,13 @@
 		<a class="myPagemenu" href="myBlog.me?nickName=${ nickName }">
 			<span>♬블로그&nbsp;</span>
 		</a>
+
 			<span>&nbsp;</span>
 			
 		<span>&nbsp;</span>
 		<a class="myPagemenu">
 			<span>▤견적서</span>
+
 		</a>
 		<span>&nbsp;</span>
 	</nav>

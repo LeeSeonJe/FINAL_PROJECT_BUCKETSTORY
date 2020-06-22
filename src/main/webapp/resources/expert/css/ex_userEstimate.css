@@ -1,0 +1,81 @@
+@charset "UTF-8";
+body {
+	min-width: 1200px;
+	margin: 0;
+}
+
+header {
+	min-width: 1200px;
+	border-bottom: 1px solid rgba(var(- -b38, 219, 219, 219), 1);
+	width: 100%;
+	height: 60px;
+	position: fixed;
+	z-index: 100;
+	background: white;
+}
+
+#extra {
+	width: 100%;
+	height: 60px;
+}
+
+#body-wrap {
+	width: 1000px;
+	min-height: 500px;
+	margin: 0 auto;
+}
+
+#Myheader {
+	width: 100%;
+	height: 225px;
+}
+
+section {
+	width: 100%;
+	min-height: 100px;
+/* 	background: green; */
+	margin-top: 5px;
+}
+
+#profileImg {
+	width: 166px;
+	height: 166px;
+	border-radius: 100px;
+}
+
+#table_area {
+	margin: 0 auto;
+}
+
+#page{width:90%; margin:0 auto;}
+
+ #page a:link { color: red; text-decoration: none;}
+ #page a:visited { color: black; text-decoration: none;}
+ #page a:hover { color: blue; text-decoration: none;}
+
+	li { list-style: none; float:left; } 
+	div#requestMember {
+    width: 720px;
+    margin: 0 auto;
+    height: 165px;
+    margin-top: 24px;
+}
+	#requestImage {
+    width: 120px;
+    height: 120px;
+    margin-right: 28px;
+}
+	#requestMember>table>tbody>tr>td:nth-child(3){
+		    width: 100px;
+	}
+	#bucketListDetail {
+    text-align: center;
+    background: lightgray;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+	#ListArea{
+	width:50px; background:lightgray;margin:0 auto;
+	cursor:pointer;
+	}

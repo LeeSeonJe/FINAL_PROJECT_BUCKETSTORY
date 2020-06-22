@@ -128,5 +128,48 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	public int updatehelper(Company c) {
 		return exDAO2.updatehelper(sqlSession, c);
 	}
+	@Override
+	public adminQnA getQnANo(int q_no) {
+		return exDAO2.getQnAno(sqlSession, q_no);
+	}
+	@Override
+	public int deleteQnA(int q_no) {
+		return exDAO2.deleteQnA(sqlSession,q_no);
+	}
+	@Override
+	public int updateQnA(adminQnA aQ) {
+		return exDAO2.updateQnA(sqlSession,aQ);
+	}
+	
+	
+	// 회원 QnA
+
+	@Override
+	public int getListMQnACount(String userId) {
+		return exDAO2.getListMQnACount(sqlSession,userId);
+	}
+	@Override
+	public int getListMQnACountN(String userId) {
+		return exDAO2.getListMQnACountN(sqlSession,userId);
+	}
+	@Override
+	public int getListMQnACountY(String userId) {
+		return exDAO2.getListMQnACountY(sqlSession,userId);
+	}
+
+	@Override
+	public ArrayList<adminQnA> selectMQnAList(PageInfo pi, String userId) {
+		return exDAO2.selectMQnAList(sqlSession, pi, userId);
+	}
+	@Override
+	public ArrayList<adminQnA> selectMQnAListY(PageInfo pi, String userId) {
+		return exDAO2.selectMQnAListY(sqlSession, pi, userId);
+	}
+
+	@Override
+	public ArrayList<adminQnA> selectMQnAListN(PageInfo pi, String userId) {
+		return exDAO2.selectMQnAListN(sqlSession, pi, userId);
+	}
+
 
 }

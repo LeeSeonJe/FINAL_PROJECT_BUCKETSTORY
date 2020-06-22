@@ -58,7 +58,7 @@ form>div>div>ul>li{
 
 #adw_body>nav{
 	width: 100%;
-	height:30px;
+	height:50px;
 	
 }
 </style>

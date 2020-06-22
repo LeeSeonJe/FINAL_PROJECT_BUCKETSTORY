@@ -1,5 +1,8 @@
 @charset "UTF-8";
 #page{width:90%; margin:0 auto;}
+ #page a:link { color: red; text-decoration: none;}
+ #page a:visited { color: black; text-decoration: none;}
+ #page a:hover { color: blue; text-decoration: none;}
 	li { list-style: none; float:left; } 
 	div#requestMember {
     width: 720px;
