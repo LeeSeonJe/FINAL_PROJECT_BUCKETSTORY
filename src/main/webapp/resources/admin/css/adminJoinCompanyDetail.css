@@ -1,0 +1,36 @@
+@charset "UTF-8";
+    nav{
+    	height: 50px;
+    }
+    
+    .form_class{
+   	    text-align: right;
+   	    margin-top: 70px;
+   	    
+    }
+    
+    .table_class{
+    	margin: 0 auto;
+    	width: 650px;
+    }
+	
+	form>table>tbody>tr{
+		height: 35px;
+	}
+	
+	form>table>tbody>tr>td{
+		width: 200px;
+	}
+	
+	#read{
+	    width: 279px;
+  		background: white;
+	    font-size: 15px;
+	  	border-radius: 11px;	
+	}
+	
+	#btn_div{
+	    text-align: center;
+   		margin-top: 25px;
+	}
+	

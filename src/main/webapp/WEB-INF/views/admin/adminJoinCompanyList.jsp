@@ -1,27 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/admin/css/adminDefault.css">
-<style>
-	div > h2 {
-    margin-left: 70px;
-    margin-top: 50px;
-    width: 90%;
-    border-bottom: 1px solid black;
-}
-
-#adw_declare {
-	margin: 0 auto;
-	width: 80%;
-}
-
-#adw_search{
-    text-align: center;
-}
-</style>
+<link rel="stylesheet" href="resources/admin/css/adminBoardList.css">
 </head>
 <body>
 	<header>
@@ -52,31 +37,83 @@
 				</ul>
 			</div>
 		</nav>
+		</div>
 		<div>
 			<h2>기업 승인</h2>
 		</div>
-		<div>
-			<table id="adw_declare">
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>번호</td>
-					<td>카테고리</td>
-					<td>기업</td>
-					<td>신청 날짜</td>
-					<td>승인 여부</td>
-				</tr>
-			</table>
-		</div>
-		<div id="adw_search">
-			<select>
-				<option>전체보기</option>
-				<option>승인</option>
-				<option>거절</option>
-			</select> <input type="text"> <a href="#">검색</a>
-			<button>승인</button>
-			<button>거절</button>
-		</div>
-	</div>
+			<form>
+				<table class="board">
+					<tr>
+						<td>아이디</td>
+						<td>카테고리</td>
+						<td>기업</td>
+						<td>신청자</td>
+						<td>신청 날짜</td>
+						<td>승인 여부</td>
+					</tr>
+					<c:forEach var="company" items="${ list }">
+						<tr>
+							<c:url var="companyDetail" value="companyDetail.ad">
+								<c:param name="coId" value="${ company.coId }"/>
+								<c:param name="page" value="${ pi.currentPage }"/>
+							</c:url>
+							<td><a href="${ companyDetail }">${ company.coId }</a></td>
+							<td>${ company.status }</td>
+							<td>${ company.coName }</td>
+							<td>${ company.apName }</td>
+							<td>${ company.enrollDate }</td>
+							<td>${ company.approval }</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</form>
+				<div id="board-paging">
+					<!-- 페이징 처리 -->
+						<c:if test="${ pi.currentPage <= 1 }">
+						<button id ="prev">이전</button>
+						</c:if> 
+						<c:if test="${ pi.currentPage > 1 }">
+							<c:url var="before" value="adminCompany.ad">
+								<c:param name="page" value="${ pi.currentPage - 1 }" />
+							</c:url>
+							<a href="${ before }"><button id ="prev">이전</button></a>
+						</c:if>
+						 
+						<!-- 페이지 --> 
+						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:if test="${ p eq pi.currentPage }">
+								<button class ="sBtn active">${ p }</button>
+							</c:if>
+
+							<c:if test="${ p ne pi.currentPage }">
+								<c:url var="pagination" value="adminCompany.ad">
+									<c:param name="page" value="${ p }" />
+								</c:url>
+								<a href="${ pagination }"><button class ="sBtn">${ p }</button></a>
+							</c:if>
+						</c:forEach> 
+						
+						<!-- [다음] --> 
+						<c:if test="${ pi.currentPage >= pi.maxPage }">
+							<button id= "next">다음</button>
+						</c:if> 
+						<c:if test="${ pi.currentPage < pi.maxPage }">
+							<c:url var="after" value="adminCompany.ad">
+								<c:param name="page" value="${ pi.currentPage + 1 }" />
+							</c:url>
+							<a href="${ after }"><button id= "next">다음</button></a>
+						</c:if>
+				</div>
+<!-- 		<div id="ad_search"> -->
+<!-- 			<select> -->
+<!-- 				<option>전체보기</option> -->
+<!-- 				<option>승인</option> -->
+<!-- 				<option>거절</option> -->
+<!-- 			</select> <input type="text"> <a href="#">검색</a> -->
+<!-- 			<button>승인</button> -->
+<!-- 			<button>거절</button> -->
+<!-- 		</div> -->
+		
 
 </body>
 </html>
