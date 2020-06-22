@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="resources/expert/css/esrequest.css">
+<link rel="stylesheet" href="resources/expert/css/ex_userEstimate.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -38,11 +38,46 @@
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
-		
-		
-		
-		
-		
+			<div id="page" >
+				
+				<h1 style="text-align:center;">견적서가 도착했어요</h1>
+				<c:if test="${ es != null }">
+					<c:forEach var="request" items="${ es }" >
+						<div id="requestMember">
+							<table style="width: 780px;">
+								<tr>
+									<td rowspan="3" style="width:100px;">
+										<img id="requestImage" src="resources/expert/images/photo.jpg" id="profileImage">
+									</td>
+									<td>
+										<h3 style="display:inline">${ request.coId }</h3>
+									</td>
+									<td>
+										${ request.enrollDate }
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<c:forEach var="bu" items="${ bucket }">
+											<c:if test="${ request.bkNo == bu.bkNo }">
+												${ bu.bkName }
+											</c:if>
+										</c:forEach>
+									</td>
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div id="bucketListDetail"><a href="requestDetail.ex?esr_no=${ request.esr_no }">견적서 확인하기</a></div>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<hr style="width:840px;margin: auto;">
+					</c:forEach>
+				</c:if>
+			</div>
 		</section>
 	</div>
 </body>
