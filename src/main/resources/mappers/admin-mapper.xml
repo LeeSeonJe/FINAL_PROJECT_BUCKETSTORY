@@ -2,7 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="adminMapper">
 
+	<!-- 페스티벌 작성 -->
+	
+	<insert id="insertfestival" parameterType="Festival">
+		insert into festival
+		values(seq_festival.nextval, #{fetitle}, #{feDate}, #{fecontent}, #{feplace}, sysdate, 'admin')
+	</insert>
+	
+	<insert id="insertfestivalimg" parameterType="Media">
+		insert into media
+		values(seq_media.nextval, #{morigin}, #{mweb}, 1, 5, null, null, null, seq_festival.currval, null)
+	</insert>
+	
 	<!-- QnA 게시판  -->
+	
 	<select id="getListCount" resultType="_int">
 		select count(*)
 		from QNA
@@ -25,17 +38,6 @@
 		<result property="userid" column="USERID"/>
 		<result property="coid" column="COID"/>
 	</resultMap>
-	
-
-	<insert id="insertfestival" parameterType="Festival">
-		insert into festival
-		values(seq_festival.nextval, #{fetitle}, #{feDate}, #{fecontent}, #{feplace}, sysdate, 'admin')
-	</insert>
-	
-	<insert id="insertfestivalimg" parameterType="Media">
-		insert into media
-		values(seq_media.nextval, #{morigin}, #{mweb}, 1, 5, null, null, null, seq_festival.currval, null)
-	</insert>
 	
 	<select id="adminqnadetailview" resultMap="QnAResultSet">
 		select *
@@ -84,7 +86,22 @@
 	<update id="warningMember">
 		update notify
 		set no_check = 'Y'
-		where no_no = #{no} and no_check = 'N'
+		where no_check = 'N' and no_no in 
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+ 	   		#{item}
+		</foreach>
+	</update>
+	
+	<update id="cautionMember" parameterType="java.util.List">
+		update member
+		set caution = 'Y'
+		where userid in (select pigouser 
+						from notify 
+						where no_no in
+						<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+								#{item}
+						</foreach>
+						)
 	</update>
 	
 	<select id="Memberlist" resultMap="notifyResultSet">
@@ -95,9 +112,9 @@
 	</select>
 	
 	<update id="deleteMember">
-		update notify
-		set status = 'Y'
-		where no_no = #{no} and status= 'N'
+		update notify 
+		set status = 'N'
+		where no_no = #{no} and status= 'Y'
 	</update>
 	
 	
