@@ -7,8 +7,14 @@ public class WishList {
 	private Date enrollDate;
 	private int bkNo;
 	private String userId;
-	
-	public WishList() {}
+
+	private int cateNum;
+	private String cateName;
+	private BucketList bucketList;
+	private Media media;
+
+	public WishList() {
+	}
 
 	public WishList(int wiNo, Date enrollDate, int bkNo, String userId) {
 		super();
@@ -16,6 +22,19 @@ public class WishList {
 		this.enrollDate = enrollDate;
 		this.bkNo = bkNo;
 		this.userId = userId;
+	}
+
+	public WishList(int wiNo, Date enrollDate, int bkNo, String userId, int cateNum, String cateName,
+			BucketList bucketList, Media media) {
+		super();
+		this.wiNo = wiNo;
+		this.enrollDate = enrollDate;
+		this.bkNo = bkNo;
+		this.userId = userId;
+		this.cateNum = cateNum;
+		this.cateName = cateName;
+		this.bucketList = bucketList;
+		this.media = media;
 	}
 
 	public int getWiNo() {
@@ -50,9 +69,43 @@ public class WishList {
 		this.userId = userId;
 	}
 
+	public int getCateNum() {
+		return cateNum;
+	}
+
+	public void setCateNum(int cateNum) {
+		this.cateNum = cateNum;
+	}
+
+	public String getCateName() {
+		return cateName;
+	}
+
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
+	}
+
+	public BucketList getBucketList() {
+		return bucketList;
+	}
+
+	public void setBucketList(BucketList bucketList) {
+		this.bucketList = bucketList;
+	}
+
+	public Media getMedia() {
+		return media;
+	}
+
+	public void setMedia(Media media) {
+		this.media = media;
+	}
+
 	@Override
 	public String toString() {
-		return "WishList [wiNo=" + wiNo + ", enrollDate=" + enrollDate + ", bkNo=" + bkNo + ", userId=" + userId + "]";
+		return "WishList [wiNo=" + wiNo + ", enrollDate=" + enrollDate + ", bkNo=" + bkNo + ", userId=" + userId
+				+ ", cateNum=" + cateNum + ", cateName=" + cateName + ", bucketList=" + bucketList + ", media=" + media
+				+ "]";
 	}
-	
+
 }

@@ -5,15 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.BoardComment;
+import com.kh.BucketStory.member.model.vo.Follow;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 import com.kh.BucketStory.member.model.vo.Reply;
 
@@ -38,7 +41,7 @@ public class MemberDAO {
 	public int blogInsert(SqlSessionTemplate sqlSession, Board board) {
 		return sqlSession.insert("memberMapper.blogInsert", board);
 	}
-	
+
 	public ArrayList<Board> getBoard(SqlSessionTemplate sqlSession, String userid, int bn) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userid", userid);
@@ -53,7 +56,7 @@ public class MemberDAO {
 	public ArrayList<MemberMyBucketList> myBucketListPage(SqlSessionTemplate sqlSession, String nickName, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
+
 		return (ArrayList) sqlSession.selectList("memberMapper.myBucketListPage", nickName, rowBounds);
 	}
 
@@ -67,8 +70,9 @@ public class MemberDAO {
 
 	public ArrayList<BoardComment> bCommentInsert(SqlSessionTemplate sqlSession, BoardComment boardComment) {
 		int result = sqlSession.insert("memberMapper.bCommentInsert", boardComment);
-		if(result > 0) {
-			ArrayList<BoardComment> bCommentList = (ArrayList) sqlSession.selectList("memberMapper.getBoardCommentList", boardComment);
+		if (result > 0) {
+			ArrayList<BoardComment> bCommentList = (ArrayList) sqlSession.selectList("memberMapper.getBoardCommentList",
+					boardComment);
 			return bCommentList;
 		}
 		return null;
@@ -76,7 +80,7 @@ public class MemberDAO {
 
 	public ArrayList<Reply> replyInsert(SqlSessionTemplate sqlSession, Reply reply) {
 		int result = sqlSession.insert("memberMapper.replyInsert", reply);
-		if(result > 0) {
+		if (result > 0) {
 			ArrayList<Reply> replyList = (ArrayList) sqlSession.selectList("memberMapper.getReplyList", reply);
 			return replyList;
 		}
@@ -85,7 +89,7 @@ public class MemberDAO {
 
 	public BoardComment bCommentUpdate(SqlSessionTemplate sqlSession, BoardComment boardComment) {
 		int result = sqlSession.update("memberMapper.bCommentUpdate", boardComment);
-		if(result > 0) {
+		if (result > 0) {
 			BoardComment bc = sqlSession.selectOne("memberMapper.getBoardComment", boardComment);
 			return bc;
 		}
@@ -94,7 +98,7 @@ public class MemberDAO {
 
 	public Reply replyUpdate(SqlSessionTemplate sqlSession, Reply reply) {
 		int result = sqlSession.update("memberMapper.replyUpdate", reply);
-		if(result > 0) {
+		if (result > 0) {
 			Reply r = sqlSession.selectOne("memberMapper.getReply", reply);
 			return r;
 		}
@@ -107,5 +111,32 @@ public class MemberDAO {
 
 	public int replyDelete(SqlSessionTemplate sqlSession, Integer rpNo) {
 		return sqlSession.update("memberMapper.replyDelete", rpNo);
+	}
+
+	public ArrayList<WishList> getWishList(SqlSessionTemplate sqlSession, String userid) {
+		return (ArrayList) sqlSession.selectList("memberMapper.getWishList", userid);
+	}
+
+	public ArrayList<Follow> getFollowingList(SqlSessionTemplate sqlSession, String userid) {
+		return (ArrayList) sqlSession.selectList("memberMapper.getFollowingList", userid);
+	}
+
+	public ArrayList<Follow> getFollowerList(SqlSessionTemplate sqlSession, String userid) {
+		return (ArrayList) sqlSession.selectList("memberMapper.getFollowerList", userid);
+	}
+
+	public int followCheck(SqlSessionTemplate sqlSession, String userId2, String userId) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userId2", userId2);
+		map.put("userId", userId);
+		return sqlSession.selectOne("memberMapper.followCheck", map);
+	}
+
+	public int follow(SqlSessionTemplate sqlSession, Follow follow) {
+		return sqlSession.insert("memberMapper.follow", follow);
+	}
+
+	public int unfollow(SqlSessionTemplate sqlSession, Follow follow) {
+		return sqlSession.delete("memberMapper.unfollow", follow);
 	}
 }

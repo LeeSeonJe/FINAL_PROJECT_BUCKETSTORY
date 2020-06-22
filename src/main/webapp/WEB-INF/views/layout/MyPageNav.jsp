@@ -10,22 +10,29 @@
 </head>
 <body>
 	<nav>
+		<span>&nbsp;&nbsp;</span>
 		<a class="myPagemenu" href="myBucket.me?nickName=${ nickName }">
-			<span>&nbsp;♡</span>
-			<span>버킷리스트&nbsp;&nbsp;</span>
+			<span>♡버킷리스트</span>
 		</a>
+		<span>&nbsp;&nbsp;</span>
+		<span>&nbsp;&nbsp;</span>
 		<a class="myPagemenu" href="myWish.me?nickName=${ nickName }">
-			<span>&nbsp;&nbsp;★</span>
-			<span>위시리스트&nbsp;&nbsp;</span>
+			<span>★위시리스트</span>
 		</a>
+		
+		<span>&nbsp;&nbsp;</span>
 		<a class="myPagemenu" href="myBlog.me?nickName=${ nickName }">
-			<span>&nbsp;♬</span>
-			<span>블로그&nbsp;</span>
+			<span>♬블로그&nbsp;</span>
 		</a>
-		<a class="myPagemenu" href="myEstimateView.ex">
-			<span>&nbsp;▤</span>
-			<span>견적서&nbsp;</span>
+
+			<span>&nbsp;</span>
+			
+		<span>&nbsp;</span>
+		<a class="myPagemenu">
+			<span>▤견적서</span>
+
 		</a>
+		<span>&nbsp;</span>
 	</nav>
 </body>
 </html>

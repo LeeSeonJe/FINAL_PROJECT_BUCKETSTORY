@@ -20,14 +20,14 @@
 		<typeAlias type="com.kh.BucketStory.admin.model.vo.adminQnA" alias="adminQnA"/>
 		<typeAlias type="com.kh.BucketStory.admin.model.vo.Notify" alias="Notify"/>
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.EsRequest" alias="Esrequest"/>
-
-    <typeAlias type="com.kh.BucketStory.member.model.vo.Board" alias="Board"/>
-    <typeAlias type="com.kh.BucketStory.member.model.vo.Board" alias="Board"/>
+	    <typeAlias type="com.kh.BucketStory.member.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.Estimate" alias="estimate"/>
-
     	<typeAlias type="com.kh.BucketStory.member.model.vo.Board" alias="Board"/>
     	<typeAlias type="com.kh.BucketStory.member.model.vo.BoardComment" alias="BoardComment"/>
     	<typeAlias type="com.kh.BucketStory.member.model.vo.Reply" alias="Reply"/>    	
+    	<typeAlias type="com.kh.BucketStory.member.model.vo.Follow" alias="Follw"/>    	
+		
+
 
 	</typeAliases>
 	

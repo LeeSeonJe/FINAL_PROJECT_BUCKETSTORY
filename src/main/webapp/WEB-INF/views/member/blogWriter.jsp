@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +21,12 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />
+						<c:if test="${ getMember.prImage == null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" />					
+						</c:if>
+						<c:if test="${ getMember.prImage != null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />					
+						</c:if>
 					</td>
 				</tr>
 				<tr>
@@ -31,8 +37,8 @@
 				</tr>
 				<tr>
 					<td>게시물 ${ list }</td>
-					<td>팔로워 ${ getMember.fwCount }</td>
-					<td>팔로우 30</td>
+					<td>팔로워 ${ followerList.size() }</td>
+					<td>팔로잉 ${ followingList.size() }</td>
 				</tr>
 			</table>
 		</div>
@@ -44,10 +50,13 @@
 				<h2>내용 작성</h2><br>
 				<div id="content_area">
 					제목
-					<input type="text" name="bTitle"/><br><br>
+					<input type="text" name="bTitle" required="required"/><br><br>
 				</div><br>
-				<textarea name="bContent" id="bContent" style="width:100%; min-height: 700px;" ></textarea>
-				<button onclick="submitContents()">저장</button>
+				<textarea name="bContent" id="bContent" style="width:100%; min-height: 700px;" required="required"></textarea>
+				<div id="button-area">
+					<button onclick="submitContents()">저장</button>
+					<button type="button" id="cancel">취소</button>
+				</div>
 			</form>
 		</section>
 	</div>
@@ -87,11 +96,16 @@ function submitContents() {
 	oEditors.getById["bContent"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
 	
 	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다.
-	
+	var imgChk = $('#bContent').val().indexOf('img')
+	if(imgChk == -1) {
+		alert("사진을 한장이상 첨부해주세요.")
+	}
 	try {
 		elClickedObj.form.submit();
 	} catch(e) {}
 }
-	
+$('#cancel').on('click',function(){
+	location.href="javascript:history.go(-1)"
+})
 </script>
 </script>

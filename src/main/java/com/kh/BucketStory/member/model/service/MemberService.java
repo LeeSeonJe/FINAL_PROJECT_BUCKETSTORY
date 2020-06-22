@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.BoardComment;
+import com.kh.BucketStory.member.model.vo.Follow;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 import com.kh.BucketStory.member.model.vo.Reply;
 
@@ -37,6 +39,18 @@ public interface MemberService{
 	
 	int commentDelete(Integer cmNo);
 
-	int replyDelete(Integer rpNo);	
+	int replyDelete(Integer rpNo);
+
+	ArrayList<WishList> getWishList(String nickName);
+
+	ArrayList<Follow> getFollowingList(String nickName);
+
+	ArrayList<Follow> getFollowerList(String nickName);
+
+	int followCheck(String nickName, String userId);
+
+	int follow(Follow follow);
+
+	int unfollow(Follow follow);	
 	
 }

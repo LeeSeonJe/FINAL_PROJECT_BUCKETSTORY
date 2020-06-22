@@ -1,4 +1,4 @@
-package com.kh.BucketStory.member.controller;
+	package com.kh.BucketStory.member.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,11 +30,13 @@ import com.google.gson.JsonIOException;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
+import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.Pagination;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.service.MemberService;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.BoardComment;
+import com.kh.BucketStory.member.model.vo.Follow;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 import com.kh.BucketStory.member.model.vo.Reply;
 
@@ -47,7 +50,20 @@ public class MemberController {
 	@RequestMapping("myWish.me")
 	public String myWish(@RequestParam String nickName, Model m, HttpSession session) {
 		session.setAttribute("nickName", nickName);
-		return "myPageWishList";
+		int followCheck = 2;
+		Member loginUser = null;
+		if(session.getAttribute("loginUser") != null) {
+			loginUser = (Member) session.getAttribute("loginUser");		
+			followCheck = mService.followCheck(nickName, loginUser.getUserId());
+		} 
+		
+		ArrayList<WishList> wishList = mService.getWishList(nickName);
+		if(wishList != null) {
+			m.addAttribute("wishList", wishList).addAttribute("followCheck", followCheck);
+			return "myPageWishList";
+ 		} else {
+ 			return "myPageWishList";
+ 		}
 	}
 	
 	// 블로그에서 버킷에 글 등록 페이지 이동
@@ -89,9 +105,16 @@ public class MemberController {
 	@RequestMapping("myBucket.me")
 	public String MyPageBucket(HttpSession session, Model m, @RequestParam String nickName) {
 		Member loginUser = null;
+		int followCheck = 2;
 		if(session.getAttribute("loginUser") != null) {
-			loginUser = (Member) session.getAttribute("loginUser");			
-		} 
+			loginUser = (Member) session.getAttribute("loginUser");
+					} 
+		
+		ArrayList<Follow> followingList = mService.getFollowingList(nickName);
+		ArrayList<Follow> followerList = mService.getFollowerList(nickName);
+		session.setAttribute("followingList", followingList);
+		session.setAttribute("followerList", followerList);
+		
 		session.setAttribute("nickName", nickName);
 		
 		ArrayList<MemberMyBucketList> myBucketList = new ArrayList<MemberMyBucketList>();
@@ -105,13 +128,14 @@ public class MemberController {
 		} else {
 			getMember = mService.getMember(nickName);
 			myBucketList = mService.myBucketList(nickName);
+			followCheck = mService.followCheck(nickName, loginUser.getUserId());
 		}
 		int list = myBucketList.size();
 		session.setAttribute("getMember", getMember);
 		session.setAttribute("list", list);
 
 		if (myBucketList != null) {
-			m.addAttribute("myBucketList", myBucketList).addAttribute("flag", flag);
+			m.addAttribute("myBucketList", myBucketList).addAttribute("flag", flag).addAttribute("followingList", followingList).addAttribute("followerList", followerList).addAttribute("followCheck", followCheck);
 			return "myPageBucket";
 		} else {
 			return "myPageBucket";
@@ -131,6 +155,7 @@ public class MemberController {
 			@RequestParam(value = "bNo", required = false) String bNo) {
 		String flag = "false";
 		session.setAttribute("nickName", nickName);
+		int followCheck = 2;
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		int currentPage = 1;
 
@@ -193,11 +218,21 @@ public class MemberController {
 		} else {
 			bList = mService.getBoard(nickName, bn);
 			getMember = mService.getMember(nickName);
+			followCheck = mService.followCheck(nickName, loginUser.getUserId());
 		}
+		
+		int list = myBucketList.size();
+		session.setAttribute("getMember", getMember);
+		session.setAttribute("list", list);
+		
+		ArrayList<Follow> followingList = mService.getFollowingList(nickName);
+		ArrayList<Follow> followerList = mService.getFollowerList(nickName);
+		session.setAttribute("followingList", followingList);
+		session.setAttribute("followerList", followerList);
 
 		if (myBucketList != null & bList != null) {
 			m.addAttribute("myBucketList", myBucketList).addAttribute("index", index).addAttribute("bList", bList)
-					.addAttribute("pi", pi).addAttribute("flag", flag).addAttribute("bNo", bNo).addAttribute("getMember", getMember);
+					.addAttribute("pi", pi).addAttribute("flag", flag).addAttribute("bNo", bNo).addAttribute("getMember", getMember).addAttribute("followCheck", followCheck);
 			return "bucketBlog";
 		} else {
 			System.out.println("TEST3");
@@ -368,5 +403,25 @@ public class MemberController {
 		} else {
 			return "fail";
 		}
+	}
+	
+	@RequestMapping("follow.me")
+	@ResponseBody
+	public String follow(Follow follow) {
+		int result = mService.follow(follow);
+		if(result > 0) {
+			return "success";
+		}
+		return "fail";
+	}
+	
+	@RequestMapping("unfollow.me")
+	@ResponseBody
+	public String unfollow(Follow follow) {
+		int result = mService.unfollow(follow);
+		if(result > 0) {
+			return "success";
+		}
+		return "fail";
 	}
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +21,12 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />
+						<c:if test="${ getMember.prImage == null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" />					
+						</c:if>
+						<c:if test="${ getMember.prImage != null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />					
+						</c:if>
 					</td>
 				</tr>
 				<tr>
@@ -30,22 +37,22 @@
 				</tr>
 				<tr>
 					<td>게시물 ${ list }</td>
-					<td>팔로워 ${ getMember.fwCount }</td>
-					<td>팔로우 30</td>
+					<td>팔로워 ${ followerList.size() }</td>
+					<td>팔로잉 ${ followingList.size() }</td>
 				</tr>
 			</table>
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
 			<h2>버킷리스트 작성</h2>
-			<form action="bInsert.me" method="post" enctype="multipart/form-data">
-				<input type='file' id="imgInput" name="uploadFile"/>
+			<form action="bInsert.me" method="post" enctype="multipart/form-data" onsubmit="return validate();">
+				<input type='file' id="imgInput" name="uploadFile" />
 				<div id="img_area">
 					<img/>
 				</div>
 				<div id="content_area">
 					제목<br>
-					<input type="text" name="bkName"/><br><br>
+					<input type="text" name="bkName" required="required"/><br><br>
 					카테고리
 					<select name="cateNum">
 						<option value="1">Travel</option>
@@ -58,20 +65,31 @@
 						<option value="8">Lifestyle</option>
 					</select><br><br>
 					설명<br>
-					<textarea name="bkContent"></textarea><br><br>
+					<textarea name="bkContent" required="required"></textarea><br><br>
 					태그<br>
 					<span>#</span><input type="text" class="tag_input" name="tags"/>
 					<span>#</span><input type="text" class="tag_input" name="tags"/>
 					<span>#</span><input type="text" class="tag_input" name="tags"/>
 					<span>#</span><input type="text" class="tag_input" name="tags"/>
 					<span>#</span><input type="text" class="tag_input" name="tags"/>
-					<br><br><br><br>
-					<input type="submit">
+					<br><br>
+					<div id="button-area">
+						<button type="submit">완료</button>
+						<button type="button" id="cancel">취소</button>
+					</div>
+					<br><br><br>
 				</div>
 			</form>
 		</section>
 	</div>
 <script>
+	function validate() {
+		if($('#imgInput').val() == "") {
+			alert()
+			return false;			
+		}
+	}
+
 	$(function(){
 		$('#img_area').on('click',function(){
 			$('#imgInput').click();
@@ -97,6 +115,9 @@
 	$('#overlay').css('top','-2px');
 	$('#sidewrap').css('top','60.3px');
 	$('nav>a:eq(0)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
+	$('#cancel').on('click',function(){
+		location.href="javascript:history.go(-1)"
+	})
 </script>
 </body>
 </html>

@@ -33,19 +33,34 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />
+						<c:if test="${ getMember.prImage == null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" />					
+						</c:if>
+						<c:if test="${ getMember.prImage != null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />					
+						</c:if>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 30px;">${ getMember.nickName }</td>
+					<td colspan="2" style="font-size: 30px;">${ getMember.nickName }</td>
+					<td>
+						<c:if test="${ loginUser != null && getMember.userId ne loginUser.userId}">
+							<c:if test="${ followCheck == 1 }">
+								<button type="button" id="unFollowBtn" onclick="unfollow(this);">팔로우 취소</button>
+							</c:if>
+							<c:if test="${ followCheck == 0 }">
+								<button type="button" id="followBtn" onclick="follow(this);">팔로우</button>
+							</c:if>
+						</c:if>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="3" style="font-size: 20px;">${ getMember.userName }</td>
 				</tr>
 				<tr>
 					<td>게시물 ${ list }</td>
-					<td>팔로워 ${ getMember.fwCount }</td>
-					<td>팔로우 30</td>
+					<td onclick="follower(this);" style="cursor: pointer;" >팔로워 <span id="follower">${ followerList.size() }</span></td>
+					<td onclick="following(this);" style="cursor: pointer;">팔로잉 ${ followingList.size() }</td>
 				</tr>
 			</table>
 		</div>
@@ -288,12 +303,13 @@
 					<div class="blogBucket">
 						<input type="hidden" value="${ bl.bNo }" />
 						<input type="text" readonly="readonly" value="${ status.index }" style="width:0px; height:0px; font-size: 0px; border: none;">
+						<br><span id="story_index">'${ getMember.nickName }'님의 ${ status.index + 1 }번째 이야기</span>
 						<h3>${ bl.bTitle }</h3>
 						<div class="profile-area">
 							<img src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
 							<span>${ getMember.nickName }</span>
 							<span>${ bl.enrollDate }</span>
-							<span>팔로우</span>
+							<span></span>
 						</div>
 						<div>
 							${ bl.bContent }
@@ -359,7 +375,7 @@
 												<label>0</label>개의 답글
 											</c:if>
 											<label>${ sum }</label>개의 답글
-											<button type="button" onclick="reply_list_open(this);">답글 쓰기</button>
+											<button type="button" onclick="reply_list_open(this);">답글 쓰기</button> 
 										</div>
 									</c:if>
 									<c:if test="${ bl_bc.secret == 2 }">
@@ -590,6 +606,8 @@
 	/* 댓글 열기 스크립트 */
 	
 	function reply_list_open(b) {
+		console.log(b)
+		console.log($(b))
 		if($(b).text().trim() == "답글 쓰기"){
 			$(b).parent().next().css('display', 'block');
 			$(b).text("답글 닫기");
@@ -882,6 +900,41 @@
 		var bkNo = $(this).prev().val();
 		location.href="blogWrite.me?nickName=${ nickName }&bkNo=" + bkNo + "&page=" + page;
 	})
+		function follow(f) {
+		var following = '${ loginUser.userId }';
+		var follower = '${ getMember.userId }';
+		var followCount = $('#follower').text();
+		$.ajax({
+			url: "follow.me",
+			data: {
+				following:following,
+				follower:follower
+			}, success: function(data) {
+				$(f).text("팔로우 취소");
+				$(f).attr("id", "unFollowBtn");
+				$(f).attr("onclick", "unfollow(this);")
+				$('#follower').text(parseInt(followCount)+1);
+			}
+		})
+	}
+	
+	function unfollow(f) {
+		var following = '${ loginUser.userId }';
+		var follower = '${ getMember.userId }';
+		var followCount = $('#follower').text();
+		$.ajax({
+			url: "unfollow.me",
+			data: {
+				following:following,
+				follower:follower
+			}, success: function(data) {
+				$(f).text("팔로우");
+				$(f).attr("id", "followBtn");
+				$(f).attr("onclick", "follow(this);")
+				$('#follower').text(followCount-1);
+			}
+		})
+	}
 	
 	$(function(){
 		$('#img_area').on('click',function(){
@@ -907,7 +960,7 @@
 	
 	$('#overlay').css('top','-2px');
 	$('#sidewrap').css('top','60.3px');
-	$('nav>a:eq(0)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
+	$('nav>a:eq(2)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
 	
 	////////////////////////
 	// Make the DIV element draggable:

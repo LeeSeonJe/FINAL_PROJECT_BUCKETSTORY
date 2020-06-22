@@ -307,4 +307,82 @@
 		set RPSTATUS = 'N'
 		where RPNO = #{ rpNo }
 	</update>
+	
+	<select id="getWishList" resultMap="">
+		select WINO, w.enrolldate W_ENROLLDATE, w.BKNO W_BKNO, w.userid W_USERID, 
+		                        CATENUM, CATENAME,
+		                        B.BKNO B_BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE B_ENROLLDATE, BKLIKE, b.userid B_USERID, COMPLETE,
+		                        MWEB
+		from wishlist w
+		join bucketList b on (b.bkno = w.bkno)
+		join category using (cateNum)
+		join media m on (b.bkno = m.bkno)
+		where w.userid=#{ userid }
+		order by w.ENROLLDATE desc
+	</select>
+	
+	<resultMap type="WishList" id="">
+		<id property="wiNo" column="WINO" />
+		<result property="enrollDate" column="W_ENROLLDATE" />
+		<result property="bkNo" column="W_BKNO" />
+		<result property="userId" column="W_USERID" />
+		<result property="cateNum" column="CATENUM" />
+		<result property="cateName" column="CATENAME" />
+		<association property="bucketList" resultMap="wishBucketResultSet"></association>
+		<association property="media" resultMap="wishMediaResultSet"></association>
+	</resultMap>
+	
+	<resultMap type="Bucket" id="wishBucketResultSet">
+		<id property="bkNo" column="B_BKNO" />
+		<result property="bkName" column="BKNAME" />
+		<result property="bkContent" column="BKCONTENT" />
+		<result property="tag" column="TAG" />
+		<result property="enrolldate" column="B_ENROLLDATE" />
+		<result property="bkLike" column="BKLIKE" />
+		<result property="userId" column="B_USERID" />
+		<result property="complete" column="COMPLETE" />
+	</resultMap>
+	
+	<resultMap type="media" id="wishMediaResultSet">
+		<result property="mweb" column="MWEB"/>
+	</resultMap>
+	
+	<select id="getFollowingList" resultMap="FollwResultSet">
+		select * 
+		from follow
+		join member on (follower = userid)
+		where following = #{ userid } and status = 'Y'
+	</select>
+	
+	<select id="getFollowerList" resultMap="FollwResultSet">
+		select *
+		from follow
+		join member on (following = userid)
+		where follower = #{ userid } and status = 'Y'
+	</select>
+	
+	<resultMap type="Follw" id="FollwResultSet">
+		<id property="fno" column="FNO" />
+		<result property="enrolldate" column="ENROLLDATE" />
+		<result property="following" column="FOLLOWING" />
+		<result property="follower" column="FOLLOWER" />
+		<association property="member" resultMap="memberResultSet"></association>
+	</resultMap>
+	
+	<select id="followCheck" parameterType="hashMap" resultType="_int">
+		select count(*)
+		from follow
+		join member m on (follower = userid)
+		where following=#{ userId } and follower=#{ userId2 } and status = 'Y'
+	</select>
+	
+	<insert id="follow">
+		insert into follow VALUES (seq_follow.nextval, SYSDATE, #{following}, #{follower})
+	</insert>
+	
+	<delete id="unfollow">
+		delete 
+		from follow
+		where following=#{following} and follower=#{follower}
+	</delete>
 </mapper>
