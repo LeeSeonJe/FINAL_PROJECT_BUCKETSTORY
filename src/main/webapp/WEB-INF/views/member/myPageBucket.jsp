@@ -58,7 +58,7 @@
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
 			<c:if test="${ empty myBucketList }">
-				<div>등록된 버킷이 없습니다.</div>
+				<div style="text-align: center; margin: 200px;">등록된 버킷리스트가 없습니다.</div>
 			</c:if>
 			<c:if test="${ !empty myBucketList }">
 				<c:forEach var="b" items="${ myBucketList }" varStatus="status">
@@ -96,7 +96,7 @@
 							</c:if>	
 							<div class="c-likewish ${ b.bkNo }" id="c-likewish${ b.bkNo }">
 								<div class="c-likeBtn ${ b.bkNo }" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bucket.bkLike }</label></div>
-								<div class="c-wishBtn ${ b.bkNo }" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.bucket.userId }');">
+								<div class="c-wishBtn ${ b.bkNo }" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.member.userId }');">
 									<span class="wishhover" style="font-size:20px">☆ </span>
 									위시 
 									<c:set var="loop_flag" value="false"/>
@@ -120,7 +120,7 @@
 							$('.c-likewish.${ b.bkNo }').hide();
 						});
 						if('${loginUser}' != ""){
-							if('${loginUser.userId}' == '${b.member.userId}'){
+							if('${loginUser.userId}' == '${b.bucket.userId}'){
 								$('.c-Add.${b.bkNo}').hide();
 							}
 						}
@@ -305,7 +305,7 @@
 	// 공유버킷등록
 	function sharebl(bkNo, userId){
 		if('${loginUser}' != null){
-			if('${loginUser.nickName}' == userId){
+			if('${loginUser.userId}' == userId){
 				alert("나의 버킷은 공유할 수 없습니다.");
 			} else{
 				var result = confirm("이 버킷리스트를 공유하시겠습니까?");
