@@ -11,6 +11,17 @@
 
 })();
 
+function goHome(){
+	var target = $("#hpTop");
+	$('html, body').animate({scrollTop : target.offset().top - 108}, 500);
+	setTimeout(function() {
+		location.reload();	
+		}, 520);
+     
+     //;
+  
+}
+
 // HelperEdit1 사진넣기
 function readURL(input) {
 	if (input.files && input.files[0]) {
@@ -35,11 +46,11 @@ window.onkeydown = function() {
 	}
 }
 
-//select 에서 DB에서 cateNum 을 가지고 기본으로 option selected 된것을 정한다.
+// select 에서 DB에서 cateNum 을 가지고 기본으로 option selected 된것을 정한다.
 $(document).ready(function() {
 	$('#cateNum option').each(function() {
 		if ($(this).val() == "${com.cateNum}") {
-			$(this).attr("selected", "selected"); // attr적용안될경우 prop으로 
+			$(this).attr("selected", "selected"); // attr적용안될경우 prop으로
 		}
 	});
 
@@ -52,17 +63,17 @@ var isEqualsOldCheck = false;
 // 기존비밀번호 일치 확인
 oldPwd.onchange = function() {
 
-	//		if(oldPwd.value == '${com.coPwd}'){
-	//			$('#pwdCheck1').show();
-	//			$('#pwdCheck2').hide();
-	//		}else{
-	//			$('#pwdCheck2').show();
-	//			$('#pwdCheck1').hide();
-	//		}
-	$.ajax({ //현재 아이디 보내서 비교해서 값을 받아오기
+	// if(oldPwd.value == '${com.coPwd}'){
+	// $('#pwdCheck1').show();
+	// $('#pwdCheck2').hide();
+	// }else{
+	// $('#pwdCheck2').show();
+	// $('#pwdCheck1').hide();
+	// }
+	$.ajax({ // 현재 아이디 보내서 비교해서 값을 받아오기
 		url : 'helperPwdCheck.ex',
 		data : {
-			oldPwd: oldPwd.value
+			oldPwd : oldPwd.value
 		},
 		success : function(data) {
 			console.log(data);
@@ -77,16 +88,15 @@ oldPwd.onchange = function() {
 			}
 
 		},
-		error:function(request,status,errorData){
-		console.log("error code :" + request.status + "\n"
-			+ "message : " + request.responseText + "\n"
-			+ "error : "  + errorData);
-			}
+		error : function(request, status, errorData) {
+			console.log("error code :" + request.status + "\n" + "message : "
+					+ request.responseText + "\n" + "error : " + errorData);
+		}
 	});
 
 }
 
-// 비밀번호 규칙 : 비밀번호는 영문 숫자 7~11자리 
+// 비밀번호 규칙 : 비밀번호는 영문 숫자 7~11자리
 var re4 = /^[a-zA-Z\d]{7,11}$/;
 var isCanPwdCheck = false;
 
@@ -96,34 +106,34 @@ newPwd.onchange = function() {
 		// alert('비밀번호는 영문 숫자7~11자리 ');
 		$('#pwdCheck3').show();
 		$('#pwdCheck4').hide();
-		//   console.log(newPwd.value);
+		// console.log(newPwd.value);
 		isCanPwdCheck = true;
 	} else {
 		$('#pwdCheck4').show();
 		$('#pwdCheck3').hide();
-		
+
 	}
 };
 
 /*
  * 유효성을 체크한다.
  */
-function submitCheck(form){
+function submitCheck(form) {
 	console.log(canSubmit);
-	
-	if(!isEqualsOldCheck){
+
+	if (!isEqualsOldCheck) {
 		alert('입력한 현재 비밀번호가 일치하지 않습니다.다시 확인해주세요');
 		return false;
 	}
-	if(!isCanPwdCheck){
+	if (!isCanPwdCheck) {
 		alert('비밀번호는 영문 숫자조합 7~11자리만 가능합니다.');
 		return false;
 	}
-	if(isCanPwdCheck && isCanPwdCheck){
+	if (isCanPwdCheck && isCanPwdCheck) {
 		alert('전송합니다.');
 		return true;
 	}
-	
+
 }
 
 // 스크롤 이벤트
@@ -136,9 +146,9 @@ $(window).scroll(function() {
 	}
 	if (scrolltop < 720) {
 
-		$("#navigation img").css("transform", "translate(-100px,50px)");
-		//		$("#HelperEdit div").hide();
-		//		$("#HelperEdit2 div").hide();
+		$("#dal img").css("transform", "translate(-100px,50px)");
+		// $("#HelperEdit div").hide();
+		// $("#HelperEdit2 div").hide();
 		$('#intro_content').fadeIn(800);
 		$('#intro_background').fadeIn(800);
 
@@ -149,8 +159,8 @@ $(window).scroll(function() {
 	if (scrolltop > 880) {
 		$("#navigation li").removeClass();
 		$("#navigation li:nth-child(3)").addClass("on");
-		$("#navigation img").css("transform", "translate(10px,-5px)");
-		//	   $("#HelperEdit div").show();
+		$("#dal img").css("transform", "translate(10px,-5px)");
+		// $("#HelperEdit div").show();
 		$('#intro_content').fadeOut(500);
 		$('#intro_background').fadeOut(500);
 
@@ -159,26 +169,44 @@ $(window).scroll(function() {
 
 		$('#submitform2').removeClass('submitAreaOn2');
 		$('#submitform2').addClass('submitAreaOff2');
+
 	}
 
 	if (scrolltop > 1600) {
 		$("#navigation li").removeClass();
 		$("#navigation li:nth-child(4)").addClass("on");
-		$("#navigation img").css("transform", "translateX(15px,-10px)");
+		$("#dal img").css("transform", "translate(15px,-10px)");
 
 		// $("#HelperEdit2 div").show();
 
 		$('#submitform2').removeClass('submitAreaOff2');
 		$('#submitform2').addClass('submitAreaOn2');
 	}
+	if (scrolltop > 2200) {
+		$("#navigation li").removeClass();
+		$("#navigation li:nth-child(5)").addClass("on");
+		$("#dal img").css({
+			"transtion" : "5s",
+			"transform" : "translate(700px,150px)",
+			"zoom" : "1.8"
+		});
+		$("#dal img").fadeOut(800);
+	}
+	
+	if(scrolltop < 2000){
+		$("#dal img").css({
+			"zoom" : "1"
+		}).show();
+	}
 
 });
 
-$("a[href^='#']").click(function(event){
+$("a[href^='#']").click(function(event) {
 	event.preventDefault();
 	var target = $(this.hash);
 	// 헤더가 fixed 이기 떄문에 header만큼 뻄
-	console.log(target.offset().top-108);
-	$('html, body').animate({scrollTop:target.offset().top-108},300);
+	console.log(target.offset().top - 108);
+	$('html, body').animate({
+		scrollTop : target.offset().top - 108
+	}, 500);
 });
-

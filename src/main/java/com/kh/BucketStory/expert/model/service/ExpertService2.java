@@ -3,6 +3,7 @@ package com.kh.BucketStory.expert.model.service;
 import java.util.ArrayList;
 
 import com.kh.BucketStory.admin.model.vo.adminQnA;
+import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.expert.model.vo.Category;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
@@ -80,6 +81,14 @@ public interface ExpertService2 {
 	int getListMQnACountY(String userId);
 
 	int insertMQnA(adminQnA aQ);
+
+	Company selectCompanyInfo2(String coId);
+
+	int goPhoto(Media media);
+
+	Media getPhoto(String coId);
+
+	
 
 
 

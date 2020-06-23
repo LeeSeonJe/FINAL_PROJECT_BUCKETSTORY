@@ -47,12 +47,11 @@ public class Company {
 	}
 
 	// 기업소개변경용 생성자
-	public Company(String coId, String coName, String compaName, String checkImg, int cateNum, String coIntro) {
+	public Company(String coId, String coName, String compaName, int cateNum, String coIntro) {
 		super();
 		this.coId = coId;
 		this.coName = coName;
 		this.compaName = compaName;
-		this.checkImg = checkImg;
 		this.cateNum = cateNum;
 		this.coIntro = coIntro;
 	}
