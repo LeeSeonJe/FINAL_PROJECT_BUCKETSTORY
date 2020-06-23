@@ -2,6 +2,7 @@ package com.kh.BucketStory.member.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
@@ -51,6 +52,18 @@ public interface MemberService{
 
 	int follow(Follow follow);
 
-	int unfollow(Follow follow);	
+	int unfollow(Follow follow);
+
+	int bReportCheck(Notify n);
+
+	int cReportCheck(Notify n);
+
+	int rReportCheck(Notify n);
+
+	int bReportInsert(Notify n);
+
+	int cReportInsert(Notify n);
+
+	int rReportInsert(Notify n);	
 	
 }

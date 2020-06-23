@@ -293,7 +293,7 @@
 					</script>
 					<input type="hidden" value="<%= mbl.get(index).getBucket().getBkNo() %>" />
 					<c:if test="${ flag eq 'true' }">
-						<button id="blogWriteBtn">작성하기</button>
+						<button id="blogWriteBtn" style="width: 100px;">스토리 작성하기</button>
 					</c:if>
 				</c:if>
 			</div>		
@@ -308,13 +308,21 @@
 						<div class="profile-area">
 							<img src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
 							<span>${ getMember.nickName }</span>
-							<span>${ bl.enrollDate }</span>
-							<span></span>
+							<span style=" margin-left: 70%;">${ bl.enrollDate }</span>
 						</div>
 						<div>
 							${ bl.bContent }
 						</div>
-						
+						<div class="etc-area">
+							<input type="hidden" class="hidden_BKNO" value="${ bl.bNo }"/>
+							<c:if test="${ loginUser != null && loginUser.nickName eq getMember.nickName }">
+								<button>수정하기</button>
+								<button>삭제하기</button>
+							</c:if>
+							<c:if test="${ loginUser != null && loginUser.nickName ne getMember.nickName }">
+								<span style="cursor: pointer;" onclick="boardReport(this);">신고</span>
+							</c:if>
+						</div>
 						<!-- 댓글 쓰기 -->
 						<c:if test="${ loginUser != null }">
 							<div class="comment">
@@ -354,9 +362,10 @@
 											<button type="button">블로그주인</button>
 										</c:if>
 										<c:if test="${ loginUser.nickName ne bl_bc.member.nickName }">
-											<span>신고</span>
+											<span style="cursor: pointer;" class="comment_Report" onclick="commentReport(this);">신고</span>
 										</c:if>
 										<span>${ bl_bc.enrollDate }</span>
+										<input type="hidden" value="${ bl_bc.userid }" />
 									</div>
 									
 									<!-- 비밀글 여부 -->
@@ -447,9 +456,10 @@
 														<button type="button">블로그주인</button>
 													</c:if>
 													<c:if test="${ loginUser.nickName ne reply.rmember.nickName }">
-														<span>신고</span>
+														<span style="cursor: pointer;" class="reply_Report" onclick="replyReport(this);">신고</span>
 													</c:if>
 													<span>${ reply.rpDate }</span>
+													<input type="hidden" value="${ reply.userid }" />
 												</div>
 												<div class="reply_content">
 													<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" style="width: 98%; padding: 7px;" readonly="readonly">${ reply.rpContent }</textarea>
@@ -602,6 +612,90 @@
 			}
 		}
 	})
+	
+	/* 신고 스크립드 */
+	/* 게시물 신고 카테 번호 1번 */
+	function boardReport(r) {
+		var sinuser = '${ loginUser.userId }';
+		var pigouser = '${ getMember.userId }';
+		var bno = $(r).prev().val();
+		var no_kind = 1;
+		console.log(sinuser)
+		console.log(pigouser)
+		$.ajax({
+			url:"report.me",
+			data: {
+				sinuser:sinuser,
+				pigouser:pigouser,
+				bno:bno,
+				no_kind:no_kind
+			}, success: function(data){
+				if(data.trim() == 'success') {
+					alert("신고처리되었습니다.");
+				} else if(data.trim() == 'exist') {
+					alert("이미 신고된 내용입니다.");
+				} else if(data.trim() == 'fail') {
+					alert("실패하였습니다.")
+				}
+			}
+		})	
+	}
+	
+	function commentReport(r) {
+		var sinuser = '${ loginUser.userId }';
+		var pigouser = $(r).next().next().val();
+		var cmno = $(r).prev().prev().prev().val();
+		console.log($(r).prev().prev().prev().val())
+		var no_kind = 2;
+		if(cmno == "") {
+			cmno = $(r).prev().prev().prev().prev().val();
+		}
+		$.ajax({
+			url:"report.me",
+			data: {
+				sinuser:sinuser,
+				pigouser:pigouser,
+				cmno:cmno,
+				no_kind:no_kind
+			}, success: function(data){
+				if(data.trim() == 'success') {
+					alert("신고처리되었습니다.");
+				} else if(data.trim() == 'exist') {
+					alert("이미 신고된 내용입니다.");
+				} else if(data.trim() == 'fail') {
+					alert("실패하였습니다.")
+				}
+			}
+		})	
+	}
+	
+	/* 답글 신고 카테 번호 3번 */
+	function replyReport(r) {
+		var sinuser = '${ loginUser.userId }';
+		var pigouser = $(r).next().next().val();
+		var rpno = $(r).prev().prev().prev().val();
+		var no_kind = 3;
+		if(rpno == "") {
+			rpno = $(r).prev().prev().prev().prev().val();
+		}
+		$.ajax({
+			url:"report.me",
+			data: {
+				sinuser:sinuser,
+				pigouser:pigouser,
+				rpno:rpno,
+				no_kind:no_kind
+			}, success: function(data){
+				if(data.trim() == 'success') {
+					alert("신고처리되었습니다.");
+				} else if(data.trim() == 'exist') {
+					alert("이미 신고된 내용입니다.");
+				} else if(data.trim() == 'fail') {
+					alert("실패하였습니다.")
+				}
+			}
+		})	
+	}
 	
 	/* 댓글 열기 스크립트 */
 	
@@ -959,8 +1053,14 @@
 	});
 	
 	$('#overlay').css('top','-2px');
-	$('#sidewrap').css('top','60.3px');
+  	$('#sidewrap').css('top','56px');
 	$('nav>a:eq(2)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
+	
+	$('.gnb_menu .gnb_menu_ul li a .text:eq(0)').css('color', '#fff');
+	$('.gnb_menu .gnb_menu_ul li a.gnb1').css('background','url("resources/layout/images/bg01_on.jpg") no-repeat 0 center #f3f3f2');
+	$('.gnb_menu .gnb_menu_ul li a.gnb1 .ico').css('background', 'url("resources/layout/images/ico01_on.png") no-repeat 0 0');
+	$('.gnb_menu .gnb_menu_ul li a.gnb1 .text span').css('color','#fff');
+
 	
 	////////////////////////
 	// Make the DIV element draggable:
