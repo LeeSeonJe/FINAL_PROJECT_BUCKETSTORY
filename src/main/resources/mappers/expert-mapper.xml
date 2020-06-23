@@ -22,7 +22,7 @@
 	
 	<update id="insertComBucket">
 		insert into cominbucket
-		values(SEQ_COMINBUCKET.nextval,#{coId},#{bkNo],sysdate);
+		values(SEQ_COMINBUCKET.nextval,#{coId},#{bkNo},sysdate)
 		
  	</update>
 	
@@ -49,6 +49,7 @@
 		select * 
 		from esrequest
 		where coid =#{coId} and status ='Y'
+		order by esr_no desc
 	</select>
 
 	<select id="RequestDetail" resultMap="esrequestSet">
@@ -75,16 +76,19 @@
 	<select id="selectEstimateList" resultMap="estimateSet">
 		select * from estimate
 		where coid=#{coId} and status='1'
+		order by es_no desc
 	</select>
 	
 	<select id="selectEstimate" resultMap="estimateSet">
 		select * from estimate 
 		where es_no = #{esno}
+		
 	</select>
 	
 	<select id="selectEsRequestOne" resultMap="esrequestSet">
 		select * from esrequest
 		where esr_no = #{esr_no}
+		order by esr_no desc
 	</select>
 	
 	<select id="selectMediaList" resultMap="MediaResultSet">
@@ -95,6 +99,7 @@
 	<select id="selectMakingEstimateList" resultMap="estimateSet">
 		select * from estimate
 		where coid = #{coId} AND status='2'
+		order by es_no desc
 	</select>
 	
 	<update id="updateEstimate">
@@ -128,11 +133,13 @@
 		select * 
 		from estimate
 		where coid = #{coId} AND status='3'
+		order by es_no desc
 	</select>
 	
 	<select id="selectUserEstimate" resultMap="estimateSet">
 		select * from estimate
-		where userid = #{userId}
+		where userid = #{userId} and status='1'
+		order by es_no desc
 	</select>
 	
 	<resultMap id="estimateSet" type="estimate">

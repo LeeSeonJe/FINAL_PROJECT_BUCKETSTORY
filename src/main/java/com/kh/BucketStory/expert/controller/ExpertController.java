@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,8 +75,9 @@ public class ExpertController {
 	}
 
 	@RequestMapping("expertUpdate.ex")
-	public ModelAndView expertInfoUpdate(HttpSession session,
-			@RequestParam("bucket") String bucket, ModelAndView mv) {
+	@ResponseBody
+	public String expertInfoUpdate(HttpSession session,
+			@RequestParam("bucket") String bucket) {
 			
 		Company loginCom = (Company) session.getAttribute("loginCompany");
 		ComInBucket cib = new ComInBucket();
@@ -83,10 +85,12 @@ public class ExpertController {
 					cib.setBkNo(bucket);
 
 				int result2 = ExService.insertBucket(cib);
-
-				mv.setViewName("redirect:info.ex");
+				if( result2 > 0) {
+					return "success";
+				}else {
+					return "false";
+				}
 		
-		return mv;
 	}
 
 	@RequestMapping("cateList.ex")
@@ -299,11 +303,11 @@ public class ExpertController {
 				 }
 			 }
 			if(es.getStatus()==1) {
-				return "redirect:getRequest.ex";
+				return "redirect:roadingRequestView.ex";
 			}else {
 				return "redirect:makingEstimate.ex";
 			}
-		 
+			
 	 
 	 }
 	 
@@ -365,7 +369,7 @@ public class ExpertController {
 	 public String updateEstimate(@ModelAttribute Estimate es,
 							@RequestParam(value = "optionName", required = false) String optionName,
 							@RequestParam(value = "optionPrice", required = false) String optionPrice,
-							@RequestParam("uploadFile") MultipartFile[] uploadFile,
+							@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 							HttpServletRequest request) {
 			
 			String esoption =""; 
@@ -406,7 +410,15 @@ public class ExpertController {
 				 }
 			}
 			}
-			return "redirect:getRequest.ex?coId=TEST";
+			if(es.getStatus()==1) {
+				return "redirect:roadingRequestView.ex";
+			}else if(es.getStatus()==2) {
+				return "redirect:makingRequestView.ex";
+			}else if(es.getStatus() ==3 || es.getStatus() ==4){
+				return "redirect:myEstimateView.ex";
+			}else {
+				return "redirect:home";
+			}
 	 }
 	 @RequestMapping("deleteMedia.ex")
 	 public void deleteMedia(@RequestParam("mnumber") String mnumber,
@@ -437,12 +449,13 @@ public class ExpertController {
 		 Member loginUser = (Member) session.getAttribute("loginUser");
 		 
 		 ArrayList<Estimate> es = ExService.selectUserEstimate(loginUser.getUserId());
-		 ArrayList<BucketList> bucket = new ArrayList<BucketList>();
+		 Map<Integer,String> bucket = new HashMap<Integer,String>();
 		 
 		 for(int i=0;i<es.size();i++) {
 			 BucketList b = ExService.selectBucket(es.get(i).getBkNo());
-			 bucket.add(b);
+			 bucket.put(es.get(i).getBkNo(),b.getBkName());
 		 }
+		 
 		 
 		 mv.addObject("bucket",bucket);
 		 mv.addObject("es",es);

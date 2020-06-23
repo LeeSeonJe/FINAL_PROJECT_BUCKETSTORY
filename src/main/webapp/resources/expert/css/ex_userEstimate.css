@@ -79,3 +79,21 @@ section {
 	width:50px; background:lightgray;margin:0 auto;
 	cursor:pointer;
 	}
+	.status {
+    background: lightgrey;
+    display: inline;
+    margin: auto;
+    float: left;
+    cursor: pointer;
+    width: 270px;
+    height: 45px;
+    text-align: center;
+    font-weight: bolder;
+    line-height: 45px;
+    margin-left: 74px;
+}
+	div#statusView {
+    width: 80%;
+    margin: auto;
+    height: 51px;
+}
