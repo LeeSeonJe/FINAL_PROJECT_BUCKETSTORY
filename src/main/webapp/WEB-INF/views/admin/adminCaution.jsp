@@ -8,29 +8,48 @@
 <link rel="stylesheet" href="resources/admin/css/adminDefault.css">
 <link rel="stylesheet" href="resources/admin/css/adminBoardList.css">
 </head>
+<style>
+.ad_list{
+    float: left;
+    width: 160px;
+    margin-bottom: 10px;
+}
+</style>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"></jsp:include>
 	</header>
+		<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"></jsp:include>
 	<div id="adw_body">
 		<nav>
 			<div id="adw_menu">
 				<ul>
-					<li><a>축제 작성</a></li>
-					<li><a>가입확인</a></li>
-					<li><a>결제내역</a></li>
-					<li><a>통계</a></li>
-					<li><a>신고</a></li>
-					<li><a>QnA</a></li>
+					<li>
+						<a href="adminwrite.ad">축제 작성</a>	
+					</li>
+					<li>
+						<a href="adminCompany.ad">가입확인</a>
+					</li>
+					<li>
+						<a href="adminBill.ad">결제내역</a>
+					</li>
+					<li>
+						<a href="">통계</a>
+					</li>
+					<li>
+						<a href="cautionlist.ad">신고</a>
+					</li>
+					<li>
+						<a href="adminQnAlist.ad">QnA</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
 	</div>
 	<div id="board-area">
 	<div>
-		<h2>신고 게시판</h2>
-		<a href="adminwarning.ad">경고 게시판</a>
+		<h2><a href="cautionlist.ad"  class="ad_list">신고 게시판</a></h2>
+		<h2><a href="adminwarning.ad"  class="ad_list">경고 게시판</a></h2>
 	</div>
 			<form action="warning.ad">
 				<table class="board">
@@ -205,7 +224,7 @@ $(function(){
 
 /* 회원 경고 주기 */
 	function chk_warning(){
-	 	alert("클릭");
+	 	alert("경고를 주었습니다.");
 
 	
 	var chk_Arr = []; // 배열 초가화

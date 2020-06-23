@@ -7,6 +7,13 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="resources/admin/css/adminDefault.css">
 <link rel="stylesheet" href="resources/admin/css/adminBoardList.css">
+<style>
+.ad_list{
+    float: left;
+    width: 160px;
+    margin-bottom: 10px;
+}
+</style>
 </head>
 <body>
 	<header>
@@ -17,29 +24,42 @@
 		<nav>
 			<div id="adw_menu">
 				<ul>
-					<li><a>축제 작성</a></li>
-					<li><a>가입확인</a></li>
-					<li><a>결제내역</a></li>
-					<li><a>통계</a></li>
-					<li><a>신고</a></li>
-					<li><a>QnA</a></li>
+					<li>
+						<a href="adminwrite.ad">축제 작성</a>	
+					</li>
+					<li>
+						<a href="adminCompany.ad">가입확인</a>
+					</li>
+					<li>
+						<a href="adminBill.ad">결제내역</a>
+					</li>
+					<li>
+						<a href="">통계</a>
+					</li>
+					<li>
+						<a href="cautionlist.ad">신고</a>
+					</li>
+					<li>
+						<a href="adminQnAlist.ad">QnA</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
 	</div>
 		<div id="board-area">
 		<div>
-			<h2>신고 회원 처리 게시판</h2>
+			<h2><a href="cautionlist.ad" class="ad_list">신고 게시판</a></h2>
+			<h2><a href="adminwarning.ad" class="ad_list">경고 게시판</a></h2>
 		</div>
 			<form action="delectMember.ad" id="form">
 			<table class="board">
 				<tr>
-					<td><input type="checkbox" name="chk_head" id="checkAll"></td>
-					<td>번호</td>
-					<td>말머리</td>
-					<td>경고여부</td>
-					<td>아이디</td>
-					<td>상태</td>
+					<th><input type="checkbox" name="chk_head" id="checkAll">선택</th>
+					<th>번호</th>
+					<th>말머리</th>
+					<th>경고여부</th>
+					<th>아이디</th>
+					<th>상태</th>
 				</tr>
 				<c:forEach var="notify" items="${ list }"> 
 					<tr>
@@ -147,6 +167,8 @@ $(function(){
 
 /* 강제 탈퇴 */
 function starting(){
+	
+	alert("회원을 강제 탈퇴하였습니다.");
 	
 	var del_Arr = [];
 	
