@@ -3,12 +3,9 @@ package com.kh.BucketStory.expert.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,11 +28,11 @@ import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.ComInBucket;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
-import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Estimate;
+import com.kh.BucketStory.expert.model.vo.Pay;
 
 @Controller
 public class ExpertController {
@@ -134,6 +130,7 @@ public class ExpertController {
 	public ModelAndView ex_esrequestView(HttpSession session, @RequestParam int bkNo, ModelAndView mv) {
 		Company loginCom = (Company) session.getAttribute("loginCompany");
 		BucketList bl = ExService.selectBucket(bkNo);
+		
 		if (loginCom != null) {
 			mv.addObject("company", loginCom);
 			if (bl != null) {
@@ -277,7 +274,6 @@ public class ExpertController {
 				 	es.setEs_option(esoption);
 				 }
 		 	}
-		
 			 int result = ExService.insertEstimate(es);
 			 System.out.println(result);
 			 
