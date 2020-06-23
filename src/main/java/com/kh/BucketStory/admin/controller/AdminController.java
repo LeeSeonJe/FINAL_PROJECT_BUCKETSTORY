@@ -307,6 +307,7 @@ public class AdminController {
 		
 //		System.out.println("c 값 " + c);
 		
+		
 		Company company = bService.adminCompanyDetail(c);
 
 //		System.out.println("company 값 " + company);
@@ -320,5 +321,34 @@ public class AdminController {
 		}	
 		
 		return mv;
+	}
+	
+	/* 기업 승인 상세페이지 */
+	@RequestMapping("companyanppoval.ad")
+	public String companyanppoval(@RequestParam("coId") String c, @RequestParam("page") int page) {
+			
+			System.out.println("c 값 " + c);
+			
+			int result = bService.companyanppoval(c);
+			
+			if(result > 0) {
+				return "redirect:adminCompany.ad";
+			} else {
+				throw new BoardException("기업 승인에 실패하였습니다");
+			}
+	}
+	
+	/* 기업 거절 상세페이지 */
+	@RequestMapping("uncompanyanppoval.ad")
+	public String uncompanyanppoval(@RequestParam("coId") String c, @RequestParam("page") int page) {
+		
+		int result = bService.uncompayanpporval(c);
+		
+		if(result > 0) {
+			
+			return "redirect:adminCompany.ad";
+		} else {
+			throw new BoardException("기업 거절에 실패하였습니다");
+		}
 	}
 }

@@ -39,6 +39,8 @@
 		</nav>
 		</div>
 		<form class="form_class">
+		<input type="hidden" name="coId" value="${ company.coId }">
+		<input type="hidden" name="page" value="${ page }">
 			<table class="table_class">
 				<tr>
 					<td>아이디</td>
@@ -46,11 +48,11 @@
 				</tr>
 				<tr>
 					<td>기업명</td>
-					<td><input type="text" value="${ company.coName }" disabled id="read"></td>
+					<td><input type="text"  value="${ company.coName }" disabled id="read"></td>
 				</tr>
 				<tr>
-					<td>기업 인증 사진</td>
-					<td><input type="text" value="${ company.checkImg }" disabled id="read"></td>
+					<td>인증사진</td>
+					<td><img style="width:300px;height:300px;" src="resources/muploadFiles/${ company.checkImg }"></td>
 				</tr>
 				<tr>
 					<td>대표이사 이름</td>
@@ -80,13 +82,11 @@
 					<td>이메일</td>
 					<td><input type="text" value="${ company.busiEmail }" disabled id="read"></td>
 				</tr>
-				
 			</table>
 			<div id="btn_div">
-				<span><button type="submit">승인</button></span>
-				<span><button >거절</button></span>
+				<span><button type="submit" onclick="javascript: form.action='companyanppoval.ad';">승인</button></span>
+				<span><button type="submit" onclick="javascript: form.action='uncompanyanppoval.ad';">거절</button></span>
 			</div>
 		</form>
-		
 </body>
 </html>

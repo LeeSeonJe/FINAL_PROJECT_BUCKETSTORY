@@ -43,6 +43,10 @@ public interface BoardService {
 
 	Company adminCompanyDetail(String c);
 
+	int companyanppoval(String c);
+
+	int uncompayanpporval(String c);
+
 
 
 
