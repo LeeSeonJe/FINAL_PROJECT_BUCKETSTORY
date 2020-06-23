@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -132,7 +133,11 @@ public class MainController {
 	}
 	
 	@RequestMapping("festival.ho")
-	public String festivalView() {
+	public String festivalView(@RequestParam("year") String year, Model m) {
+		ArrayList<Festival> fList = mainService.selectFestival(year);
+		ArrayList<Media> mList = mainService.selectFmList(year);
+		
+		
 		return "mainFestival";
 	}
 	
