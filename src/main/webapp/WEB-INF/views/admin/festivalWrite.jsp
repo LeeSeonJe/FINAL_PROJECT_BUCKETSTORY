@@ -61,6 +61,21 @@ form>div>div>ul>li{
 	height:50px;
 	
 }
+
+.ad_table{
+    margin-left: 30px;
+	
+}
+
+.ad_table>tbody>tr,
+.ad_table>tbody>tr>td{
+	height: 45px;
+	width: 150px;
+}
+
+.btn{
+	margin-right: 10px;
+}
 </style>
 </head>
 <body>
@@ -99,17 +114,29 @@ form>div>div>ul>li{
 			</div>
 			<div id="adw_formDiv">
 				<div class="adw_formdiv">
-					<ul>
-						<li>
-							제목 : <input type="text" name="fetitle">
-						</li>
-						<li>
-							일시 : <input type="text" name="feDate">
-						</li>
-						<li>
-							장소 : <input type="text" name="feplace">
-						</li>
-					</ul>
+					<table class="ad_table">
+						<tr>
+							<td>제목 </td>
+							<td><input type="text" name="fetitle"></td>						
+						</tr>
+						<tr>
+							<td>일시</td>
+							<td><input type="text" name="feDate"></td>
+						</tr>
+						<tr>
+							<td>우편번호</td>
+							<td><input type="text" name="post" class="postcodify_postcode5" value="" size="6">
+								<button type="button" class="btn" id="postcodify_search_button">검색</button></td>
+						</tr>
+						<tr>
+							<td>도로명 주소</td>
+							<td><input type="text" name="address1" class="postcodify_address" value=""></td>
+						</tr>
+						<tr>
+							<td>상세 주소</td>
+							<td><input type="text" name="address2" class="postcodify_extra_info" value=""></td>
+						</tr>
+					</table>
 				</div>
 				<div class="test" id="map"
 					style="width: 300px; height: 300px; float: right;">
@@ -125,14 +152,51 @@ form>div>div>ul>li{
 			</div>
 		</form>
 	</div>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=deba653fd81e7e506676cae7697d70bf&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=deba653fd81e7e506676cae7697d70bf&libraries=services"></script>
+<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+		<script>
+			// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
+			$(function(){
+				$("#postcodify_search_button").postcodifyPopUp();
+			});
+		</script>
 	<script>	
-	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-		level: 3 //지도의 레벨(확대, 축소 정도)
-	};
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };  
+		
+			// 지도를 생성합니다    
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch('서울특별시 용산구 청파로47나길 4', function(result, status) {
+			
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+			
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+			
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+			        });
+			        infowindow.open(map, marker);
+			
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } 
+			});    
 	</script>
 	
 </body>

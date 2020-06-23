@@ -15,7 +15,6 @@
 	</insert>
 	
 	
-	
 	<!-- QnA 게시판  -->
 	
 	<select id="getListCount" resultType="_int">
@@ -69,6 +68,7 @@
 	<select id="notifyselectList" resultMap="notifyResultSet">
 		select *
 		from notify
+		where no_check = 'N'
 		order by no_no desc
 	</select>
 	
