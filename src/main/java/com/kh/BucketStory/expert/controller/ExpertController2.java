@@ -431,6 +431,7 @@ public class ExpertController2 {
 	 */
 
 	public int getPoint(String coId) {
+		System.out.println(coId);
 		int yPoint = ExService2.getYPoint(coId); // 충전 포인트
 		int nPoint = ExService2.getNPoint(coId); // 사용 포인트
 		return yPoint - nPoint;

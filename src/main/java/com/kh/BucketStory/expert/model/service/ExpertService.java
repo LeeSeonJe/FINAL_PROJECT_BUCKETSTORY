@@ -63,5 +63,7 @@ public interface ExpertService {
 
 	ArrayList<Estimate> selectUserEstimate(String userId);
 
+	ArrayList<Estimate> selectMyEstimate(Map<String, String> m);
+
 	
 }
