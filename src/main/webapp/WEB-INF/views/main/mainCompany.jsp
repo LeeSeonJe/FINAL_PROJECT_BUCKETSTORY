@@ -107,107 +107,107 @@
 	
 </body>
 <script>
-	$(function(){
-		// --현재 카테고리 표시
-		$('#cssmenu>ul>li:eq(3)>a').css({'color':'#FF7E7E','border-bottom':'2px solid #f861a2'});
-		//console.log($(window).width());
-		
-		$('.searchdiv').css('opacity', '1');
-		
-		// 카테고리 종류
-		$('#categoryImg1').prop('src','resources/layout/images/allhover.png');
-		$('#category1').css('background','silver');
-		$('#category1').unbind('mouseover mouseout');
-		
-		// --section 버킷들 width에 따라 height변화
+$(function(){
+	// --현재 카테고리 표시
+	$('#cssmenu>ul>li:eq(3)>a').css({'color':'#FF7E7E','border-bottom':'2px solid #f861a2'});
+	//console.log($(window).width());
+	
+	$('.searchdiv').css('opacity', '1');
+	
+	// 카테고리 종류
+	$('#categoryImg1').prop('src','resources/layout/images/allhover.png');
+	$('#category1').css('background','silver');
+	$('#category1').unbind('mouseover mouseout');
+	
+	// --section 버킷들 width에 따라 height변화
+	var hg = $('.bucket').css('width');
+	$('.bucket').css('height', hg);
+	
+	$(window).resize(function(){
 		var hg = $('.bucket').css('width');
 		$('.bucket').css('height', hg);
-		
-		$(window).resize(function(){
-			var hg = $('.bucket').css('width');
-			$('.bucket').css('height', hg);
+		var bkhg = $('#bucketDatail').width()/16 * 9;
+		$('#bucketimg').css('height', bkhg);
+		var bkcphg = $('#bucketimg').width()-411;
+		$('#bucketcp').css('width', bkcphg);
+	});
+	
+	// 검색창 나오게 하기
+	$('#search-img').click(function(){
+		$('body').css('height', '100%');
+		$('body').css('overflow', 'hidden');
+		$('#searchscreen').show();
+		$('#searchresult').show(800);
+	});
+	$('#searchtextBtn').click(function(){
+		$('body').css('height', 'auto');
+		$('body').css('overflow', 'visible');
+		$('#searchscreen').hide();
+		$('#searchresult').hide();
+	});
+	
+	// 좋아요위시버튼 나오게하기
+	$('.bucket').hover(function(){
+		$('.c-likewish').show();
+	}, function(){
+		$('.c-likewish').hide();
+	});
+	
+	// 좋아요위시 특수문자 색
+	$('.c-likeBtn').hover(function(){
+		$('.likehover').css('color', '#10ccc3');
+	}, function(){
+		$('.likehover').css('color', 'white');
+	});
+	$('.c-wishBtn').hover(function(){
+		$('.wishhover').css('color', '#10ccc3');
+	}, function(){
+		$('.wishhover').css('color', 'white');
+	});
+	
+	
+	// 버킷리스트 상세보기 클릭 종류
+	$('.bucket').click(function(e){
+		if($(e.target).hasClass('c-likeBtn')){
+			
+		} else if($(e.target).hasClass('c-wishBtn')){
+			
+		} else if($(e.target).hasClass('c-addBtn')){
+			
+		} else{
+			$('body').css('height', '100%');
+			$('body').css('overflow', 'hidden');
+			$('#FullOverLay').show();
 			var bkhg = $('#bucketDatail').width()/16 * 9;
 			$('#bucketimg').css('height', bkhg);
 			var bkcphg = $('#bucketimg').width()-411;
+			console.log($('#bucketimg').width());
+			console.log(bkcphg);
 			$('#bucketcp').css('width', bkcphg);
-		});
-		
-		// 검색창 나오게 하기
-		$('#search-img').click(function(){
-			$('body').css('height', '100%');
-			$('body').css('overflow', 'hidden');
-			$('#searchscreen').show();
-			$('#searchresult').show(800);
-		});
-		$('#searchtextBtn').click(function(){
-			$('body').css('height', 'auto');
-			$('body').css('overflow', 'visible');
-			$('#searchscreen').hide();
-			$('#searchresult').hide();
-		});
-		
-		// 좋아요위시버튼 나오게하기
-		$('.bucket').hover(function(){
-			$('.c-likewish').show();
-		}, function(){
-			$('.c-likewish').hide();
-		});
-		
-		// 좋아요위시 특수문자 색
-		$('.c-likeBtn').hover(function(){
-			$('.likehover').css('color', '#10ccc3');
-		}, function(){
-			$('.likehover').css('color', 'white');
-		});
-		$('.c-wishBtn').hover(function(){
-			$('.wishhover').css('color', '#10ccc3');
-		}, function(){
-			$('.wishhover').css('color', 'white');
-		});
-		
-		
-		// 버킷리스트 상세보기 클릭 종류
-		$('.bucket').click(function(e){
-			if($(e.target).hasClass('c-likeBtn')){
-				
-			} else if($(e.target).hasClass('c-wishBtn')){
-				
-			} else if($(e.target).hasClass('c-addBtn')){
-				
-			} else{
-				$('body').css('height', '100%');
-				$('body').css('overflow', 'hidden');
-				$('#FullOverLay').show();
-				var bkhg = $('#bucketDatail').width()/16 * 9;
-				$('#bucketimg').css('height', bkhg);
-				var bkcphg = $('#bucketimg').width()-411;
-				console.log($('#bucketimg').width());
-				console.log(bkcphg);
-				$('#bucketcp').css('width', bkcphg);
-			}
-		});
-		
-		// 버킷리스트 상세보기 닫기
-		$('#bucketexit').click(function(){
-			$('#FullOverLay').hide();
-			$('body').css('height', 'auto');
-			$('body').css('overflow', 'visible');
-		});
-		
-		// 행사 펼치기
-		$('#bucketcpeventD>button').click(function(){
-			if($('#bucketcpEvent').css('display') == 'none'){
-				$('#bucketwith').hide();
-				$('#bucketcpEvent').show();
-				$('#bucketcpeventD>button').text("행사 접기");
-			} else{
-				$('#bucketcpEvent').hide();
-				$('#bucketwith').show();
-				$('#bucketcpeventD>button').text("행사 펼치기");
-			}
-			
-		});
+		}
+	});
+	
+	// 버킷리스트 상세보기 닫기
+	$('#bucketexit').click(function(){
+		$('#FullOverLay').hide();
+		$('body').css('height', 'auto');
+		$('body').css('overflow', 'visible');
+	});
+	
+	// 행사 펼치기
+	$('#bucketcpeventD>button').click(function(){
+		if($('#bucketcpEvent').css('display') == 'none'){
+			$('#bucketwith').hide();
+			$('#bucketcpEvent').show();
+			$('#bucketcpeventD>button').text("행사 접기");
+		} else{
+			$('#bucketcpEvent').hide();
+			$('#bucketwith').show();
+			$('#bucketcpeventD>button').text("행사 펼치기");
+		}
 		
 	});
+	
+});
 </script>
 </html>
