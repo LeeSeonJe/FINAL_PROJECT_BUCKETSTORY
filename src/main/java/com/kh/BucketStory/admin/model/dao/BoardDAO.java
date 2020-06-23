@@ -141,6 +141,14 @@ public class BoardDAO {
 		return sqlSession.selectOne("adminMapper.adminCompanyDetail", c);
 	}
 
+	public int companyanppoval(SqlSessionTemplate sqlSession, String c) {
+		return sqlSession.update("adminMapper.companyanppoval", c);
+	}
+
+	public int uncompayanpporval(SqlSessionTemplate sqlSession, String c) {
+		return sqlSession.update("adminMapper.uncompayanpporval", c);
+	}
+
 
 
 

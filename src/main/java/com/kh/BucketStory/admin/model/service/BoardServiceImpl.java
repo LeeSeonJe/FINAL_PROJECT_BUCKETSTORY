@@ -106,6 +106,16 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.adminCompanyDetail(sqlSession, c);
 	}
 
+	@Override
+	public int companyanppoval(String c) {
+		return bDAO.companyanppoval(sqlSession, c);
+	}
+
+	@Override
+	public int uncompayanpporval(String c) {
+		return bDAO.uncompayanpporval(sqlSession, c);
+	}
+
 
 
 

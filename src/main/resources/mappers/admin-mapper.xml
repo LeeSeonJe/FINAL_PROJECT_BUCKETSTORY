@@ -14,6 +14,8 @@
 		values(seq_media.nextval, #{morigin}, #{mweb}, 1, 5, null, null, null, seq_festival.currval, null)
 	</insert>
 	
+	
+	
 	<!-- QnA 게시판  -->
 	
 	<select id="getListCount" resultType="_int">
@@ -142,8 +144,10 @@
 	<select id="companylist" resultMap="CompanyResultSet">
 		select *
 		from company
-		where approval = 'N'
+		where approval = 'N' and status = 'Y'
 	</select>
+	
+	
 	
 	<select id="adminCompanyDetail" resultMap="CompanyResultSet">
 		select *
@@ -151,6 +155,17 @@
 		where coId = #{coId}
 	</select>
 	
+	<update id="companyanppoval">
+		update company
+		set approval = 'Y'
+		where coId = #{coId}
+	</update>
+	
+	<update id="uncompayanpporval">
+		update company
+		set status = 'N'
+		where coId = #{coId}
+	</update>
 		<resultMap id="CompanyResultSet" type="Company">
 		<id property="coId" column="COID"/>
 		<result property="coPwd" column="COPWD"/>
