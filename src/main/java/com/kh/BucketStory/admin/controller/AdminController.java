@@ -45,17 +45,22 @@ public class AdminController {
 	@RequestMapping("list.ad")
 	public String adminfestivalList() {
 
-		return "festivalView";
+		return "mainFestival";
 	}
 	
 	/* 페스티벌 작성 페이지 */
 	@RequestMapping("feinsert.ad")
-	public String festivalInsert(@ModelAttribute Festival f, @RequestParam("feUploadFile") MultipartFile uploadFile, HttpServletRequest request) {
+	public String festivalInsert(@ModelAttribute Festival f, @RequestParam("feUploadFile") MultipartFile uploadFile, 
+															 @RequestParam("address1") String address1,
+															 HttpServletRequest request) {
+		
+		
+		f.setFeplace(address1);
 		
 		Media m = new Media();
 		
-		System.out.println(f);
-		System.out.println(uploadFile);
+//		System.out.println(f);
+//		System.out.println(uploadFile);
 		System.out.println(uploadFile.getOriginalFilename()); // 실제 사진 파일이 있는지 없는지를 확인 하는 방법
 		
 		if(uploadFile != null && !uploadFile.isEmpty()) {
@@ -101,6 +106,7 @@ public class AdminController {
 		
 		return renameFileName;
 	}
+	
 	
 	/* QnA 게시판 리스트 */
 	@RequestMapping("adminQnAlist.ad")
