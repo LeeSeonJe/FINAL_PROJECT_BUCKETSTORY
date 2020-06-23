@@ -1,12 +1,14 @@
 package com.kh.BucketStory.expert.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.admin.model.vo.adminQnA;
+import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.expert.model.vo.Category;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.PageInfo;
@@ -149,8 +151,37 @@ public class ExpertDAO2 {
 		return sqlSession.insert("exMapper2.insertMQnA", aQ);
 	}
 
+	public Company selectCompanyInfo2(SqlSessionTemplate sqlSession,String coId) {
+		return sqlSession.selectOne("exMapper2.electCompanyInfo2", coId);
+	}
 
-
+	
+	
+	
+	public int goPhoto(SqlSessionTemplate sqlSession, Media media) {
+		
+		int result = sqlSession.selectOne("exMapper2.isBePhoto", media.getCoid());
+		
+		// 이미 존재하면
+		if(result > 0) {
+			result = sqlSession.update("exMapper2.updatePhoto", media);
+		}else {
+			result = sqlSession.insert("exMapper2.insertPhoto", media);
+		}
+		
+		return result;
+	}
+	public Media getPhoto(SqlSessionTemplate sqlSession, String coId) {
+		
+		int result = sqlSession.selectOne("exMapper2.isBePhoto", coId);
+		
+		 // 사진이 여러개면
+		if(result > 1) {
+			return null;
+		}else {
+			return sqlSession.selectOne("exMapper2.selectPhoto", coId);
+		}
+	}
 
 
 }

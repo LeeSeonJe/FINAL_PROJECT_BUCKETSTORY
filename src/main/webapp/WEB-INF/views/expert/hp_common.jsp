@@ -33,13 +33,11 @@
 <%-- 			<jsp:include page="/WEB-INF/views/expert/hp_header.jsp"/> --%>
 	</header>
 	
-	<!-- 전문가 로그인 아이디 coid를 가져와서 집어넣어야 한다. -->
-	
     <nav>
     <div id="menu-area">
         <ul class='menu-c'>
             <li id ="menu-item1"><a href='expertIntro.ex'>헬퍼마이페이지</a></li>
-            <li id ="menu-item2"><a href='ex_infoUpdateForm.ex'>헬퍼버킷리스트</a></li>
+            <li id ="menu-item2"><a href='helperBucket.ho'>헬퍼버킷리스트</a></li>
             <li id ="menu-item3"><a href='getRequest.ex'>견적서 관리</a></li>
             <li id ="menu-item4"><a href='point.ex?search=none'>포인트 관리</a></li>
 <!--             <li id ="menu-item5"><a href='helperQnaList.ex?search=all'>Q & A</a></li> -->

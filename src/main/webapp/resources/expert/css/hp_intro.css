@@ -60,22 +60,42 @@
         color:red;
         padding:5px;
     }
-        #navigation { position:fixed; 
+    #navigation { position:fixed; 
+        top:700px; left:40px; 
+        margin-top:-100px; 
+        z-index:1; 
+/*             background: rgba(0,0,0,0.45);   */
+        padding:20px; 
+        border-radius: 12px;
+        width:220px;
+        overflow: hidden;
+        transition:1s;
+        }
+    #navigation img{
+/*    		overflow: visible; */
+   		transform:translate(-100px,20px);
+   		transition:3s;
+   		z-index: 99;
+    }
+    
+    #dal{
+    		position:fixed; 
             top:45%; left:40px; 
             margin-top:-100px; 
             z-index:1; 
 /*             background: rgba(0,0,0,0.45);   */
             padding:20px; 
-            border-radius: 8px;
+            border-radius: 12px;
             width:220px;
-            overflow: hidden;
+/*       //      overflow: hidden; */
             transition:1s;
-            }
-    #navigation img{
-   		overflow: hidden;
-   		transform:translate(-100px,20px);
-   		transition:5s;
-    }       
+    } 
+    
+    #dal img{
+    transform:translate(-100px,20px);
+   		transition:3s;
+   		z-index: 99;
+    }
     
 
     #navigation a { display:block; width:200px; height:60px; font-family:righteous; font-size:18px;
@@ -88,12 +108,14 @@
     #navigation li:nth-child(1):hover a { color:#d4164c; border-color:#d4164c; }
     #navigation li:nth-child(2):hover a { color:rgb(33, 175, 33); border-color:rgb(33, 175, 33); }
     #navigation li:nth-child(3):hover a { color:#ffec6a; border-color:#ffec6a; }
-    #navigation li:nth-child(4):hover a { color:#005a89; border-color:#005a89; }
-
+    #navigation li:nth-child(4):hover a { color:#0080ff; border-color:#0080ff; }
+	#navigation li:nth-child(5):hover a { color:#ff80ff; border-color:#ff80ff; }
+   
     #navigation li:nth-child(1).on a { color:#d4164c; border-color:#d4164c; }
     #navigation li:nth-child(2).on a { color:rgb(33, 175, 33); border-color:rgb(33, 175, 33); }
     #navigation li:nth-child(3).on a { color:#ffec6a; border-color:#ffec6a; }
-    #navigation li:nth-child(4).on a { color:#005a89; border-color:#005a89; }
+    #navigation li:nth-child(4).on a { color:#0080ff; border-color:#0080ff; }
+    #navigation li:nth-child(5):on a { color:#ff80ff; border-color:#ff80ff; }
     
     .tr{
    	 transform : rotate(0.1turn);
@@ -114,3 +136,16 @@
 		width: 200px;
 		height: 100px;
 	}
+
+	
+	/* 달*/
+	#calendar_area{
+	
+	}
+	#calendar
+    {
+    	color:#fff;
+        border:1px solid #BDBDBD;
+        text-align:center;
+        width:30%;
+    }

@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+.inner_content3 {
+	background: url("../images/moon.jpg");
+	background-size: cover;
+	width: 100%;
+	height: auto;
+}
+
+.inner_content3 .helperEdit3 {
+	/*         width: 980px; */
+	/*         margin: 0 auto; */
+	/*         height: 800px; */
+	width: 1200px;
+	margin: 0 auto;
+	height: 950px;
+	/*          background: url("../images/imac.png"); */
+	/*         background-size: cover; */
+	/*         background-color: #fff; */
+	border-radius: 25px;
+	padding: 20px;
+	z-index: -1;
+	text-align: center;
+}
+
+.inner_content3 .helperEdit3 p {
+	font-family: sans-serif;
+	font-size: 60px;
+	color: #fff;
+	padding-top:300px;
+}
+
+#submitBtn-Area {
+	text-align: center;
+}
+
+#submitBtn {
+	margin: 0 auto;
+}
+
+#img-area, img {
+	width: 360px;
+	height: 250px;
+	background-size: cover;
+	border-radius: 4px;
+}

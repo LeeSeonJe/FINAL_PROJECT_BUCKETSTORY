@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,15 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
-import com.kh.BucketStory.admin.model.vo.adminQnA;
-import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
@@ -88,69 +84,20 @@ public class ExpertController2 {
 	//	System.out.println(list);
 	
 		Company company = ExService.selectCompanyInfo(coId);
-		
+		Media photo =  ExService2.getPhoto(coId);
+		System.out.println(photo);
 	// 카테고리 이름가져오기
 		Category cateName = ExService2.selectCateName(company.getCateNum());
 		
 		mv.addObject("com", company);
+		mv.addObject("photo", photo.getMweb());
+		
 		mv.addObject("cateName", cateName.getCateName());
 		mv.addObject("result", result);
 		mv.addObject("list", list);
 		mv.setViewName("hp_intro");
 		return mv;
 	}
-/*
-	@RequestMapping("expertIntro.ex")
-	public ModelAndView expertInfo2(ModelAndView mv, HttpSession session,
-									@RequestParam(value = "page", required = false) Integer page,
-									@RequestParam(value = "result") @Nullable String result) {
-
-		Company loginCom = (Company) session.getAttribute("loginCompany");
-		// System.out.println(loginCom);
-
-		// 기업/전문가 아이디
-		String coId = loginCom.getCoId();
-		System.out.println("기업아이디 :" + coId + "로 로그인하셨습니다.");
-
-		// 상위 Top 5 포인트 보유왕
-		ArrayList<Company> list = ExService2.selectTop5havingPoint();
-	//	System.out.println(list);
-	
-		Company company = ExService.selectCompanyInfo(coId);
-		
-		
-	// 카테고리 이름가져오기
-		Category cateName = ExService2.selectCateName(company.getCateNum());
-		
-		mv.addObject("com", company);
-		mv.addObject("cateName", cateName.getCateName());
-		mv.addObject("result", result);
-		mv.addObject("list", list);
-		
-		int currentPage = 1;
-		if (page != null) {
-			currentPage = page;
-		}
-		
-		
-		int listCount = ExService2.getListQnACount(coId);
-		PageInfo pi = pagination.getPageInfo(currentPage, listCount);
-		ArrayList<adminQnA> qlist = ExService2.selectQnAList(pi, coId);
-		if (qlist != null) {
-			mv.addObject("qlist", qlist);
-			mv.addObject("pi", pi);
-			//mv.addObject("coId", coId);
-		} else {
-			throw new ExpertException("QnA 내역 조회에 실패했습니다.");
-		}
-
-			mv.setViewName("hp_intro");
-		return mv;
-	}
-*/		
-
-	
-	
 	
 	/* -----------------------------------------------------------------------------------------------
 	 *  기업소개 변경
@@ -169,27 +116,31 @@ public class ExpertController2 {
 		String compaName = request.getParameter("compaName");
 		String coIntro = request.getParameter("coIntro");
 		int cateNum = Integer.parseInt(request.getParameter("cateNum"));
-		String checkImg = null;
+		String image = null;
 
-		if (uploadFile != null && !uploadFile.isEmpty()) {
-			checkImg = saveFile(uploadFile, request);
-		}
-		Company c = new Company(coId, coName, compaName, checkImg, cateNum, coIntro);
+	
+		Company c = new Company(coId, coName, compaName,cateNum, coIntro);
 
 		System.out.println("기업소개변경");
 		System.out.println(c);
+		
 		int result = ExService2.updateCompany(c);
-
+		
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+			image = saveFile(uploadFile, request);
+			if(image !=null) {
+				Media media = new Media(coId, image, 1, 4);		
+				int result2 = ExService2.goPhoto(media);
+				if(result2 > 0) {
+					System.out.println("사진집어넣기 성공");
+				}
+			}	
+		}	
 		if (result > 0) {
-			// resWriter(response,"ok");
-			// return "redirect:comUpdateSuccess.ex";
-			// return "redirect:helperEdit2.ex?result=ok";
 			return "redirect:expertIntro.ex?result=ok";
 		} else {
-			 //resWriter(response,"fail");
 			throw new ExpertException("정보 변경에 실패하였습니다.");
 		}
-	
 	}
 	
 	/* -----------------------------------------------------------------------------------------------
@@ -265,7 +216,7 @@ public class ExpertController2 {
 							   @RequestParam(value = "oldPwd") String oldPwd,
 							   HttpServletResponse response) {
 		
-		System.out.println("되나? :"+ oldPwd);
+		//System.out.println("되나? :"+ oldPwd);
 		String coPwd = ((Company) session.getAttribute("loginCompany")).getCoPwd();
 		if(bcryptPasswordEncoder.matches(oldPwd,coPwd)){
 			resWriter(response, "ok");
@@ -292,43 +243,6 @@ public class ExpertController2 {
 	public String goHelperBucketList() {
 		return "hp_helperBucketList";
 	}
-//	// 헬퍼수정 페이지
-//	@RequestMapping("helperEdit.ex")
-//	public ModelAndView goHelperEdit(HttpSession session, ModelAndView mv) {
-//
-//		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
-//		Company company = ExService.selectCompanyInfo(coId);
-//
-//		mv.addObject("com", company);
-//		mv.setViewName("hp_helperEdit");
-//		return mv;
-//	}
-
-	/*
-	 * @RequestMapping("insertQnA.ex") public void insertQnA(HttpSession
-	 * session,HttpServletRequest request) { System.out.println("진입");
-	 * 
-	 * String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
-	 * 
-	 * //System.out.println(today);
-	 * 
-	 * String title = request.getParameter("title"); String content =
-	 * request.getParameter("content");
-	 * 
-	 * adminQnA aQ = new adminQnA(title,content,null,coId); // adminQnA aQ = new
-	 * adminQnA(9999,title,content,null,'N',null,null,null,coId);
-	 * 
-	 * 
-	 * int result = ExService2.insertQnA(aQ);
-	 * 
-	 * if (result > 0) { System.out.println("질문 완료"); //return "hp_sendQnASuccess";
-	 * } else { throw new ExpertException("질문에 실패하였습니다."); } }
-	 * 
-	 * @RequestMapping("insertQnAS.ex") public String goHelperQnASuccess() { return
-	 * "hp_sendQnASuccess"; }
-	 */
-	
-	
 
 	/*  --------------------------------------------------
 	 *  포인트 충전페이지 이동

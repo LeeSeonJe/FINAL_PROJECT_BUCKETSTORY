@@ -28,6 +28,14 @@ public class Media {
 		this.feno = feno;
 		this.esNo = esNo;
 	}
+	
+	// 기업소개변경용
+	public Media(String coid, String mweb, int imgvideo, int muse) {
+		this.coid = coid;
+		this.mweb = mweb;
+		this.imgvideo = imgvideo;
+		this.muse = muse;		
+	}
 
 	public int getMnumber() {
 		return mnumber;

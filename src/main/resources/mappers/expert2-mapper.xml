@@ -8,17 +8,21 @@
 		where coid=#{coId} and status='Y'
 	</select>
 	
+	
+	<select id="selectCompanyInfo2" resultMap="CompanyResultSet">
+	select COID,COPWD,CONAME,COMPANAME,MWEB,APNAME,
+        HOMEPAGE,COTEL,ENROLLDATE,BUSIEMAIL,POINT,CATENUM
+		from company
+		JOIN MEDIA USING (COID)
+		where coid=#{coId} and status='Y';
+	</select>
+	
+	
 	<!-- 기업소개 변경 -->
 	<update id ="updateCompany">
 		update COMPANY
-		<if test="checkImg != null">
-		set CONAME=#{coName},COMPANAME=#{compaName},CHECKIMG=#{checkImg},CATENUM=#{cateNum},COINTRO=#{coIntro}
-		where COID=#{coId}
-		</if>
-		<if test="checkImg == null">
 		set CONAME=#{coName},COMPANAME=#{compaName},CATENUM=#{cateNum},COINTRO=#{coIntro}
 		where COID=#{coId}
-		</if>
 	</update>
 	
 	<!-- 기업 보유 포인트 갱신 -->
@@ -291,6 +295,44 @@
 		<result property="userid" column="USERID"/>
 		<result property="coid" column="COID"/>
 	</resultMap>
+	
+	
+	<select id = 'selectPhoto' resultMap = "MediaResultSet">
+		select * 
+		from MEDIA
+		where COID = #{coId}
+	</select>
+	
+	<select id = 'isBePhoto' resultType ="_int">
+		select count(*) 
+		from MEDIA
+		where COID = #{coId}
+	</select>
+	
+	<insert id = 'insertPhoto'>
+		insert into MEDIA
+		values(seq_media.nextval, '1', #{mweb}, #{imgvideo}, #{muse}, null,null,#{coid},null,null)
+	</insert>
+	
+	<update id ='updatePhoto'>
+		update MEDIA 
+	    set MWEB = #{mweb}
+		where COID = #{coid}
+	</update>
+	
+		<resultMap type="Media" id="MediaResultSet">
+		<result property="mnumber" column="MNUMBER"/>
+		<result property="morigin" column="MORIGIN"/>
+		<result property="mweb" column="MWEB"/>
+		<result property="imgvideo" column="IMGVIDEO"/>
+		<result property="muse" column="MUSE"/>
+		<result property="bkno" column="BKNO"/>
+		<result property="bno" column="BNO"/>
+		<result property="coid" column="COID"/>
+		<result property="feno" column="FENO"/>
+		<result property="esNo" column="ES_NO"/>
+	</resultMap>
+	
 	
 	
 </mapper>

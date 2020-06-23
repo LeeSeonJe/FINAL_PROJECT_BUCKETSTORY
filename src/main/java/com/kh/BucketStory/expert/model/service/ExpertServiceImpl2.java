@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.BucketStory.admin.model.vo.adminQnA;
+import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.expert.model.dao.ExpertDAO2;
 import com.kh.BucketStory.expert.model.vo.Category;
 import com.kh.BucketStory.expert.model.vo.Company;
@@ -174,6 +175,22 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	public int insertMQnA(adminQnA aQ) {
 		return exDAO2.insertMQnA(sqlSession,aQ);
 	}
+
+	@Override
+	public Company selectCompanyInfo2(String coId) {
+		return exDAO2.selectCompanyInfo2(sqlSession, coId);
+		
+	}
+	
+	@Override
+	public int goPhoto(Media media) {
+		return exDAO2.goPhoto(sqlSession,media);
+	}
+	@Override
+	public Media getPhoto(String coId) {
+		return exDAO2.getPhoto(sqlSession,coId);
+	}
+
 
 
 }

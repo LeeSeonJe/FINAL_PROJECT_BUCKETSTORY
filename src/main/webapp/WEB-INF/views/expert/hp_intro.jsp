@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="resources/expert/css/hp_intro.css">
     <link rel="stylesheet" href="resources/expert/css/hp_helperEdit1.css">
     <link rel="stylesheet" href="resources/expert/css/hp_helperEdit2.css">
+    <link rel="stylesheet" href="resources/expert/css/hp_helperEdit3.css">
     <title>helper MyPage</title>
 </head>
 <body>
@@ -35,13 +36,14 @@
             <p>당신들이 있어 세상이 아름답습니다.</p>
             </div>
         </div>
+        <div id ="dal"><img src = "resources/expert/images/moon2.png" alt="달" /></div>
 		<!-- navigation -->
         <ul id ="navigation">
-        	<img src = "resources/expert/images/moon2.png" alt="달" />
-        	<li class="on"><a href="#hpTop">Helper Home</a></li>
+        	<li></li>
+        	<li class="on"><a onclick="goHome();">Helper Home</a></li>
             <li><a href="#HelperEdit" id="test">기업소개 변경</a></li>
             <li><a href="#HelperEdit2">회원정보 수정</a></li>
-            <li><a href="#footer">Last</a></li>
+            <li><a href="#footer">footer</a></li>
         </ul>
         
         <!-- Today -->
@@ -85,7 +87,8 @@
                         <tr>
                             <td class="rown"><p>업체사진</p></td>
                             <td><div id="igm-area">
-                                    <img id="foo" src="resources/muploadFiles/${com.checkImg }" /></div></td>
+                             <img id="foo" src="resources/muploadFiles/${photo }" /></div></td>
+<%--                                     <img id="foo" src="resources/muploadFiles/${com.checkImg }" /></div></td> --%>
                             <td><input type="file" name="uploadFile" id="imgInp"></td>
                         </tr>
                         <tr>
@@ -217,12 +220,18 @@
         <!--------------------------------------------------------------------------->
         <!-- 3 -->
         <!--------------------------------------------------------------------------->
-	<div class="inner_content" id="footer">
-		<div class="helperEdit">
-		sdfds
+	<div class="inner_content3" id="footer">
+		<div class="helperEdit3">
+			<p>To Do Bucketlist </p>
+			<p>To the Moon </p>
 		</div>
 	</div>
-    <jsp:include page="/WEB-INF/views/expert/hp_upper.jsp" />
+	
+<!-- 우측하단 UP -->
+<a style="display:scroll;position:fixed;bottom:10px;right:10px;" onclick="goHome();">
+	<img src ="resources/expert/images/top.png" alt ="맨 위로" style="width:80px; height:80px;" >
+ </a> 
+ 
     <script src="resources/expert/js/intro.js"></script>
  
 </body>
