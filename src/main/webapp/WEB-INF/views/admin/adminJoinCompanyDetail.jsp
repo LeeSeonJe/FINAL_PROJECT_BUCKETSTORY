@@ -17,22 +17,22 @@
 			<div id="adw_menu">
 				<ul>
 					<li>
-						<a>축제 작성</a>
+						<a href="adminwrite.ad">축제 작성</a>	
 					</li>
 					<li>
-						<a>가입확인</a>
+						<a href="adminCompany.ad">가입확인</a>
 					</li>
 					<li>
-						<a>결제내역</a>
+						<a href="adminBill.ad">결제내역</a>
 					</li>
 					<li>
-						<a>통계</a>
+						<a href="">통계</a>
 					</li>
 					<li>
-						<a>신고</a>
+						<a href="cautionlist.ad">신고</a>
 					</li>
 					<li>
-						<a>QnA</a>
+						<a href="adminQnAlist.ad">QnA</a>
 					</li>
 				</ul>
 			</div>

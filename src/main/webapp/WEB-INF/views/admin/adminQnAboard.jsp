@@ -17,12 +17,24 @@
 		<nav>
 			<div id="adw_menu">
 				<ul>
-					<li><a>축제 작성</a></li>
-					<li><a>가입확인</a></li>
-					<li><a>결제내역</a></li>
-					<li><a>통계</a></li>
-					<li><a>신고</a></li>
-					<li><a>QnA</a></li>
+					<li>
+						<a href="adminwrite.ad">축제 작성</a>	
+					</li>
+					<li>
+						<a href="adminCompany.ad">가입확인</a>
+					</li>
+					<li>
+						<a href="adminBill.ad">결제내역</a>
+					</li>
+					<li>
+						<a href="">통계</a>
+					</li>
+					<li>
+						<a href="cautionlist.ad">신고</a>
+					</li>
+					<li>
+						<a href="adminQnAlist.ad">QnA</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -35,11 +47,11 @@
 		<div>
 			<table class="board">
 					<tr>
-						<td>번호</td>
-						<td>제목</td>
-						<td>아이디</td>
-						<td>작성일</td>
-						<td>답변여부</td>
+						<th>번호</th>
+						<th>제목</th>
+						<th>아이디</th>
+						<th>작성일</th>
+						<th>답변여부</th>
 					</tr>
 					<c:forEach var="qna" items="${ list }">
 						<tr>
@@ -49,7 +61,7 @@
 							</c:url>
 							<td>${ qna.q_no }</td>
 							<td><a href="${qnadetail}">${ qna.q_title }</a></td>
-							<td>${ qna.userid }${ b.coid }</td>
+							<td>${ qna.userid }${ qna.coid }</td>
 							<td>${ qna.q_date }</td>
 							<td>${ qna.answer }</td>
 						</tr>
@@ -83,7 +95,7 @@
 						
 						<!-- [다음] --> 
 						<c:if test="${ pi.currentPage >= pi.maxPage }">
-							[다음]
+							<button id= "next">다음</button>
 						</c:if> 
 						<c:if test="${ pi.currentPage < pi.maxPage }">
 							<c:url var="after" value="adminQnAlist.ad">

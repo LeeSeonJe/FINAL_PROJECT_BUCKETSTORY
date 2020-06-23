@@ -14,6 +14,7 @@
 
 h2 {
 	border-bottom: 1px solid black;
+	margin-top: 45px;
 }
 
 .ad_Detail>div>table {
@@ -62,7 +63,11 @@ span.answer:after {
 	font-size: 15px;
 }
 
-.
+nav{
+    border-bottom: 1px solid #d2d1d1;
+    height: 47px;
+
+}
 </style>
 </head>
 <body>
@@ -73,12 +78,24 @@ span.answer:after {
 		<nav>
 			<div id="adw_menu">
 				<ul>
-					<li><a href="adminwrite.ad">축제 작성</a></li>
-					<li><a href="adminCompany.ad">가입확인</a></li>
-					<li><a href="adminBill.ad">결제내역</a></li>
-					<li><a>통계</a></li>
-					<li><a href="adminCaution.ad">신고</a></li>
-					<li><a href="adminQnAlist.ad">QnA</a></li>
+					<li>
+						<a href="adminwrite.ad">축제 작성</a>	
+					</li>
+					<li>
+						<a href="adminCompany.ad">가입확인</a>
+					</li>
+					<li>
+						<a href="adminBill.ad">결제내역</a>
+					</li>
+					<li>
+						<a href="">통계</a>
+					</li>
+					<li>
+						<a href="cautionlist.ad">신고</a>
+					</li>
+					<li>
+						<a href="adminQnAlist.ad">QnA</a>
+					</li>
 				</ul>
 			</div>
 		</nav>
