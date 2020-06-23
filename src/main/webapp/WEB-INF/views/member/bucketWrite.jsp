@@ -118,6 +118,22 @@
 	$('#cancel').on('click',function(){
 		location.href="javascript:history.go(-1)"
 	})
+	
+	$('#overlay').css('top','-2px');
+  	$('#sidewrap').css('top','56px');
+	$('nav>a:eq(0)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
+	$('.gnb_menu .gnb_menu_ul li a .text:eq(0)').css('color', '#fff');
+	
+	$('#overlay').css('top','-2px');
+  	$('#sidewrap').css('top','56px');
+	$('nav>a:eq(0)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
+	
+	$('.gnb_menu .gnb_menu_ul li a .text:eq(0)').css('color', '#fff');
+	$('.gnb_menu .gnb_menu_ul li a.gnb1').css('background','url("resources/layout/images/bg01_on.jpg") no-repeat 0 center #f3f3f2');
+	$('.gnb_menu .gnb_menu_ul li a.gnb1 .ico').css('background', 'url("resources/layout/images/ico01_on.png") no-repeat 0 0');
+	$('.gnb_menu .gnb_menu_ul li a.gnb1 .text span').css('color','#fff');
+
+
 </script>
 </body>
 </html>

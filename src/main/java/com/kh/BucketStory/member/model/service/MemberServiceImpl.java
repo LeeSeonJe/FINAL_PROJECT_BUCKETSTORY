@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
@@ -126,6 +127,36 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int unfollow(Follow follow) {
 		return mDAO.unfollow(sqlSession, follow);
+	}
+
+	@Override
+	public int bReportCheck(Notify n) {
+		return mDAO.bReportCheck(sqlSession, n);
+	}
+
+	@Override
+	public int cReportCheck(Notify n) {
+		return mDAO.cReportCheck(sqlSession, n);
+	}
+
+	@Override
+	public int rReportCheck(Notify n) {
+		return mDAO.rReportCheck(sqlSession, n);
+	}
+
+	@Override
+	public int bReportInsert(Notify n) {
+		return mDAO.bReportInsert(sqlSession, n);
+	}
+
+	@Override
+	public int cReportInsert(Notify n) {
+		return mDAO.cReportInsert(sqlSession, n);
+	}
+
+	@Override
+	public int rReportInsert(Notify n) {
+		return mDAO.rReportInsert(sqlSession, n);
 	}
 
 }

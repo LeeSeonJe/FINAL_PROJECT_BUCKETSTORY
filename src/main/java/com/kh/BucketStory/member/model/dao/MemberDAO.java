@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
@@ -138,5 +139,29 @@ public class MemberDAO {
 
 	public int unfollow(SqlSessionTemplate sqlSession, Follow follow) {
 		return sqlSession.delete("memberMapper.unfollow", follow);
+	}
+
+	public int bReportCheck(SqlSessionTemplate sqlSession, Notify n) {
+		return sqlSession.selectOne("memberMapper.bReportCheck", n);
+	}
+
+	public int cReportCheck(SqlSessionTemplate sqlSession, Notify n) {
+		return sqlSession.selectOne("memberMapper.cReportCheck", n);
+	}
+
+	public int rReportCheck(SqlSessionTemplate sqlSession, Notify n) {
+		return sqlSession.selectOne("memberMapper.rReportCheck", n);
+	}
+
+	public int bReportInsert(SqlSessionTemplate sqlSession, Notify n) {
+		return sqlSession.insert("memberMapper.bReportInsert", n);
+	}
+
+	public int cReportInsert(SqlSessionTemplate sqlSession, Notify n) {
+		return sqlSession.insert("memberMapper.cReportInsert", n);
+	}
+
+	public int rReportInsert(SqlSessionTemplate sqlSession, Notify n) {
+		return sqlSession.insert("memberMapper.rReportInsert", n);
 	}
 }

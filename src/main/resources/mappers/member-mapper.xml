@@ -18,7 +18,7 @@
 		select *
 		from (
             select CATENUM, CATENAME, b.BKNO BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.USERID USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            BKLIKE, b.USERID B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)
@@ -26,7 +26,7 @@
             join member m on (b.userid = m.userid)
             UNION    
             select CATENUM, CATENAME, b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.userid USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            BKLIKE, b.userid B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)
@@ -40,8 +40,9 @@
 	<select id="myBucketListPage" resultMap="memberMyBucketListResultSet">
 		select *
 		from (
-            select CATENUM, CATENAME, b.BKNO BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.USERID USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            select CATENUM, CATENAME, 
+            b.BKNO BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE ENROLLDATE, 
+            BKLIKE, b.USERID B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)
@@ -49,7 +50,7 @@
             join member m on (b.userid = m.userid)
             UNION    
             select CATENUM, CATENAME, b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.userid USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            BKLIKE, b.userid B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)
@@ -76,7 +77,7 @@
 		<result property="tag" column="TAG"/>
 		<result property="enrolldate" column="ENROLLDATE"/>
 		<result property="bkLike" column="BKLIKE"/>
-		<result property="userId" column="USERID"/>
+		<result property="userId" column="B_USERID"/>
 		<result property="complete" column="COMPLETE"/>
 		<result property="cateNum" column="CATENUM"/>
 	</resultMap>
@@ -308,7 +309,7 @@
 		where RPNO = #{ rpNo }
 	</update>
 	
-	<select id="getWishList" resultMap="">
+	<select id="getWishList" resultMap="wishListResultSet">
 		select WINO, w.enrolldate W_ENROLLDATE, w.BKNO W_BKNO, w.userid W_USERID, 
 		                        CATENUM, CATENAME,
 		                        B.BKNO B_BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE B_ENROLLDATE, BKLIKE, b.userid B_USERID, COMPLETE,
@@ -321,7 +322,7 @@
 		order by w.ENROLLDATE desc
 	</select>
 	
-	<resultMap type="WishList" id="">
+	<resultMap type="WishList" id="wishListResultSet">
 		<id property="wiNo" column="WINO" />
 		<result property="enrollDate" column="W_ENROLLDATE" />
 		<result property="bkNo" column="W_BKNO" />
@@ -385,4 +386,37 @@
 		from follow
 		where following=#{following} and follower=#{follower}
 	</delete>
+	
+	<select id="bReportCheck" resultType="_int">
+		select count(*)
+		from notify
+		where bno = #{ bno } and sinuser = #{ sinuser }
+	</select>
+	
+	<select id="cReportCheck" resultType="_int">
+		select count(*)
+		from notify
+		where cmno = #{ cmno } and sinuser = #{ sinuser }
+	</select>
+	
+	<select id="rReportCheck" resultType="_int">
+		select count(*)
+		from notify
+		where rpno = #{ rpno } and sinuser = #{ sinuser }
+	</select>
+	
+	<insert id="bReportInsert">
+		insert into notify
+		values ( SEQ_NOTIFY.nextval, SYSDATE, DEFAULT, #{ no_kind }, DEFAULT, #{ bno }, null, null, #{ sinuser }, #{ pigouser })
+	</insert>
+	
+	<insert id="cReportInsert">
+		insert into notify
+		values (SEQ_NOTIFY.nextval, SYSDATE, DEFAULT, #{ no_kind }, DEFAULT, null, #{ cmno }, null, #{ sinuser }, #{ pigouser })
+	</insert>
+	
+	<insert id="rReportInsert">
+		insert into notify
+		values (SEQ_NOTIFY.nextval, SYSDATE, DEFAULT, #{ no_kind }, DEFAULT, null, null, #{ rpno }, #{ sinuser }, #{ pigouser })
+	</insert>
 </mapper>
