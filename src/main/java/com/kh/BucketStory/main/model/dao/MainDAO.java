@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -149,6 +150,26 @@ public class MainDAO {
 
 	public ArrayList<Company> selectDetailCompany(SqlSessionTemplate sqlSession, int bkNo) {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectDetailCompany", bkNo);
+	}
+
+	public ArrayList<Festival> selectFestival(SqlSessionTemplate sqlSession, String year) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectFestival", year);
+	}
+
+	public ArrayList<Media> selectFmList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectFmList");
+	}
+
+	public ArrayList<Company> selectCompany(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectCompany");
+	}
+
+	public ArrayList<Media> selectCompMedia(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectCompMedia");
+	}
+
+	public ArrayList<BucketList> selectDetailSup(SqlSessionTemplate sqlSession, String coId) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectDetailSup", coId);
 	}
 
 	

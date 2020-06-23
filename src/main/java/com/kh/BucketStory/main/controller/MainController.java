@@ -72,6 +72,10 @@ public class MainController {
 			mv.addObject("bucketList", bucketList);
 			mv.setViewName("mainRecomment");
 		} else {
+			ArrayList<Company> cList = mainService.selectCompany();
+			ArrayList<Media> mList = mainService.selectCompMedia();
+			mv.addObject("cList", cList);
+			mv.addObject("mList", mList);
 			mv.setViewName("mainCompany");
 		}
 		return mv;
@@ -135,8 +139,10 @@ public class MainController {
 	@RequestMapping("festival.ho")
 	public String festivalView(@RequestParam("year") String year, Model m) {
 		ArrayList<Festival> fList = mainService.selectFestival(year);
-		ArrayList<Media> mList = mainService.selectFmList(year);
+		ArrayList<Media> mList = mainService.selectFmList();
 		
+		m.addAttribute("fList", fList);
+		m.addAttribute("mList", mList);
 		
 		return "mainFestival";
 	}
@@ -337,6 +343,23 @@ public class MainController {
 		response.setContentType("application/json; charset=UTF-8");
 		
 		ArrayList<Company> list = mainService.selectDetailCompany(bkNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		try {
+			gson.toJson(list, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("cpDetailSup.ho")
+	public void cpDetilaSup(@RequestParam("coId") String coId, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		
+		ArrayList<BucketList> list = mainService.selectDetailSup(coId);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		
