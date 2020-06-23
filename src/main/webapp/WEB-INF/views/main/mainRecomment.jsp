@@ -184,8 +184,10 @@ function blLikeUp(bkNo){
 //위시 등록취소하기
 function wishRegist(bkNo, userId){
 	if('${loginUser}' != ""){
-		if('${loginUser.userId}' == userId){
+		if('${loginUser.nickName}' == userId){
 			alert("나의 버킷은 위시등록 할 수 없습니다.");
+		} else if('관리자찡' == userId){
+			alert("추천 버킷은 위시등록 할 수 없습니다.");
 		} else{
 			$.ajax({
 				url:'wishRegi.ho',

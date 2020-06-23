@@ -20,9 +20,12 @@
 				<div class="f-div">
 					<div class="f-one">
 						<button>비밀번호 변경</button><br>
-						폰번호 : <input><br>
-						이메일 : <input><br>
-						닉네임 : <input><br>
+						<form action="">
+							폰번호 : <input value="010" disabled="disabled" size="5">-<input size="1">-<input size="5"><br><br>
+							이메일 : <input><br><br>
+							닉네임 : <input><br><br>
+							<input type="submit" value="수정">
+						</form>
 					</div>
 				</div>
 		</div>
