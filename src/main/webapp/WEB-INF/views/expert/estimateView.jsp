@@ -64,10 +64,14 @@
 		<br>
 		<br>
 		
-	<form action="sendEstimate.ex" method="post" enctype="Multipart/form-data">
+	<form id="send" action="updateEstimate.ex" enctype="Multipart/form-data">
 		<div id="estimate">
 			<h2>견적내용</h2>
 			<div id="estimateContent">${ es.es_content }</div>
+		<input type="hidden" name="es_no" value="${ es.es_no }">
+		<input type="hidden" name="es_content" value="${es.es_content }">
+		<input type="hidden" id="es_price" name="es_price" value="">
+			
 			<table id="costTable">
 				<tr>
 					<td><h3 style="display:inline;float:left;">견적금액</h3></td>
@@ -76,7 +80,11 @@
 				
 				<c:forEach var="op" items="${ option }" varStatus="status" >
 					<tr class="optionAdd">
-						<td><input type="checkbox" name="option${status.index }" onclick="totalprice(this.value,this.name);" value="${ op[1] }"></td>
+						<td>
+							<c:if test="${ sessionScope.loginUser.userId == member.userId }">
+								<input type="checkbox" id="optionCheck" name="${op[0] }" onclick="totalprice(this,this.value,this.name);" value="${ op[1] }">
+							</c:if>
+						</td>
 						<td>${ op[0] }</td>
 						<td></td>
 						<td>${ op[1] } 원</td>
@@ -87,7 +95,9 @@
 					<c:forEach var="file" items="${ media }">
 						<tr class="fileAdd">
 							<td><h3 style="display:inline;float:left;width: 75px;">첨부파일</h3></td>
-							<td colspan="3"><a href="${ contextPath }/resources/muploadFiles/${ file.mweb }" download="${ file.morigin }">${ file.morigin }</a></td>
+							<td colspan="3">
+								<a href="${ contextPath }/resources/muploadFiles/${ file.mweb }" download="${ file.morigin }">${ file.morigin }</a>
+							</td>
 							<td></td>
 							<!--  <td>x</td>-->
 						</tr>
@@ -95,48 +105,47 @@
 				</c:if>
 				
 			</table>
-			
-			<div id="status">
-				<c:choose>
-					<c:when test="${ es.status == 1 }">
-						<h3 style="text-align:center;color:green;">승낙 대기중입니다.</h3>
-					</c:when>
-					<c:when test="${ es.status == 3 }">
-						<h3 style="text-align:center;color:red;">상대방이 거절하였습니다.</h3>
-					</c:when>
-				</c:choose>
-			
-			</div>
+			<c:if test="${ sessionScope.loginUser.userId == member.userId }">
+				<div id="status">
+							<button onclick="sendstatus(3);" style="margin-left: 77px;margin-top: 33px;cursor:pointer">수락</button>
+							<button type="button" onclick="sendstatus(4);" style="cursor:pointer">거절</button>
+				</div>
+			</c:if>
+			<c:if test="${ sessionScope.loginUser.userId != member.userId }">
+				<c:if test="${ es.status == 1 }">
+					<div id="status">
+							<h3 style="text-align:center;color:green;">승낙 대기중입니다.</h3>
+					</div>
+				</c:if>
+					<c:if test="${ es.status == 3 }">
+					<div id="status">
+							<h3 style="text-align:center;color:green;">상대방의 선택을 받았어요</h3>
+					</div>
+				</c:if>
+			</c:if>
 			<script>
-			var OptionCount=0;
-			var fileCount=1;
-				$('#addOption').on('click',function(){
-					if(OptionCount<5){
-						var optionTr = '<tr class="optionAdd">'
-									   +'<td></td>'
-									   +'<td><input type="text" class="optionName" name="optionName" style="width:100%;" placeholder="옵션이름"></td>'
-									   +'<td></td>'
-						               +'<td><input type="number" class="optionPrice" name="optionPrice" style="width:83%;" placeholder="옵션가격">원</td>'
-									   +'<td><b class="deleteOption">&nbsp;x</b></td>'
-						               +'</tr>';
-					
-						var lastTr =$('.optionAdd:last');
-						lastTr.after(optionTr);
-						OptionCount ++;
-						console.log(OptionCount);
+			function sendstatus(val){
+				if(val ==3){
+					if (confirm("견적서를 수락하시겠습니까?") == true){    //확인
+						var input = $("<input>") .attr("type", "hidden") .attr("name", "status").val(val); 
+						$('#send').append($(input));
+						$('#send').submit();
 					}else{
-						alert("옵션은 5개까지만 설정 가능합니다.");
+						return false;
 					}
-				});
-				
-				
-				$(document).on('click',".deleteOption",function(){
-					var trHtml = $(this).parent().parent();
-			        
-			        trHtml.remove();
-			        OptionCount--;
-			        console.log(OptionCount);
-				});
+				}else if(val==4){
+						if(confirm("해당 견적을 거절하시겠습니까?") == true){
+							var input = $("<input>") .attr("type", "hidden") .attr("name", "status").val(val); 
+							$('#send').append($(input));
+							$('#send').submit();
+						}else{
+							return false;
+						}
+					}
+
+				}
+
+			
 				
 				jQuery(document).ready(function($){
 					$('#cost').on('focus',function(){
@@ -173,22 +182,40 @@
 					return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
 				}
 				
-				function totalprice(value,name){
+				function totalprice(t,value,name){
 					var price = $('#price').text()
+					
 					if($("input:checkbox[name="+name+"]").is(":checked") == true) {
 						price= price.replace(/,/g,'');
 						price=parseInt(price);
 						value=parseInt(value);
+						
 						var val= price+value; 
+						var optionName = $("<input>") .attr("type", "hidden") .attr("name", "optionName").val(name); 
+						var optionPrice = $("<input>") .attr("type", "hidden") .attr("name", "optionPrice").val(value); 
+						
+						console.log(t);
+						console.log($(t));
+						$(t).parent().append(optionName);
+						$(t).parent().append(optionPrice);
+						
 						val = currencyFormatter(val);
 						$('#price').text(val);
+						$('#es_price').val(val)
 					}else{
 						price= price.replace(/,/g,'');
 						price=parseInt(price);
 						value=parseInt(value);
 						var val= price-value; 
+						
 						val = currencyFormatter(val);
+						
+						$(t).next().next().remove();
+						$(t).next().remove();
+						console.log($(t).next());
 						$('#price').text(val);
+						$('#es_price').val(val);
+
 					}
 				}
 				

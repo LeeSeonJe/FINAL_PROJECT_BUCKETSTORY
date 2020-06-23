@@ -41,6 +41,11 @@
 			<div id="page" >
 				
 				<h1 style="text-align:center;">견적서가 도착했어요</h1>
+				
+				<div id="statusView">
+					<div id="status1" class="status">받은 견적서 확인</div>
+					<div id="status3" class="status">수락 견적서 확인</div>
+				</div>
 				<c:if test="${ es != null }">
 					<c:forEach var="request" items="${ es }" >
 						<div id="requestMember">
@@ -58,18 +63,14 @@
 								</tr>
 								<tr>
 									<td>
-										<c:forEach var="bu" items="${ bucket }">
-											<c:if test="${ request.bkNo == bu.bkNo }">
-												${ bu.bkName }
-											</c:if>
-										</c:forEach>
+												버킷리스트 : ${ bucket.get(request.bkNo) }
 									</td>
 									<td>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<div id="bucketListDetail"><a href="requestDetail.ex?esr_no=${ request.esr_no }">견적서 확인하기</a></div>
+										<div id="bucketListDetail"><a href="estimateView.ex?es_no=${ request.es_no }">견적서 확인하기</a></div>
 									</td>
 								</tr>
 							</table>

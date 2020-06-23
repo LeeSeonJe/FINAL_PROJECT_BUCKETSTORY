@@ -59,7 +59,7 @@
 				<tr>
 					<td></td>
 					<td>
-						<div id="bucketListDetail">작성중인 견적서 조회</div>
+						<div id="bucketListDetail" onclick="location.href='estimateView.ex?es_no=${estimate.es_no}'">견적서 확인</div>
 					</td>
 					<td>
 						<div id="delete">삭제</div>

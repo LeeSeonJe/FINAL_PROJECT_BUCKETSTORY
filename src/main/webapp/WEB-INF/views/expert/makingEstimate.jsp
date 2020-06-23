@@ -64,7 +64,7 @@
 		<br>
 		<br>
 		
-	<form id="send" action="updateEstimate.ex" method="post" enctype="Multipart/form-data">
+	<form id="send" action="updateEstimate.ex" enctype="Multipart/form-data">
 		<div id="estimate">
 			<h2>견적내용</h2>
 			<textarea rows="15" cols="40" id="contents" name="es_content"  placeholder="견적서 간략소개 작성">${ es.es_content }</textarea>
