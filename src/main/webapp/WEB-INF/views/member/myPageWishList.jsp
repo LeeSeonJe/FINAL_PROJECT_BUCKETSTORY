@@ -33,6 +33,7 @@
 				<tr>
 					<td colspan="2" style="font-size: 30px;">${ getMember.nickName }</td>
 					<td>
+						<input type="hidden" value="${ getMember.nickName }" />
 						<c:if test="${ loginUser != null && getMember.userId ne loginUser.userId}">
 							<c:if test="${ followCheck == 1 }">
 								<button type="button" id="unFollowBtn" onclick="unfollow(this);">팔로우 취소</button>
@@ -56,7 +57,7 @@
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
 			<c:if test="${ empty memberWishList }">
-				<div>등록된 버킷이 없습니다.</div>
+				<div style="text-align: center; margin: 200px;">등록된 위시리스트가 없습니다.</div>
 			</c:if>
 			<c:if test="${ !empty memberWishList}">
 				<c:forEach var="w" items="${ memberWishList }" varStatus="status">

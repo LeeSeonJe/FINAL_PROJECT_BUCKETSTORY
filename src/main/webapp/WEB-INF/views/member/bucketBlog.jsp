@@ -93,7 +93,7 @@
 					<tbody>
 						<c:if test="${ empty myBucketList }">
 						</c:if>
-						<c:if test="${ !empty myBucketList }">
+						<c:if test="${ not empty myBucketList }">
 							<c:forEach items="${ myBucketList }" var="mbl" >
 								<tr>
 									<td>
@@ -171,7 +171,7 @@
 					<tr>
 						<td colspan="4">
 							<br>
-							<c:if test="${ !empty bList }">
+							<c:if test="${ not empty bList }">
 								<input id="goElement" type="text" value="1" style="width: 30px; height: 20px; border: 1px solid gray;"/>&nbsp;/&nbsp;${ bList.size() }&nbsp;<a onclick="goBucket()">이동</a>
 							</c:if>
 							<c:if test="${ empty bList }">
@@ -205,7 +205,7 @@
 						</td>
 					</tr>
 				</table>
-				<c:if test="${ !empty bList }">
+				<c:if test="${ not empty bList }">
 					<script>
 						function prev2Btn() {
 							var last = "${ bList.size() }"
@@ -258,7 +258,7 @@
 			<div id="div-area">
 				<c:if test="${ empty myBucketList }">
 				</c:if>
-				<c:if test="${ !empty myBucketList }">
+				<c:if test="${ not empty myBucketList }">
 					<div id="bucketTitle">
 						<h3>
 							<%= mbl.get(index).getBucket().getBkName() %>
@@ -297,7 +297,7 @@
 					</c:if>
 				</c:if>
 			</div>		
-			<c:if test="${ !empty bList }">
+			<c:if test="${ not empty bList }">
 				<c:forEach items="${ bList }" var="bl" varStatus="status">
 					<!-- 블로그 내용 -->
 					<div class="blogBucket">
@@ -306,9 +306,14 @@
 						<br><span id="story_index">'${ getMember.nickName }'님의 ${ status.index + 1 }번째 이야기</span>
 						<h3>${ bl.bTitle }</h3>
 						<div class="profile-area">
-							<img src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+							<c:if test="${ empty getMember.prImage }">
+								<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;" />
+							</c:if>
+							<c:if test="${ not empty getMember.prImage }">
+								<img src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+							</c:if>
 							<span>${ getMember.nickName }</span>
-							<span style=" margin-left: 70%;">${ bl.enrollDate }</span>
+							<span style="margin-left: 70%;">${ bl.enrollDate }</span>
 						</div>
 						<div>
 							${ bl.bContent }
@@ -327,7 +332,13 @@
 						<c:if test="${ loginUser != null }">
 							<div class="comment">
 								<div class="write_comment_profile_area">
-									<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+									<c:if test="${ empty loginUser.prImage }">
+										<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;" />
+									</c:if>
+									<c:if test="${ not empty loginUser.prImage }">
+										안녕하세요
+										<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+									</c:if>
 									<span>${ loginUser.nickName }</span>
 								</div>
 								<div class="write_comment_content">
@@ -349,7 +360,12 @@
 									<c:set var="bcSum" value="${ bcSum + 1 }"/>
 									<div class="comment_profile_area">
 										<input type="hidden" value="${ bl_bc.cmNo }" />
-										<img src="/BucketStory/resources/member/images/profiles/${ bl_bc.member.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+										<c:if test="${ empty bl_bc.member.prImage }">
+											<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;" />
+										</c:if>
+										<c:if test="${ not empty bl_bc.member.prImage }">
+											<img src="/BucketStory/resources/member/images/profiles/${ bl_bc.member.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+										</c:if>
 										<c:if test="${ loginUser.nickName eq bl_bc.member.nickName }">	
 											<span>${ bl_bc.member.nickName }</span>
 											<span class="commentUpdate" onclick="commentUpdate(this);">수정</span>
@@ -443,7 +459,12 @@
 											<c:if test="${ reply.rpNo != 0 && fn:contains(reply.status, 'Y') }">
 												<div class="reply_profile_area">
 													<input type="hidden" value="${ reply.rpNo }" />
-													<img src="/BucketStory/resources/member/images/profiles/${ reply.rmember.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+													<c:if test="${ empty reply.rmember.prImage }">
+														<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;" />
+													</c:if>
+													<c:if test="${ not empty reply.rmember.prImage }">
+														<img src="/BucketStory/resources/member/images/profiles/${ reply.rmember.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+													</c:if>
 													<c:if test="${ loginUser.nickName eq reply.rmember.nickName }">
 														<span>${ reply.rmember.nickName }</span>
 														<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>
@@ -470,7 +491,12 @@
 										<c:if test="${ loginUser != null }">
 											<div class="reply">
 												<div class="reply_profile_area">
-													<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+													<c:if test="${ empty loginUser.prImage }">
+														<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;" />
+													</c:if>
+													<c:if test="${ not empty loginUser.prImage }">
+														<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+													</c:if>
 													<span>${ loginUser.nickName }</span>
 												</div>
 												<div class="reply_content">
@@ -524,7 +550,7 @@
 					<tbody>
 						<c:if test="${ empty myBucketList }">
 						</c:if>
-						<c:if test="${ !empty myBucketList }">
+						<c:if test="${ not empty myBucketList }">
 							<c:forEach items="${ myBucketList }" var="mbl" >
 								<tr>
 									<td>
@@ -927,11 +953,15 @@
 					var nickName1 = '${ loginUser.nickName }'
 					var nickName2 = '${ getMember.nickName }'
 					if(data[data.length-1].status == 'Y') {
-						
+						console.log(data)
 						if(nickName1 == nickName2) {
 							$div = $('<div class="reply_profile_area">');
 							$input = $('<input type="hidden">').val(data[data.length-1].rpNo);
-							$prImg = $('<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;">');
+							if('${ loginUser.prImage }'.trim() == "") {
+								$prImg = $('<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
+							} else {
+								$prImg = $('<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;">');								
+							}
 							$span1 = $('<span>${ loginUser.nickName }</span>');
 							$span2 = $('<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>');
 							$span3 = $('<span class="replyDelete" onclick="replyDelete(this)">삭제</span>');

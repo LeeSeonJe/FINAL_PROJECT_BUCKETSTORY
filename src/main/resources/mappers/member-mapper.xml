@@ -18,7 +18,7 @@
 		select *
 		from (
             select CATENUM, CATENAME, b.BKNO BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.USERID B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            BKLIKE, b.USERID B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userid M_USERID, m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)
@@ -26,7 +26,7 @@
             join member m on (b.userid = m.userid)
             UNION    
             select CATENUM, CATENAME, b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.userid B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            BKLIKE, b.userid B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userid M_USERID, m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)
@@ -42,7 +42,7 @@
 		from (
             select CATENUM, CATENAME, 
             b.BKNO BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.USERID B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            BKLIKE, b.USERID B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userid M_USERID, m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)
@@ -50,7 +50,7 @@
             join member m on (b.userid = m.userid)
             UNION    
             select CATENUM, CATENAME, b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.userid B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            BKLIKE, b.userid B_USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userid M_USERID,  m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)
@@ -96,6 +96,22 @@
 	</resultMap>
 	
 	<resultMap id="memberResultSet" type="Member">
+		<id property="userId" column="M_USERID"/>
+		<result property="userPwd" column="USERPWD"/>
+		<result property="userName" column="USERNAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="birth" column="BIRTH"/>
+		<result property="gender" column="GENDER"/>
+		<result property="nickName" column="NICKNAME"/>
+		<result property="caution" column="CAUTION"/>
+		<result property="prImage" column="PR_IMAGE"/>
+		<result property="fwCount" column="FW_COUNT"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
+	
+	<resultMap id="memberResultSet4" type="Member">
 		<id property="userId" column="USERID"/>
 		<result property="userPwd" column="USERPWD"/>
 		<result property="userName" column="USERNAME"/>
@@ -122,7 +138,7 @@
 		where nickname = #{ nickName } and status='Y'
 	</select>
 	
-	<select id="getMember" resultMap="memberResultSet">
+	<select id="getMember" resultMap="memberResultSet4">
 		select *
 		from member
 		where nickname = #{ nickName } and status='Y'
@@ -209,7 +225,7 @@
 		select count(*)
 		from (
             select CATENUM, CATENAME, b.BKNO BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.USERID USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            BKLIKE, b.USERID USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userid M_USERID, m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)
@@ -217,7 +233,7 @@
             join member m on (b.userid = m.userid)
             UNION    
             select CATENUM, CATENAME, b.BKNO BKNO, BKNAME, BKCONTENT, TAG, s.ENROLLDATE ENROLLDATE, 
-            BKLIKE, b.userid USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userName USERNAME, EMAIL,
+            BKLIKE, b.userid USERID, COMPLETE, MNUMBER, MORIGIN, MWEB, IMGVIDEO, MUSE, BNO, COID, FENO, ES_NO, m.userid M_USERID, m.userName USERNAME, EMAIL,
             BIRTH, GENDER, NICKNAME, CAUTION, PR_IMAGE, FW_COUNT, m.ENROLLDATE ENROLLDATE2, STATUS
             from category
             join bucketList b using (cateNum)

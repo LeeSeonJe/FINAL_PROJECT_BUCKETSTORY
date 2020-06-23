@@ -70,11 +70,12 @@ public class MemberController {
 			wishList = mainService.selectWishList(userId);
 			shareList = mainService.selectShareList(userId);
 		}
-		
+		Member getMember = mService.getMember(nickName);
+		session.setAttribute("getMember", getMember);
 		ArrayList<WishList> memberWishList = mService.getWishList(nickName);
 		if(wishList != null) {
 			m.addAttribute("memberWishList", memberWishList).addAttribute("followCheck", followCheck)
-			.addAttribute("wishList", wishList).addAttribute("shareList", shareList);
+			.addAttribute("wishList", wishList).addAttribute("shareList", shareList).addAttribute("getMember", getMember);
 			return "myPageWishList";
  		} else {
  			return "myPageWishList";
