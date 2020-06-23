@@ -2,6 +2,7 @@ package com.kh.BucketStory.expert.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,9 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +32,7 @@ import com.kh.BucketStory.bucket.model.vo.ComInBucket;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.service.ExpertService;
+import com.kh.BucketStory.expert.model.service.ExpertService2;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Estimate;
@@ -39,7 +43,10 @@ public class ExpertController {
 
 	@Autowired
 	private ExpertService ExService;
-
+	
+	@Autowired
+	private ExpertService2 ExService2;
+	
 	@RequestMapping("info.ex")
 	public ModelAndView expertInfo(HttpSession session, ModelAndView mv) {
 		Company loginCom = (Company) session.getAttribute("loginCompany");
@@ -256,8 +263,8 @@ public class ExpertController {
 			 					@RequestParam(value = "optionName", required = false) String optionName,
 			 					@RequestParam(value = "optionPrice", required = false) String optionPrice,
 			 					@RequestParam("uploadFile") MultipartFile[] uploadFile,
-			 					HttpServletRequest request) {
-		 
+			 					HttpServletRequest request,HttpSession session) {
+		 Company loginCom = (Company) session.getAttribute("loginCompany");
 		 String esoption =""; 
 		 
 			 if(optionName != null && optionPrice !=null) {
@@ -278,6 +285,19 @@ public class ExpertController {
 			 System.out.println(result);
 			 
 			 if(result>0) {
+				 Pay p = new Pay();
+				 p.setCoid(es.getCoId());
+				 p.setPa_pay(500);
+				 p.setStatus('N');
+			 
+				 int result6 =ExService2.insertPoint(p);
+				 if(result6>0) {
+					 Company c = new Company();
+						c.setCoId(es.getCoId());
+						c.setPoint(loginCom.getPoint()-500);
+						System.out.println(c.getPoint());
+					int result2 = ExService2.updateCompanyPoint(c);
+				 }
 				 int result3 =  ExService.updateEsRequestPosition(es.getEsr_no());
 				 
 				 if(uploadFile != null) {
@@ -300,8 +320,10 @@ public class ExpertController {
 			 }
 			if(es.getStatus()==1) {
 				return "redirect:roadingRequestView.ex";
+			}else if(es.getStatus()==2){
+				return "redirect:makingRequestView.ex";
 			}else {
-				return "redirect:makingEstimate.ex";
+				return "redirect:roadingRequestView.ex";
 			}
 			
 	 
@@ -336,6 +358,41 @@ public class ExpertController {
 			return renameFileName;
 		}
 	 
+     public String payCheck(HttpSession session,HttpServletResponse response) {
+			 Company loginCom = (Company) session.getAttribute("loginUser");
+			 ExpertController2 ec2 = new ExpertController2();
+			 
+			 int point = loginCom.getPoint();
+			 if(point > 500) {
+				 Pay p = new Pay();
+					 p.setCoid(loginCom.getCoId());
+					 p.setPa_pay(500);
+					 p.setStatus('N');
+				 
+				 int result =ExService2.insertPoint(p);
+				 
+				 if(result > 0) {
+	
+						Company c = new Company();
+	
+						c.setCoId(loginCom.getCoId());
+						c.setPoint(point);
+	
+						// Company 에 보유포인트 갱신
+						int result2 = ExService2.updateCompanyPoint(c);
+						if(result2 >0) {
+							return "success";
+						}else {
+							return "false";
+						}
+				 }else {
+						return "false";
+					}
+			 }else {
+				 return "false";
+			 }
+     }
+	 
 	 @RequestMapping("estimateView.ex")
 	 public ModelAndView estimateView(@RequestParam("es_no") String esno,ModelAndView mv) {
 		 Estimate es = ExService.selectEstimate(esno);
@@ -343,12 +400,15 @@ public class ExpertController {
 		 Member m = ExService.selectMember(es.getUserId());
 		 EsRequest er = ExService.selectEsRequestOne(es.getEsr_no());
 		 ArrayList<Media> media = ExService.selectMediaList(es.getEs_no());
-		 String[] option = es.getEs_option().split(",");
 		 ArrayList<String[]> arr = new ArrayList<String[]>();
-		 for(int i=0; i<option.length;i++) {
-			 String[] op = option[i].split("#");
-			 arr.add(op);
+		 if(es.getEs_option()!= null) {
+			 String[] option = es.getEs_option().split(",");
+			 for(int i=0; i<option.length;i++) {
+				 String[] op = option[i].split("#");
+				 arr.add(op);
+			 }
 		 }
+		 
 		 mv.addObject("media",media);
 		 mv.addObject("er", er);
 		 mv.addObject("es",es);
@@ -367,7 +427,6 @@ public class ExpertController {
 							@RequestParam(value = "optionPrice", required = false) String optionPrice,
 							@RequestParam(value="uploadFile", required=false) MultipartFile[] uploadFile,
 							HttpServletRequest request) {
-			
 			String esoption =""; 
 			
 			if(optionName != null && optionPrice !=null) {
@@ -386,7 +445,25 @@ public class ExpertController {
 			}
 			
 			int result = ExService.updateEstimate(es);
-			
+			if(es.getStatus()==4) {
+				Pay p = new Pay();
+				 p.setCoid(es.getCoId());
+				 p.setPa_pay(500);
+				 p.setStatus('Y');
+			 
+				 int result6 =ExService2.insertPoint(p);
+				 
+				 if(result6>0) {
+					 int yPoint = ExService2.getYPoint(es.getCoId()); // 충전 포인트
+					int nPoint = ExService2.getNPoint(es.getCoId()); // 사용 포인트
+					int point = yPoint - nPoint;
+					 Company c = new Company();
+						c.setCoId(es.getCoId());
+						c.setPoint(point);
+						System.out.println(c.getPoint());
+					int result2 = ExService2.updateCompanyPoint(c);
+				 }
+			}
 			if(result>0 && uploadFile != null) {
 			
 			int result2 = 1;
@@ -413,7 +490,7 @@ public class ExpertController {
 			}else if(es.getStatus() ==3 || es.getStatus() ==4){
 				return "redirect:myEstimateView.ex";
 			}else {
-				return "redirect:home";
+				return "redirect:myEstimateView.ex";
 			}
 	 }
 	 @RequestMapping("deleteMedia.ex")
@@ -444,7 +521,7 @@ public class ExpertController {
 	 public ModelAndView myEstimate(HttpSession session,ModelAndView mv) {
 		 Member loginUser = (Member) session.getAttribute("loginUser");
 		 
-		 ArrayList<Estimate> es = ExService.selectUserEstimate(loginUser.getUserId());
+		 ArrayList<Estimate> es =  ExService.selectUserEstimate(loginUser.getUserId());
 		 Map<Integer,String> bucket = new HashMap<Integer,String>();
 		 
 		 for(int i=0;i<es.size();i++) {
@@ -458,6 +535,39 @@ public class ExpertController {
 		 mv.setViewName("ex_userEstimate");
 		 
 		 return mv;
+	 }
+	 
+	 @RequestMapping("myEstimate.ex")
+	 @ResponseBody
+	 public void myEstimate(HttpSession session,@RequestParam("status") String status,HttpServletResponse response) {
+		 	
+		 response.setContentType("application/json; charset=UTF-8");
+		 	Member loginUser = (Member) session.getAttribute("loginUser");
+		 	Map<String,String> m = new HashMap<String,String>();
+		 	m.put("userId", loginUser.getUserId());
+		 	m.put("status", status);
+		 	
+			ArrayList<Estimate> list = ExService.selectMyEstimate(m);
+			System.out.println(list.size());
+			 Map<Integer,String> bucket = new HashMap<Integer,String>();
+			 
+			 for(int i=0;i<list.size();i++) {
+				 BucketList b = ExService.selectBucket(list.get(i).getBkNo());
+				 bucket.put(list.get(i).getBkNo(),b.getBkName());
+			 }
+			 Map<String,Object> map = new HashMap<String,Object>();
+				map.put("list",list);
+				map.put("bucket", bucket);
+
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			try {
+				gson.toJson(map, response.getWriter());
+			} catch (JsonIOException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	 }
 	 
 	 

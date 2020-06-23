@@ -240,3 +240,15 @@
 
 </body>
 </html>
+
+var pointCheck = 0;
+							$.ajax({
+								url:'payCheck.ex',
+								data:{},
+								success:function(data){
+									if(data.result.equals("success")){
+										console.log(data.result);
+										pointCheck =1 ;
+									}
+								}
+							})

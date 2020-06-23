@@ -70,6 +70,7 @@
 			<div id="estimateContent">${ es.es_content }</div>
 		<input type="hidden" name="es_no" value="${ es.es_no }">
 		<input type="hidden" name="es_content" value="${es.es_content }">
+		<input type="hidden" name="coId" value="${ es.coId }">
 		<input type="hidden" id="es_price" name="es_price" value="">
 			
 			<table id="costTable">
