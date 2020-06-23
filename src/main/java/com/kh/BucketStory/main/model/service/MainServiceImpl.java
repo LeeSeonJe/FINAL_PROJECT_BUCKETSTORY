@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -117,6 +118,31 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public ArrayList<Company> selectDetailCompany(int bkNo) {
 		return mainDAO.selectDetailCompany(sqlSession, bkNo);
+	}
+
+	@Override
+	public ArrayList<Festival> selectFestival(String year) {
+		return mainDAO.selectFestival(sqlSession, year);
+	}
+
+	@Override
+	public ArrayList<Media> selectFmList() {
+		return mainDAO.selectFmList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Company> selectCompany() {
+		return mainDAO.selectCompany(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Media> selectCompMedia() {
+		return mainDAO.selectCompMedia(sqlSession);
+	}
+
+	@Override
+	public ArrayList<BucketList> selectDetailSup(String coId) {
+		return mainDAO.selectDetailSup(sqlSession, coId);
 	}
 
 }

@@ -51,6 +51,18 @@
 		order by bklike desc, ENROLLDATE desc
 	</select>
 	
+	<!-- 메인 Company -->
+	<select id="selectCompany" resultType="Company">
+		select *
+		from company
+		where approval = 'Y'
+	</select>
+	<select id="selectCompMedia" resultMap="MediaResultSet">
+		select *
+		from media
+		where coid is not null
+	</select>
+	
 	<!-- 헬퍼버킷리스트 -->
 	<select id="selectCoBucket" resultMap="BucketResultSet">
 		select BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE, BKLIKE, nickname, COMPLETE, CATENUM
@@ -257,5 +269,24 @@
 		from company
 		join cominbucket using(coid)
 		where bkno = #{bkNo}
+	</select>
+	
+	<!-- 저장된 행사 불러옴 -->
+	<select id="selectFestival" resultType="Festival">
+		select *
+		from festival
+		where fedate like #{year} || '%'
+	</select>
+	<select id="selectFmList" resultMap="MediaResultSet">
+		select *
+		from media
+		where feno is not null
+	</select>
+	
+	<!-- 기업이 지원하는 버킷리스트 가져오기 -->
+	<select id="selectDetailSup" resultType="Bucket">
+		select *
+		from bucketlist
+		where bkno in (select bkno from cominbucket where coid = #{coId})
 	</select>
 </mapper>

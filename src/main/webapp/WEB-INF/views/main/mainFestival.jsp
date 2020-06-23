@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,30 +28,46 @@
 						<a href="#">기업행사</a>
 					</div>
 				</div>
+				<c:forEach var="f" items="${ fList }">
 				<div class="f-div">
-					<div class="f-day">09.13</div>
+					<div class="f-day">${fn:substring(f.feDate, 5, 10)}</div>
 					<div class="f-dot">...</div>
 					<div class="f-one">
-						<div class="f-img"></div>
+					<c:forEach var="m" items="${ mList }">
+						<c:if test="${m.feno == f.feno}">
+						<div class="f-img"><img src="resources/buploadFiles/${m.mweb}"></div>
+						</c:if>
+					</c:forEach>
 						<div class="f-thumbnail">
 							<div class="f-event">EVENT</div>
-							<div class="f-title">Lifeplus 앰배서더 투표 이벤트</div>
-							<div class="f-dDay">2017. 9. 7 목요일  ~ 2017. 9. 20 수요일<button>닫기</button></div>
+							<div class="f-title">${f.fetitle}</div>
+							<div class="f-dDay">${f.feDate}</div>
+							<div class="f-fecontent">${f.fecontent}</div>
+							<button id="btn${f.feno}"class="btn">장소 보기</button>
 						</div>
-						<div class="f-detail">
-							<div class="f-content"></div>
+						<div id="f-detail${f.feno}" class="f-detail">
+							<div class="f-content">${f.feplace}</div>
+							<div class="f-map"></div>
 						</div>
 					</div>
 				</div>
-				<div class="f-div">
-					<div class="f-day">09.13</div>
-					<div class="f-dot">...</div>
-					<div class="f-one">
-						<div class="f-img"></div>
-						<div class="f-thumbnail"></div>
-						<div class="f-detail"></div>
-					</div>
-				</div>
+<script>
+$(function(){
+	if('${m.feno}' == '${f.feno}'){
+		$('.f-img').css('background-image', 'url()');
+	}
+	$('#btn${f.feno}').click(function(){
+		if($('#btn${f.feno}').text() == '장소 보기'){
+			$('#btn${f.feno}').text('숨기기');
+			$('#f-detail${f.feno}').show(1000);
+		} else{
+			$('#btn${f.feno}').text('장소 보기');
+			$('#f-detail${f.feno}').hide(1000);
+		}
+	});
+});
+</script>
+				</c:forEach>
 			</div>
 			<div id="section-right">
 				<ul>
