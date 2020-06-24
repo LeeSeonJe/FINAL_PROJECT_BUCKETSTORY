@@ -9,9 +9,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
 <c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
 <c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
+<section>
 	<div id="page">
 		<div id="submenu">
 			<ul>
@@ -78,5 +79,6 @@
 			</div>
 		</div>
 	</div>
+</section>
 </body>
 </html>

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="resources/expert/css/hp_helperEdit1.css">
     <link rel="stylesheet" href="resources/expert/css/hp_helperEdit2.css">
     <link rel="stylesheet" href="resources/expert/css/hp_helperEdit3.css">
+    <link rel="stylesheet" href="resources/expert/css/insert_festival.css">
     <title>helper MyPage</title>
 </head>
 <body>
@@ -220,12 +221,83 @@
         <!--------------------------------------------------------------------------->
         <!-- 3 -->
         <!--------------------------------------------------------------------------->
+	<div class="inner_content4" id="insert_festival">
+	  <div class ="helperEdit4">
+		<h1 align="center">3</h1>
+		<br>
+		<form id="festival" action="insertCevent.ex" method="POST" enctype="multipart/form-data">
+			<table class="et th2">
+					<tr>
+						<th colspan="4" class="title">기업 행사 등록(헬퍼)</th>
+					</tr>
+					<tr>
+						<th colspan="4"><p class="op">&nbsp;</p></th>
+					</tr>
+					<tr>
+						<td class="rownp">사진</td>
+						<td class="data" colspan="2">
+							<img id="evimg" style="width:290px;height:226px;" src="#">
+							<input type="file" id="evfile"name="feUploadFile" style="display:none;">
+						</td>
+						<td>
+							<button type="button" id="photo">사진변경</button><br><br><br>
+							<button type="button">사진삭제</button>
+						</td>
+					</tr>
+					<tr>
+						<td class="rownp">제목</td>
+						<td colspan="3" class="data"><input type="text" name="eventTitle" style="width: 491px;"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="rownp">시작일</td>
+						<td class="data"><input type="date" name="startDate" style="width:158px;"></td>
+						<td class="rown">종료일</td>
+						<td class="data"><input type="date" name="endDate" style="width:158px"></td>
+					</tr>
+					<tr>
+						<td class="rownp">이벤트 내용</td>
+						<td class="data" colspan="3"><textarea id="adw_textarea" name="eventContent">내용작성</textarea></td>
+                    </tr>
+                    
+                    <tr>
+                        <th colspan="3"><p class="op">&nbsp;</p></th>
+                    </tr>
+                    <tr>
+                        <td colspan="4" id="submitBtn-Area">
+                    <button type="submit" class="btn btn--primary2">축제 등록</button>
+                        </td>
+                    </tr>
+			</table>
+		</form>
+	  </div>
+	</div>
+	<script>
+	 function readURL2(input) {
+	        if (input.files && input.files[0]) {
+	            var reader = new FileReader();
+	            reader.onload = function(e) {
+	                $('#evimg').attr('src', e.target.result);
+	            }
+	            reader.readAsDataURL(input.files[0]);
+	        }
+	    }
+
+	    $("#evfile").change(function() {
+	        readURL2(this);
+	    });
+	    
+	    $('#photo').click(function(){
+	    	$('#evfile').trigger('click');
+	    })
+	</script>
 	<div class="inner_content3" id="footer">
 		<div class="helperEdit3">
 			<p>To Do Bucketlist </p>
 			<p>To the Moon </p>
 		</div>
 	</div>
+	
 	
 <!-- 우측하단 UP -->
 <a style="display:scroll;position:fixed;bottom:10px;right:10px;" onclick="goHome();">

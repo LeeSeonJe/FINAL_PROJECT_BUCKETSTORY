@@ -7,10 +7,13 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.BucketStory.admin.model.exception.BoardException;
+import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.ComInBucket;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Esoption;
@@ -123,5 +126,6 @@ public class ExpertDAO {
 		return sqlSession.update("exMapper.insertReview", es);
 	}
 
-	
-}
+	public int insertEvent(SqlSessionTemplate sqlSession, C_event ce) {
+		return sqlSession.insert("exMapper.insertEvent",ce);
+	}}

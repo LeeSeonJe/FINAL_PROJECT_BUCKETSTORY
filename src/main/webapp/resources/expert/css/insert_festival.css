@@ -1,0 +1,59 @@
+@charset "UTF-8";
+.inner_content4 {
+	background: url("../images/moon.jpg");
+	background-size: cover;
+	width: 100%;
+	height: auto;
+}
+
+.inner_content4 .helperEdit4 {
+	/*         width: 980px; */
+	/*         margin: 0 auto; */
+	/*         height: 800px; */
+	width: 1200px;
+	margin: 0 auto;
+	height: 950px;
+	/*          background: url("../images/imac.png"); */
+	/*         background-size: cover; */
+	/*         background-color: #fff; */
+	border-radius: 25px;
+	padding: 20px;
+	z-index: -1;
+	text-align: center;
+}
+    .inner_content4 .helperEdit4{
+/*         width: 980px;
+        margin: 0 auto;
+        height: 800px;
+        background-color: rgba(0,0,0,0.075);
+        border-radius: 25px; */
+        padding : 20px;
+		z-index:-1;
+		
+		         width: 1200px; 
+         margin: 0 auto; 
+         height: 950px;
+         background: url("../images/imac.png");
+        background-size: cover;
+/*         background-color: #fff; */
+        border-radius: 25px;
+        padding : 20px;
+		z-index:-1;
+    }
+   #festival{
+    	transition: 1s;
+    }
+    textarea#adw_textarea {
+       width: 494px;
+    height: 100px;
+    float: left;
+    margin-left: 9px;
+}
+.rownp{
+        font-weight: 700;
+        font-size: 17px;
+        padding: 5px;
+        width: 140px;
+        text-align:right;
+    
+    }
