@@ -186,7 +186,19 @@
 					</div>
 				</div>
 			</div>
-			<div id="bucketcpEvent"></div>
+			<div id="bucketcpEvent">
+				<div id="bucketcpEvent-1">
+					<ul>
+						<li><label>행사제목</label><br>삼성 여행사삼성 여행사삼성 여행사삼성 여행사삼성 여행사삼성 여행사<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>LG 식품<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>아시아나항공 숙박<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 		
 	</div>
