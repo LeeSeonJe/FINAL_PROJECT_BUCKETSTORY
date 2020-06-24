@@ -129,4 +129,8 @@ public class ExpertServiceImpl implements ExpertService {
 	public ArrayList<Estimate> selectMyEstimate(Map<String, String> m) {
 		return exDAO.selectMyEstimate(sqlSession,m);
 	}
+	@Override
+	public int insertReview(Estimate es) {
+		return exDAO.insertReview(sqlSession,es);
+	}
 }
