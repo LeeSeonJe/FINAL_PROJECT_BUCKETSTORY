@@ -316,12 +316,7 @@ function newQnA(){
 	$('.gnb_menu .gnb_menu_ul li a.gnb4').css('background','url("resources/layout/images/bg04_on.jpg") no-repeat 0 center #f3f3f2');
 	   $('.gnb_menu .gnb_menu_ul li a.gnb4 .ico').css('background', 'url("resources/layout/images/ico04_on.png") no-repeat 0 0');
 	   $('.gnb_menu .gnb_menu_ul li a.gnb4 .text span').css('color','#fff');
-	   if('${loginUser}' != ""){
-	      $('.gnb_menu .gnb_menu_ul li a .text:eq(3)').css('color', '#fff');
-	   }
-	   if('${loginCompany}' != ""){
-	      $('.gnb_menu .gnb_menu_ul li a .text:eq(2)').css('color', '#fff');
-	   }
+	   $('.gnb_menu .gnb_menu_ul li a .text:eq(3)').css('color', '#fff');
 	   $('.gnb_menu a').css('text-decoration','none');
 	   
 	

@@ -27,10 +27,27 @@
 			<c:forEach var="m" items="${blImg}">
 				<c:if test="${ m.bkno == b.bkNo }">
 <script>
-	$('#bucket${m.bkno}').css('background-image', 'url("resources/muploadFiles/${m.mweb}")');
+	$('.bucket.${ b.bkNo }').css('background-image', 'url("resources/muploadFiles/${m.mweb}")');
 </script>
 				</c:if>
 			</c:forEach>
+			
+			<!-- 버킷 주인 -->
+			<c:if test="${ b.userId ne '관리자찡' }">
+			<div class="bucketStoryNick">${ b.userId }</div>
+			</c:if>
+			<c:if test="${ b.userId eq '관리자찡' }">
+			<div class="bucketStoryNick">추천</div>
+			</c:if>
+			
+			<c:set var="bCount" value="0"/>
+			<c:forEach var="blog" items="${ blogList }">
+				<c:if test="${ blog.userid == b.userId && blog.bkNo == b.bkNo}">
+					<c:set var="bCount" value="${ bCount + 1 }"/>
+				</c:if>
+			</c:forEach>
+			<div class="bucketStoryStory">${ bCount }</div>
+			
 			<div class="bucketContent">
 				<div class="c-category">
 					<c:choose>
