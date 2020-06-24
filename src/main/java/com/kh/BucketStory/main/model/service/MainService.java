@@ -72,4 +72,6 @@ public interface MainService {
 
 	ArrayList<Company> selectSearchCompany(String c);
 
+	int selectNickCheck(String nickName);
+
 }

@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/expert/css/hp_boardList.css">
 <link rel="stylesheet" href="resources/expert/css/hp_QNA.css">
-<link rel="stylesheet" href="resources/expert/css/hp_QNA.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style>
      @media screen and (max-width : 1400px) {

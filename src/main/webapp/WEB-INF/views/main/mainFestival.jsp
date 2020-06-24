@@ -24,9 +24,9 @@
 				<div id="fesMenu">
 					<div id="fesYear">2020</div>
 					<div id="fesChoice">
-						<a href="#">버킷행사</a>
+						<a href="festival.ho?year=2020&check=1">버킷행사</a>
 						/
-						<a href="#">기업행사</a>
+						<a href="festival.ho?year=2020&check=2">기업행사</a>
 					</div>
 				</div>
 				<c:forEach var="f" items="${ fList }">
@@ -55,9 +55,6 @@
 				</div>
 <script>
 $(function(){
-	if('${m.feno}' == '${f.feno}'){
-		$('.f-img').css('background-image', 'url()');
-	}
 	$('#btn${f.feno}').click(function(){
 		if($('#btn${f.feno}').text() == '장소 보기'){
 			$('#btn${f.feno}').text('숨기기');
@@ -111,9 +108,9 @@ $(function(){
 			</div>
 			<div id="section-right">
 				<ul>
-					<li><a href="festival.ho?year=2020">2020</a></li>
+					<li><a href="festival.ho?year=2020&check=1">2020</a></li>
 					<hr>
-					<li><a href="festival.ho?year=2019">2019</a></li>
+					<li><a href="festival.ho?year=2019&check=1">2019</a></li>
 				</ul>
 			</div>
 		</div>
@@ -128,7 +125,11 @@ $(function(){
 	
 	$('nav>a:eq(1)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
 	$('#fesChoice>a:eq(0)').css('color', '#a047c0');
-	$('#section-right a:eq(0)').css('color', '#a047c0');
+	if('${year}' == '2020'){
+		$('#section-right a:eq(0)').css('color', '#a047c0');
+	} else if('${year}' == '2019'){
+		$('#section-right a:eq(1)').css('color', '#a047c0');
+	}
 	
 	$('.gnb_menu .gnb_menu_ul li a.gnb3').css('background','url("resources/layout/images/bg03_on.jpg") no-repeat 0 center #f3f3f2');
 	$('.gnb_menu .gnb_menu_ul li a.gnb3 .ico').css('background', 'url("resources/layout/images/ico03_on.png") no-repeat 0 0');

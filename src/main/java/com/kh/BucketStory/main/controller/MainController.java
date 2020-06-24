@@ -424,4 +424,18 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("nickCheck.ho")
+	@ResponseBody
+	public String nickCheck(@RequestParam("nickName") String nickName) {
+		String returnString = null;
+		
+		int count = mainService.selectNickCheck(nickName);
+		if(count > 0) {
+			returnString = "fail";
+		} else {
+			returnString = "success";
+		}
+		return returnString;
+	}
 }

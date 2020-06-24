@@ -171,4 +171,9 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.selectSearchCompany(sqlSession, c);
 	}
 
+	@Override
+	public int selectNickCheck(String nickName) {
+		return mainDAO.selectNickCheck(sqlSession, nickName);
+	}
+
 }

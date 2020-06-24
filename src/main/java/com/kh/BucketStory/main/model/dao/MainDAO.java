@@ -196,5 +196,9 @@ public class MainDAO {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectSearchCompany", c);
 	}
 
+	public int selectNickCheck(SqlSessionTemplate sqlSession, String nickName) {
+		return sqlSession.selectOne("mainMapper.selectNickCheck", nickName);
+	}
+
 	
 }

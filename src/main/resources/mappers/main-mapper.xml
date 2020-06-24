@@ -321,4 +321,11 @@
 		from c_event
 		where bkno = #{bkNo}
 	</select>
+	
+	<!-- 인포에서 닉네임 체크 -->
+	<select id="selectNickCheck" resultType="_int">
+		select count(*)
+		from member
+		where nickname = #{nickName}
+	</select>
 </mapper>

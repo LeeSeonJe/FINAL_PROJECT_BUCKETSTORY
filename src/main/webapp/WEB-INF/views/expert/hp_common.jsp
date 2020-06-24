@@ -49,4 +49,11 @@
 
 <div id ="overlay-2"></div>
 </body>
+<script>
+	$('.gnb_menu .gnb_menu_ul li a.gnb1').css('background','url("resources/layout/images/bg01_on.jpg") no-repeat 0 center #f3f3f2');
+	$('.gnb_menu .gnb_menu_ul li a.gnb1 .ico').css('background', 'url("resources/layout/images/ico01_on.png") no-repeat 0 0');
+	$('.gnb_menu .gnb_menu_ul li a.gnb1 .text span').css('color','#fff');
+	$('.gnb_menu .gnb_menu_ul li a .text:eq(0)').css('color', '#fff');
+	$('.gnb_menu a').css('text-decoration','none');
+</script>
 </html>
