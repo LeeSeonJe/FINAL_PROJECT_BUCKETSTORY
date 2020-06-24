@@ -63,12 +63,12 @@
 		</c:if>
 		
 		
-		<div id="ListAdd">
+		<!-- <div id="ListAdd">
 			<div id="ListArea">
 				<h4 style="display:inline">더보기</h4>
 				&nbsp;&nbsp;&nbsp;▼
 			</div>
-		</div>
+		</div> -->
 	</div>
 </section>
 </body>

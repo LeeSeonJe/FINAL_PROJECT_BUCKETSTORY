@@ -26,7 +26,7 @@
 		<br clear="left">
 		<h2 style="text-align:center;margin-bottom: 73px;margin-top: 76px;">견적서를 기다리는 버킷리스트</h2>		
 		
-		<c:if test="${ estimate !=null }">
+		<c:if test="${ not empty estimate }">
 			<c:forEach var="request" items="${ estimate }" >
 				<div id="requestMember">
 					<table style="width: 780px;">
@@ -67,17 +67,17 @@
 				<hr style="width:840px;margin: auto;">
 			</c:forEach>
 		</c:if>
-		<c:if test="${ estimate eq null }">
-			<h2 style="text-align:center">받은 견적 요청이 없습니다.</h2>
+		<c:if test="${ empty estimate }">
+			<h2 style="text-align:center">수락대기중인 견적서가 없습니다.</h2>
 		</c:if>
 		
 		
-		<div id="ListAdd">
+		<!-- <div id="ListAdd">
 			<div id="ListArea">
 				<h4 style="display:inline">더보기</h4>
 				&nbsp;&nbsp;&nbsp;▼
 			</div>
-		</div>
+		</div> -->
 	</div>
 </section>
 </body>

@@ -25,7 +25,7 @@
 		
 		<br clear="left">
 		<h2 style="text-align:center;margin-bottom: 73px;margin-top: 76px;">작성중인 견적서 화면입니다.</h2>		
-		
+		<c:if test="${ not empty estimate }">
 		<c:forEach var="es" items="${estimate }">
 			<div id="requestMember">
 			
@@ -55,13 +55,17 @@
 							<div id="bucketListDetail"><a href="makingEstimate.ex?es_no=${ es.es_no }">견적서 완성하기</a></div>
 						</td>
 						<td>
-							<div id="delete" style="cursor:pointer;"onclick="del(${es.es_no});">삭제</div>
+							<div id="delete" style="cursor:pointer;" onclick="del(${es.es_no});">삭제</div>
 						</td>
 					</tr>
 				</table>
 			</div>
-		<hr style="width:840px;margin: auto;">
-		</c:forEach>
+			<hr style="width:840px;margin: auto;">
+			</c:forEach>
+		</c:if>
+		<c:if test="${ empty estimate }">
+			<h2 style="text-align:center">작성중인 견적서가 없습니다.</h2>
+		</c:if>
 		<script>
 			function del(val){
 				if(confirm("해당 요청을 정말 삭제하겠습니까?") == true){
@@ -71,12 +75,12 @@
 				}
 			}
 		</script>
-		<div id="ListAdd">
+		<!-- <div id="ListAdd">
 			<div id="ListArea">
 				<h4 style="display:inline">더보기</h4>
 				&nbsp;&nbsp;&nbsp;▼
 			</div>
-		</div>
+		</div> -->
 	</div>
 </section>
 </body>
