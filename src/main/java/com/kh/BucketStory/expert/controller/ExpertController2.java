@@ -205,7 +205,6 @@ public class ExpertController2 {
 	 *  포인트 충전페이지 이동
 	 *  --------------------------------------------------
 	 */
-	
 	@RequestMapping("point.ex")
 	public ModelAndView goPointSimple(HttpSession session,ModelAndView mv) {
 		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
@@ -214,7 +213,6 @@ public class ExpertController2 {
 		mv.setViewName("hp_point");
 		return mv;
 	}
-	
 	/*  --------------------------------------------------
 	 *  결제 이벤트 발생 -> 포인트 충전요청 
 	 *  --------------------------------------------------

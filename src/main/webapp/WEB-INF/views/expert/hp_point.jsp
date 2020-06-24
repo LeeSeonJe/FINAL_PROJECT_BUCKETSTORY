@@ -368,7 +368,6 @@ function requestPay(price , coId , today) {
 				<h3><span id="PT1">포인트 충전/사용</span>(<input style="border: none; width:25px; font-weight: 600; color:#036; font-size:24px" type="text" id='search' readonly="readonly">) 횟수 : 
 							<input style="border: none; width:25px; font-weight: 600; font-size:24px; color:#036;" type='text' id='listCount' readonly="readonly"></h3>
 				<h3><span id="PT2">총 충전 포인트 : </span><input style="border: none; width:100px; font-weight: 400; font-size:22px; color:#333;" type='text' id='point' readonly="readonly">Point</h3>
-	
 				<!--         게시판 목록 영역 -->
 				<div id="board-area">
 						<table class="board pboard" id="hpBottom">
