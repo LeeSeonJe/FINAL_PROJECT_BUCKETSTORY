@@ -7,8 +7,6 @@
 <link rel="stylesheet" href="resources/admin/css/adminDefault.css">
 <style>
 form{
- 	border-left: 1px solid gray;
-    border-right: 1px solid gray;
     height: 900px;
     margin-top: 45px;
     width: 90%;
@@ -24,8 +22,8 @@ form>adw_formimg>div{
 
 form>#adw_formimg{
 	text-align: center;
-	margin-bottom: 50px;
-    margin-top: 40px;
+    margin-bottom: 45px;
+    margin-top: -13px;
 }
 
 form>div>div>ul>li{
@@ -76,6 +74,19 @@ form>div>div>ul>li{
 .btn{
 	margin-right: 10px;
 }
+    
+#title{
+	margin-left: 272px;
+}
+
+nav{
+	border-bottom: 1px solid #d2d1d1;
+    height: 47px;
+	
+}
+.board{
+
+}
 </style>
 </head>
 <body>
@@ -83,7 +94,6 @@ form>div>div>ul>li{
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>				
 	</header>
 	
-	<div id="adw_body">
 		<nav>
 			<div id="adw_menu">
 				<ul>
@@ -108,6 +118,10 @@ form>div>div>ul>li{
 				</ul>
 			</div>
 		</nav>
+		<div class="board">
+		<div>
+			<h2 id="title">축제 작성</h2>
+		</div>
 		<form action="feinsert.ad" method="post" id="adw_form" enctype="multipart/form-data">
 			<div id="adw_formimg">
 				<input type="file" name="feUploadFile">
@@ -138,9 +152,6 @@ form>div>div>ul>li{
 						</tr>
 					</table>
 				</div>
-				<div class="test" id="map"
-					style="width: 300px; height: 300px; float: right;">
-				</div>
 				<div>
 					<textarea id="adw_textarea" name="fecontent">내용작성</textarea>
 				</div>
@@ -151,53 +162,8 @@ form>div>div>ul>li{
 				<input type="reset" value="취소">
 			</div>
 		</form>
-	</div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=deba653fd81e7e506676cae7697d70bf&libraries=services"></script>
+		</div>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-		<script>
-			// 검색 단추를 누르면 팝업 레이어가 열리도록 설정한다.
-			$(function(){
-				$("#postcodify_search_button").postcodifyPopUp();
-			});
-		</script>
-	<script>	
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		    mapOption = {
-		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		        level: 3 // 지도의 확대 레벨
-		    };  
-		
-			// 지도를 생성합니다    
-			var map = new kakao.maps.Map(mapContainer, mapOption); 
-			
-			// 주소-좌표 변환 객체를 생성합니다
-			var geocoder = new kakao.maps.services.Geocoder();
-			
-			// 주소로 좌표를 검색합니다
-			geocoder.addressSearch('서울특별시 용산구 청파로47나길 4', function(result, status) {
-			
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-			
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-			        // 결과값으로 받은 위치를 마커로 표시합니다
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-			
-			        // 인포윈도우로 장소에 대한 설명을 표시합니다
-			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-			        });
-			        infowindow.open(map, marker);
-			
-			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			        map.setCenter(coords);
-			    } 
-			});    
-	</script>
 	
 </body>
 </html>

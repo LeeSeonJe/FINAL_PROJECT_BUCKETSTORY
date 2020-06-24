@@ -13,6 +13,20 @@
     width: 160px;
     margin-bottom: 10px;
 }
+
+h3{
+    margin-left: 305px;
+}
+
+ a:link{ 
+  	color: black; text-decoration: none; 
+  } 
+ a:visited{ 
+  	 color: black; text-decoration: none; 
+ } 
+  a:hover{ 
+ 	color: black; text-decoration: none;
+  }
 </style>
 </head>
 <body>
@@ -48,6 +62,7 @@
 	</div>
 		<div id="board-area">
 		<div>
+			<h3>경고받은 회원 </h3>
 			<h2><a href="cautionlist.ad" class="ad_list">신고 게시판</a></h2>
 			<h2><a href="adminwarning.ad" class="ad_list">경고 게시판</a></h2>
 		</div>
@@ -66,9 +81,10 @@
 						<td><input type="checkbox" name="chk_box" value="${ notify.no_no }"></td>
 						<td>${ notify.no_no }</td>
 						<td>${ notify.no_kind }</td>
-						<td>${ notify.no_check }</td>
+						<td><c:if test="${ notify.no_check eq 'Y'.charAt(0) }">1회 경고</c:if></td>						
 						<td>${ notify.pigouser }</td>
-						<td>${ notify.status }</td>
+						<td><c:if test="${ notify.status eq 'N'.charAt(0) }">활동</c:if>					
+							<c:if test="${ notify.status eq 'Y'.charAt(0) }">강제 탈퇴</c:if></td>						
 					</tr>
 				</c:forEach>
 			</table>
