@@ -28,7 +28,7 @@
 			<span>&nbsp;</span>
 			
 		<span>&nbsp;</span>
-		<a class="myPagemenu">
+		<a class="myPagemenu" href="myEstimateView.ex">
 			<span>▤견적서</span>
 
 		</a>

@@ -2,6 +2,7 @@ package com.kh.BucketStory.main.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -49,5 +50,15 @@ public interface MainService {
 	int countDetailWhat(int bkNo, String coId);
 
 	ArrayList<Company> selectDetailCompany(int bkNo);
+
+	ArrayList<Festival> selectFestival(String year);
+
+	ArrayList<Media> selectFmList();
+
+	ArrayList<Company> selectCompany();
+
+	ArrayList<Media> selectCompMedia();
+
+	ArrayList<BucketList> selectDetailSup(String coId);
 
 }

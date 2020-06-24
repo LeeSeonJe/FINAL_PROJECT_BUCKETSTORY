@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.kh.BucketStory.expert.model.vo.Estimate"%>
+<%@page import="com.kh.BucketStory.bucket.model.vo.BucketList"%>
+<%@page import="java.io.File, java.util.ArrayList"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="resources/expert/css/ex_userEstimate.css">
+ <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -43,11 +48,13 @@
 				<h1 style="text-align:center;">견적서가 도착했어요</h1>
 				
 				<div id="statusView">
-					<div id="status1" class="status">받은 견적서 확인</div>
-					<div id="status3" class="status">수락 견적서 확인</div>
+					<div id="status1" class="status" onclick="position(1);">받은 견적서 확인</div>
+					<div id="status3" class="status" onclick="position(2);">수락 견적서 확인</div>
 				</div>
+				<div id="area">
+				<% ArrayList<Estimate> estimate = (ArrayList<Estimate>)request.getAttribute("es");%>
 				<c:if test="${ es != null }">
-					<c:forEach var="request" items="${ es }" >
+					<c:forEach var="request" items="<%=estimate %>" >
 						<div id="requestMember">
 							<table style="width: 780px;">
 								<tr>
@@ -78,7 +85,66 @@
 						<hr style="width:840px;margin: auto;">
 					</c:forEach>
 				</c:if>
+				<script>
+				
+					function position(index){
+						$.ajax({
+							url:"myEstimate.ex",
+							data:{
+								status:index
+								},
+							dataType: 'json',
+							success : function(data){
+								console.log(data);
+								console.log(data.list);
+								console.log(data.bucket[3]);
+								var text;
+								
+								if(data.list.length >0){
+									for( var i in data.list)
+										 text +=
+											"<div id='requestMember'>"
+											+"<table style='width: 780px;''>"
+											+"<tr>"
+											+"<td rowspan='3' style='width:100px;''>"
+											+"<img id='requestImage' src='resources/expert/images/photo.jpg' id='profileImage'>"
+											+"</td>"
+											+"<td>"
+												+"<h3 style='display:inline'>"+data.list[i].coId+"</h3>"
+											+"</td>"
+											+"<td>"
+												+data.list[i].enrollDate
+											+"</td>"
+											+"</tr>"
+											+"<tr>"
+												+"<td>"
+															+"버킷리스트 : "+data.bucket[data.list[i].bkNo]
+												+"</td>"
+												+"<td>"
+												+"</td>"
+											+"</tr>"
+											+"<tr>"
+												+"<td>"
+													+"<div id='bucketListDetail'><a href='estimateView.ex?es_no="+data.list[i].es_no+"'>견적서 확인하기</a></div>"
+												+"</td>"
+											+"</tr>"
+										+"</table>"
+									+"</div>"
+									+"<hr style='width:840px;margin: auto;'>"
+								}
+								
+								$('#area').html(text); 
+							},error:function(data){
+								console.log("오류");
+								console.log(data);
+							}
+						})
+					}
+					
+					
+				</script>
 			</div>
+		</div>
 		</section>
 	</div>
 </body>

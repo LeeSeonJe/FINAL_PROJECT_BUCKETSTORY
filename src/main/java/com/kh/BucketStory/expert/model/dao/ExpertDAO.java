@@ -115,5 +115,9 @@ public class ExpertDAO {
 		return (ArrayList)sqlSession.selectList("exMapper.selectUserEstimate", userId);
 	}
 
+	public ArrayList<Estimate> selectMyEstimate(SqlSessionTemplate sqlSession, Map<String, String> m) {
+		return (ArrayList)sqlSession.selectList("exMapper.selectMyEstimatimate",m);
+	}
+
 	
 }

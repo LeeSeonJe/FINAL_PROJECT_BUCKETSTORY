@@ -107,7 +107,7 @@
 				</tr> -->
 			</table>
 			
-			<button onclick="sendstatus(1);">견적보내기</button>
+			<button onclick="return sendstatus(1);">견적보내기</button>
 			<button type="button" onclick="sendstatus(2);">임시저장</button>
 			<button onclick="location.href=''">취소</button>
 			
@@ -138,19 +138,21 @@
 						if (confirm("임시저장하시겠습니까?") == true){    //확인
 							var input = $("<input>") .attr("type", "hidden") .attr("name", "status").val(val); $('#send').append($(input));
 							$('#send').submit();
-						}else if(val==1){
+						}
+					}else if(val==1){
+						if(${ sessionScope.loginCompany.point > 500 }){
 							if(confirm("견적서를 보낸뒤에는 수정할수 없습니다. \n 계속하시겠습니까?") == true){
 								var input = $("<input>") .attr("type", "hidden") .attr("name", "status").val(val); $('#send').append($(input));
 								$('#send').submit();
 							}else{
 								return false;
 							}
+						}else{
+							alert("보유하고 있는 point가 부족합니다.");
+							return false;
 						}
-
 					}
-					var input = $("<input>") .attr("type", "hidden") .attr("name", "status").val(val); $('#send').append($(input));
-
-				}
+				}	
 				
 				$(document).on('click',".deleteOption",function(){
 					var trHtml = $(this).parent().parent();

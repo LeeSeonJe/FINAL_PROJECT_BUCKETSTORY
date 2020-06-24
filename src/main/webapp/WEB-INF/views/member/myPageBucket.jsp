@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 	<link rel="stylesheet" href="resources/member/css/myPageBucket.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	<header>
@@ -21,7 +22,27 @@
 		<div id="Myheader">
 			<table id="table_area">
 				<tr>
-					<td rowspan="4" style="width: 250px;">
+					<td id="profile_td" rowspan="4" style="width: 250px;">
+						<c:if test="${ loginUser != null && getMember.userId eq loginUser.userId }">
+							<i class="fa fa-cog" aria-hidden="true" style="display: none;"></i>
+						<script type="text/javascript">
+							$('#profile_td').mouseenter(function(){
+								$('i.fa.fa-cog').css('display','block');
+								$(this).find('img').css('cursor','pointer').css('border','2px solid')
+								$(this).on('click',function(){
+								    var url = "profileChangeGo.me";
+						            var name = "profile change popup";
+						            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+						            window.open(url, name, option);
+								})
+							})
+							
+							$('#profile_td').mouseleave(function(){
+								$('i.fa.fa-cog').css('display','none');
+								$(this).find('img').css('cursor','pointer').css('border','none')
+							})
+						</script>
+						</c:if>
 						<c:if test="${ getMember.prImage == null }">
 							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" />					
 						</c:if>
@@ -194,7 +215,7 @@
 		</div>
 	</div>
 </body>
-<script>	
+<script>		
 	
 	$(".followList").on("mouseenter", function(){
 		event.stopPropagation();
@@ -391,7 +412,7 @@
 		}
 		// 블로그 사진 가져오기
 		$('#bucketGoBlog').show();
-		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
+		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+'${ getMember.nickName }'+'"');
 		if(userId == '관리자찡'){
 			$('#bucketGoBlog').hide();
 		}
@@ -432,7 +453,7 @@
 							}
 							if(data[key].userId != 'admin'){
 								if(data[key].prImage != null){
-									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/member/images/profiles/'+data[key].prImage+'" style="width:100%;height:100%; border-radius: 100px;"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
 									$('#bucketwithPro').append($div);
 								} else{
 									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';

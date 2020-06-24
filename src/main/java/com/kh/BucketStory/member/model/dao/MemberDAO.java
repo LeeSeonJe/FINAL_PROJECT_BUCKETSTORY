@@ -15,6 +15,7 @@ import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.member.model.vo.BLike;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.BoardComment;
 import com.kh.BucketStory.member.model.vo.Follow;
@@ -164,4 +165,50 @@ public class MemberDAO {
 	public int rReportInsert(SqlSessionTemplate sqlSession, Notify n) {
 		return sqlSession.insert("memberMapper.rReportInsert", n);
 	}
+
+	public int bLikeAdd(SqlSessionTemplate sqlSession, BLike bl) {
+		int result = sqlSession.insert("memberMapper.bLikeAdd", bl);
+		if(result > 0) {
+			sqlSession.update("memberMapper.boardLikeAdd", bl);
+		}
+		return result;
+	}
+
+	public int bLikeDel(SqlSessionTemplate sqlSession, BLike bl) {
+		int result = sqlSession.delete("memberMapper.bLikeDel", bl);
+		if(result > 0) {
+			sqlSession.update("memberMapper.boardLikeSub", bl);
+		}
+		return result;
+	}
+
+	public int bLikeCheck(SqlSessionTemplate sqlSession, BLike bl) {
+		return sqlSession.selectOne("memberMapper.bLikeCheck", bl);
+	}
+
+	public Board getUpdateBoard(SqlSessionTemplate sqlSession, Integer bNo) {
+		return sqlSession.selectOne("memberMapper.getUpdateBoard", bNo);
+	}
+
+	public int bUpdate(SqlSessionTemplate sqlSession, Board board) {
+		return sqlSession.update("memberMapper.bUpdate", board);
+	}
+
+	public int blogDelte(SqlSessionTemplate sqlSession, Board board) {
+		return sqlSession.update("memberMapper.blogDelte", board);
+	}
+
+	public BucketList getBucket(SqlSessionTemplate sqlSession, Integer bkNo) {
+		return sqlSession.selectOne("memberMapper.getBucket", bkNo);
+	}
+
+	public int bucketUpdate(SqlSessionTemplate sqlSession, Media m, BucketList bL) {
+		int result1 = sqlSession.update("memberMapper.bucketUpdate", bL);
+		int result2 = 0;
+		if (result1 > 0) {
+			result2 = sqlSession.update("memberMapper.bMediaUpdate", m);
+		}
+		return result2;
+	}
+
 }

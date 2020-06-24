@@ -1,3 +1,4 @@
+<%@page import="com.kh.BucketStory.common.model.vo.Member"%>
 <%@page import="org.springframework.http.server.reactive.ContextPathCompositeHandler"%>
 <%@page import="com.kh.BucketStory.member.model.vo.MemberMyBucketList"%>
 <%@page import="java.util.ArrayList"%>
@@ -9,6 +10,7 @@
 <%
 	int index = (int) request.getAttribute("index");
 	ArrayList<MemberMyBucketList> mbl = (ArrayList<MemberMyBucketList>) request.getAttribute("myBucketList");
+	Member user = (Member) session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -18,6 +20,7 @@
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="resources/member/css/bucketBlog.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
 		#draggable { width: 150px; height: 150px; padding: 0.5em; }
 	</style>
@@ -230,12 +233,11 @@
 						function nextBtn() {
 							var last = "${ bList.size() }"
 							var go = $('#goElement').val();
-							if(last > go) {
+							if(last > parseInt(go)) {
 								go++;
 								$('.blogBucket').eq(parseInt(go)-1).children('input').next().focus();
 								$('#goElement').val(go);																													
 							} else {
-								console.log(go)
 								next2Btn();
 							}
 						}
@@ -260,10 +262,12 @@
 				</c:if>
 				<c:if test="${ not empty myBucketList }">
 					<div id="bucketTitle">
-						<h3>
+					<br>
+						<h2>
 							<%= mbl.get(index).getBucket().getBkName() %>
-						</h3>
+						</h2>
 					</div>
+					<h5><%= mbl.get(index).getCateName() %></h5>
 					<br>
 					<div id="bucketImg">
 						<img style="max-width: 600px; max-height: 337.5;" src="/BucketStory/resources/muploadFiles/<%= mbl.get(index).getMedia().getMweb() %>" alt="" />
@@ -295,6 +299,9 @@
 					<c:if test="${ flag eq 'true' }">
 						<button id="blogWriteBtn" style="width: 100px;">스토리 작성하기</button>
 					</c:if>
+					<% if(mbl.get(index).getBucket().getUserId().equals(user.getUserId())) { %>
+						<button id="bucketUpdateBtn" onclick="bucketUpdate(<%= mbl.get(index).getBkNo() %>, ${ pi.currentPage })" style="width: 100px;">수정하기</button>						
+					<% } %>
 				</c:if>
 			</div>		
 			<c:if test="${ not empty bList }">
@@ -303,7 +310,9 @@
 					<div class="blogBucket">
 						<input type="hidden" value="${ bl.bNo }" />
 						<input type="text" readonly="readonly" value="${ status.index }" style="width:0px; height:0px; font-size: 0px; border: none;">
-						<br><span id="story_index">'${ getMember.nickName }'님의 ${ status.index + 1 }번째 이야기</span>
+						<br><br>
+						<span id="story_index">'${ getMember.nickName }'님의 ${ status.index + 1 }번째 이야기</span>
+						<br>
 						<h3>${ bl.bTitle }</h3>
 						<div class="profile-area">
 							<c:if test="${ empty getMember.prImage }">
@@ -321,10 +330,13 @@
 						<div class="etc-area">
 							<input type="hidden" class="hidden_BKNO" value="${ bl.bNo }"/>
 							<c:if test="${ loginUser != null && loginUser.nickName eq getMember.nickName }">
-								<button>수정하기</button>
-								<button>삭제하기</button>
+								<button onclick="location.href='blogUpdate.me?bNo=${ bl.bNo }&bkNo=${ bl.bkNo }&page=${ pi.currentPage }'">수정하기</button>
+								<button onclick="blogDelete(${ bl.bNo } ,${ bl.bkNo },${ pi.currentPage });">삭제하기</button>
 							</c:if>
 							<c:if test="${ loginUser != null && loginUser.nickName ne getMember.nickName }">
+								<i class="fa fa-heart-o" aria-hidden="true"></i>
+								<span style="cursor: pointer; margin-right: 70px;" onclick="boardLike(this);">좋아요</span>
+								<i class="fa fa-ban" aria-hidden="true"></i>
 								<span style="cursor: pointer;" onclick="boardReport(this);">신고</span>
 							</c:if>
 						</div>
@@ -336,7 +348,6 @@
 										<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;" />
 									</c:if>
 									<c:if test="${ not empty loginUser.prImage }">
-										안녕하세요
 										<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
 									</c:if>
 									<span>${ loginUser.nickName }</span>
@@ -637,17 +648,78 @@
 				}
 			}
 		}
+		var length = $('.etc-area').length;
+		var userId = '${ loginUser.userId }';
+		var getId = '${ getMember.userId }';
+		var i = 0;
+		if(getId != userId) {			
+			for(i = 0; i < length; i++) {
+				var bNo = $('.etc-area').eq(i).children('input[type=hidden]').val();
+				var heart = $('.etc-area').eq(i).children().eq(1)
+// 				(function(i) {
+					$.ajax({
+						async: false,
+						url: "bLikeCheck.me",
+						data: {
+							bNo:bNo,
+							userId:userId
+						}, success: function(data){
+							if(data.trim() == 'exist') {
+								heart.prop('class','fa fa-heart');
+							} else if(data.trim() == 'empty') {
+								heart.prop('class','fa fa-heart-o');
+							}
+						}
+					})
+// 				})(i)
+			}
+		}
 	})
+	
+	function bucketUpdate(bkNo, page) {
+		location.href="bucketUpdateGo.me?bkNo=" + bkNo + "&page=" + page;
+	}
+	
+	function blogDelete(bNo, bkNo, page) {
+		var result = confirm("글을 삭제하시겠습니다.");
+		if(result){
+			alert('삭제되었습니다.');
+			location.href='blogDelete.me?bNo='+ bNo +'&bkNo='+ bkNo +'&page=' + page;
+		}else{
+		    alert('취소!');
+		}
+	}
+	/* 게시물 좋아요 */
+	function boardLike(b) {
+		var bNo = $(b).parent().children('input[type=hidden]').val();
+		var userId = '${ loginUser.userId }';
+		var status = "";
+		if($(b).prev().attr('class') == "fa fa-heart-o") {
+			status = "add";
+			$(b).prev().attr('class','fa fa-heart');
+		} else if($(b).prev().attr('class') == 'fa fa-heart') {
+			status = "remove";
+			$(b).prev().attr('class','fa fa-heart-o');
+		}
+		$.ajax({
+			url: "bLike.me",
+			data: {
+				bNo:bNo,
+				userId:userId,
+				status:status
+			}, success: function(data) {
+				
+			}
+		})
+	}
 	
 	/* 신고 스크립드 */
 	/* 게시물 신고 카테 번호 1번 */
 	function boardReport(r) {
 		var sinuser = '${ loginUser.userId }';
 		var pigouser = '${ getMember.userId }';
-		var bno = $(r).prev().val();
+		var bno = $(r).prev().prev().prev().prev().val();
 		var no_kind = 1;
-		console.log(sinuser)
-		console.log(pigouser)
 		$.ajax({
 			url:"report.me",
 			data: {
@@ -671,7 +743,6 @@
 		var sinuser = '${ loginUser.userId }';
 		var pigouser = $(r).next().next().val();
 		var cmno = $(r).prev().prev().prev().val();
-		console.log($(r).prev().prev().prev().val())
 		var no_kind = 2;
 		if(cmno == "") {
 			cmno = $(r).prev().prev().prev().prev().val();

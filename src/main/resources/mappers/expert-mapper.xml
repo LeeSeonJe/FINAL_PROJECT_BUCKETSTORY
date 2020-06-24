@@ -142,6 +142,12 @@
 		order by es_no desc
 	</select>
 	
+	<select id="selectMyEstimatimate" resultMap="estimateSet">
+		select * from estimate
+		where userid=#{userId} and status=#{status}
+		order by es_no desc
+	</select>
+	
 	<resultMap id="estimateSet" type="estimate">
 		<id property="es_no" column="ES_NO"/>
 		<result property="esr_no" column="ESR_NO"/>
