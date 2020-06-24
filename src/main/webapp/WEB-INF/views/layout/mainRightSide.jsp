@@ -52,7 +52,7 @@
                         </li>
                         </c:if>
                         <li>
-                            <a href="festival.ho?year=2020" class="gnb3 mot2" onclick='eventTrack("", "menu_event");'>
+                            <a href="festival.ho?year=2020&check=1" class="gnb3 mot2" onclick='eventTrack("", "menu_event");'>
                                 <div class="text mot2">
                                     <span class="en mot2">Festival</span><br>
                                     진행중인 행사를 확인하세요.

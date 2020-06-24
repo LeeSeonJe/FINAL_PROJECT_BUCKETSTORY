@@ -41,7 +41,10 @@
 		z-index:-1;
     }
    #festival{
-    	transition: 1s;
+    	    top: 240px;
+	    position: absolute;
+	    transition: 1s;
+	    left: 540px;
     }
     textarea#adw_textarea {
        width: 494px;

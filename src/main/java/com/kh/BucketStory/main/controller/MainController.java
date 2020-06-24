@@ -24,6 +24,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.main.model.service.MainService;
 import com.kh.BucketStory.member.model.vo.Board;
@@ -137,14 +138,29 @@ public class MainController {
 	}
 	
 	@RequestMapping("festival.ho")
-	public String festivalView(@RequestParam("year") String year, Model m) {
-		ArrayList<Festival> fList = mainService.selectFestival(year);
-		ArrayList<Media> mList = mainService.selectFmList();
+	public ModelAndView festivalView(@RequestParam("year") String year, ModelAndView mv, @RequestParam("check") int check) {
+		if(check == 1) {
+			ArrayList<Festival> fList = mainService.selectFestival(year);
+			ArrayList<Media> mList = mainService.selectFmList();
+			mv.addObject("fList", fList);
+			mv.addObject("mList", mList);
+			mv.setViewName("mainFestival");
+		} else if(check == 2) {
+			ArrayList<C_event> fList = mainService.selectCpFestival(year);
+			mv.addObject("fList", fList);
+			mv.setViewName("mainCpFestival");
+		}
 		
-		m.addAttribute("fList", fList);
-		m.addAttribute("mList", mList);
+		return mv;
+	}
+	
+	@RequestMapping("deleteCoBucket.ho")
+	public String deleteCoBucekt(@RequestParam("bkNo") int bkNo, HttpSession session) {
+		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		
-		return "mainFestival";
+		int result = mainService.deleteCoBucekt(bkNo, coId);
+		
+		return "redirect:helperBucket.ho";
 	}
 	
 	@RequestMapping("bkDetailMedia.ho")
@@ -371,4 +387,5 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
+	
 }

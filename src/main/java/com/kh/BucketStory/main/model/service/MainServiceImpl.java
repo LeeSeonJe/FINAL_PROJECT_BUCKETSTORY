@@ -12,6 +12,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.main.model.dao.MainDAO;
 import com.kh.BucketStory.member.model.vo.Board;
@@ -143,6 +144,16 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public ArrayList<BucketList> selectDetailSup(String coId) {
 		return mainDAO.selectDetailSup(sqlSession, coId);
+	}
+
+	@Override
+	public ArrayList<C_event> selectCpFestival(String year) {
+		return mainDAO.selectCpFestival(sqlSession, year);
+	}
+
+	@Override
+	public int deleteCoBucekt(int bkNo, String coId) {
+		return mainDAO.deleteCoBucekt(sqlSession, bkNo, coId);
 	}
 
 }

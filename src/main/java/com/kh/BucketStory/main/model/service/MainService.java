@@ -8,6 +8,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.member.model.vo.Board;
 
@@ -60,5 +61,9 @@ public interface MainService {
 	ArrayList<Media> selectCompMedia();
 
 	ArrayList<BucketList> selectDetailSup(String coId);
+
+	ArrayList<C_event> selectCpFestival(String year);
+
+	int deleteCoBucekt(int bkNo, String coId);
 
 }

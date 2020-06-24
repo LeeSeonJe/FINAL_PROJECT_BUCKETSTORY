@@ -510,7 +510,7 @@ function InPutCoBucket(bkNo){
 function estimate(bkNo, coId){
 	var result = confirm("견적서 요청 하시겠습니까?");
 	if(result){
-		location.href="insertEsrequest.ex?bkNo="+bkNo+"&coId="+coId;
+		location.href="esrequest.ex?bkNo="+bkNo+"&coId="+coId;
 	} else{
 		alert("취소");
 	}
