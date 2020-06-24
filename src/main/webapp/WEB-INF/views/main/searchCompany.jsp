@@ -1,4 +1,5 @@
-<%@page import="java.io.File"%>
+<%@page import="com.kh.BucketStory.bucket.model.vo.WishList"%>
+<%@page import="java.io.File, java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,9 +7,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>최신순버킷</title>
 	<link rel="stylesheet" href="resources/main/css/mainCompany.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 	<!-- 카테고리 변경 때 필요 -->
@@ -26,10 +27,8 @@
 	</div>
 	<%@ include file="searchscreen.jsp" %>
 	<section>
-		<%@ include file="/WEB-INF/views/layout/mainLeftSide.jsp" %>
 		<c:forEach var="m" items="${mList}">
 		<c:forEach var="c" items="${cList}">
-		<c:if test="${ c.cateNum == category || category == 0}">
 		<c:if test="${c.coId eq m.coid }">
 		<div id="bucket${c.coId}" class="bucket" onclick="cpDetail('${c.coId}', '${c.coName}', '${c.compaName}', '${c.apName}', '${c.homePage}', '${c.coTel}', '${c.busiEmail}', ${c.cpCheck}, ${c.cateNum}, '${c.coIntro}', '${c.coInfo}', '${m.mweb}');">
 			<div class="bucketContent">
@@ -53,7 +52,6 @@
 <script>
 	$('#bucket${c.coId}').css('background-image', 'url("resources/muploadFiles/${m.mweb}")');
 </script>
-		</c:if>
 		</c:if>
 		</c:forEach>
 		</c:forEach>
@@ -102,8 +100,6 @@
 		</div>
 		
 	</div>
-	
-	
 </body>
 <script>
 $(function(){
@@ -114,44 +110,9 @@ $(function(){
 	$('.searchdiv').css('opacity', '1');
 	
 	// 카테고리 종류
-	var category = ${category};
-	if(category == 0){
-		$('#categoryImg1').prop('src','resources/layout/images/allhover.png');
-		$('#category1').css('background','silver');
-		$('#category1').unbind('mouseover mouseout');
-	} else if(category == 1){
-		$('#categoryImg2').prop('src','resources/layout/images/여행hover.png');
-		$('#category2').css('background','#D4F4FA');
-		$('#category2').unbind('mouseover mouseout');
-	} else if(category == 2){
-		$('#categoryImg3').prop('src','resources/layout/images/운동hover.png');
-		$('#category3').css('background','#FF4848');
-		$('#category3').unbind('mouseover mouseout');
-	} else if(category == 3){
-		$('#categoryImg4').prop('src','resources/layout/images/foodhover.png');
-		$('#category4').css('background','#FFCD12');
-		$('#category4').unbind('mouseover mouseout');
-	} else if(category == 4){
-		$('#categoryImg5').prop('src','resources/layout/images/skillhover.png');
-		$('#category5').css('background','#FFF612');
-		$('#category5').unbind('mouseover mouseout');
-	} else if(category == 5){
-		$('#categoryImg6').prop('src','resources/layout/images/culturehover.png');
-		$('#category6').css('background','#2FED28');
-		$('#category6').unbind('mouseover mouseout');
-	} else if(category == 6){
-		$('#categoryImg7').prop('src','resources/layout/images/campinghover.png');
-		$('#category7').css('background','#1266FF');
-		$('#category7').unbind('mouseover mouseout');
-	} else if(category == 7){
-		$('#categoryImg8').prop('src','resources/layout/images/shoppinghover.png');
-		$('#category8').css('background','#4D48E1');
-		$('#category8').unbind('mouseover mouseout');
-	} else if(category == 8){
-		$('#categoryImg9').prop('src','resources/layout/images/lifestylehover.png');
-		$('#category9').css('background','#B95AFF');
-		$('#category9').unbind('mouseover mouseout');
-	}
+	$('#categoryImg1').prop('src','resources/layout/images/allhover.png');
+	$('#category1').css('background','silver');
+	$('#category1').unbind('mouseover mouseout');
 	
 	// --section 버킷들 width에 따라 height변화
 	var hg = $('.bucket').css('width');
@@ -164,39 +125,23 @@ $(function(){
 		$('#bucketimg').css('height', bkhg);
 	});
 	
-	// 검색창 나오게 하기
-	$('#search-img').click(function(){
+	//검색text항시보여줌
+	$('#searchscreen').show();
+	$('#searchscreen').css('height', '0');
+	$('#searchtext').val('${searchValue}');
+	
+	$('#searchtext').focus(function(){
 		$('body').css('height', '100%');
 		$('body').css('overflow', 'hidden');
-		$('#searchscreen').show();
+		$('#searchscreen').css('height', '100%');
 		$('#searchresult').show(800);
 	});
 	$('#searchtextBtn').click(function(){
 		$('body').css('height', 'auto');
 		$('body').css('overflow', 'visible');
-		$('#searchscreen').hide();
 		$('#searchresult').hide();
+		$('#searchscreen').css('height', '0');
 	});
-	
-	// 좋아요위시버튼 나오게하기
-	$('.bucket').hover(function(){
-		$('.c-likewish').show();
-	}, function(){
-		$('.c-likewish').hide();
-	});
-	
-	// 좋아요위시 특수문자 색
-	$('.c-likeBtn').hover(function(){
-		$('.likehover').css('color', '#10ccc3');
-	}, function(){
-		$('.likehover').css('color', 'white');
-	});
-	$('.c-wishBtn').hover(function(){
-		$('.wishhover').css('color', '#10ccc3');
-	}, function(){
-		$('.wishhover').css('color', 'white');
-	});
-	
 	
 	// 버킷리스트 상세보기 클릭 종류
 	$('.bucket').click(function(e){
@@ -214,14 +159,12 @@ $(function(){
 			$('#bucketimg').css('height', bkhg);
 		}
 	});
-	
 	// 버킷리스트 상세보기 닫기
 	$('#bucketexit').click(function(){
 		$('#FullOverLay').hide();
 		$('body').css('height', 'auto');
 		$('body').css('overflow', 'visible');
 	});
-	
 	// 견적서 관련 펼치기
 	$('#bucketcpeventD>button').click(function(){
 		if($('#cpestimate').css('display') == 'none'){
@@ -230,6 +173,7 @@ $(function(){
 			$('#cpestimate').hide();
 		}
 	});
+
 });
 //				 기업아이디,기업명, 업종명,       대표자이름, 홈페이지, 전화번호,  이메일,    기업전문가여부, 카테고리, 업체소개, 업체정보, 사진 
 function cpDetail(coId, coName, compaName, apName, homePage, coTel, busiEmail, cpCheck, cateNum, coIntro, coInfo, mweb){
@@ -275,19 +219,17 @@ function cpDetail(coId, coName, compaName, apName, homePage, coTel, busiEmail, c
 		}
 	});
 }
+// 지원하는 버킷 선택해서 검색하기
 function searchBk(bkName){
 	location.href="searchbucket.ho?b="+bkName;
 }
-//검색어 자동완성
+// 검색어 자동완성
 function searchReset(){
 	$('#searchMem>ul').html('');
 	$('#searchBucket>ul').html('');
 	$('#searchTag>ul').html('');
 }
 $(function(){
-	$('#searchtext').focus(function(){
-		$('#searchscreen').show();
-	});
 	var searchSource = new Array();
 	$.ajax({
 		url:'autosearch.ho',

@@ -144,10 +144,12 @@ public class MainController {
 			ArrayList<Media> mList = mainService.selectFmList();
 			mv.addObject("fList", fList);
 			mv.addObject("mList", mList);
+			mv.addObject("year", year);
 			mv.setViewName("mainFestival");
 		} else if(check == 2) {
 			ArrayList<C_event> fList = mainService.selectCpFestival(year);
 			mv.addObject("fList", fList);
+			mv.addObject("year", year);
 			mv.setViewName("mainCpFestival");
 		}
 		
@@ -238,6 +240,7 @@ public class MainController {
 
 		ArrayList<Member> AllMember = mainService.selectAllMember();
 		ArrayList<BucketList> AllBucket = mainService.selectAllBucket();
+		ArrayList<Company> AllCompany = mainService.selectAllCompany();
 		
 		ArrayList<String> searchList = new ArrayList<String>();
 		for(Member m : AllMember) {
@@ -251,6 +254,9 @@ public class MainController {
 					searchList.add("t:"+s);
 				}
 			}
+		}
+		for(Company c : AllCompany) {
+			searchList.add("c:"+c.getCoName());
 		}
 		
 		
@@ -321,6 +327,20 @@ public class MainController {
 		return mv;
 	}
 	
+	@RequestMapping("searchCompany.ho")
+	public ModelAndView searchCompany(ModelAndView mv, @RequestParam("c") String c) {
+		ArrayList<Company> cList = mainService.selectSearchCompany(c);
+		ArrayList<Media> mList = mainService.selectCompMedia();
+		
+		System.out.println(cList);
+		
+		mv.addObject("searchValue", c);
+		mv.addObject("cList", cList);
+		mv.addObject("mList", mList);
+		mv.setViewName("searchCompany");
+		return mv;
+	}
+	
 	@RequestMapping("helperBucket.ho")
 	public String helperBucketView(Model m,HttpSession session) {
 		
@@ -388,4 +408,20 @@ public class MainController {
 		}
 	}
 	
+	@RequestMapping("bkDetailCpFestival.ho")
+	public void bkDetailCpFestival(@RequestParam("bkNo") int bkNo, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		
+		ArrayList<C_event> list = mainService.selectCpEvent(bkNo);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		try {
+			gson.toJson(list, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

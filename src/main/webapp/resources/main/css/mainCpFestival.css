@@ -119,6 +119,14 @@ section{
     margin: 0 auto;
     line-height: 60px;
 }
+.f-bucket{
+	width: 560px;
+    height: 50px;
+    color: green;
+    font-weight: 700;
+    margin: 0 auto;
+    line-height: 60px;
+}
 .f-title{
 	width: 560px;
     height: 50px;

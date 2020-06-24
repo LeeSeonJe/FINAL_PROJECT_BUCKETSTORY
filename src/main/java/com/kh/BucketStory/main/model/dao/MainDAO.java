@@ -184,5 +184,17 @@ public class MainDAO {
 		return sqlSession.delete("mainMapper.deleteCoBucekt", hashmap);
 	}
 
+	public ArrayList<C_event> selectCpEvent(SqlSessionTemplate sqlSession, int bkNo) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectCpEvent", bkNo);
+	}
+
+	public ArrayList<Company> selectAllCompany(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectAllCompany");
+	}
+
+	public ArrayList<Company> selectSearchCompany(SqlSessionTemplate sqlSession, String c) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectSearchCompany", c);
+	}
+
 	
 }

@@ -36,9 +36,13 @@
 						<div class="f-img"><img src="resources/muploadFiles/${f.eventImg}"></div>
 						<div class="f-thumbnail">
 							<div class="f-event">EVENT</div>
+							<div class="f-bucket">버킷제목 : <a href="searchbucket.ho?b=${ f.bkName }">${ f.bkName }</a></div>
 							<div class="f-title">${f.eventTitle}</div>
 							<div class="f-dDay">${f.eventDate}</div>
 							<div class="f-fecontent">${f.eventContent}</div>
+							<c:if test="${not empty loginUser}">
+							<button class="btn" onclick="location.href='esrequest.ex?bkNo=${f.bkNo}&coId=${f.coId}&eventTitle=${f.eventTitle}&eventContent=${f.eventContent}'">요청서 보내기</button>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -61,7 +65,12 @@ $(function(){
 	
 	$('nav>a:eq(1)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
 	$('#fesChoice>a:eq(1)').css('color', '#a047c0');
-	$('#section-right a:eq(1)').css('color', '#a047c0');
+	if('${year}' == '2020'){
+		$('#section-right a:eq(0)').css('color', '#a047c0');
+	} else if('${year}' == '2019'){
+		$('#section-right a:eq(1)').css('color', '#a047c0');
+	}
+	
 	
 	$('.gnb_menu .gnb_menu_ul li a.gnb3').css('background','url("resources/layout/images/bg03_on.jpg") no-repeat 0 center #f3f3f2');
 	$('.gnb_menu .gnb_menu_ul li a.gnb3 .ico').css('background', 'url("resources/layout/images/ico03_on.png") no-repeat 0 0');
