@@ -71,5 +71,7 @@ public interface ExpertService {
 
 	int insertEvent(C_event ce);
 
+	int deleteEstimate(int es_no);
+
 	
 }

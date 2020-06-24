@@ -43,7 +43,7 @@
 						</tr>
 						<tr>
 							<td>
-								버킷리스트:${ bucket.bkName }
+								버킷리스트:${ bucket.get(request.bkNo).bkName }
 							</td>
 							<td>
 							</td>
@@ -64,7 +64,7 @@
 						</tr>
 					</table>
 				</div>
-				<hr style="width:840px">
+				<hr style="width:840px;margin: auto;">
 			</c:forEach>
 		</c:if>
 		<c:if test="${ estimate eq null }">

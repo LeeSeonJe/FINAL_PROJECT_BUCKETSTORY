@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -156,9 +157,9 @@ public class ExpertController {
 
 	@RequestMapping("insertEsrequest.ex")
 	public String insertRequest(@ModelAttribute EsRequest er, HttpSession session) {
-		// er.setUserId(session.getAttribute("loginUser").getUserId);
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		er.setUserId(loginUser.getUserId());
 		
-		er.setUserId("user01");
 		int result = ExService.insertEsrequest(er);
 		if (result > 0) {
 			return "redirect:main.ho?menuNum=1&category=0";
@@ -171,8 +172,17 @@ public class ExpertController {
 	 @RequestMapping("getRequest.ex")
 	 public ModelAndView ex_getRequestView(HttpSession session,ModelAndView mv) {
 		 Company loginCom = (Company) session.getAttribute("loginCompany");
+		
 		 ArrayList<EsRequest> er = ExService.selectEsRequest(loginCom.getCoId());
 		 
+		 Map<String,BucketList> bucket = new HashMap<String,BucketList>();
+		 
+		 for(int i=0;i<er.size();i++) {
+			 BucketList b = ExService.selectBucket(Integer.parseInt(er.get(i).getBkNo()));
+			 bucket.put(b.getBkNo()+"",b);
+		 }
+		
+		 mv.addObject("bucket",bucket);
 		 mv.addObject("coId",loginCom.getCoId());
 		 mv.addObject("er",er);
 		 mv.setViewName("ex_getRequest");
@@ -184,7 +194,18 @@ public class ExpertController {
 	 public ModelAndView makingRequestView(ModelAndView mv,HttpSession session) {
 		 Company loginCom = (Company) session.getAttribute("loginCompany");
 		 ArrayList<Estimate> arr = ExService.selectMakingEstimteList(loginCom.getCoId()); 
+		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
 		 
+		 for(int i=0;i<arr.size();i++) {
+			 BucketList b = ExService.selectBucket(arr.get(i).getBkNo());
+			 bucket.put(b.getBkNo(),b);
+		 }
+		 System.out.println(arr.size());
+		 System.out.println(bucket.size());
+		 System.out.println(arr.get(0).getBkNo());
+		 System.out.println(bucket.get(arr.get(0).getBkNo()));
+		 
+		 mv.addObject("bucket",bucket);
 		 mv.addObject("coId",loginCom.getCoId());
 		 mv.addObject("estimate",arr);
 		 mv.setViewName("ex_MakingRequest");
@@ -225,8 +246,13 @@ public class ExpertController {
 	 public ModelAndView completeRequestView(ModelAndView mv,HttpSession session) {
 		 Company loginCom = (Company) session.getAttribute("loginCompany");
 		 ArrayList<Estimate> estimate = ExService.selectCompleteEstimteList(loginCom.getCoId());
+		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
 		 
-		 
+		 for(int i=0;i<estimate.size();i++) {
+			 BucketList b = ExService.selectBucket(estimate.get(i).getBkNo());
+			 bucket.put(b.getBkNo(),b);
+		 }
+		 mv.addObject("bucket",bucket);
 		 mv.addObject("es",estimate);
 		 mv.addObject("coId",loginCom.getCoId());
 		 mv.setViewName("ex_completeRequest");
@@ -236,11 +262,15 @@ public class ExpertController {
 	 public ModelAndView roadingRequestView(HttpSession session,ModelAndView mv) {
 		 Company loginCom = (Company) session.getAttribute("loginCompany");
 		 ArrayList<Estimate> es = ExService.selectEstimteList(loginCom.getCoId());
-//		 BucketList bucket = ExService.selectBucket(es.get(0).getBkNo());
+		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
 		 
+		 for(int i=0;i<es.size();i++) {
+			 BucketList b = ExService.selectBucket(es.get(i).getBkNo());
+			 bucket.put(b.getBkNo(),b);
+		 }
+		 mv.addObject("bucket",bucket);
 		 mv.addObject("coId",loginCom.getCoId());
 		 mv.addObject("estimate",es);
-//		 mv.addObject("bucket",bucket);
 		 mv.addObject("companyId",loginCom.getCoId());
 		 
 		 mv.setViewName("ex_roadingListView");
@@ -598,6 +628,14 @@ public class ExpertController {
 		 int result = ExService.insertEvent(ce);
 		 
 		 return "redirect:expertIntro.ex ";
+	 }
+	 
+	 @RequestMapping("deleteEstimate.ex")
+	 public String deleteEstimate(@RequestParam("es_no") int es_no,HttpServletRequest request) {
+		 int result = ExService.deleteEstimate(es_no);
+		 String referer = request.getHeader("Referer");
+
+		  return "redirect:"+ referer;
 	 }
 	 
 }
