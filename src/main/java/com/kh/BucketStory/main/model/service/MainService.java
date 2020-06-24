@@ -66,4 +66,10 @@ public interface MainService {
 
 	int deleteCoBucekt(int bkNo, String coId);
 
+	ArrayList<C_event> selectCpEvent(int bkNo);
+
+	ArrayList<Company> selectAllCompany();
+
+	ArrayList<Company> selectSearchCompany(String c);
+
 }

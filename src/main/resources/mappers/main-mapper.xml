@@ -225,6 +225,11 @@
 		select *
 		from bucketlist
 	</select>
+	<select id="selectAllCompany" resultType="Company">
+		select *
+		from company
+		join media using(coid)
+	</select>
 	
 	<!-- 검색한 버킷리스트 -->
 	<select id="selectSearchBucket" resultMap="BucketResultSet">
@@ -255,6 +260,12 @@
 		where TAG like '%' || #{t} || '%'    
 		order by ENROLLDATE desc
 	</select>
+	<select id="selectSearchCompany" resultType="Company">
+		select *
+		from company
+		join media using(coid)
+		where coname like '%' || #{c} || '%'
+	</select>
 	
 	<!-- 로그인한 기업이 등록한 버킷인지 -->
 	<select id="countDetailWhat" resultType="_int">
@@ -284,9 +295,10 @@
 	</select>
 	
 	<!-- 저장된 기업 행사 불러옴 -->
-	<select id="selectCpFestival" resultType="C_event">
-		select *
+	<select id="selectCpFestival" resultType="C_eventNBucketList">
+		select EVENTNUM, EVENTTITLE, EVENTCONTENT, EVENTIMG, COID, EVENTDATE, BKNO, BKNAME
 		from c_event
+		join bucketlist using(bkno)
 		where eventdate like #{year} || '%'
 	</select>
 	
@@ -302,4 +314,11 @@
 		delete from cominbucket
 		where coid = #{coId} and bkno = #{bkNo}
 	</delete>
+	
+	<!-- 메인에서의 기업행사 가져오기 -->
+	<select id="selectCpEvent" resultType="C_event">
+		select *
+		from c_event
+		where bkno = #{bkNo}
+	</select>
 </mapper>

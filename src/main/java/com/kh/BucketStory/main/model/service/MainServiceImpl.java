@@ -156,4 +156,19 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.deleteCoBucekt(sqlSession, bkNo, coId);
 	}
 
+	@Override
+	public ArrayList<C_event> selectCpEvent(int bkNo) {
+		return mainDAO.selectCpEvent(sqlSession, bkNo);
+	}
+
+	@Override
+	public ArrayList<Company> selectAllCompany() {
+		return mainDAO.selectAllCompany(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Company> selectSearchCompany(String c) {
+		return mainDAO.selectSearchCompany(sqlSession, c);
+	}
+
 }
