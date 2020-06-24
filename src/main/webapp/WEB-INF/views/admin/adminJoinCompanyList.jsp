@@ -8,6 +8,13 @@
 <link rel="stylesheet" href="resources/admin/css/adminDefault.css">
 <link rel="stylesheet" href="resources/admin/css/adminBoardList.css">
 </head>
+<style>
+h2{
+   	width: 47%;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+</style>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
@@ -54,7 +61,7 @@
 					</tr>
 					<c:forEach var="company" items="${ list }">
 						<tr>
-							<c:url var="companyDetail" value="companyDetail.ad">
+							<c:url var="companyDetail" value="adminCompany.ad">
 								<c:param name="coId" value="${ company.coId }"/>
 								<c:param name="page" value="${ pi.currentPage }"/>
 							</c:url>

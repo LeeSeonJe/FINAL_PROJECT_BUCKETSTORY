@@ -9,13 +9,35 @@
 <link rel="stylesheet" href="resources/admin/css/adminBoardList.css">
 <style>
 .ad_list{
-    float: left;
     width: 160px;
     margin-bottom: 10px;
+    
+}
+
+#l_list{
+	margin-right: 15px;
+	font-size: 15px;
+}
+
+#R_list{
+	font-size: 15px;
+}
+
+.a_list{
+	display: flex;
+    margin-bottom: 10px;
+    width: 47%;
+    margin: 0 auto;
 }
 
 h3{
-    margin-left: 305px;
+    margin: 0 auto;
+    width: 48%;
+    font-size: 26px;
+}
+
+h2{
+	margin: initial;
 }
 
  a:link{ 
@@ -32,7 +54,6 @@ h3{
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"></jsp:include>
 	</header>
 	<div id="adw_body">
 		<nav>
@@ -63,8 +84,10 @@ h3{
 		<div id="board-area">
 		<div>
 			<h3>경고받은 회원 </h3>
-			<h2><a href="cautionlist.ad" class="ad_list">신고 게시판</a></h2>
-			<h2><a href="adminwarning.ad" class="ad_list">경고 게시판</a></h2>
+		</div>
+		<div class="a_list">	
+			<h2><a href="cautionlist.ad" class="ad_list" id="l_list">신고</a></h2>
+			<h2><a href="adminwarning.ad" class="ad_list" id="R_list">경고</a></h2>
 		</div>
 			<form action="delectMember.ad" id="form">
 			<table class="board">

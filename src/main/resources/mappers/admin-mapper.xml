@@ -63,15 +63,68 @@
 	<select id="cautionListCount" resultType="_int">
 		select count(*)
 		from notify
-		where no_check = 'N'
 	</select>
 	
-	<select id="notifyselectList" resultMap="notifyResultSet">
+	<select id="boardselectList" resultMap="notifyResultSet">
 		select *
 		from notify
-		where no_check = 'N'
+		where cmno is not null
 		order by no_no desc
 	</select>
+	
+	<select id="boardCautionListCount" resultType="_int">
+		select count(*)
+		from notify
+	</select>
+	
+	<select id="boardCautionList" resultMap="notifyResultSet">
+		select *
+		from notify
+		where bno is not null	
+	</select>
+	
+	<select id="cautionview" resultMap="notifyResultSet">
+		select n.sinuser, m.nickname, b.bno 
+		from notify n
+    		left join member m on n.pigouser = m.userid
+    		left join board b on n.bno = b.bno
+		where n.sinuser = #{userid} and n.bno is not null
+	</select>
+	
+	<update id="warningboard">
+		update notify
+		set no_check = 'Y'
+		where no_check = 'N' and no_no in 
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+ 	   		#{item}
+		</foreach>
+	</update>
+	
+	<update id="warningMember" parameterType="java.util.List">
+		update member
+		set caution = 'Y'
+		where userid in (select pigouser 
+						from notify 
+						where no_no in
+						<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+								#{item}
+						</foreach>
+						)
+	</update>
+	
+<!-- 	<select id="replyselectList" resultMap="notifyResultSet"> -->
+<!-- 		select * -->
+<!-- 		from notify -->
+<!-- 		where rpno = 'not null' -->
+<!-- 		order by no_no desc -->
+<!-- 	</select> -->
+	
+<!-- 	<selct id="comselectList" resultMap="notifyResultSet"> -->
+<!-- 		select * -->
+<!-- 		from notify -->
+<!-- 		where cmno = 'not null' -->
+<!-- 		order by no_no desc -->
+<!-- 	</selct> -->
 	
 	<resultMap type="notify" id="notifyResultSet">
 		<id property="no_no" column="NO_NO"/>
@@ -84,16 +137,17 @@
 		<result property="rpno" column="RPNO"/>
 		<result property="sinuser" column="SINUSER"/>
 		<result property="pigouser" column="PIGOUSER"/>
+		<result property="nickname" column="NICKNAME"/>
 	</resultMap>
 	
-	<update id="warningMember">
-		update notify
-		set no_check = 'Y'
-		where no_check = 'N' and no_no in 
-		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
- 	   		#{item}
-		</foreach>
-	</update>
+<!-- 	<update id="warningMember"> -->
+<!-- 		update notify -->
+<!-- 		set no_check = 'Y' -->
+<!-- 		where no_check = 'N' and no_no in  -->
+<!-- 		<foreach collection="list" item="item" index="index" separator="," open="(" close=")"> -->
+<!--  	   		#{item} -->
+<!-- 		</foreach> -->
+<!-- 	</update> -->
 	
 	<update id="cautionMember" parameterType="java.util.List">
 		update member
@@ -185,6 +239,22 @@
 		<result property="cateNum" column="CATENUM"/>
 		<result property="coIntro" column="COINTRO"/>
 		<result property="coInfo" column="COINFO"/>
+	</resultMap>
+	
+	<resultMap id="memberResultSet" type="Member">
+	<id property="userId" column="USERID"/>
+	<result property="userPwd" column="USERPWD"/>
+	<result property="userName" column="USERNAME"/>
+	<result property="phone" column="PHONE"/>
+	<result property="email" column="EMAIL"/>
+	<result property="birth" column="BIRTH"/>
+	<result property="gender" column="GENDER"/>
+	<result property="nickName" column="NICKNAME"/>
+	<result property="caution" column="CAUTION"/>
+	<result property="prImage" column="PR_IMAGE"/>
+	<result property="fwCount" column="FW_COUNT"/>
+	<result property="enrollDate" column="ENROLLDATE"/>
+	<result property="status" column="STATUS"/>
 	</resultMap>
 	
 </mapper >
