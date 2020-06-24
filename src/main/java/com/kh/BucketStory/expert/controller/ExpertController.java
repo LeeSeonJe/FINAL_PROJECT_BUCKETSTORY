@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -627,7 +627,7 @@ public class ExpertController {
 		}
 		 int result = ExService.insertEvent(ce);
 		 
-		 return "redirect:expertIntro.ex ";
+		 return "redirect:helperBucket.ho ";
 	 }
 	 
 	 @RequestMapping("deleteEstimate.ex")
@@ -636,6 +636,12 @@ public class ExpertController {
 		 String referer = request.getHeader("Referer");
 
 		  return "redirect:"+ referer;
+	 }
+	 @RequestMapping("coEventView.ex")
+	 public String coEventView(@RequestParam("bkNo") String bkNo,@RequestParam("bkName") String bkName,Model m) {
+		m.addAttribute("bkNo",bkNo);
+		m.addAttribute("bkName",bkName);
+		 return "HelperInsertFestival";
 	 }
 	 
 }

@@ -9,10 +9,12 @@ public class C_event {
 	private String eventImg;
 	private String coId;
 	private String eventDate;
+	private int bkNo;
 	
 	public C_event() {}
 	
-	public C_event(int eventnum, String eventTitle, String eventContent, String eventImg, String coId, String eventDate) {
+	public C_event(int eventnum, String eventTitle, String eventContent, String eventImg, String coId, String eventDate,
+			int bkNo) {
 		super();
 		this.eventnum = eventnum;
 		this.eventTitle = eventTitle;
@@ -20,8 +22,9 @@ public class C_event {
 		this.eventImg = eventImg;
 		this.coId = coId;
 		this.eventDate = eventDate;
+		this.bkNo = bkNo;
 	}
-
+	 
 
 	public int getEventnum() {
 		return eventnum;
@@ -47,8 +50,14 @@ public class C_event {
 		this.eventContent = eventContent;
 	}
 
-	
-	
+
+	public int getBkNo() {
+		return bkNo;
+	}
+
+	public void setBkNo(int bkNo) {
+		this.bkNo = bkNo;
+	}
 
 	public String getEventDate() {
 		return eventDate;
@@ -77,9 +86,10 @@ public class C_event {
 	@Override
 	public String toString() {
 		return "C_event [eventnum=" + eventnum + ", eventTitle=" + eventTitle + ", eventContent=" + eventContent
-				+ ", eventImg=" + eventImg + ", coId=" + coId + ", eventDate=" + eventDate + "]";
+				+ ", eventImg=" + eventImg + ", coId=" + coId + ", eventDate=" + eventDate + ", bkNo=" + bkNo + "]";
 	}
 
+	
 
 	
 	

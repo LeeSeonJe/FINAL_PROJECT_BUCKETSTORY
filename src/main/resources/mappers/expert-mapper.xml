@@ -155,7 +155,7 @@
 	
 	<insert id="insertEvent">
 		insert into c_event
-		values(SEQ_CEVENT.nextval,#{eventTitle},#{eventContent},#{eventImg},#{coId},#{eventDate})
+		values(SEQ_CEVENT.nextval,#{eventTitle},#{eventContent},#{eventImg},#{coId},#{eventDate},#{bkNo})
 	</insert>
 	
 	<delete id="deleteEstimate">
