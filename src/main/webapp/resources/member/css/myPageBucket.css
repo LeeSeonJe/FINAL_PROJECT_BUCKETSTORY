@@ -486,7 +486,7 @@ section {
     width: 60px;
     height: 60px;
     border-radius: 50px;
-    background-image: url(../images/basicProfile.jpg);
+    background-image: url(../images/profiles/basicProfile.jpg);
     background-size: cover;
 }
 #profile2{
@@ -538,4 +538,12 @@ section {
 	height:300px;
 	background:black;
 	display:none;
+}
+
+.fa-cog {
+    position: absolute;
+    top: 90px;
+    margin-left: 170px;
+    font-size: 21px;
+    color: gray;
 }

@@ -371,7 +371,7 @@
 		}
 		// 블로그 사진 가져오기
 		$('#bucketGoBlog').show();
-		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
+		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+'${ getMember.nickName }'+'"');
 		if(userId == '관리자찡'){
 			$('#bucketGoBlog').hide();
 		}
