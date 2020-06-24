@@ -251,9 +251,7 @@
 					</tr>
 					<tr>
 						<td class="rownp">시작일</td>
-						<td class="data"><input type="date" name="startDate" style="width:158px;"></td>
-						<td class="rown">종료일</td>
-						<td class="data"><input type="date" name="endDate" style="width:158px"></td>
+						<td class="data"><input type="text" name="eventDate" style="width:158px;"></td>
 					</tr>
 					<tr>
 						<td class="rownp">이벤트 내용</td>

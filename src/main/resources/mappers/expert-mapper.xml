@@ -156,7 +156,7 @@
 	
 	<insert id="insertEvent">
 		insert into c_event
-		values(SEQ_CEVENT.nextval,#{eventTitle},#{eventContent},#{eventImg},#{coId},#{startDate},#{endDate})
+		values(SEQ_CEVENT.nextval,#{eventTitle},#{eventContent},#{eventImg},#{coId},#{eventDate})
 	</insert>
 	
 	<resultMap id="estimateSet" type="estimate">

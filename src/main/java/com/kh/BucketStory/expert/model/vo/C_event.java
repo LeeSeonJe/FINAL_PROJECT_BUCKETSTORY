@@ -8,22 +8,18 @@ public class C_event {
 	private String eventContent;
 	private String eventImg;
 	private String coId;
-	private Date startDate;
-	private Date endDate;
+	private String eventDate;
 	
 	public C_event() {}
-
 	
-	public C_event(int eventnum, String eventTitle, String eventContent, String eventImg, String coId, Date startDate,
-			Date endDate) {
+	public C_event(int eventnum, String eventTitle, String eventContent, String eventImg, String coId, String eventDate) {
 		super();
 		this.eventnum = eventnum;
 		this.eventTitle = eventTitle;
 		this.eventContent = eventContent;
 		this.eventImg = eventImg;
 		this.coId = coId;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.eventDate = eventDate;
 	}
 
 
@@ -52,25 +48,15 @@ public class C_event {
 	}
 
 	
-	public Date getStartDate() {
-		return startDate;
+	
+
+	public String getEventDate() {
+		return eventDate;
 	}
 
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setEventDate(String eventDate) {
+		this.eventDate = eventDate;
 	}
-
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
 
 	public String getEventImg() {
 		return eventImg;
@@ -88,14 +74,14 @@ public class C_event {
 		this.coId = coId;
 	}
 
-
 	@Override
 	public String toString() {
 		return "C_event [eventnum=" + eventnum + ", eventTitle=" + eventTitle + ", eventContent=" + eventContent
-				+ ", eventImg=" + eventImg + ", coId=" + coId + ", startDate=" + startDate + ", endDate=" + endDate
-				+ "]";
+				+ ", eventImg=" + eventImg + ", coId=" + coId + ", eventDate=" + eventDate + "]";
 	}
 
+
+	
 	
 	
 	

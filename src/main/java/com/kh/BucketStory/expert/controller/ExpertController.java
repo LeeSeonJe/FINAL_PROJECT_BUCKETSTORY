@@ -132,12 +132,12 @@ public class ExpertController {
 	}
 
 	@RequestMapping("esrequest.ex")
-	public ModelAndView ex_esrequestView(HttpSession session, @RequestParam int bkNo, ModelAndView mv) {
-		Company loginCom = (Company) session.getAttribute("loginCompany");
+	public ModelAndView ex_esrequestView(HttpSession session, @RequestParam int bkNo,@RequestParam String coId, ModelAndView mv) {
+		Member loginUser = (Member) session.getAttribute("loginUser");
 		BucketList bl = ExService.selectBucket(bkNo);
 		
-		if (loginCom != null) {
-			mv.addObject("company", loginCom);
+		if (loginUser != null) {
+			mv.addObject("company", loginUser);
 			if (bl != null) {
 				mv.addObject("bucket", bl);
 			}
