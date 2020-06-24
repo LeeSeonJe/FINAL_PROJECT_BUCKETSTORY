@@ -62,8 +62,17 @@ public class ExpertDAO {
 		return sqlSession.selectOne("commonMapper.memberLogin", userId);
 	}
 
-	public int insertEstimate(SqlSessionTemplate sqlSession, Estimate es) {
-		return sqlSession.insert("exMapper.insertEstimate",es);
+	public int insertEstimate(SqlSessionTemplate sqlSession, Estimate es, ArrayList<Media> media) {
+		int result = sqlSession.insert("exMapper.insertEstimate",es);
+		if(result>0) {
+			int result2 =0;
+			for(Media m : media) {
+				result2 = sqlSession.insert("exMapper.insertEsmedia", m);
+			}
+			return result2;
+		}else {
+			return result;
+		}
 	}
 
 	public int insertEsMedia(SqlSessionTemplate sqlSession, Media media) {

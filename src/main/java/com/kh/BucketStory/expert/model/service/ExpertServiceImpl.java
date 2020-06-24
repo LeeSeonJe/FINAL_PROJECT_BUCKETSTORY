@@ -71,8 +71,8 @@ public class ExpertServiceImpl implements ExpertService {
 		return exDAO.selectMember(sqlSession,userId);
 	}
 	@Override
-	public int insertEstimate(Estimate es) {
-		return exDAO.insertEstimate(sqlSession,es);
+	public int insertEstimate(Estimate es, ArrayList<Media> media) {
+		return exDAO.insertEstimate(sqlSession,es,media);
 	}
 
 	@Override

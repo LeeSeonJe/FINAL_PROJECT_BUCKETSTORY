@@ -37,7 +37,7 @@ public interface ExpertService {
 
 	Member selectMember(String userId);
 
-	int insertEstimate(Estimate es);
+	int insertEstimate(Estimate es, ArrayList<Media> media);
 
 	int insertEsmedia(Media media);
 
