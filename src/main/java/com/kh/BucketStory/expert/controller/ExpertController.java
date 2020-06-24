@@ -200,10 +200,6 @@ public class ExpertController {
 			 BucketList b = ExService.selectBucket(arr.get(i).getBkNo());
 			 bucket.put(b.getBkNo(),b);
 		 }
-		 System.out.println(arr.size());
-		 System.out.println(bucket.size());
-		 System.out.println(arr.get(0).getBkNo());
-		 System.out.println(bucket.get(arr.get(0).getBkNo()));
 		 
 		 mv.addObject("bucket",bucket);
 		 mv.addObject("coId",loginCom.getCoId());

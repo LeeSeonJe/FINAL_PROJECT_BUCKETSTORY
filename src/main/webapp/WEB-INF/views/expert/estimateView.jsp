@@ -155,11 +155,26 @@
 							<h3 style="text-align:center;color:green;">승낙 대기중입니다.</h3>
 					</div>
 				</c:if>
-					<c:if test="${ es.status == 3 }">
-					<div id="status">
-							<h3 style="text-align:center;color:green;">상대방의 선택을 받았어요</h3>
-					</div>
-				</c:if>
+					<c:if test="${ es.status == 3 && es.reviewScore ==0}">
+						<div id="status">
+								<h3 style="text-align:center;color:green;">상대방의 리뷰를 기다리고 있습니다.</h3>
+						</div>
+					</c:if>
+					<c:if test="${ es.status == 3 && es.reviewScore !=0}">
+						<div id="status">
+						<h2>받은 리뷰</h2>
+						<h3 style="float:left;">별점</h3>
+						<p id="star_grade">
+							<c:forEach var="a" begin="1" end="${es.reviewScore }">
+								<p style="float:left;color:red;font-size: x-large;margin-top: 12px;">★</p>
+							</c:forEach>
+							<c:forEach var="a" begin="${es.reviewScore }" end="4">
+								<p style="float:left;font-size: x-large;margin-top: 12px;">☆</p>
+							</c:forEach>
+						</p>
+						<div id="recontent" style="">${es.reviewContent}</div>
+						</div>
+					</c:if>
 			</c:if>
 			<script>
 			function sendstatus(val){
