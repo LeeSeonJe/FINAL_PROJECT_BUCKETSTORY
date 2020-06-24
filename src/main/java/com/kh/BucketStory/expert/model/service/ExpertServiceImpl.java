@@ -139,4 +139,8 @@ public class ExpertServiceImpl implements ExpertService {
 	public int insertEvent(C_event ce) {
 		return exDAO.insertEvent(sqlSession,ce);
 	}
+	@Override
+	public int deleteEstimate(int es_no) {
+		return exDAO.deleteEstimate(sqlSession,es_no);
+	}
 }

@@ -50,7 +50,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td><h3 style="display:inline;">버킷리스트: 버킷리스트이름</h3></td>
+					<td><h5 style="display:inline;">버킷리스트: ${ bucket.get(estimate.bkNo).bkName }</h5></td>
 					<td style="width: 183px;"><h3>평점: ★★★★★</h3></td>
 				</tr>
 				<tr>
@@ -63,14 +63,22 @@
 						<div id="bucketListDetail" onclick="location.href='estimateView.ex?es_no=${estimate.es_no}'">견적서 확인</div>
 					</td>
 					<td>
-						<div id="delete">삭제</div>
+						<div id="delete" style="cursor:pointer;"onclick="del(${estimate.es_no});">삭제</div>
 					</td>
 				</tr>
 			</table>
 		</div>
-		<hr style="width:840px">
+		<hr style="width:840px;margin: auto;">
 		</c:forEach>
-		
+		<script>
+			function del(val){
+				if(confirm("해당 요청을 정말 삭제하겠습니까?") == true){
+					location.href='deleteEstimate.ex?es_no='+val;
+				}else{
+					return false;
+				}
+			}
+		</script>
 		
 		<div id="ListAdd">
 			<div id="ListArea">

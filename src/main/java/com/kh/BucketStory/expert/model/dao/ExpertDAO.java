@@ -137,4 +137,8 @@ public class ExpertDAO {
 
 	public int insertEvent(SqlSessionTemplate sqlSession, C_event ce) {
 		return sqlSession.insert("exMapper.insertEvent",ce);
+	}
+
+	public int deleteEstimate(SqlSessionTemplate sqlSession, int es_no) {
+		return sqlSession.update("exMapper.deleteEstimate",es_no);
 	}}

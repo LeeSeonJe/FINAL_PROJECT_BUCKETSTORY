@@ -26,7 +26,7 @@
 		<br clear="left">
 		<h2 style="text-align:center;margin-bottom: 73px;margin-top: 76px;">견적서를 기다리는 버킷리스트</h2>		
 		
-		<c:if test="${ er != null }">
+		<c:if test="${ not empty er }">
 			<c:forEach var="request" items="${ er }" >
 				<div id="requestMember">
 					<table style="width: 780px;">
@@ -43,7 +43,7 @@
 						</tr>
 						<tr>
 							<td>
-								요청보낸사람의 버킷리스트 카테고리
+										버킷리스트:${bucket.get(request.bkNo).bkName } 
 							</td>
 							<td>
 							</td>
@@ -58,7 +58,7 @@
 				<hr style="width:840px;margin: auto;">
 			</c:forEach>
 		</c:if>
-		<c:if test="${ er == null }">
+		<c:if test="${ empty er }">
 			<h2 style="text-align:center">받은 견적 요청이 없습니다.</h2>
 		</c:if>
 		

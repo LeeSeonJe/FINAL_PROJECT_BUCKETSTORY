@@ -44,7 +44,7 @@
 					</tr>
 					<tr>
 						<td>
-							요청보낸사람의 버킷리스트 카테고리
+							버킷리스트:${ bucket.get(es.bkNo).bkName } 
 						</td>
 						<td>
 							마감일 2020-05-10
@@ -55,13 +55,22 @@
 							<div id="bucketListDetail"><a href="makingEstimate.ex?es_no=${ es.es_no }">견적서 완성하기</a></div>
 						</td>
 						<td>
-							<div id="delete">삭제</div>
+							<div id="delete" style="cursor:pointer;"onclick="del(${es.es_no});">삭제</div>
 						</td>
 					</tr>
 				</table>
 			</div>
-		<hr style="width:840px">
+		<hr style="width:840px;margin: auto;">
 		</c:forEach>
+		<script>
+			function del(val){
+				if(confirm("해당 요청을 정말 삭제하겠습니까?") == true){
+					location.href='deleteEstimate.ex?es_no='+val;
+				}else{
+					return false;
+				}
+			}
+		</script>
 		<div id="ListAdd">
 			<div id="ListArea">
 				<h4 style="display:inline">더보기</h4>
