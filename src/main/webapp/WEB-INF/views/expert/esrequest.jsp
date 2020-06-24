@@ -74,7 +74,12 @@
 				<br>
 				<div id="subtitle">
 					<h2 class="subtitle">견적 요청사항</h2>
-					<textarea rows="10" cols="100" id="precautions" name="precautions"></textarea>
+					<c:if test="${ not empty eventTitle  }">
+						<textarea rows="10" cols="100" id="precautions" name="precautions">${ eventTitle } : ${eventContent }</textarea>
+					</c:if>
+					<c:if test="${ empty eventTitle }">
+						<textarea rows="10" cols="100" id="precautions" name="precautions"></textarea>
+					</c:if>
 				</div>
 				<br>
 				<br>

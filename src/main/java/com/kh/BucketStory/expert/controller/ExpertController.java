@@ -132,12 +132,20 @@ public class ExpertController {
 	}
 
 	@RequestMapping("esrequest.ex")
-	public ModelAndView ex_esrequestView(HttpSession session, @RequestParam int bkNo,@RequestParam String coId, ModelAndView mv) {
+	public ModelAndView ex_esrequestView(HttpSession session, @RequestParam int bkNo,@RequestParam String coId, ModelAndView mv,
+										@RequestParam(value="eventTitle", required=false) String eventTitle,@RequestParam(value="eventContent",required=false) String eventContent ) {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		BucketList bl = ExService.selectBucket(bkNo);
 		
+		Company com = ExService.selectCompanyInfo(coId);
+		
+		if(eventTitle != null && eventContent != null) {
+			mv.addObject("eventTitle",eventTitle);
+			mv.addObject("eventContent",eventContent);
+		}
+		
 		if (loginUser != null) {
-			mv.addObject("company", loginUser);
+			mv.addObject("company", com);
 			if (bl != null) {
 				mv.addObject("bucket", bl);
 			}
@@ -153,9 +161,9 @@ public class ExpertController {
 		er.setUserId("user01");
 		int result = ExService.insertEsrequest(er);
 		if (result > 0) {
-			return "redirect:getRequest.ex";
+			return "redirect:main.ho?menuNum=1&category=0";
 		} else {
-			return "redirect:getRequest.ex";
+			return "redirect:main.ho?menuNum=1&category=0";
 		}
 	}
 
@@ -279,8 +287,23 @@ public class ExpertController {
 				 	es.setEs_option(esoption);
 				 }
 		 	}
-			 int result = ExService.insertEstimate(es);
-			 System.out.println(result);
+			 ArrayList<Media> media = new ArrayList<Media>();
+			 if(uploadFile != null) {
+				 for (MultipartFile file : uploadFile) {
+					 if(file != null && !file.isEmpty()) {
+						 Media m = new Media();
+							String renameFileName = saveFile(file,request);
+							System.out.println(renameFileName);
+							if(renameFileName != null) {
+								m.setMorigin(file.getOriginalFilename());
+								m.setMweb(renameFileName);
+								
+								media.add(m);
+							}
+					 }
+				  }
+				 }
+			 int result = ExService.insertEstimate(es,media);
 			 
 			 if(result>0) {
 				 Pay p = new Pay();
@@ -298,23 +321,7 @@ public class ExpertController {
 				 }
 				 int result3 =  ExService.updateEsRequestPosition(es.getEsr_no());
 				 
-				 if(uploadFile != null) {
-				 int result2 = 1;
 				 
-				 for (MultipartFile file : uploadFile) {
-					 if(file != null && !file.isEmpty() && result2 == 1) {
-						 Media media = new Media();
-							String renameFileName = saveFile(file,request);
-							System.out.println(renameFileName);
-							if(renameFileName != null) {
-								media.setMorigin(file.getOriginalFilename());
-								media.setMweb(renameFileName);
-								
-								result2 = ExService.insertEsmedia(media);
-							}
-					 }
-				  }
-				 }
 			 }
 			if(es.getStatus()==1) {
 				return "redirect:roadingRequestView.ex";

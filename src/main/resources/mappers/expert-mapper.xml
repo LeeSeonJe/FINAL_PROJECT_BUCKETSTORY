@@ -69,8 +69,7 @@
 	<insert id="insertEsmedia">
 	 insert into media
 		values(seq_media.nextval, #{morigin}, #{mweb},3, 6, null, null,
-		null, null, (select LAST_NUMBER-1 from user_sequences
-						where SEQUENCE_NAME = 'SEQ_ESTIMATE'))
+		null, null, seq_estimate.currval)
 	</insert>
 	
 	<select id="selectEstimateList" resultMap="estimateSet">

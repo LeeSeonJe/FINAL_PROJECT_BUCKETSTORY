@@ -78,6 +78,7 @@
 								console.log(data.bucket[3]);
 								var text;
 								if(data.list.length >0){
+									$('#area').html("");
 									for( var i in data.list)
 										 text +=
 											"<div id='requestMember'>"
