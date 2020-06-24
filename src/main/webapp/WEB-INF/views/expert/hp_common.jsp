@@ -39,7 +39,7 @@
             <li id ="menu-item1"><a href='expertIntro.ex'>헬퍼마이페이지</a></li>
             <li id ="menu-item2"><a href='helperBucket.ho'>헬퍼버킷리스트</a></li>
             <li id ="menu-item3"><a href='getRequest.ex'>견적서 관리</a></li>
-            <li id ="menu-item4"><a href='point.ex?search=none'>포인트 관리</a></li>
+            <li id ="menu-item4"><a href='point.ex'>포인트 관리</a></li>
 <!--             <li id ="menu-item5"><a href='helperQnaList.ex?search=all'>Q & A</a></li> -->
         </ul>
     </div>

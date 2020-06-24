@@ -60,8 +60,7 @@ function newQnA(){
 				{
 					title: title,
 					content:content
-				},
-				
+				},		
 				success: function(data){
 					console.log(data);
 					if(data == 'ok'){
@@ -70,23 +69,14 @@ function newQnA(){
 						$('#moba-content').html('<div style="color:red; font-size:32px; transform:translate(50px,50px);"><b>문의글<br>전송합니다</b></div>');
 					setTimeout(function() {
 						$('#moba-content').html('');			
-					},1200);
-// 						$('#writeform').hide();
-// 						$('#sucessform').show();
-						
+					},1200);		
 						$('#writeform').fadeOut(800);
 							setTimeout(function() {
-// 						$('#sucessform').fadeIn(600);
 
 							location.reload();
 						}, 800);
-// 						$('#qna-top').show();
 					}else{
 						console.log('전송실패');
-						
-						// 실패 로직
-// 						$('#writeform').hide();
-// 						$('#errorform').show();
 					}
 				}
 			});
@@ -103,13 +93,6 @@ function newQnA(){
 		var q_no = $('#q_no').text();
 		var q_title = $('#q_title').val();
 		var q_content = $('#q_content').val();
-		
-		
-		console.log(q_no);
-		console.log(q_title);
-		console.log(q_content);
-//		console.log(answer)
-		
 		if(check){
 			if(q_no ==""){
 				 console.log('Error');
@@ -125,12 +108,9 @@ function newQnA(){
  	  				},
  	 				success:function(data){
  	 					console.log(data);
- 	 					//alert('수정되었습니다.');
- 	 					// 리로드
  	 					$text = '<div style="color:blue; font-size:25px; transform:translate(30px,100px);"><b><span style="color:#333">'
  							+ q_no +
  							'</span><br>번 문의글<br>수정합니다.</b></div>'
- 							
  							$('#moba-content').html($text);
  							$('#boardDetail').fadeOut(700);
  							setTimeout(function() {
@@ -145,9 +125,7 @@ function newQnA(){
 	 				}
 				});
 			}
-	
 		}
-	
 	}
 	
 /*===========================================================
@@ -180,9 +158,6 @@ function newQnA(){
 	 							setTimeout(function() {
 	 								location.reload();			
 	 							},700);
-	 							
-	 	 					// 리로드
-	 	 					
 	 	 				},
 	 	 				error:function(request,status,errorData){
 		 					// 실패시 로직
@@ -192,17 +167,13 @@ function newQnA(){
 		 				}
 					});
 				}
-		
 			}
-		
 		}
 		
 /* ==================================================
  * QnA 게시판 마우스 오버,아웃, 클릭 이벤트 =>detailChange
   ================================================== */
 		$(function() {
-//			var check = $('#isListNull').val();
-//			console.log(check);
 			$('#boardQnA td').mouseenter(function() {
 				$(this).parent().css({
 					'background' : 'pink',
@@ -212,9 +183,7 @@ function newQnA(){
 				$(this).parent().css({
 					'background' : 'whitesmoke'
 				})
-//				$('#boardDetail').hide();
 			}).click(function() {
-//				console.log('클릭했다');
 				$(this).parent().css({
 					'background' : 'beige'
 				})			
@@ -230,11 +199,6 @@ function newQnA(){
 						
 						$('#moba-content').html($text);
 						detailChange(this);
-						// 문의 상세보기 폼 show
-//			 			$('#board-area').fadeOut(500);
-//			 				setTimeout(function() {
-//			 			$('#boardDetail').fadeIn(500);
-//			 			}, 500);
 					}		
 			});
 		});
@@ -243,7 +207,6 @@ function newQnA(){
  * QnA 게시글 상세보기(detailChange) : Ajax
  * ============================================
  */
-	
 	function detailChange(td){
 		const q_no = $(td).parent().children().eq(0).text();
 		
@@ -257,21 +220,10 @@ function newQnA(){
  				dataType: 'json',
  				
  				success:function(data){
- 					// 성공시 로직
- 					//console.log(data);
- 					//alert(data['answer']);
- 					
- 					// boardDetail 초기화
  					$('#boardDetail tr:nth-child(4)').children().show();
  					$('#boardDetail tr:nth-child(5)').children().hide();
- 					$('#q_no').html("");
- 					$('#q_date').html("");
- 					$('#an_date').html("");
- 					$('#an_content').val("");
- 					$('#an_date').html("");
- 					//var result = "";
-					
- 					for(var i in data){
+ 					$('#q_no').html("");$('#q_date').html("");$('#an_date').html("");$('#an_content').val("");$('#an_date').html("");
+  					for(var i in data){
  						// 일치하면 한번씩만 실행된다.
  						if(i=='q_no'){ 	$('#q_no').html(data[i]);	console.log(data['q_no']);}
  						if(i=='q_title'){$('#q_title').val(data[i]);}
@@ -280,15 +232,6 @@ function newQnA(){
  						if(i=='answer'){$('#answer').val(data[i]);	console.log(data['answer']);}
  						if(i=='an_date'){$('#an_date').html("("+data[i]+")");}
  						if(i=='an_content'){$('#an_content').val(data[i]);}
- 						
- 						// 일차하지 않아도 중복 실행된다.
- 						//console.log(data['q_no']);
-// 						$('#q_no').html(data['q_no']);	
-// 						$('#q_title').val(data['q_title']);
-// 						$('#q_content').val(data['q_content']);
-// 						$('#q_date').html("("+data['q_date']+")");	
-// 						$('#an_date').html("("+data['an_date']+")");
-// 						$('#an_content').val(data['an_content']);
  					}
  					
  					// 답변이 완료된 문의글은 수정이 불가능하게 한다. 수정버튼 안보이기
@@ -303,7 +246,6 @@ function newQnA(){
 							$('#boardDetail tr:nth-child(5)').children().show();
 						}			
  				},
- 				
  				error:function(request,status,errorData){
  					// 실패시 로직
  					console.log("error code :" + request.status + "\n"

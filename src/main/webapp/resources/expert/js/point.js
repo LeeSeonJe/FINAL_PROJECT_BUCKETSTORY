@@ -42,11 +42,8 @@ function requestPay(price , coId , today) {
 
 		}, function(rsp) {
 			if (rsp.success) {
-
 				$.ajax({
 					url : "pinsert.ex",
-//					method:"POST",
-					// 			    	  headers:{"Content-Type":"application/json"}
 					data : {
 						pa_no : 9999,
 						pa_pay : price * 1.1, //보너스 포인트 포함
@@ -97,15 +94,7 @@ $(function() {
 
 });
 
-function goShowAll() {
-	location.href = "point.ex?search=all";
-}
-function goShowY() {
-	location.href = "point.ex?search=Y";
-}
-function goShowN() {
-	location.href = "point.ex?search=N";
-}
+
 
 $(window).scroll(function() {
 	var scrolltop = $(document).scrollTop();
