@@ -429,7 +429,11 @@ button {
 }
 
 .etc-area {
-	text-align: right;
-    margin-right: 67px;
+/*     margin-right: 67px; */
     margin-top: 20px;
+    text-align: center;
 }
+
+.fa-heart {
+	color: red;
+} 

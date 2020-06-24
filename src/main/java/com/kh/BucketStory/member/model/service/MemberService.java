@@ -8,6 +8,7 @@ import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.member.model.vo.BLike;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.BoardComment;
 import com.kh.BucketStory.member.model.vo.Follow;
@@ -64,6 +65,22 @@ public interface MemberService{
 
 	int cReportInsert(Notify n);
 
-	int rReportInsert(Notify n);	
-	
+	int rReportInsert(Notify n);
+
+	int bLikeAdd(BLike bl);
+
+	int bLikeDel(BLike bl);
+
+	int bLikeCheck(BLike bl);
+
+	Board getUpdateBoard(Integer bNo);
+
+	int bUpdate(Board board);
+
+	int blogDelte(Board board);
+
+	BucketList getBucket(Integer bkNo);
+
+	int bucketUpdate(Media m, BucketList bL);
+
 }

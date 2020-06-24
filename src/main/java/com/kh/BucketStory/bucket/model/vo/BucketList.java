@@ -3,7 +3,7 @@ package com.kh.BucketStory.bucket.model.vo;
 import java.sql.Date;
 
 public class BucketList {
-	
+
 	private int bkNo;
 	private String bkName;
 	private String bkContent;
@@ -13,8 +13,11 @@ public class BucketList {
 	private String userId;
 	private String complete;
 	private int cateNum;
-	
-	public BucketList() {}
+
+	private Media media;
+
+	public BucketList() {
+	}
 
 	public BucketList(int bkNo, String bkName, String bkContent, String tag, Date enrolldate, int bkLike, String userId,
 			String complete, int cateNum) {
@@ -28,6 +31,21 @@ public class BucketList {
 		this.userId = userId;
 		this.complete = complete;
 		this.cateNum = cateNum;
+	}
+
+	public BucketList(int bkNo, String bkName, String bkContent, String tag, Date enrolldate, int bkLike, String userId,
+			String complete, int cateNum, Media media) {
+		super();
+		this.bkNo = bkNo;
+		this.bkName = bkName;
+		this.bkContent = bkContent;
+		this.tag = tag;
+		this.enrolldate = enrolldate;
+		this.bkLike = bkLike;
+		this.userId = userId;
+		this.complete = complete;
+		this.cateNum = cateNum;
+		this.media = media;
 	}
 
 	public int getBkNo() {
@@ -102,13 +120,19 @@ public class BucketList {
 		this.cateNum = cateNum;
 	}
 
+	public Media getMedia() {
+		return media;
+	}
+
+	public void setMedia(Media media) {
+		this.media = media;
+	}
+
 	@Override
 	public String toString() {
 		return "BucketList [bkNo=" + bkNo + ", bkName=" + bkName + ", bkContent=" + bkContent + ", tag=" + tag
 				+ ", enrolldate=" + enrolldate + ", bkLike=" + bkLike + ", userId=" + userId + ", complete=" + complete
-				+ ", cateNum=" + cateNum + "]";
+				+ ", cateNum=" + cateNum + ", media=" + media + "]";
 	}
-	
-	
-	
+
 }

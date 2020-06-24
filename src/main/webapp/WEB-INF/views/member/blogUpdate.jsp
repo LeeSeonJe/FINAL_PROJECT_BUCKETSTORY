@@ -44,17 +44,18 @@
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
-			<form action="BlogInsert.me" method="post" onsubmit="return submitContents(this)">
+			<form action="bUpdate.me" method="post" onsubmit="return submitContents(this);">
 				<input type="hidden" name="bkNo" value="${ bkNo }"/>
+				<input type="hidden" name="bNo" value="${ b.bNo }"/>
 				<input type="hidden" name="page" value="${ page }" />
 				<h2>내용 작성</h2><br>
 				<div id="content_area">
 					제목
-					<input type="text" name="bTitle" required="required"/><br><br>
+					<input type="text" name="bTitle" required="required" value="${ b.bTitle }"/><br><br>
 				</div><br>
-				<textarea name="bContent" id="bContent" style="width:100%; min-height: 700px;" required="required"></textarea>
+				<textarea name="bContent" id="bContent" style="width:100%; min-height: 700px;" required="required">${ b.bContent }</textarea>
 				<div id="button-area">
-					<button onclick="submitContents(this)">저장</button>
+					<button onclick="submitContents(this);">저장</button>
 					<button type="button" id="cancel">취소</button>
 				</div>
 			</form>
@@ -82,7 +83,7 @@ nhn.husky.EZCreator.createInIFrame({
 // 		bUseModeChanger : false,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
 		//bSkipXssFilter : true,		// client-side xss filter 무시 여부 (true:사용하지 않음 / 그외:사용)
 		//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
-		I18N_LOCALE : sLang,
+		I18N_LOCALE : sLang
 	}, //boolean
 	fCreator: "createSEditor2"
 });
@@ -92,17 +93,17 @@ function pasteHTML(){
     oEditors.getById["bContent"].exec("PASTE_HTML", [sHTML]);
 }
 
-function submitContents(b) {
-	console.log(b);
+function submitContents(elClickedObj) {
 	oEditors.getById["bContent"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다.
 	
 	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다.
-// 	console.log(document.getElementById("ir1").value)
 	var imgChk = $('#bContent').val().indexOf('img')
 	if(imgChk == -1) {
-		alert("사진 한장 이상을 첨부해주세요");
+		alert("사진을 한장이상 첨부해주세요.")
 		return false;
-	} 
+	} else {
+		return true;
+	}
 }
 $('#cancel').on('click',function(){
 	location.href="javascript:history.go(-1)"

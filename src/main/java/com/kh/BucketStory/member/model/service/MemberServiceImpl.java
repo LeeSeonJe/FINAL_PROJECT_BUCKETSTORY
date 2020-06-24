@@ -14,6 +14,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.member.model.dao.MemberDAO;
+import com.kh.BucketStory.member.model.vo.BLike;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.BoardComment;
 import com.kh.BucketStory.member.model.vo.Follow;
@@ -157,6 +158,46 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int rReportInsert(Notify n) {
 		return mDAO.rReportInsert(sqlSession, n);
+	}
+
+	@Override
+	public int bLikeAdd(BLike bl) {
+		return mDAO.bLikeAdd(sqlSession, bl);
+	}
+
+	@Override
+	public int bLikeDel(BLike bl) {
+		return mDAO.bLikeDel(sqlSession, bl);
+	}
+
+	@Override
+	public int bLikeCheck(BLike bl) {
+		return mDAO.bLikeCheck(sqlSession, bl);
+	}
+
+	@Override
+	public Board getUpdateBoard(Integer bNo) {
+		return mDAO.getUpdateBoard(sqlSession, bNo);
+	}
+
+	@Override
+	public int bUpdate(Board board) {
+		return mDAO.bUpdate(sqlSession, board);
+	}
+
+	@Override
+	public int blogDelte(Board board) {
+		return mDAO.blogDelte(sqlSession, board);
+	}
+
+	@Override
+	public BucketList getBucket(Integer bkNo) {
+		return mDAO.getBucket(sqlSession, bkNo);
+	}
+
+	@Override
+	public int bucketUpdate(Media m, BucketList bL) {
+		return mDAO.bucketUpdate(sqlSession, m, bL);
 	}
 
 }

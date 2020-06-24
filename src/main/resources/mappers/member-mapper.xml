@@ -435,4 +435,93 @@
 		insert into notify
 		values (SEQ_NOTIFY.nextval, SYSDATE, DEFAULT, #{ no_kind }, DEFAULT, null, null, #{ rpno }, #{ sinuser }, #{ pigouser })
 	</insert>
+	
+	<insert id="bLikeAdd">
+		insert into blike
+		values (SEQ_BLIKE.nextval, SYSDATE, #{ bNo }, #{ userId })
+	</insert>
+	
+	<update id="boardLikeAdd">
+		update board
+		set blike = blike + 1
+		where bno = #{ bNo }
+	</update>
+	
+	<delete id="bLikeDel">
+		delete from blike where bno = #{ bNo } and userid = #{ userId }		
+	</delete>
+
+	<update id="boardLikeSub">
+		update board
+		set blike = blike - 1
+		where bno = #{ bNo }		
+	</update>
+	
+	<select id="bLikeCheck" resultType="_int">
+		select count(*) 
+		from blike
+		where bno = #{ bNo } and userid = #{ userId }
+	</select>
+	
+	<select id="getUpdateBoard" resultMap="BoardResultSet2">
+		select *
+		from board
+		where bno = #{ bNo }
+	</select>
+	
+	<resultMap type="Board" id="BoardResultSet2">
+		<id property="bNo" column="BNO"></id>
+		<result property="bTitle" column="BTITLE"></result>
+		<result property="bContent" column="BCONTENT"></result>
+		<result property="bLike" column="BLIKE"></result>
+		<result property="bCount" column="BCOUNT"></result>
+		<result property="enrollDate" column="ENROLLDATE"></result>
+		<result property="status" column="STATUS"></result>
+		<result property="userid" column="USERID"></result>
+		<result property="bkNo" column="BKNO"></result>
+	</resultMap>
+	
+	<update id="bUpdate">
+		update board
+		set btitle = #{ bTitle }, bcontent = #{ bContent }
+		where bno = #{ bNo }
+	</update>
+	
+	<update id="blogDelte">
+		update board
+		set STATUS = 'N'
+		where bno = #{ bNo }
+	</update>
+	
+	<select id="getBucket" resultMap="BucketListResultSet2">
+		select * 
+		from bucketList
+		join media using(bkNo)
+		where bkno = #{ bkNo }
+	</select>
+	
+	<resultMap type="Bucket" id="BucketListResultSet2">
+		<result property="bkNo" column="BKNO"/>
+		<result property="bkName" column="BKNAME"/>
+		<result property="bkContent" column="BKCONTENT"/>
+		<result property="tag" column="TAG"/>
+		<result property="enrolldate" column="ENROLLDATE"/>
+		<result property="bkLike" column="BKLIKE"/>
+		<result property="userId" column="USERID"/>
+		<result property="complete" column="COMPLETE"/>
+		<result property="cateNum" column="CATENUM"/>
+		<association property="media" resultMap="MediaResultSet"></association>
+	</resultMap>
+	
+	<update id="bucketUpdate">
+		update bucketlist
+		set BKNAME = #{ bkName }, BKCONTENT = #{ bkContent }, TAG = #{ tag }
+		where bkno = #{ bkNo }
+	</update>
+	
+	<update id="bMediaUpdate">
+		update media
+		set mweb = #{ mweb }
+		where bkno = #{ bkno }
+	</update>
 </mapper>

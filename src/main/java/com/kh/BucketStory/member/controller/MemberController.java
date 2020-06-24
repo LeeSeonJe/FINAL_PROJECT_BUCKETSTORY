@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,7 @@ import com.kh.BucketStory.common.Pagination;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.main.model.service.MainService;
 import com.kh.BucketStory.member.model.service.MemberService;
+import com.kh.BucketStory.member.model.vo.BLike;
 import com.kh.BucketStory.member.model.vo.Board;
 import com.kh.BucketStory.member.model.vo.BoardComment;
 import com.kh.BucketStory.member.model.vo.Follow;
@@ -91,7 +93,7 @@ public class MemberController {
 
 	// 블로그에서 버킷에 글 등록할 때
 	@RequestMapping("BlogInsert.me")
-	public String test(HttpSession session, @RequestParam String bContent, @RequestParam int bkNo,
+	public String BlogInsert(HttpSession session, @RequestParam String bContent, @RequestParam int bkNo,
 			@RequestParam String bTitle, @RequestParam Integer page, Model model) throws UnsupportedEncodingException {
 		
 		bContent = bContent.replaceAll(System.getProperty("line.separator"), " ");
@@ -245,7 +247,7 @@ public class MemberController {
 			followCheck = mService.followCheck(nickName, loginUser.getUserId());
 		}
 		
-		int list = myBucketList.size();
+//		int list = myBucketList.size();
 		session.setAttribute("getMember", getMember);
 		session.setAttribute("list", listCount);
 		
@@ -478,5 +480,123 @@ public class MemberController {
 			}
 		}
 		return "fail";
+	}
+	
+	@RequestMapping("bLike.me")
+	@ResponseBody
+	public String bLike(BLike bl, @RequestParam String status) {
+		if(status.equals("add")) {
+			int result = mService.bLikeAdd(bl);
+			if(result > 0) {
+				return "success";			
+			} 
+		} else if(status.equals("remove")) {
+			int result = mService.bLikeDel(bl);
+			if(result > 0) {
+				return "success";							
+			} 
+		}
+		return "fail";
+	}
+	
+	@RequestMapping("bLikeCheck.me")
+	@ResponseBody
+	public String bLikeCheck(BLike bl) {
+		int result = mService.bLikeCheck(bl);
+		if(result > 0) {
+			return "exist";			
+		}
+		return "empty";
+	}
+	
+	@RequestMapping("blogUpdate.me")
+	public String blogUpdate(@RequestParam Integer bNo, Model m, @RequestParam Integer bkNo, @RequestParam Integer page) {
+		Board b = mService.getUpdateBoard(bNo);
+		if(b != null) {
+			m.addAttribute("b", b).addAttribute("bkNo", bkNo).addAttribute("page", page);
+		}
+		return "blogUpdate";
+	}
+	
+	@RequestMapping("bUpdate.me")
+	public String bUpdate(HttpSession session, @RequestParam String bContent, @RequestParam Integer bkNo,
+			@RequestParam Integer bNo, @RequestParam String bTitle, @RequestParam Integer page, Model model) throws UnsupportedEncodingException {
+		bContent = bContent.replaceAll(System.getProperty("line.separator"), " ");
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String nickName = (String) session.getAttribute("nickName");
+		String userid = loginUser.getUserId();
+
+		Board board = new Board(bTitle, bContent, userid, bkNo);
+		board.setbNo(bNo);
+		int result = mService.bUpdate(board);
+
+		if (result > 0) {
+			return "redirect:myBlog.me?nickName=" + URLEncoder.encode(nickName, "UTF-8") + "&bkNo=" + board.getBkNo()
+					+ "&page=" + page;
+		} else {
+			return "redirect:myBlog.me?bkNo=" + board.getBkNo() + "&page=" + page;
+		}
+	}
+	
+	@RequestMapping("blogDelete.me")
+	public String blogDelte(HttpSession session, @RequestParam Integer bNo, @RequestParam Integer bkNo, @RequestParam Integer page, Model model) throws UnsupportedEncodingException {
+		Board board = new Board();
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String nickName = loginUser.getNickName();
+		board.setbNo(bNo);
+		int result = mService.blogDelte(board);
+		
+		if (result > 0) {
+			return "redirect:myBlog.me?nickName=" + URLEncoder.encode(nickName, "UTF-8") + "&bkNo=" + bkNo
+			+ "&page=" + page;
+		} else {
+			return "redirect:myBlog.me?bkNo=" + board.getBkNo() + "&page=" + page;
+		}
+	}
+	
+	@RequestMapping("bucketUpdateGo.me")
+	public String bucketUpdate(@RequestParam Integer bkNo, @RequestParam Integer page, Model m) {
+		BucketList bucket = mService.getBucket(bkNo);
+		m.addAttribute("bkNo", bkNo).addAttribute("page", page).addAttribute("bucket", bucket);
+		return "bucketUpdate";
+	}
+	
+	@RequestMapping("bucketUpdate.me")
+	public String bucketUpdate(@ModelAttribute BucketList BL, @RequestParam("uploadFile") MultipartFile uploadFile,
+			@RequestParam("tags") List<String> tags, HttpServletRequest request, HttpSession session,
+			HttpServletResponse response, @RequestParam Integer bkNo, @RequestParam Integer page, @RequestParam String mweb) throws UnsupportedEncodingException {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		String nickName = loginUser.getNickName();
+		Media m = new Media();
+		String tag = String.join(",", tags);
+		BL.setTag(tag);
+		BL.setUserId(((Member) session.getAttribute("loginUser")).getUserId());
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+			String mweb2 = saveFile(uploadFile, request);
+			if (mweb2 != null) {
+				m.setBkno(bkNo);
+				m.setMorigin(uploadFile.getOriginalFilename());
+				m.setMweb(mweb2);
+			}
+		} else {
+			m.setBkno(bkNo);
+			m.setMweb(mweb);
+		}
+		int result = mService.bucketUpdate(m, BL);
+		
+		if (result > 0) {
+			return "redirect:myBlog.me?nickName=" + URLEncoder.encode(nickName, "UTF-8") + "&bkNo=" + bkNo
+					+ "&page=" + page;
+		} else {
+			return "redirect:myBlog.me?bkNo=" + bkNo + "&page=" + page;
+		}		
+	}
+	
+	@RequestMapping("profileChangeGo.me")
+	public String profileChangeGo(HttpSession session, Model m) {
+		Member b = (Member) session.getAttribute("loginUser");
+		Member getMember = mService.getMember(b.getNickName());
+		m.addAttribute("getMember", getMember);
+		return "ProfileChange";
 	}
 }
