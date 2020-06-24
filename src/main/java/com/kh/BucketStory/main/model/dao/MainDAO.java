@@ -12,6 +12,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.member.model.vo.Board;
 
@@ -170,6 +171,17 @@ public class MainDAO {
 
 	public ArrayList<BucketList> selectDetailSup(SqlSessionTemplate sqlSession, String coId) {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectDetailSup", coId);
+	}
+
+	public ArrayList<C_event> selectCpFestival(SqlSessionTemplate sqlSession, String year) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectCpFestival", year);
+	}
+
+	public int deleteCoBucekt(SqlSessionTemplate sqlSession, int bkNo, String coId) {
+		HashMap<String, String> hashmap = new HashMap<String, String>();
+		hashmap.put("bkNo", ""+bkNo);
+		hashmap.put("coId", coId);
+		return sqlSession.delete("mainMapper.deleteCoBucekt", hashmap);
 	}
 
 	

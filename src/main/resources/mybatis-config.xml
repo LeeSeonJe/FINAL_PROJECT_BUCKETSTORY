@@ -26,9 +26,7 @@
     	<typeAlias type="com.kh.BucketStory.member.model.vo.BoardComment" alias="BoardComment"/>
     	<typeAlias type="com.kh.BucketStory.member.model.vo.Reply" alias="Reply"/>    	
     	<typeAlias type="com.kh.BucketStory.member.model.vo.Follow" alias="Follw"/>    	
-		
-
-
+		<typeAlias type="com.kh.BucketStory.expert.model.vo.C_event" alias="C_event"/>
 	</typeAliases>
 	
 	<mappers>

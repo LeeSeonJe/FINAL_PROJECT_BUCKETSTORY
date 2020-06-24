@@ -283,10 +283,23 @@
 		where feno is not null
 	</select>
 	
+	<!-- 저장된 기업 행사 불러옴 -->
+	<select id="selectCpFestival" resultType="C_event">
+		select *
+		from c_event
+		where eventdate like #{year} || '%'
+	</select>
+	
 	<!-- 기업이 지원하는 버킷리스트 가져오기 -->
 	<select id="selectDetailSup" resultType="Bucket">
 		select *
 		from bucketlist
 		where bkno in (select bkno from cominbucket where coid = #{coId})
 	</select>
+	
+	<!-- 기업 버킷 없애기 -->
+	<delete id="deleteCoBucekt">
+		delete from cominbucket
+		where coid = #{coId} and bkno = #{bkNo}
+	</delete>
 </mapper>

@@ -72,6 +72,8 @@
 				<div id="buckettitle">리틀 포레스트에 나오는 음식 따라 만들기</div>
 				<div id="bucketleft">〈</div>
 				<div id="bucketright">〉</div>
+				<div id="bucketComAdd"> DELETE </div>
+				<div id="bucketComFestival"> 축제 추가 </div>
 			</div>
 			<div id="bucketcp">
 				<div id="bucketTag">
@@ -200,13 +202,14 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 	$('#bucketwish').attr('onclick', 'wishRegist('+bkNo+',"'+userId+'");');
 	$('#bucketleft').attr('onclick', 'left('+bkNo+',"'+userId+'","'+bkName+'");');
 	$('#bucketright').attr('onclick', 'right('+bkNo+',"'+userId+'");');
-	$('#bucketright')
 	var tags = tag.split(',');
 	$('#bucketTag').html('');
 	for(var i in tags){
 		$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
 	}
 	$('#bucketAdd').show();
+	$('#bucketComAdd').attr('onclick', 'deletecobucket('+bkNo+')');
+	$('#bucketComFestival').attr('onclick', 'coFestival('+bkNo+',"'+bkName+'")');
 	if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
 		$('#bucketwish').css('color', '#10ccc3');
 	}
@@ -297,6 +300,24 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 			}
 		}
 	});
+}
+// 축제 작성 하러가기
+function coFestival(bkNo, bkName){
+	var result = confirm('이 버킷에 행사를 추가하시겠습니까?');
+	if(result){
+		location.href="coEventView.ex?bkNo="+bkNo+"&bkName="+bkName;
+	} else{
+		alert('취소');
+	}
+}
+// 마이 버킷 삭제하기
+function deletecobucket(bkNo){
+	var result = confirm('이 버킷을 삭제하시겠습니까?');
+	if(result){
+		location.href="deleteCoBucket.ho?bkNo="+bkNo;
+	} else{
+		alert('취소');
+	}
 }
 function left(bkNo, userId, bkName){
 	first--;

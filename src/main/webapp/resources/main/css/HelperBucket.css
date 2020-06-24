@@ -73,6 +73,7 @@ section{
     display: block;
     margin-top: 1%;
     margin-left: 2.5%;
+    cursor: pointer;
 }
 .bucketStoryNick{
 	position: absolute;
@@ -292,6 +293,46 @@ section{
 }
 #bucketright:hover{
 	color:#36FFFF;
+}
+#bucketComAdd{
+	position: absolute;
+    width: 141px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 50px;
+    line-height: 43.5px;
+    font-weight: 700;
+    bottom: 40px;
+    right: 40px;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+#bucketComAdd:hover{
+	color:black;
+	background:#10ccc3;
+	border:1px solid #10ccc3;
+}
+#bucketComFestival{
+	position: absolute;
+    width: 141px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 50px;
+    line-height: 43.5px;
+    font-weight: 700;
+    bottom: 40px;
+    right: 200px;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+#bucketComFestival:hover{
+	color:black;
+	background:#10ccc3;
+	border:1px solid #10ccc3;
 }
 #bucketAdd{
 	position: absolute;
