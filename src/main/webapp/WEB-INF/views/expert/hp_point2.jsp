@@ -2,9 +2,8 @@
 	pageEncoding="UTF-8"
 	import="java.text.SimpleDateFormat, java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	String today = dateFormat.format(new Date());
+<% 			SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
+			String today = dateFormat.format(new Date());
 %>
 <!DOCTYPE html>
 <html>
@@ -14,62 +13,7 @@
 <link rel="stylesheet" href="resources/expert/css/hp_point.css">
 <link rel="stylesheet" href="resources/expert/css/hp_boardList.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<style>
-.active {
-	background: #a53383 linear-gradient(#b83691cc, #a53383);
-	color: white;
-}
-
-.pbp{
-	background:#fff;
-}
-.paging {
-	margin: 0 auto;
-	height: 50px;
-	width: 100%;
-	margin-top:20px;
-	text-align: center;
-}
-
-.pbtn {
-	height: 34px;
-	border: 1px solid #d5d5d5;
-	border-radius: 6px;
-	display: inline-flex;
-	align-items: center;
-	padding: 0 12px;
-	font-size: 14px;
-	font-weight: 500;
-	line-height: 1.5;
-	cursor: pointer;
-	box-sizing: border-box;
-	position: relative;
-}
-
-.pbtn:hover::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.07);
-}
-.pbtn.btn--primary2 {
-	border: 1px solid #b83691;
-	color: #fff;
-	background: #a53383 linear-gradient(#b83691cc, #a53383);
-}
-
-#prev, #next {
-	padding: 5px;
-	background: #036;
-	border-radius: 5px;
-	color: white;
-}
-</style>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
 <body>
@@ -84,7 +28,7 @@
 			<div id="pointArea">
 				<div class="inner__header">
 					<h2>${coId}님환영합니다!</h2>
-					<%-- 					<h2>보유 총 포인트 : ${hp} 포인트</h2> --%>
+<%-- 					<h2>보유 총 포인트 : ${hp} 포인트</h2> --%>
 					<br>
 				</div>
 				<br> <br>
@@ -290,67 +234,6 @@
 				</div>
 			</div>
 
-<script>
-var dc = 0.3; //할인율
-var IMP = window.IMP;
-IMP.init('imp49697884');
-
-function requestPay(price , coId , today) {
-	var chkbox = document.getElementsByName('agree');
-
-	//console.log(chkbox);
-
-	if (chkbox[0].checked) {
-		//console.log('체크');
-		alert(price * (1 - dc) + '원을 결제합니다.');
-
-		IMP.request_pay({
-			pg : 'inicis',
-			pay_method : 'card',
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : '주문명:포인트충전',
-			amount : price * (1 - dc),
-
-			// 			    buyer_email : 'iamport@siot.do',
-			buyer_name : coId
-
-		}, function(rsp) {
-			if (rsp.success) {
-				$.ajax({
-					url : "pinsert.ex",
-					data : {
-						pa_no : 9999,
-						pa_pay : price * 1.1, //보너스 포인트 포함
-						coid : coId,
-						status : 'Y',
-						pdate : today,
-					},
-					success : function(data) {
-						var msg = '결제가 완료되었습니다.';
-						msg += '고유ID : ' + rsp.imp_uid;
-						msg += '상점 거래ID : ' + rsp.merchant_uid;
-						msg += '결제 금액 : ' + rsp.paid_amount;
-						msg += '카드 승인번호 : ' + rsp.apply_num;
-						alert(msg);
-						location.reload();
-						
-						
-					}
-				});
-			} else {
-				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-			}
-			alert(msg);
-		});
-
-	} else {
-		//console.log('안체크');
-		alert('이용약관에 동의해주세요');
-	}
-}
-</script>
-
 			<div class="p-section">
 				<!--         <p id ="title">포인트 내역</p> -->
 
@@ -364,188 +247,113 @@ function requestPay(price , coId , today) {
 				<!--  	<img src ="resources/expert/images/moon.jpg"> -->
 				<%--     <h3>${coId} 님 환영합니다!</h3> --%>
 
-			
-				<h3><span id="PT1">포인트 충전/사용</span>(<input style="border: none; width:25px; font-weight: 600; color:#036; font-size:24px" type="text" id='search' readonly="readonly">) 횟수 : 
-							<input style="border: none; width:25px; font-weight: 600; font-size:24px; color:#036;" type='text' id='listCount' readonly="readonly"></h3>
-				<h3><span id="PT2">총 충전 포인트 : </span><input style="border: none; width:100px; font-weight: 400; font-size:22px; color:#333;" type='text' id='point' readonly="readonly">Point</h3>
-	
+				<c:if test="${search eq 'Y'}">
+					<h3>포인트 충전(${search}) 횟수 : ${ pi.listCount }</h3>
+					<h3>총 충전 포인트 : ${hp }</h3>
+				</c:if>
+				<c:if test="${search eq 'N'}">
+					<h3>포인트 사용(${search}) 횟수 : ${ pi.listCount }</h3>
+					<h3>총 사용 포인트 : ${hp }</h3>
+				</c:if>
+				<c:if test="${search eq 'all' || search eq 'none'}">
+					<h3>포인트 충전/사용(all) 횟수 : ${ pi.listCount }</h3>
+					<h3>총 보유 포인트 : ${hp }</h3>
+				</c:if>
+
+
 				<!--         게시판 목록 영역 -->
 				<div id="board-area">
-						<table class="board pboard" id="hpBottom">
-<%-- 							<caption id ="point_head">포인트 : 사용 :</caption> --%>
+					<table class="board pboard" id="hpBottom">
+						<thead>
+							<tr>
+								<th colspan="4">
+							</tr>
 							<tr>
 								<th scope="cols" width="8%">번호</th>
-								<th scope="cols" width="20%">
-									<button class="SB btn btn--primary2" id="allBtn"
-										onclick="goShowAll();">전체</button>
-									<button class="SB btn" id="yBtn" onclick="goShowY();">충전</button>
-									<button class="SB btn" id="nBtn" onclick="goShowN();">사용</button>
-								</th>
+								<th scope="cols" width="20%"><c:if
+										test="${search eq 'all' || search eq 'none'}">
+										<button class="btn btn--primary2" onclick="goShowAll();">전체</button>
+										<button class="btn" onclick="goShowY();">충전</button>
+										<button class="btn" onclick="goShowN();">사용</button>
+									</c:if> <c:if test="${search eq 'Y'}">
+										<button class="btn" onclick="goShowAll();">전체</button>
+										<button class="btn btn--primary2" onclick="goShowY();">충전</button>
+										<button class="btn" onclick="goShowN();">사용</button>
+									</c:if> <c:if test="${search eq 'N'}">
+										<button class="btn" onclick="goShowAll();">전체</button>
+										<button class="btn" onclick="goShowY();">충전</button>
+										<button class="btn btn--primary2" onclick="goShowN();">사용</button>
+									</c:if></th>
 								<th scope="cols" width="30%">포인트</th>
 								<th scope="cols" width="32%">날짜</th>
 							</tr>
-						</table>
+						</thead>
+						<tbody>
 
-						<table class="board bp" id="payData"></table>
-						<div class="paging"></div>
-						<input type='hidden' id='currPage'>	<input type='hidden' id='pageLimit'>
-						<input type='hidden' id='maxPage'>	<input type='hidden' id='nth'>	
 
-						<script>
-						function goShowAll(){
-							newPaging('all');
-							$('.SB').removeClass('btn--primary2');
-							$('#allBtn').addClass('btn--primary2');
-							$('#PT1').text("포인트 충전/사용");
-							$('#PT2').text("총 보유 포인트 : ");
-						}
-						function goShowY(){
-							newPaging('Y');
-							$('.SB').removeClass('btn--primary2');
-							$('#yBtn').addClass('btn--primary2');
-							$('#PT1').text("포인트 충전");
-							$('#PT2').text("총 충전 포인트 : ");
-						}
-						function goShowN(){
-							newPaging('N');
-							$('.SB').removeClass('btn--primary2');
-							$('#nBtn').addClass('btn--primary2');
-							$('#PT1').text("포인트 사용");
-							$('#PT2').text("총 사용 포인트 : ");
-						}
-						
-						$(function(){
-								$('#nth').val(0);
-								$('#currPage').val(1);
-								newPaging('all');				
-						});
-						function newPaging(key){
-							$('#search').val(key);
-							
-							$.ajax({
-						        url :'pointCountAjax.ex?search='+ key,
-				 		        dataType:'json',
-						        	success:function(data){
-						        		$('#maxPage').val(data.pi.maxPage);
-						        		$('#pageLimit').val(data.pi.pageLimit);
-						        		$('#listCount').val(data.pi.listCount);
-						        		$('#point').val(data.point);
-						        		paging(0);
-						        		$('.paging button').removeClass('active').eq(1).addClass('active');
-						        }		
-						    });
-							buildBoard(1);
-						}
-						
-						function paging(nth){
-							
-							const pageLimit = Number($('#pageLimit').val());
-							const maxPage = Number($('#maxPage').val());
-							const start = Number(pageLimit*nth) + 1;
-							var search = $('#search').val();
-							
-							var count = 0;
-							
-							if(((pageLimit*nth) + pageLimit) > maxPage){
-								count = maxPage;
-							}else{
-								count = pageLimit*nth + pageLimit;
-							}
-						
-							$text = "<button class ='pbtn' id='prev' onclick='preBoard();'>이전</button>";
-				    		for(var i = start; i <= count ; i++){
-				    			
-				    			$text += "<button class ='pbtn' onclick='buildBoard(" + i + ");'>" + i + "</button>";
-				    		}
-				    		$text += "<button class ='pbtn' id='next' onclick='nextBoard();'>다음 </button>";
-				    		$('.paging').html($text);
-				    		
-						}
-						
-						function preBoard(){
-							
-							var num = Number($('#currPage').val());		
-							if((num - 1) < 1){
-								$('#currPage').val(1);
-								buildBoard(1)
-							}else{
+							<c:if test="${empty list }">
+								<tr>
+									<td colspan="4">포인트 충전내역이 없습니다.</td>
+								</tr>
+							</c:if>
 
-								const pageLimit = $('#pageLimit').val();
-								var nth = Number($('#nth').val());
-								
-								if((num -1) <= pageLimit*nth){
-									$('#nth').val(nth-1);
-									paging(nth-1);
-									
-									$('#currPage').val(num-1);
-									buildBoard(num-1);
-								}else{
-									$('#currPage').val(num-1);
-									buildBoard(num-1);
-								}
-								
-							}
-							
-						}
-						function nextBoard(){
-							var num = Number($('#currPage').val());
-							var max = Number($('#maxPage').val());
-							
-							if(num + 1 > max){
-								$('#currPage').val(max);
-								buildBoard(max);
-							}else{
-								const pageLimit = $('#pageLimit').val();
-								
-								var nth = Number($('#nth').val());
-								
-								if(pageLimit*(nth+1) < num + 1){
-									$('#nth').val(nth+1);
-									paging(nth+1);
-									
-									$('#currPage').val(num+1);
-									buildBoard(num+1);
-								}else{
-									$('#currPage').val(num+1);
-									buildBoard(num+1);
-								}
-								
-							}
-							
-						}
-						function buildBoard(num){
+							<c:forEach var="b" items="${ list }">
+								<tr>
+									<td class="rowp" scope="row" align="center">${ b.pa_no }</td>
+									<!-- 						 char 형과 비교 -->
+									<c:if test="${b.status eq 'Y'.charAt(0)}">
+										<td align="center">충전</td>
+									</c:if>
+									<c:if test="${b.status eq 'N'.charAt(0)}">
+										<td align="center">사용</td>
+									</c:if>
 
-							const pageLimit = Number($('#pageLimit').val());
-							const nth = Number($('#nth').val());
-							var search = $('#search').val();
-							var select = num - pageLimit*nth;
-							
-							console.log(num);	
-							
-							$('#currPage').val(num);
-							$('.paging button').removeClass('active').eq(select).addClass('active');
-							$.ajax({
-						        url :'pointListAjax.ex?page='+num,
-						        data :{
-						        	search : search
-						        },
-						        dataType:'json',
-						        success:function(data){
-						    //		console.log(data);
-										
-						            $text ="";
-						            for(var i in data){
-						                $text += "<tr><td>" + data[i].pa_no + "</td>"
-						                      + "<td>" + data[i].pa_pay + "</td>"
-						                      + "<td>" + data[i].pdate + "</td>"
-						                      + "<td>" + data[i].status + "</td></tr>";
-						            }
-						            $('#payData').html($text);
-						        }		
-						    });
+									<td align="center">${ b.pa_pay }</td>
+									<td align="center">${ b.pdate }</td>
+								</tr>
+							</c:forEach>
 
-						}
-						</script>
+						</tbody>
+					</table>
+
+
+					<!--             게시판 페이징 영역 -->
+					<div id="board-paging">
+						<!-- 				[이전] -->
+						<c:if test="${ pi.currentPage <= 1 }">
+							<button id="prev">이전</button>
+						</c:if>
+						<c:if test="${ pi.currentPage > 1 }">
+							<c:url var="before" value="point.ex?search=${search }">
+								<c:param name="page" value="${ pi.currentPage - 1 }" />
+							</c:url>
+							<a href="${ before }"><button id="prev">이전</button></a>
+						</c:if>
+
+						<!-- 				페이지 -->
+						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:if test="${ p eq pi.currentPage }">
+								<button class="sBtn active">${ p }</button>
+							</c:if>
+							<c:if test="${ p ne pi.currentPage }">
+								<c:url var="pagination" value="point.ex?search=${search}">
+									<c:param name="page" value="${ p }" />
+								</c:url>
+								<a href="${ pagination }"><button class="sBtn">${ p }</button></a>
+							</c:if>
+						</c:forEach>
+
+						<!-- 				[다음] -->
+						<c:if test="${ pi.currentPage >= pi.maxPage }">
+							<button id="next">다음</button>
+						</c:if>
+						<c:if test="${ pi.currentPage < pi.maxPage }">
+							<c:url var="after" value="point.ex?search=${search}">
+								<c:param name="page" value="${ pi.currentPage + 1 }" />
+							</c:url>
+							<a href="${ after }"><button id="next">다음</button></a>
+						</c:if>
+					</div>
 				</div>
 			</div>
 
@@ -556,35 +364,11 @@ function requestPay(price , coId , today) {
 	</section>
 
 
-	<jsp:include page="/WEB-INF/views/expert/hp_upper.jsp" />
-<!-- 	<script src="resources/expert/js/point.js"></script> -->
+	 <jsp:include page="/WEB-INF/views/expert/hp_upper.jsp" />
+ 	<script src="resources/expert/js/point.js"></script> 
 
 <script>
-$(window).scroll(function() {
-	var scrolltop = $(document).scrollTop();
 
-	if (scrolltop < 380) {
-		$("#pointMenu li").removeClass();
-		$("#pointMenu li:nth-child(1)").addClass("on");
-	}
-
-	if (scrolltop > 380) {
-		$("#pointMenu li").removeClass();
-		$("#pointMenu li:nth-child(2)").addClass("on");
-	}
-
-});
-
-$(document).ready(function() {
-	var vid = $(this).find("video").get(0);
-	vid.cureentTime = 0;
-
-	vid.play();
-	//consolo.log(vid);
-	
-	var scrolltop = $(document).scrollTop();
-
-});
 </script>
 </body>
 </html>

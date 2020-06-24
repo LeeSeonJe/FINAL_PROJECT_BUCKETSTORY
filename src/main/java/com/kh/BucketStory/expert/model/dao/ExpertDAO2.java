@@ -55,7 +55,6 @@ public class ExpertDAO2 {
 	public int insertPoint(SqlSessionTemplate sqlSession, Pay p) {
 		return sqlSession.insert("exMapper2.insertPoint", p);
 	}
-
 	public int getYPoint(SqlSessionTemplate sqlSession, String coId) {
 		return sqlSession.selectOne("exMapper2.getYCount",coId);
 	}
@@ -129,13 +128,11 @@ public class ExpertDAO2 {
 	public int getListMQnACountY(SqlSessionTemplate sqlSession, String userId) {
 		return sqlSession.selectOne("exMapper2.getListMQnACountY",userId);
 	}
-	
 	public ArrayList<adminQnA> selectMQnAList(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList) sqlSession.selectList("exMapper2.selectMQnAList", userId, rowBounds);
 	}
-	
 	public ArrayList<adminQnA> selectMQnAListN(SqlSessionTemplate sqlSession, PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
@@ -150,7 +147,6 @@ public class ExpertDAO2 {
 	public int insertMQnA(SqlSessionTemplate sqlSession, adminQnA aQ) {
 		return sqlSession.insert("exMapper2.insertMQnA", aQ);
 	}
-
 	public Company selectCompanyInfo2(SqlSessionTemplate sqlSession,String coId) {
 		return sqlSession.selectOne("exMapper2.electCompanyInfo2", coId);
 	}
