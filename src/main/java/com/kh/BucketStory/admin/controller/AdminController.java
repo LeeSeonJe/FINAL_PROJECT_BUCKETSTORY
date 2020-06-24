@@ -9,14 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.resource.HttpResource;
 
 import com.kh.BucketStory.admin.model.exception.BoardException;
 import com.kh.BucketStory.admin.model.service.BoardService;
@@ -45,7 +48,7 @@ public class AdminController {
 	@RequestMapping("list.ad")
 	public String adminfestivalList() {
 
-		return "mainFestival";
+		return "festivalWrite";
 	}
 	
 	/* 페스티벌 작성 페이지 */
@@ -214,9 +217,73 @@ public class AdminController {
 		return mv;
 	}
 	
+	/* 게시글 신고 회원 리스트 */
+	@RequestMapping("boardCaution.ad")
+	public ModelAndView boardCautionMember(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = bService.boardCautionListCount();
+				
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Notify> list = bService.boardCautionList(pi);
+		
+		System.out.println("게시글 경고 페이지 " + list);
+		
+		if(list != null) {
+			
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("adminBoardCaution");
+		} else {
+			throw new BoardException("게시글 전체 조회에 실패했습니다.");
+		}
+		return mv;
+	}
+	
+	/* 게시판 신고 회원 해당 페이지 보기 */
+	@RequestMapping("cautionView.ad")
+	public String cautionView(@RequestParam("userid") String id, Model m) {
+		
+						
+		System.out.println("값 받아오니 " + id);
+		
+		Notify result = bService.cautionview(id);
+		m.addAttribute("nickName", result.getNickname());
+		m.addAttribute("bno", result.getBno());
+		
+		System.out.println("결과 넘어오니? " + result);
+		
+		return "redirect:myBlog.me";
+		
+//		if(result != null) {
+//		} else {
+//			throw new BoardException("상세페이지 불러오기 실패");
+//		}
+		
+	}
+	
+	/* 게시판 신고 회원 경고 주기 */
+	@RequestMapping("warningboard.ad")
+	public String warningboard(@RequestParam(value="b[]") List<String> no) {
+		
+		System.out.println("b 값 " + no);
+		int result = bService.warningboard(no);
+		
+		System.out.println("result 값 " + result);
+		
+		return "redirect:boardCaution.ad";
+		
+	}
+	
 	/* 신고된 회원 경고  */
 	@RequestMapping("warning.ad")
 	public String waringmember(@RequestParam(value="Notify[]") List<String> no) {
+		
 		
 		System.out.println("no 값 보기 " + no);
 		

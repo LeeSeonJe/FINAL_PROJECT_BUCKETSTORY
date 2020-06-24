@@ -86,14 +86,13 @@ h2{
 	</div>
 	<div id="board-area">
 	<div>
-		<h3>신고된 회원</h3>
-		<a href="boardCaution.ad">게시판</a>
+		<h3>신고 목록</h3>
 	</div>
 	<div class="a_list">
-		<h2><a href="cautionlist.ad"  class="ad_list" id="l_list">신고</a></h2>
-		<h2><a href="adminwarning.ad"  class="ad_list" id="R_list">경고</a></h2>
+<!-- 		<h2><a href="cautionlist.ad"  class="ad_list" id="l_list">신고</a></h2> -->
+<!-- 		<h2><a href="adminwarning.ad"  class="ad_list" id="R_list">경고</a></h2> -->
 	</div>
-			<form action="warning.ad">
+			<form action="boardCaution.ad">
 				<table class="board" id="ad_board">
 					<tr>
 						<th><input type="checkbox" name="chk_head" id="checkAll">선택</th>
@@ -104,25 +103,25 @@ h2{
 						<th>신고자</th>
 						<th>신고일</th>
 					</tr>
-					<c:forEach var="notify" items="${ list }">
-<%-- 					<c:set var="str" value="${ notify.no_check }" /> --%>
+					<c:forEach var="b" items="${ list }">
 						<tr>
 							<td>
-								<input type="checkbox" name="chk_box" value="${notify.no_no}" id="checkSelect">
+								<input type="checkbox" name="chk_box" value="${b.no_no}" id="checkSelect">
 							</td>
-							<td>${ notify.no_no }</td>
+							<td>${ b.no_no }</td>
 							<td>
-								<c:if test="${ notify.no_kind == 1 }">게시글</c:if>
-								<c:if test="${ notify.no_kind == 2 }">댓글</c:if>
-								<c:if test="${ notify.no_kind == 3 }">대댓글</c:if>
+								<c:if test="${ b.no_kind == 1 }">게시글</c:if>
 							</td>
 							<td>
-								<c:if test="${ notify.no_check eq 'N'.charAt(0) }">경고아님</c:if>
-								<c:if test="${ notify.no_check eq 'Y'.charAt(0) }">경고</c:if>
+								<c:if test="${ b.no_check eq 'N'.charAt(0) }">경고아님</c:if>
+								<c:if test="${ b.no_check eq 'Y'.charAt(0) }">경고</c:if>
 							</td>
-							<td>${ notify.pigouser }</td>
-							<td>${ notify.sinuser }</td>
-							<td>${ notify.enrolldata }</td>
+							<c:url var="view" value="cautionView.ad">
+								<c:param name="userid" value="${ b.pigouser }"></c:param>
+							</c:url>
+							<td><a href="${ view }">${ b.pigouser }</a></td>
+							<td>${ b.singouser }<td>
+							<td>${ b.enrolldata }</td>
 						</tr>
 
 					</c:forEach>
@@ -134,7 +133,7 @@ h2{
 							<button id ="prev">이전</button>
 						</c:if> 
 						<c:if test="${ pi.currentPage > 1 }">
-							<c:url var="before" value="cautionlist.ad">
+							<c:url var="before" value="boardCaution.ad">
 								<c:param name="page" value="${ pi.currentPage - 1 }" />
 							</c:url>
 							<a href="${ before }"><button id ="prev">이전</button></a>
@@ -147,7 +146,7 @@ h2{
 							</c:if>
 
 							<c:if test="${ p ne pi.currentPage }">
-								<c:url var="pagination" value="cautionlist.ad">
+								<c:url var="pagination" value="boardCaution.ad">
 									<c:param name="page" value="${ p }" />
 								</c:url>
 								<a href="${ pagination }"><button class ="sBtn">${ p }</button></a>
@@ -159,7 +158,7 @@ h2{
 							<button id= "next">다음</button>
 						</c:if> 
 						<c:if test="${ pi.currentPage < pi.maxPage }">
-							<c:url var="after" value="cautionlist.ad">
+							<c:url var="after" value="boardCaution.ad">
 								<c:param name="page" value="${ pi.currentPage + 1 }" />
 							</c:url>
 							<a href="${ after }"><button id= "next">다음</button></a>
@@ -220,41 +219,7 @@ $(function(){
     });
 });
 
-
-// /* 경고 먹는 회원 스크립트 */
-	
-// function chk_warning(){
-// 	alert("클릭");
-	
-// 	var checkArr = []; // 배열 초기화
-// // 	var check = "";
-	
-// 	$("input[name='chk_box']:checked").each(function(i){
-// 		var va = $(this).val();
-// // 		console.log(va);
-// // 		console.log(typeof(va));
-		
-// 		checkArr.push(va);
-// 		console.log(checkArr);
-// 		console.log(typeof(checkArr));
-// // 		checkArr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
-// 	});
-	
-// // 	console.log(typeof(checkArr));
-		
-// 	$.ajax({
-// 		url: 'warning.ad',
-// 		type: 'POST',
-// 		data: {no_no : va},
-// 		success: function(data){
-// 			if(data == 'success'){
-// 				console.log(data);
-// 			}
-// 		}
-// 	});
-// }
-
-/* 회원 경고 주기 */
+/* 게시글 회원 경고 주기 */
 	function chk_warning(){
 	 	alert("경고를 주었습니다.");
 
@@ -265,8 +230,8 @@ $(function(){
 	});
 	
 	$.ajax({
-		url: 'warning.ad',
-		data: {Notify : chk_Arr},
+		url: 'warningboard.ad',
+		data: {b : chk_Arr},
 		success: function(data){
 			
 		console.log("data 값 보자 " + data);

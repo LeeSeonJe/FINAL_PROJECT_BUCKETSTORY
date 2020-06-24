@@ -57,7 +57,16 @@ public class BoardDAO {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("adminMapper.notifyselectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("adminMapper.boardselectList", null, rowBounds);
+//		ArrayList list = (ArrayList)sqlSession.selectList("adminMapper.boardselectList", null, rowBounds);
+		
+//		if(list.size() > 0){
+//			return (ArrayList)sqlSession.selectList("adminMapper.replyselectList", null, rowBounds);
+//		} else if(list.size() > 0){
+//			return (ArrayList)sqlSession.selectList("adminMapper.comselectList", null, rowBounds);
+//		} else {
+//			throw new BoardException("리스트를 실패");
+//		}
 	}
 
 	public int cautionListCount(SqlSessionTemplate sqlSession) {
@@ -147,6 +156,32 @@ public class BoardDAO {
 
 	public int uncompayanpporval(SqlSessionTemplate sqlSession, String c) {
 		return sqlSession.update("adminMapper.uncompayanpporval", c);
+	}
+
+	public int boardCautionListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.boardCautionListCount");
+	}
+
+	public ArrayList<Notify> boardCautionList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.boardCautionList", null, rowBounds);
+	}
+
+	public Notify cautionview(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("adminMapper.cautionview", id);
+	}
+
+	public int warningboard(SqlSessionTemplate sqlSession, List<String> no) {
+		int result = sqlSession.update("adminMapper.warningboard", no);
+		
+		if(result > 0) {
+			return  sqlSession.update("adminMapper.warningMember", no);
+		} else{
+			throw new BoardException("신고회원 등록 실패");
+		}
 	}
 
 

@@ -37,6 +37,7 @@
         vertical-align: top;
         border-bottom: 1px solid #ccc;
         background: #f3f6f7;
+        border-top: 1px solid;
     }
     table.board td {
         width: 350px;

@@ -47,6 +47,14 @@ public interface BoardService {
 
 	int uncompayanpporval(String c);
 
+	int boardCautionListCount();
+
+	ArrayList<Notify> boardCautionList(PageInfo pi);
+
+	Notify cautionview(String id);
+
+	int warningboard(List<String> no);
+
 
 
 

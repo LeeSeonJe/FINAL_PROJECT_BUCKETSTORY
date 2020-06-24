@@ -9,6 +9,13 @@
 <link rel="stylesheet" href="resources/admin/css/adminBoardList.css">
 </head>
 <style>
+
+h2{
+   	width: 47%;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+
  a:link{ 
   	color: black; text-decoration: none; 
   } 
@@ -22,7 +29,6 @@
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/views/layout/mainRightSide.jsp"></jsp:include>				
 	</header>
 	<div id="adw_body">
 		<nav>

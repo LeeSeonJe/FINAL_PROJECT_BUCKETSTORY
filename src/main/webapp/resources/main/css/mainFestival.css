@@ -142,7 +142,7 @@ section{
 	width:100%;
 	min-height:300px;
 	background:white;
-	display: none;
+	/* display: none; */
 }
 .f-content{
 	width:560px;

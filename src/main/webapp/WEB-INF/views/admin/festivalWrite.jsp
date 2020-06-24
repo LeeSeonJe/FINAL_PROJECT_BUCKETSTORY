@@ -9,7 +9,7 @@
 form{
     height: 900px;
     margin-top: 45px;
-    width: 90%;
+    width: 62%;
     margin: 0 auto;
 }
 
@@ -21,9 +21,10 @@ form>adw_formimg>div{
 }
 
 form>#adw_formimg{
-	text-align: center;
-    margin-bottom: 45px;
-    margin-top: -13px;
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: 50px;
+
 }
 
 form>div>div>ul>li{
@@ -76,16 +77,14 @@ form>div>div>ul>li{
 }
     
 #title{
-	margin-left: 272px;
+	width: 48%;
+    margin: 0 auto;
+    margin-top: 80px;
 }
 
 nav{
 	border-bottom: 1px solid #d2d1d1;
     height: 47px;
-	
-}
-.board{
-
 }
 </style>
 </head>
@@ -164,6 +163,10 @@ nav{
 		</form>
 		</div>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
-	
+<script>
+$(function(){
+	$("#postcodify_search_button").postcodifyPopUp();
+});
+</script>
 </body>
 </html>

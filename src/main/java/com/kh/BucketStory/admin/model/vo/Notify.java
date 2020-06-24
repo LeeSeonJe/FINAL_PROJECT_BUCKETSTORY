@@ -13,6 +13,7 @@ public class Notify {
 	private int rpno; // 답글 번호
 	private String sinuser; // 신고자
 	private String pigouser; //피고자
+	private String nickname;
 	
 	public Notify() {}
 
@@ -29,6 +30,31 @@ public class Notify {
 		this.rpno = rpno;
 		this.sinuser = sinuser;
 		this.pigouser = pigouser;
+	}
+
+	
+	public Notify(int no_no, Date enrolldata, char status, int no_kind, char no_check, int bno, int cmno, int rpno,
+			String sinuser, String pigouser, String nickname) {
+		super();
+		this.no_no = no_no;
+		this.enrolldata = enrolldata;
+		this.status = status;
+		this.no_kind = no_kind;
+		this.no_check = no_check;
+		this.bno = bno;
+		this.cmno = cmno;
+		this.rpno = rpno;
+		this.sinuser = sinuser;
+		this.pigouser = pigouser;
+		this.nickname = nickname;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public int getNo_no() {
@@ -115,8 +141,9 @@ public class Notify {
 	public String toString() {
 		return "Notify [no_no=" + no_no + ", enrolldata=" + enrolldata + ", status=" + status + ", no_kind=" + no_kind
 				+ ", no_check=" + no_check + ", bno=" + bno + ", cmno=" + cmno + ", rpno=" + rpno + ", sinuser="
-				+ sinuser + ", pigouser=" + pigouser + "]";
+				+ sinuser + ", pigouser=" + pigouser + ", nickname=" + nickname + "]";
 	}
+
 	
 	
 	

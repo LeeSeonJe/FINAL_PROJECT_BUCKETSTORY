@@ -116,6 +116,26 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.uncompayanpporval(sqlSession, c);
 	}
 
+	@Override
+	public int boardCautionListCount() {
+		return bDAO.boardCautionListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Notify> boardCautionList(PageInfo pi) {
+		return bDAO.boardCautionList(sqlSession, pi);
+	}
+
+	@Override
+	public Notify cautionview(String id) {
+		return bDAO.cautionview(sqlSession, id);
+	}
+
+	@Override
+	public int warningboard(List<String> no) {
+		return bDAO.warningboard(sqlSession, no);
+	}
+
 
 
 
