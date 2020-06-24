@@ -84,7 +84,7 @@
 			<div id="pointArea">
 				<div class="inner__header">
 					<h2>${coId}님환영합니다!</h2>
-					<%-- 					<h2>보유 총 포인트 : ${hp} 포인트</h2> --%>
+					<h2>보유 총 포인트 : ${hp} 포인트</h2>
 					<br>
 				</div>
 				<br> <br>
@@ -368,21 +368,20 @@ function requestPay(price , coId , today) {
 				<h3><span id="PT1">포인트 충전/사용</span>(<input style="border: none; width:25px; font-weight: 600; color:#036; font-size:24px" type="text" id='search' readonly="readonly">) 횟수 : 
 							<input style="border: none; width:25px; font-weight: 600; font-size:24px; color:#036;" type='text' id='listCount' readonly="readonly"></h3>
 				<h3><span id="PT2">총 충전 포인트 : </span><input style="border: none; width:100px; font-weight: 400; font-size:22px; color:#333;" type='text' id='point' readonly="readonly">Point</h3>
-	
 				<!--         게시판 목록 영역 -->
 				<div id="board-area">
 						<table class="board pboard" id="hpBottom">
 <%-- 							<caption id ="point_head">포인트 : 사용 :</caption> --%>
 							<tr>
 								<th scope="cols" width="8%">번호</th>
+								<th scope="cols" width="30%">포인트</th>
+								<th scope="cols" width="32%">날짜</th>
 								<th scope="cols" width="20%">
 									<button class="SB btn btn--primary2" id="allBtn"
 										onclick="goShowAll();">전체</button>
 									<button class="SB btn" id="yBtn" onclick="goShowY();">충전</button>
 									<button class="SB btn" id="nBtn" onclick="goShowN();">사용</button>
 								</th>
-								<th scope="cols" width="30%">포인트</th>
-								<th scope="cols" width="32%">날짜</th>
 							</tr>
 						</table>
 

@@ -187,7 +187,7 @@ public class ExpertController2 {
 	}
 	/*
 	 * -----------------------------------------------------------------------------------------------
-	 * 헬퍼 비번 일치확인 : 오류
+	 * 헬퍼 비번 일치확인 
 	 * -----------------------------------------------------------------------------------------------
 	 */
 	@RequestMapping("helperPwdCheck.ex")
@@ -205,15 +205,14 @@ public class ExpertController2 {
 	 *  포인트 충전페이지 이동
 	 *  --------------------------------------------------
 	 */
-	
 	@RequestMapping("point.ex")
 	public ModelAndView goPointSimple(HttpSession session,ModelAndView mv) {
 		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
 		mv.addObject("coId", coId);
+		mv.addObject("hp",getPoint(coId));
 		mv.setViewName("hp_point");
 		return mv;
 	}
-	
 	/*  --------------------------------------------------
 	 *  결제 이벤트 발생 -> 포인트 충전요청 
 	 *  --------------------------------------------------
@@ -226,17 +225,12 @@ public class ExpertController2 {
 
 		// PAY 테이블에 Point 집어넣기
 		int result = ExService2.insertPoint(p);
-
 		Company c = new Company();
-
 		c.setCoId(coId);
 		c.setPoint(getPoint(coId));
-
 		// Company 에 보유포인트 갱신
 		int result2 = ExService2.updateCompanyPoint(c);
-
 		if (result > 0 && result2 > 0) {
-//			System.out.println("완료");
 			return "redirect:point.ex?search=insertPay";
 		} else {
 			throw new ExpertException("실패하였습니다.");
@@ -247,16 +241,12 @@ public class ExpertController2 {
 	 *  보유 포인트(coId) 확인
 	 *  --------------------------------------------------
 	 */
-
 	public int getPoint(String coId) {
 		System.out.println(coId);
 		int yPoint = ExService2.getYPoint(coId); // 충전 포인트
 		int nPoint = ExService2.getNPoint(coId); // 사용 포인트
 		return yPoint - nPoint;
 	}
-	
-
-
 	/*
 	 * ===================================
 	 *  Point => Ajax로 변경
@@ -268,8 +258,6 @@ public class ExpertController2 {
 								  @RequestParam(value = "page", required = false) Integer page,
 								  @RequestParam(value = "search") @Nullable String search,
 								  HttpServletResponse response){
-		
-		//System.out.println("진입2");
 	String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		int currentPage = 1;
 		int point = 0;
