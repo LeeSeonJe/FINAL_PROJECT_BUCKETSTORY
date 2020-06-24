@@ -119,5 +119,9 @@ public class ExpertDAO {
 		return (ArrayList)sqlSession.selectList("exMapper.selectMyEstimatimate",m);
 	}
 
+	public int insertReview(SqlSessionTemplate sqlSession, Estimate es) {
+		return sqlSession.update("exMapper.insertReview", es);
+	}
+
 	
 }

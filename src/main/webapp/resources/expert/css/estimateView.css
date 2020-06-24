@@ -37,3 +37,22 @@
     overflow: scroll;
     float: left;
 }
+ 	#star_grade a{
+        text-decoration: none;
+        color: gray;
+    }
+    #star_grade a.on{
+        color: red;
+    }
+    #star_grade{    
+    float: left;
+    margin-top: 12px;
+    margin-left: 10px;
+    }
+    div#recontent {
+    display: inline-block;
+    width: 490px;
+    height: 100px;
+    border: 1px solid;
+    overflow: auto;
+}

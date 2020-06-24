@@ -49,45 +49,23 @@
 				
 				<div id="statusView">
 					<div id="status1" class="status" onclick="position(1);">받은 견적서 확인</div>
-					<div id="status3" class="status" onclick="position(2);">수락 견적서 확인</div>
+					<div id="status3" class="status" onclick="position(3);">수락 견적서 확인</div>
 				</div>
 				<div id="area">
-				<% ArrayList<Estimate> estimate = (ArrayList<Estimate>)request.getAttribute("es");%>
-				<c:if test="${ es != null }">
-					<c:forEach var="request" items="<%=estimate %>" >
-						<div id="requestMember">
-							<table style="width: 780px;">
-								<tr>
-									<td rowspan="3" style="width:100px;">
-										<img id="requestImage" src="resources/expert/images/photo.jpg" id="profileImage">
-									</td>
-									<td>
-										<h3 style="display:inline">${ request.coId }</h3>
-									</td>
-									<td>
-										${ request.enrollDate }
-									</td>
-								</tr>
-								<tr>
-									<td>
-												버킷리스트 : ${ bucket.get(request.bkNo) }
-									</td>
-									<td>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<div id="bucketListDetail"><a href="estimateView.ex?es_no=${ request.es_no }">견적서 확인하기</a></div>
-									</td>
-								</tr>
-							</table>
-						</div>
-						<hr style="width:840px;margin: auto;">
-					</c:forEach>
-				</c:if>
-				<script>
+				</div>
 				
+				<script>
+					$(function(){
+						$('#status1').trigger("click");
+					});
 					function position(index){
+						if(index == 1){
+							$('#status1').css("background","lightgreen");
+							$('#status3').css("background","lightgrey");
+						}else{
+							$('#status3').css("background","lightgreen");
+							$('#status1').css("background","lightgrey");
+						}
 						$.ajax({
 							url:"myEstimate.ex",
 							data:{
@@ -99,7 +77,6 @@
 								console.log(data.list);
 								console.log(data.bucket[3]);
 								var text;
-								
 								if(data.list.length >0){
 									for( var i in data.list)
 										 text +=
@@ -131,6 +108,8 @@
 										+"</table>"
 									+"</div>"
 									+"<hr style='width:840px;margin: auto;'>"
+								}else{
+									text = "<h1 style='text-align:center;'>받은 견적서가 없습니다.</h1>";
 								}
 								
 								$('#area').html(text); 
@@ -140,10 +119,7 @@
 							}
 						})
 					}
-					
-					
 				</script>
-			</div>
 		</div>
 		</section>
 	</div>

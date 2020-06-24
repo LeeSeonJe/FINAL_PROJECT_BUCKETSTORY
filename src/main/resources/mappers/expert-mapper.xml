@@ -148,6 +148,12 @@
 		order by es_no desc
 	</select>
 	
+	<update id="insertReview">
+		update estimate 
+		set REVIEWSCORE =#{reviewScore},REVIEWCONTENT=#{reviewContent}
+		where es_no=#{es_no}
+	</update>
+	
 	<resultMap id="estimateSet" type="estimate">
 		<id property="es_no" column="ES_NO"/>
 		<result property="esr_no" column="ESR_NO"/>

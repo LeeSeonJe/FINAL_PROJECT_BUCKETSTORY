@@ -64,8 +64,9 @@
 		<br>
 		<br>
 		
-	<form id="send" action="updateEstimate.ex" enctype="Multipart/form-data">
+	
 		<div id="estimate">
+		<form id="send" action="updateEstimate.ex" enctype="Multipart/form-data">
 			<h2>견적내용</h2>
 			<div id="estimateContent">${ es.es_content }</div>
 		<input type="hidden" name="es_no" value="${ es.es_no }">
@@ -104,13 +105,49 @@
 						</tr>
 					</c:forEach>
 				</c:if>
-				
 			</table>
+		</form>
 			<c:if test="${ sessionScope.loginUser.userId == member.userId }">
-				<div id="status">
-							<button onclick="sendstatus(3);" style="margin-left: 77px;margin-top: 33px;cursor:pointer">수락</button>
-							<button type="button" onclick="sendstatus(4);" style="cursor:pointer">거절</button>
-				</div>
+				<c:if test="${es.status ==1 }">
+					<div id="status">
+								<button onclick="sendstatus(3);" style="margin-left: 77px;margin-top: 33px;cursor:pointer">수락</button>
+								<button type="button" onclick="sendstatus(4);" style="cursor:pointer">거절</button>
+					</div>
+				</c:if>
+				<c:if test="${es.status ==3 && es.reviewScore == 0 && es.reviewContent == null}">
+					<div id="status">
+						<h2>리뷰작성</h2>
+						<h3 style="float:left;">별점</h3>
+						<p id="star_grade">
+								        <a href="#" id="1star" style="font-size: x-large;">★</a>
+								        <a href="#" id="2star" style="font-size: x-large;">★</a>
+								        <a href="#" id="3star" style="font-size: x-large;">★</a>
+								        <a href="#" id="4star" style="font-size: x-large;">★</a>
+								        <a href="#" id="5star" style="font-size: x-large;">★</a>
+						</p>
+					<form action="insertReview.ex">						
+						<button style="float:right;">리뷰작성</button>
+						<input type="hidden" name="es_no" value="${ es.es_no }">
+						<input type="hidden" id="score" name="reviewScore" value="">
+						<textarea rows="10" cols="70" name="reviewContent"></textarea>
+					</form>
+					</div>
+				</c:if>
+				<c:if test="${es.status ==3 && (es.reviewScore != 0 || es.reviewContent != null)}">
+					<div id="status">
+						<h2>작성한 리뷰</h2>
+						<h3 style="float:left;">별점</h3>
+						<p id="star_grade">
+							<c:forEach var="a" begin="1" end="${es.reviewScore }">
+								<p style="float:left;color:red;font-size: x-large;margin-top: 12px;">★</p>
+							</c:forEach>
+							<c:forEach var="a" begin="${es.reviewScore }" end="4">
+								<p style="float:left;font-size: x-large;margin-top: 12px;">☆</p>
+							</c:forEach>
+						</p>
+						<div id="recontent" style="">${es.reviewContent}</div>
+					</div>
+				</c:if>
 			</c:if>
 			<c:if test="${ sessionScope.loginUser.userId != member.userId }">
 				<c:if test="${ es.status == 1 }">
@@ -146,7 +183,29 @@
 
 				}
 
-			
+			$('#star_grade a').click(function(){
+	            $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+	            $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+	            return false;
+	        });
+	        
+	        $('#1star').click(function(){
+	        	$('#score').val(1);
+	        	$('[name:reviewScore]').val(1);
+	        });
+	        $('#2star').click(function(){
+	        	$('#score').val(2);
+	        	$('[name:reviewScore]').val(2);
+	        });
+	        $('#3star').click(function(){
+	        	$('#score').val(3);
+	        });
+	        $('#4star').click(function(){
+	        	$('#score').val(4);
+	        });
+	        $('#5star').click(function(){
+	        	$('#score').val(5);
+	        });
 				
 				jQuery(document).ready(function($){
 					$('#cost').on('focus',function(){
@@ -222,7 +281,6 @@
 				
 			</script>
 		</div>		
-	</form>
 	</div>
 </body>
 </html>

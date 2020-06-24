@@ -570,5 +570,12 @@ public class ExpertController {
 			}
 	 }
 	 
+	 @RequestMapping("insertReview.ex")
+	 public String insertReview(@ModelAttribute Estimate es) {
+		 int result = ExService.insertReview(es);
+		 
+		 return "redirect: myEstimateView.ex";
+	 }
+	 
 	 
 }
