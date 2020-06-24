@@ -8,11 +8,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.ComInBucket;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.dao.ExpertDAO;
+import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Esoption;
@@ -132,5 +134,9 @@ public class ExpertServiceImpl implements ExpertService {
 	@Override
 	public int insertReview(Estimate es) {
 		return exDAO.insertReview(sqlSession,es);
+	}
+	@Override
+	public int insertEvent(C_event ce) {
+		return exDAO.insertEvent(sqlSession,ce);
 	}
 }

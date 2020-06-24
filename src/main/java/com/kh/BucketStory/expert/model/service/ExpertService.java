@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.ComInBucket;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Esoption;
@@ -66,6 +68,8 @@ public interface ExpertService {
 	ArrayList<Estimate> selectMyEstimate(Map<String, String> m);
 
 	int insertReview(Estimate es);
+
+	int insertEvent(C_event ce);
 
 	
 }

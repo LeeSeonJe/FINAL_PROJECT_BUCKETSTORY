@@ -2,7 +2,6 @@ package com.kh.BucketStory.expert.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,11 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,6 +30,7 @@ import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.service.ExpertService;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
+import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Estimate;
@@ -576,6 +574,23 @@ public class ExpertController {
 		 
 		 return "redirect: myEstimateView.ex";
 	 }
-	 
+	 @RequestMapping("insertCevent.ex")
+	 public String insertfedtival(@ModelAttribute C_event ce, @RequestParam("feUploadFile") MultipartFile uploadFile, 
+			 					  HttpServletRequest request,HttpSession session) {
+		 
+		 Company loginCom = (Company) session.getAttribute("loginCompany");
+		 
+		 
+		 ce.setCoId(loginCom.getCoId());
+		 if(uploadFile != null && !uploadFile.isEmpty()) {
+				String renameFileName = saveFile(uploadFile, request);
+				if(renameFileName != null) {
+					ce.setEventImg(renameFileName);
+				}
+		}
+		 int result = ExService.insertEvent(ce);
+		 
+		 return "redirect:expertIntro.ex ";
+	 }
 	 
 }
