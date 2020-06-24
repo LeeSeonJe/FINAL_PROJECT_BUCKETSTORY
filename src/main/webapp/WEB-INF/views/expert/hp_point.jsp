@@ -84,7 +84,7 @@
 			<div id="pointArea">
 				<div class="inner__header">
 					<h2>${coId}님환영합니다!</h2>
-					<%-- 					<h2>보유 총 포인트 : ${hp} 포인트</h2> --%>
+					<h2>보유 총 포인트 : ${hp} 포인트</h2>
 					<br>
 				</div>
 				<br> <br>
@@ -375,14 +375,14 @@ function requestPay(price , coId , today) {
 <%-- 							<caption id ="point_head">포인트 : 사용 :</caption> --%>
 							<tr>
 								<th scope="cols" width="8%">번호</th>
+								<th scope="cols" width="30%">포인트</th>
+								<th scope="cols" width="32%">날짜</th>
 								<th scope="cols" width="20%">
 									<button class="SB btn btn--primary2" id="allBtn"
 										onclick="goShowAll();">전체</button>
 									<button class="SB btn" id="yBtn" onclick="goShowY();">충전</button>
 									<button class="SB btn" id="nBtn" onclick="goShowN();">사용</button>
 								</th>
-								<th scope="cols" width="30%">포인트</th>
-								<th scope="cols" width="32%">날짜</th>
 							</tr>
 						</table>
 
