@@ -184,9 +184,11 @@ public class AdminController {
 		return mv;
 	}
 	
-	/* 회원 경고페이지 리스트 */
+	/* 신고된 회원 리스트 */
 	@RequestMapping("cautionlist.ad")
 	public ModelAndView cautionlist(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		
+//		System.out.println("값을 보여라 ");
 		
 		int currentPage = 1;
 		if(page != null) {
@@ -199,7 +201,7 @@ public class AdminController {
 		
 		ArrayList<Notify> list = bService.notifyselectList(pi);
 		
-//		System.out.println("경고 페이지 리스트 " + list);
+		System.out.println("경고 페이지 리스트 " + list);
 		
 		if(list != null) {
 			
@@ -223,7 +225,7 @@ public class AdminController {
 		System.out.println("result 값 보기 " + result);
 		
 		if(result > 0) {
-			return "redirect:adminwarning.ad";
+			return "redirect:cautionlist.ad";
 		} else {
 			throw new BoardException("경고 받은 회원 실패");
 		}

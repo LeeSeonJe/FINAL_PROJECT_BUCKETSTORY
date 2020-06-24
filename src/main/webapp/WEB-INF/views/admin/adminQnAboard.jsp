@@ -8,6 +8,17 @@
 <link rel="stylesheet" href="resources/admin/css/adminDefault.css">
 <link rel="stylesheet" href="resources/admin/css/adminBoardList.css">
 </head>
+<style>
+ a:link{ 
+  	color: black; text-decoration: none; 
+  } 
+ a:visited{ 
+  	 color: black; text-decoration: none; 
+ } 
+  a:hover{ 
+ 	color: black; text-decoration: none;
+  } 
+</style>
 <body>
 	<header>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
@@ -63,7 +74,10 @@
 							<td><a href="${qnadetail}">${ qna.q_title }</a></td>
 							<td>${ qna.userid }${ qna.coid }</td>
 							<td>${ qna.q_date }</td>
-							<td>${ qna.answer }</td>
+							<td>
+								<c:if test="${ qna.answer eq 'Y'.charAt(0) }">답변 안료</c:if>
+								<c:if test="${ qna.answer eq 'N'.charAt(0) }">미 답변</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

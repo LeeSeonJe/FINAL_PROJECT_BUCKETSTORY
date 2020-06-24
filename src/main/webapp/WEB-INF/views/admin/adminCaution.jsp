@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,19 @@
     width: 160px;
     margin-bottom: 10px;
 }
+h3{
+    margin-left: 305px;
+}
+
+ a:link{ 
+  	color: black; text-decoration: none; 
+  } 
+ a:visited{ 
+  	 color: black; text-decoration: none; 
+ } 
+  a:hover{ 
+ 	color: black; text-decoration: none;
+  }
 </style>
 <body>
 	<header>
@@ -48,11 +62,12 @@
 	</div>
 	<div id="board-area">
 	<div>
+		<h3>신고된 회원</h3>
 		<h2><a href="cautionlist.ad"  class="ad_list">신고 게시판</a></h2>
 		<h2><a href="adminwarning.ad"  class="ad_list">경고 게시판</a></h2>
 	</div>
 			<form action="warning.ad">
-				<table class="board">
+				<table class="board" id="ad_board">
 					<tr>
 						<th><input type="checkbox" name="chk_head" id="checkAll">선택</th>
 						<th>번호</th>
@@ -80,12 +95,17 @@
 <%-- 							</c:if> --%>
 <!-- 						</th> -->
 <!-- 					</tr> -->
+					
 					<c:forEach var="notify" items="${ list }">
+<%-- 					<c:set var="str" value="${ notify.no_check }" /> --%>
 						<tr>
 							<td><input type="checkbox" name="chk_box" value="${notify.no_no}" id="checkSelect"></td>
 							<td>${ notify.no_no }</td>
 							<td>${ notify.no_kind }</td>
-							<td>${ notify.no_check }</td>
+							
+<%-- 							<c:if test="${ fn:contains(str, 'Y')}">없음</c:if> --%>
+							<td><c:if test="${ notify.no_check eq 'N'.charAt(0) }">경고아님</c:if>
+								<c:if test="${ notify.no_check eq 'Y'.charAt(0) }">경고</c:if></td>
 							<td>${ notify.pigouser }</td>
 							<td>${ notify.sinuser }</td>
 							<td>${ notify.enrolldata }</td>
@@ -140,7 +160,6 @@
 				<input type="text">
 				<a href="#">검색</a>
 			<button onclick="chk_warning();" id="waring">회원 경고</button>
-			<button id="delete">전체 삭제</button>
 		</div>
 	</div>
 <script>
@@ -236,8 +255,14 @@ $(function(){
 		url: 'warning.ad',
 		data: {Notify : chk_Arr},
 		success: function(data){
-
-			}
+			
+		console.log("data 값 보자 " + data);
+			
+		 location.reload();
+		
+		}			
+			
+		
 	});
 }
 

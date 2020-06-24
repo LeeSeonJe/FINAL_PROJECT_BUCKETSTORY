@@ -63,6 +63,7 @@
 	<select id="cautionListCount" resultType="_int">
 		select count(*)
 		from notify
+		where no_check = 'N'
 	</select>
 	
 	<select id="notifyselectList" resultMap="notifyResultSet">

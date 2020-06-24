@@ -38,6 +38,7 @@
 			</div>
 		</nav>
 		</div>
+		<div id="board-area">
 		<div>
 			<h2>기업 승인</h2>
 		</div>
@@ -62,7 +63,7 @@
 							<td>${ company.coName }</td>
 							<td>${ company.apName }</td>
 							<td>${ company.enrollDate }</td>
-							<td>${ company.approval }</td>
+							<td><c:if test="${ company.approval eq 'N'.charAt(0) }">승인대기중</c:if></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -104,6 +105,7 @@
 							<a href="${ after }"><button id= "next">다음</button></a>
 						</c:if>
 				</div>
+			</div>
 <!-- 		<div id="ad_search"> -->
 <!-- 			<select> -->
 <!-- 				<option>전체보기</option> -->

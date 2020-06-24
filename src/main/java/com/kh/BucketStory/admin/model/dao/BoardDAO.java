@@ -105,7 +105,7 @@ public class BoardDAO {
 	public int warningMember(SqlSessionTemplate sqlSession, List<String> no) {
 		int result =  sqlSession.update("adminMapper.warningMember", no);
 		
-		System.out.println("DAO 결과 값 " + result );
+//		System.out.println("DAO 결과 값 " + result );
 		
 		if(result > 0) {
 			return sqlSession.update("adminMapper.cautionMember", no);
