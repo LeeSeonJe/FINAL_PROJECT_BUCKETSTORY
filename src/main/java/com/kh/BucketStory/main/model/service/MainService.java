@@ -20,7 +20,7 @@ public interface MainService {
 
 	int blLike(int bkNo, String userId);
 
-	String blWish(int bkNo, String userId);
+	String blWish(int bkNo, String userId, String bucketId);
 
 	ArrayList<WishList> selectWishList(String userId);
 
@@ -73,5 +73,9 @@ public interface MainService {
 	ArrayList<Company> selectSearchCompany(String c);
 
 	int selectNickCheck(String nickName);
+
+	int updateMember(Member m);
+
+	int updatePwd(String userId, String encPwd);
 
 }

@@ -9,6 +9,7 @@ public class WishList {
 	private Date enrollDate;
 	private int bkNo;
 	private String userId;
+	private String bucketId;
 
 	private int cateNum;
 	private String cateName;
@@ -27,6 +28,17 @@ public class WishList {
 		this.bkNo = bkNo;
 		this.userId = userId;
 	}
+	
+	
+
+	public WishList(int wiNo, Date enrollDate, int bkNo, String userId, String bucketId) {
+		super();
+		this.wiNo = wiNo;
+		this.enrollDate = enrollDate;
+		this.bkNo = bkNo;
+		this.userId = userId;
+		this.bucketId = bucketId;
+	}
 
 	public WishList(int wiNo, Date enrollDate, int bkNo, String userId, int cateNum, String cateName,
 			BucketList bucketList, Media media, Member member, ShareBucket shareBucket) {
@@ -40,6 +52,23 @@ public class WishList {
 		this.bucketList = bucketList;
 		this.media = media;
 		this.member = member;
+		this.shareBucket = shareBucket;
+	}
+
+	
+	public String getBucketId() {
+		return bucketId;
+	}
+
+	public void setBucketId(String bucketId) {
+		this.bucketId = bucketId;
+	}
+
+	public ShareBucket getShareBucket() {
+		return shareBucket;
+	}
+
+	public void setShareBucket(ShareBucket shareBucket) {
 		this.shareBucket = shareBucket;
 	}
 

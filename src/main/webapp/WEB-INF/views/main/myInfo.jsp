@@ -21,15 +21,15 @@
 				<div class="f-div">
 					<div class="f-one">
 						<form class="formDiv" action="updateMember.ho" method="post" onsubmit="return update();">
-							폰번호 : <input class="phone1" value="010" disabled="disabled">-<input id="phone" class="phone2" value="${fn:substring(loginUser.phone, 4, 8)}">-<input id="phone2" class="phone2" value="${fn:substring(loginUser.phone, 9, 13)}"><br><br>
-							이메일 : <input class="EN" id="email" type="email" value="${loginUser.email}"><br><br>
-							닉네임 : <input class="EN" onchange="nickCheck();" id="nickName" name="nickName" value="${loginUser.nickName}"><span>X</span><br><br>
+							폰번호 : <input class="phone1" value="010" disabled="disabled">-<input id="phone" class="phone2" name="phone1" value="${fn:substring(loginUser.phone, 4, 8)}">-<input id="phone2" class="phone2" name="phone2" value="${fn:substring(loginUser.phone, 9, 13)}"><br><br>
+							이메일 : <input class="EN" id="email" type="email" value="${loginUser.email}" name="email"><br><br>
+							닉네임 : <input class="EN" onchange="nickCheck();" id="nickName" name="nickName" value="${loginUser.nickName}"><span>O</span><br><br>
 							<button type="button">비밀번호 변경</button><input id="submitBtn" type="submit" value="수정">
 						</form>
-						<form class="formDiv2" action="updatePassword.ho" method="post">
-							현재 비밀번호 : <input class="EN" type="password"><br><br>
-							변경 비밀번호 : <input class="EN" type="password"><br><br>
-							비밀번호 확인 : <input class="EN" type="password"><br><br>
+						<form class="formDiv2" action="updatePassword.ho" method="post" onsubmit="return updatePwd();">
+							현재 비밀번호 : <input id="nowPass" class="EN" type="password" onchange="nowPwCheck();"><span>X</span><br><br>
+							변경 비밀번호 : <input name="pw" id="pw" class="EN" type="password" onchange="chPwCheck();"><span>X</span><br><br>
+							비밀번호 확인 : <input id="pwCheck"class="EN" type="password" onchange="duplCheck();"><span>X</span><br><br>
 							<button type="button">개인정보 수정</button><input id="submitBtn" type="submit" value="변경">
 						</form>
 					</div>
@@ -38,7 +38,7 @@
 	</section>
 </body>
 <script>
-	submitCheck = false;
+	submitCheck = true;
 	$('.formDiv button').click(function(){
 		$('.formDiv2').show();
 		$('.formDiv').hide();
@@ -128,6 +128,95 @@
 			
 		} else{
 			alert('입력 형식을 다시확인해주세요');
+			return false;
+		}
+	}
+	passSubmit = false;
+	function nowPwCheck(){
+		var nowPw = $('#nowPass').val();
+		$.ajax({
+			url:'passCheck.ho',
+			type: 'POST',
+			data:{
+				nowPw:nowPw
+			},
+			async : false,
+			success:function(data){
+				if(data == 'success'){
+					passSubmit = true;
+					$('.formDiv2 span:eq(0)').text('O');
+				} else if(data == 'fail'){
+					passSubmit = false;
+					alert('현재 비밀번호와 일치하지않습니다.');
+					$('.formDiv2 span:eq(0)').text('X');
+				}
+			}
+		});
+	}
+	function chPwCheck(){
+		var pwChk = /^[a-zA-Z0-9]{8,15}$/;
+		var pw = $('#pw').val();
+		
+		if(!pwChk.test(pw)){
+			alert('숫자와 영문자 조합으로 8~15자리를 사용해야합니다.');
+			$('.formDiv2 span:eq(1)').text('X');
+			$('#pw').val('');
+			$('#pw').focus();
+			
+		} else{
+			$.ajax({
+				url:'passCheck.ho',
+				type: 'POST',
+				data:{
+					nowPw:pw
+				},
+				async : false,
+				success:function(data){
+					if(data == 'success'){
+						alert('현재 비밀번호와 일치하면 안됩니다.');
+						$('#pw').val('');
+						$('#pw').focus();
+					} else if(data == 'fail'){
+						$('.formDiv2 span:eq(1)').text('O');
+					}
+				}
+			});
+		}
+	}
+	function duplCheck(){
+		var pw = $('#pw').val();
+		var pwCheck = $('#pwCheck').val();
+		
+		if(pw != pwCheck){
+			$('.formDiv2 span:eq(2)').text('X');
+			passSubmit = false;
+		} else{
+			$('.formDiv2 span:eq(2)').text('O');
+			passSubmit = true;
+		}
+	}
+	function updatePwd(){
+		var nowPw = $('#nowPass').val().trim();
+		var pw = $('#pw').val().trim();
+		var pwCheck = $('#pwCheck').val().trim();
+		
+		if(nowPw == ""){
+			alert('현재 비밀번호를 입력해주세요');
+			return false;
+		}
+		if(pw == ""){
+			alert('변경할 비밀번호를 입력해주세요');
+			return false;
+		}
+		if(pwCheck == ""){
+			alert('비밀번호 확인을 입력해주세요');
+			return false;
+		}
+		if(passSubmit){
+			alert('비밀번호 변경이 완료되었습니다.');
+			return true;
+		} else{
+			alert('입력형식을 확인해주세요');
 			return false;
 		}
 	}

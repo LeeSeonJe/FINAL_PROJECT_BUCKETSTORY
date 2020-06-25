@@ -54,10 +54,11 @@ public class MainDAO {
 		return blLike;
 	}
 
-	public String blWish(SqlSessionTemplate sqlSession, int bkNo, String userId) {
+	public String blWish(SqlSessionTemplate sqlSession, int bkNo, String userId, String bucketId) {
 		HashMap<String, String> hashmap = new HashMap<String, String>();
 		hashmap.put("bkNo", ""+bkNo);
 		hashmap.put("userId", userId);
+		hashmap.put("bucketId", bucketId);
 		
 		int blWishCheck = sqlSession.selectOne("mainMapper.blWishCheck", hashmap);
 		int result = 0;
@@ -198,6 +199,17 @@ public class MainDAO {
 
 	public int selectNickCheck(SqlSessionTemplate sqlSession, String nickName) {
 		return sqlSession.selectOne("mainMapper.selectNickCheck", nickName);
+	}
+
+	public int updateMember(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.update("mainMapper.updateMember", m);
+	}
+
+	public int updatePwd(SqlSessionTemplate sqlSession, String userId, String encPwd) {
+		HashMap<String, String> hashmap = new HashMap<String, String>();
+		hashmap.put("userId", userId);
+		hashmap.put("encPwd", encPwd);
+		return sqlSession.update("mainMapper.updatePwd", hashmap);
 	}
 
 	

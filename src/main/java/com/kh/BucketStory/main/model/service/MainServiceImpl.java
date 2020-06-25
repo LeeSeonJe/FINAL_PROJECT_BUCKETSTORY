@@ -40,12 +40,7 @@ public class MainServiceImpl implements MainService {
 	public int blLike(int bkNo, String userId) {
 		return mainDAO.blLike(sqlSession, bkNo, userId);
 	}
-
-	@Override
-	public String blWish(int bkNo, String userId) {
-		return mainDAO.blWish(sqlSession, bkNo, userId);
-	}
-
+	
 	@Override
 	public ArrayList<WishList> selectWishList(String userId) {
 		return mainDAO.selectWishList(sqlSession, userId);
@@ -174,6 +169,21 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int selectNickCheck(String nickName) {
 		return mainDAO.selectNickCheck(sqlSession, nickName);
+	}
+
+	@Override
+	public int updateMember(Member m) {
+		return mainDAO.updateMember(sqlSession, m);
+	}
+
+	@Override
+	public int updatePwd(String userId, String encPwd) {
+		return mainDAO.updatePwd(sqlSession, userId, encPwd);
+	}
+
+	@Override
+	public String blWish(int bkNo, String userId, String bucketId) {
+		return mainDAO.blWish(sqlSession, bkNo, userId, bucketId);
 	}
 
 }
