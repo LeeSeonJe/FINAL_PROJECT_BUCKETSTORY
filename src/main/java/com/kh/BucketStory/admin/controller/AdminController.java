@@ -33,6 +33,7 @@ import com.kh.BucketStory.common.Pagination;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
 import com.kh.BucketStory.expert.model.vo.Company;
+import com.kh.BucketStory.expert.model.vo.Pay;
 import com.kh.BucketStory.expert.model.vo.pagination;
 
 @Controller
@@ -47,7 +48,7 @@ public class AdminController {
 	
 	@RequestMapping("adminwrite.ad")
 	public String admintest() {
-		return "adminPointList";
+		return "festivalWrite";
 	}
 	
 	/* 메인 페이지에서 페스티벌페이지*/
@@ -470,50 +471,50 @@ public class AdminController {
 	}
 	
 	/* 결제내역 포인트 */
-//	   @RequestMapping(value = "adminBill.ad", method = RequestMethod.GET)
-//	   public ModelAndView showQnAList(HttpSession session, 
-//	                     @RequestParam(value = "page", required = false) Integer page,
-//	                     @RequestParam(value = "search") @Nullable String search,
-//	         ModelAndView mv) {
-//
-//	      
-//	      int currentPage = 1;
-//	      if (page != null) {
-//	         currentPage = page;
-//	      }
-//	      
-//	      int listCount = 0;
-//	      com.kh.BucketStory.expert.model.vo.PageInfo pi2 = null;
-//	      ArrayList<adminQnA> list = null;
-//	      
-//	      
-//	      if(search.equals("all")) {
-//	         listCount = ExService2.getListCount();
-//	         pi2 = pagination.getPageInfo(currentPage, listCount);
-//	         list = ExService2.selectList(pi2);
-//	      }
-//	      if(search.equals("Y")) {
-//	         listCount = ExService2.getListCountY();
-//	         pi = pagination.getPageInfo(currentPage, listCount);
-//	         list = ExService2.selectListY(pi);
-//	      }
-//	      if(search.equals("N")) {
-//	         listCount = ExService2.getListCountN();
-//	         pi = pagination.getPageInfo(currentPage, listCount);
-//	         list = ExService2.selectListN(pi);
-//	      }
-//
-//	      if (list != null) {
-//	         mv.addObject("list", list);
-//	         mv.addObject("pi", pi);
+	   @RequestMapping(value = "adminBill.ad", method = RequestMethod.GET)
+	   public ModelAndView showQnAList(HttpSession session, 
+	                     @RequestParam(value = "page", required = false) Integer page,
+	                     @RequestParam(value = "search") @Nullable String search,
+	                     ModelAndView mv) {
+
+	      
+	      int currentPage = 1;
+	      if (page != null) {
+	         currentPage = page;
+	      }
+	      
+	      int listCount = 0;
+	      com.kh.BucketStory.expert.model.vo.PageInfo pi2 = null;
+	      ArrayList<Pay> list = null;
+	      
+	      
+	      if(search.equals("all")) {
+	         listCount = ExService2.getListCount();
+	         pi2 = pagination.getPageInfo(currentPage, listCount);
+	         list = ExService2.selectPayList(pi2);
+	      }
+	      if(search.equals("Y")) {
+	         listCount = ExService2.getListCountY();
+	         pi2 = pagination.getPageInfo(currentPage, listCount);
+	         list = ExService2.selectPayListY(pi2);
+	      }
+	      if(search.equals("N")) {
+	         listCount = ExService2.getListCountN();
+	         pi2 = pagination.getPageInfo(currentPage, listCount);
+	         list = ExService2.selectPayListN(pi2);
+	      }
+
+	      if (list != null) {
+	         mv.addObject("list", list);
+	         mv.addObject("pi", pi2);
 //	         mv.addObject("coId", coId);
-//	         mv.addObject("search",search);
-//	         mv.setViewName("hp_QnAList");
-//	      } else {
-//	         throw new ExpertException("QnA 내역 조회에 실패했습니다.");
-//	      }
-//	      return mv;
-//	   }
+	         mv.addObject("search",search);
+	         mv.setViewName("adminPointList");
+	      } else {
+	         throw new ExpertException("포인트 내역 조회에 실패했습니다.");
+	      }
+	      return mv;
+	   }
 	   
 	
 }

@@ -21,9 +21,48 @@
    }  
   a:visited{  
    	 color: black; text-decoration: none;  
+  }
    a:hover{ 
   	color: black; text-decoration: none; 
    }  
+   
+   .btn{
+    height: 34px;
+    background:#eee linear-gradient(to bottom, #fcfcfc, #eee);
+    border: 1px solid #d5d5d5;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    cursor: pointer;
+    box-sizing: border-box;
+    position:relative;
+  }
+  
+  .btn:hover::before{
+      content:"";
+      position: absolute;
+      top:0;
+      left:0;
+     width:100%;
+     height:100%;
+    background:rgba(0,0,0,0.07);
+  }
+  .btn.btn--primary{
+    border:1px solid #65b836;
+    color: #fff;
+    background: #55a532 linear-gradient(#91dd70,#55ae2e);
+  }
+  .btn.btn--primary2{
+    border:1px solid #b83691;
+    color: #fff;
+    background: #a53383 linear-gradient(#b83691cc,#a53383);
+  }
+  
+
 </style>
 <body>
 	<header>
@@ -40,7 +79,7 @@
 						<a href="adminCompany.ad">가입확인</a>
 					</li>
 					<li>
-						<a href="adminBill.ad">결제내역</a>
+						<a href="adminBill.ad?search=all">결제내역</a>
 					</li>
 					<li>
 						<a href="">통계</a>
@@ -57,30 +96,33 @@
 	</div>
 			<div>
 	            <div id="board-area">
+	            <div>
+					<h2>포인트 게시판</h2>
+				</div>
                <table class="board pboard" id="hpBottom">
                   <thead>
                      <tr>
-                        <th colspan="4">
+                        <th colspan="5">
                      </tr>
                      <tr>
-                        <th scope="cols" width="8%">번호</th>
-                        <th scope="cols" width="30%">포인트</th>
-                        <th scope="cols" width="30%">아이디</th>
-                        <th scope="cols" width="32%">날짜</th>
-                        <th scope="cols" width="20%">
-<%--                         	<c:if test="${search eq 'all' || search eq 'none'}"> --%>
+                        <th scope="cols" width="100px">번호</th>
+                        <th scope="cols" width="100px%">포인트</th>
+                        <th scope="cols" width="100px">아이디</th>
+                        <th scope="cols" width="100px">날짜</th>
+                        <th scope="cols" width="140px">
+                        	<c:if test="${search eq 'all' || search eq 'none'}">
                               <button class="btn btn--primary2" onclick="goShowAll();">전체</button>
                               <button class="btn" onclick="goShowY();">충전</button>
                               <button class="btn" onclick="goShowN();">사용</button>
-<%--                            </c:if> <c:if test="${search eq 'Y'}"> --%>
+                           </c:if> <c:if test="${search eq 'Y'}">
                               <button class="btn" onclick="goShowAll();">전체</button>
                               <button class="btn btn--primary2" onclick="goShowY();">충전</button>
                               <button class="btn" onclick="goShowN();">사용</button>
-<%--                            </c:if> <c:if test="${search eq 'N'}"> --%>
+                           </c:if> <c:if test="${search eq 'N'}">
                               <button class="btn" onclick="goShowAll();">전체</button>
                               <button class="btn" onclick="goShowY();">충전</button>
                               <button class="btn btn--primary2" onclick="goShowN();">사용</button>
-<%--                            </c:if> --%>
+                           </c:if>
                            </th>
                      </tr>
                   </thead>
@@ -106,6 +148,7 @@
 
                            <td align="center">${ b.pa_pay }</td>
                            <td align="center">${ b.pdate }</td>
+                           <td align="center">${ b.status }</td>
                         </tr>
                      </c:forEach>
 
@@ -129,20 +172,19 @@
 			}
 			
 		function goShowAll() {
-	 		location.href = "adminCautQnaList.ex?search=all";
+	 		location.href = "adminBill.ad?search=all";
 		}
 	 	
 	 	function goShowY() {
-	 		location.href = "helperQnaList.ex?search=Y";
+	 		location.href = "adminBill.ad?search=Y";
 	 	}
 	 	
 	 	function goShowN() {
-	 		location.href = "helperQnaList.ex?search=N";
+	 		location.href = "adminBill.ad?search=N";
 	 	}
 			</script>
 
                <!--             게시판 페이징 영역 -->
-               	<div id="searchfrom"><input type="hidden" name="search"></div>
                <div id="board-paging">
                   <!--             [이전] -->
                   <c:if test="${ pi.currentPage <= 1 }">
