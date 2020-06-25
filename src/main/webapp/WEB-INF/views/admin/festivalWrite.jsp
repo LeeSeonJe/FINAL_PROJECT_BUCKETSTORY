@@ -103,7 +103,7 @@ nav{
 						<a href="adminCompany.ad">가입확인</a>
 					</li>
 					<li>
-						<a href="adminBill.ad">결제내역</a>
+						<a href=adminBill.ad?search=all>결제내역</a>
 					</li>
 					<li>
 						<a href="">통계</a>

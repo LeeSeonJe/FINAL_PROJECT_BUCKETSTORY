@@ -69,7 +69,7 @@ h2{
 						<a href="adminCompany.ad">가입확인</a>
 					</li>
 					<li>
-						<a href="adminBill.ad">결제내역</a>
+						<a href="adminBill.ad?search=all">결제내역</a>
 					</li>
 					<li>
 						<a href="">통계</a>
@@ -275,16 +275,7 @@ $(function(){
 }
 
 
-/* 리스트 변경 버튼 */
-// 	function goShowAll() {
-// 		location.href = "adminCautQnaList.ex?search=all";
-// 	}
-// 	function goShowY() {
-// 		location.href = "helperQnaList.ex?search=Y";
-// 	}
-// 	function goShowN() {
-// 		location.href = "helperQnaList.ex?search=N";
-// 	}
+
 
 </script>
 </body>

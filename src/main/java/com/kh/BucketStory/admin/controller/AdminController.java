@@ -9,17 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.resource.HttpResource;
 
 import com.kh.BucketStory.admin.model.exception.BoardException;
 import com.kh.BucketStory.admin.model.service.BoardService;
@@ -29,14 +30,20 @@ import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.Pagination;
-import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.exception.ExpertException;
+import com.kh.BucketStory.expert.model.service.ExpertService2;
 import com.kh.BucketStory.expert.model.vo.Company;
+import com.kh.BucketStory.expert.model.vo.Pay;
+import com.kh.BucketStory.expert.model.vo.pagination;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	private BoardService bService;
+	
+	@Autowired
+	private ExpertService2 ExService2;
 	
 	
 	@RequestMapping("adminwrite.ad")
@@ -48,7 +55,7 @@ public class AdminController {
 	@RequestMapping("list.ad")
 	public String adminfestivalList() {
 
-		return "festivalWrite";
+		return "adminPointList";
 	}
 	
 	/* 페스티벌 작성 페이지 */
@@ -56,8 +63,6 @@ public class AdminController {
 	public String festivalInsert(@ModelAttribute Festival f, @RequestParam("feUploadFile") MultipartFile uploadFile, 
 															 @RequestParam("address1") String address1,
 															 HttpServletRequest request) {
-		
-		
 		f.setFeplace(address1);
 		
 		Media m = new Media();
@@ -465,51 +470,51 @@ public class AdminController {
 		}
 	}
 	
-//	/* 결제내역 포인트 */
-//	   @RequestMapping(value = "helperQnaList.ex", method = RequestMethod.GET)
-//	   public ModelAndView showQnAList(HttpSession session, 
-//	                     @RequestParam(value = "page", required = false) Integer page,
-//	                     @RequestParam(value = "search") @Nullable String search,
-//	         ModelAndView mv) {
-//
-//	      
-//	      int currentPage = 1;
-//	      if (page != null) {
-//	         currentPage = page;
-//	      }
-//	      
-//	      int listCount = 0;
-//	      PageInfo pi = null;
-//	      ArrayList<adminQnA> list = null;
-//	      
-//	      
-//	      if(search.equals("all")) {
-//	         listCount = ExService2.getListQnACount(coId);
-//	         pi = pagination.getPageInfo(currentPage, listCount);
-//	         list = ExService2.selectQnAList(pi, coId);
-//	      }
-//	      if(search.equals("Y")) {
-//	         listCount = ExService2.getListQnACountY(coId);
-//	         pi = pagination.getPageInfo(currentPage, listCount);
-//	         list = ExService2.selectQnAListY(pi, coId);
-//	      }
-//	      if(search.equals("N")) {
-//	         listCount = ExService2.getListQnACountN(coId);
-//	         pi = pagination.getPageInfo(currentPage, listCount);
-//	         list = ExService2.selectQnAListN(pi, coId);
-//	      }
-//
-//	      if (list != null) {
-//	         mv.addObject("list", list);
-//	         mv.addObject("pi", pi);
+	/* 결제내역 포인트 */
+	   @RequestMapping(value = "adminBill.ad", method = RequestMethod.GET)
+	   public ModelAndView showQnAList(HttpSession session, 
+	                     @RequestParam(value = "page", required = false) Integer page,
+	                     @RequestParam(value = "search") @Nullable String search,
+	                     ModelAndView mv) {
+
+	      
+	      int currentPage = 1;
+	      if (page != null) {
+	         currentPage = page;
+	      }
+	      
+	      int listCount = 0;
+	      com.kh.BucketStory.expert.model.vo.PageInfo pi2 = null;
+	      ArrayList<Pay> list = null;
+	      
+	      
+	      if(search.equals("all")) {
+	         listCount = ExService2.getListCount();
+	         pi2 = pagination.getPageInfo(currentPage, listCount);
+	         list = ExService2.selectPayList(pi2);
+	      }
+	      if(search.equals("Y")) {
+	         listCount = ExService2.getListCountY();
+	         pi2 = pagination.getPageInfo(currentPage, listCount);
+	         list = ExService2.selectPayListY(pi2);
+	      }
+	      if(search.equals("N")) {
+	         listCount = ExService2.getListCountN();
+	         pi2 = pagination.getPageInfo(currentPage, listCount);
+	         list = ExService2.selectPayListN(pi2);
+	      }
+
+	      if (list != null) {
+	         mv.addObject("list", list);
+	         mv.addObject("pi", pi2);
 //	         mv.addObject("coId", coId);
-//	         mv.addObject("search",search);
-//	         mv.setViewName("hp_QnAList");
-//	      } else {
-//	         throw new ExpertException("QnA 내역 조회에 실패했습니다.");
-//	      }
-//	      return mv;
-//	   }
+	         mv.addObject("search",search);
+	         mv.setViewName("adminPointList");
+	      } else {
+	         throw new ExpertException("포인트 내역 조회에 실패했습니다.");
+	      }
+	      return mv;
+	   }
 	   
 	
 }
