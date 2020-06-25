@@ -84,11 +84,48 @@
 				<br>
 				<br>
 				<div id="btnarea">
-					<input type="submit" id="esrequest" class="btn" value="견적 요청">
+					<input type="submit" id="esrequest" class="btn" onclick=" return check();" value="견적 요청">
 					<input type="button" id="cancel"  class="btn" value="취소">
 				</div>
 			</form>
 		</section>
+		<script>
+			console.log($('#precautions').val().length)
+			
+			function check(){
+				
+				if($('#esr_startDate').val() != "" && $('#esr_endDate').val() != ""){
+					var startDate = $('#esr_startDate').val(); //2017-12-10
+			        var startDateArr = startDate.split('-');
+			        
+			        var endDate = $('#esr_endDate').val(); //2017-12-09
+			        var endDateArr = endDate.split('-');
+					
+			        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
+			        var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
+			        
+			        if(startDateCompare.getTime() > endDateCompare.getTime()){
+			            alert("시작날짜와 종료날짜를 확인해 주세요.");
+			            return false;
+			     	}
+				}
+				if($('#esr_startDate').val() == ""){
+					alert("시작일을 입력하세요.");
+					$('#esr_startDate').focus();
+					return false;
+				}else if($('#esr_endDate').val() == ""){
+					alert("종료일을 입력하세요.");
+					$('#esr_endDate').focus();
+					return false;
+				}else if($('#precautions').val()==""){
+					alert("요청사항을 입력해주세요.");
+					$('#precautions').focus();
+					return false;
+				}
+			         
+			        $("#frmSearch").submit();
+			}
+		</script>
 	</div>
 </body>
 </html>

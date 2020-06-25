@@ -51,6 +51,7 @@
 		where coid =#{coId} and status ='Y'
 		order by esr_no desc
 	</select>
+	
 
 	<select id="RequestDetail" resultMap="esrequestSet">
 		select *
@@ -164,6 +165,17 @@
 		where es_no = #{es_no}
 	</delete>
 	
+	<select id="getEsreqListCount" resultType="_int">
+		select count(*)
+		from ESREQUEST
+		where coid =#{coId} and status ='Y'
+	</select>
+	
+	<select id="EsListCount" resultType="_int">
+		select count(*)
+		from estimate
+		where coid =#{coId} and status = #{status}
+	</select>
 	
 	<resultMap id="estimateSet" type="estimate">
 		<id property="es_no" column="ES_NO"/>
