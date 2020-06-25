@@ -108,7 +108,19 @@
 					</div>
 				</div>
 			</div>
-			<div id="bucketcpEvent"></div>
+			<div id="bucketcpEvent">
+				<div id="bucketcpEvent-1">
+					<ul>
+						<li><label>행사제목</label><br>삼성 여행사삼성 여행사삼성 여행사삼성 여행사삼성 여행사삼성 여행사<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>LG 식품<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>아시아나항공 숙박<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+						<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
@@ -205,7 +217,13 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 	var tags = tag.split(',');
 	$('#bucketTag').html('');
 	for(var i in tags){
-		$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
+		if(tags[i] != ""){
+			var $div = $('<div>');
+			$div.attr('id', 'bucketTag1');
+			$div.attr('onclick', 'searchTag("'+tags[i]+'");');
+			$div.append('<span>#</span>'+tags[i]);
+			$('#bucketTag').append($div);
+		}
 	}
 	$('#bucketAdd').show();
 	$('#bucketComAdd').attr('onclick', 'deletecobucket('+bkNo+')');
@@ -213,8 +231,55 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 	if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
 		$('#bucketwish').css('color', '#10ccc3');
 	}
+	// 버킷 기업 가져오기
+	$.ajax({
+		url:'bkDetailCompany.ho',
+		data:{
+			bkNo:bkNo
+		},
+		async : false,
+		success:function(data){
+			$('#bucketcompany>ul').html('');
+			for(var key in data){
+				var $value = $('<li>');
+				var $label = $('<label>');
+				$label.attr('onclick', 'searchCompany("'+data[key].coName+'");');
+				$label.text(data[key].coName);
+				$value.append($label);
+				if('${loginUser}' != ""){
+					var $button = $('<button>');
+					$button.attr('onclick', 'estimate('+bkNo+', "'+data[key].coId+'");');
+					$button.text('견적서 작성');
+					$value.append($button);
+				}
+				$('#bucketcompany>ul').append($value);
+			}
+		}
+	});
+	// 버킷 기업 행사 가져오기
+	$.ajax({
+		url:'bkDetailCpFestival.ho',
+		data:{
+			bkNo:bkNo
+		},
+		async: false,
+		success:function(data){
+			$('#bucketcpEvent-1>ul').html('');
+			for(var key in data){
+				var $value = $('<li>');
+				$value.html('<label>'+data[key].eventTitle+'</label><br>'+data[key].eventContent);
+				if('${loginUser}' != ""){
+					var $button = $('<button>');Festimate
+					$button.attr('onclick', 'Festimate('+data[key].bkNo+',"'+data[key].coId+'","'+data[key].eventTitle+'","'+data[key].eventContent+'")');
+					$button.text('요청서 보내기');
+					$value.append($button);
+				}
+				$('#bucketcpEvent-1>ul').append($value);
+			}
+		}
+	});
 	// 버킷사진 가져오기
-	if(1<=bkNo&&bkNo<=10){
+	if(1<=bkNo&&bkNo<=20){
 		$.ajax({
 			url:'bkDetailMedia.ho',
 			data:{

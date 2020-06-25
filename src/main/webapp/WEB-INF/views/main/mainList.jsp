@@ -270,6 +270,11 @@ $(function(){
 		$('#bucketimg img').css('height', bkhg);
 	});
 	
+	// 기업일때는 전체 기업 검색임
+	if('${loginCompany.coId}' != ""){
+		$('#bucketcompany>ul>li>label').css('width', '100%');
+	}
+	
 	// 검색창 나오게 하기
 	$('#search-img').click(function(){
 		$('body').css('height', '100%');
@@ -437,7 +442,6 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 	$('#bucketwish').attr('onclick', 'wishRegist('+bkNo+',"'+userId+'");');
 	$('#bucketleft').attr('onclick', 'left('+bkNo+',"'+userId+'","'+bkName+'");');
 	$('#bucketright').attr('onclick', 'right('+bkNo+',"'+userId+'");');
-	$('#bucketright')
 	var tags = tag.split(',');
 	$('#bucketTag').html('');
 	for(var i in tags){
@@ -485,7 +489,10 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 			$('#bucketcompany>ul').html('');
 			for(var key in data){
 				var $value = $('<li>');
-				$value.text(data[key].coName);
+				var $label = $('<label>');
+				$label.attr('onclick', 'searchCompany("'+data[key].coName+'");');
+				$label.text(data[key].coName);
+				$value.append($label);
 				if('${loginUser}' != ""){
 					var $button = $('<button>');
 					$button.attr('onclick', 'estimate('+bkNo+', "'+data[key].coId+'");');

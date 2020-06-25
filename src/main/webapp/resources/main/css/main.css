@@ -416,6 +416,13 @@ section{
 	margin-bottom: 2px;
 	border-bottom: 1px solid gray;
 }
+#bucketcompany>ul>li:hover{
+	background:rgba(0,0,0,0.1);
+}
+#bucketcompany>ul>li>label{
+	display: inline-block;
+    width: 78.5%;
+}
 #bucketcompany>ul>li:nth-child(n+2){
 	border-top: 1px solid gray;
 }
@@ -423,6 +430,7 @@ section{
 	float: right;
     height: 20px;
     line-height: 16.9px;
+    width: 21.5%;
 }
 #bucketcpeventD{
 	width: 90%;
