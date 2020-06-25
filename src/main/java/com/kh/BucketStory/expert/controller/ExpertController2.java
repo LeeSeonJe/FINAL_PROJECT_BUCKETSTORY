@@ -209,7 +209,6 @@ public class ExpertController2 {
 	public ModelAndView goPointSimple(HttpSession session,ModelAndView mv) {
 		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
 		mv.addObject("coId", coId);
-		
 		if (ExService2.getListCount(coId) > 0) {
 			mv.addObject("hp", getPoint(coId));
 		} else { 
