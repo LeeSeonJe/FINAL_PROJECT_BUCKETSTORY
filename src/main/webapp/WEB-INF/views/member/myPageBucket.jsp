@@ -178,7 +178,9 @@
 					<div id="bucketwish">☆ </div>
 					</c:if>
 					<!-- 회원만 해당(끝) -->
-					
+					<c:if test="${ not empty loginCompany }">
+					<div id="bucketComAdd"> + ADD </div>
+					</c:if>
 					
 				</div>
 				<div id="bucketcp">
@@ -214,7 +216,19 @@
 						</div>
 					</div>
 				</div>
-				<div id="bucketcpEvent"></div>
+				<div id="bucketcpEvent">
+					<div id="bucketcpEvent-1">
+						<ul>
+							<li><label>행사제목</label><br>삼성 여행사삼성 여행사삼성 여행사삼성 여행사삼성 여행사삼성 여행사<button>견적서 작성</button></li>
+							<li><label>행사제목</label><br>LG 식품<button>견적서 작성</button></li>
+							<li><label>행사제목</label><br>아시아나항공 숙박<button>견적서 작성</button></li>
+							<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+							<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+							<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+							<li><label>행사제목</label><br>오리온 과자<button>견적서 작성</button></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -387,6 +401,88 @@
 		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
 			$('#bucketwish').css('color', '#10ccc3');
 		}
+		
+		$('#bucketComAdd').attr('onclick', 'InPutCoBucket('+bkNo+');');
+		// 기업 버킷 추가버튼 할지 말지
+		if('${loginCompany.coId}' != ""){
+			$.ajax({
+				url:'bkDetailWhatAdd.ho',
+				data:{
+					bkNo:bkNo
+				},
+				async:false,
+				success:function(data){
+					if(data == '1'){
+						$('#bucketComAdd').hide();
+					} else{
+						$('#bucketComAdd').show();
+					}
+				}
+			});
+			var cateNum1 = '${loginCompany.cateNum}';
+			var cateName2 = 0;
+			switch(cateNum1){
+				case '1': cateName2 = 'Travel'; break;
+				case '2': cateName2 = 'Sport'; break;
+				case '3': cateName2 = 'Food'; break;
+				case '4': cateName2 = 'New Skill'; break;
+				case '5': cateName2 = 'Culture'; break;
+				case '6': cateName2 = 'Outdoor'; break;
+				case '7': cateName2 = 'Shopping'; break;
+				case '8	': cateName2 = 'Lifestyle'; break;
+			}
+			if(cateName2 != cateName){
+				$('#bucketComAdd').hide();
+			}
+		}
+		// 버킷 기업 가져오기
+		$.ajax({
+			url:'bkDetailCompany.ho',
+			data:{
+				bkNo:bkNo
+			},
+			async : false,
+			success:function(data){
+				$('#bucketcompany>ul').html('');
+				for(var key in data){
+					var $value = $('<li>');
+					var $label = $('<label>');
+					$label.attr('onclick', 'searchCompany("'+data[key].coName+'");');
+					$label.text(data[key].coName);
+					$value.append($label);
+					if('${loginUser}' != ""){
+						var $button = $('<button>');
+						$button.attr('onclick', 'estimate('+bkNo+', "'+data[key].coId+'");');
+						$button.text('견적서 작성');
+						$value.append($button);
+					}
+					$('#bucketcompany>ul').append($value);
+				}
+			}
+		});
+		// 버킷 기업 행사 가져오기
+		$.ajax({
+			url:'bkDetailCpFestival.ho',
+			data:{
+				bkNo:bkNo
+			},
+			async: false,
+			success:function(data){
+				$('#bucketcpEvent-1>ul').html('');
+				for(var key in data){
+					var $value = $('<li>');
+					$value.html('<label>'+data[key].eventTitle+'</label><br>'+data[key].eventContent);
+					if('${loginUser}' != ""){
+						var $button = $('<button>');Festimate
+						$button.attr('onclick', 'Festimate('+data[key].bkNo+',"'+data[key].coId+'","'+data[key].eventTitle+'","'+data[key].eventContent+'")');
+						$button.text('요청서 보내기');
+						$value.append($button);
+					}
+					$('#bucketcpEvent-1>ul').append($value);
+				}
+			}
+		});
+		
 		// 버킷사진 가져오기
 		if(1<=bkNo&&bkNo<=10){
 			$.ajax({
@@ -455,17 +551,17 @@
 							if(data[key].nickName == '${loginUser.nickName}'){
 								$('#bucketAdd').hide();
 							}
-							if(data[key].userId != 'admin'){
-								if(data[key].prImage != null){
-									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/member/images/profiles/'+data[key].prImage+'" style="width:100%;height:100%; border-radius: 100px;"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-									$('#bucketwithPro').append($div);
-								} else{
-									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
-									$('#bucketwithPro').append($div);
-								}
-							} else{
-								$('#bucketwithCount>span').text(data.length-1);
+						}
+						if(data[key].userId != 'admin'){
+							if(data[key].prImage == null){
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
+							} else {
+								var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/member/images/profiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+								$('#bucketwithPro').append($div);
 							}
+						} else{
+							$('#bucketwithCount>span').text(data.length-1);
 						}
 					}
 				} else{
@@ -517,6 +613,47 @@
 			$('#bucketcpeventD>button').text("행사 펼치기");
 		}
 	});
+	
+	// 기업 버킷 등록하기
+	function InPutCoBucket(bkNo){
+		var result = confirm("이 버킷을 등록하시겠습니까?");
+		
+		if(result){
+			$.ajax({
+				url:'expertUpdate.ex',
+				data:{
+					bucket:bkNo
+				},
+				async : false,
+				success:function(data){
+					if(data == 'success'){
+						$('#bucketComAdd').hide();
+					}
+				}
+			});
+		} else{
+			alert("취소");
+		}
+	}
+	// 행사 참여
+	function Festimate(bkNo, coId, eventTitle, eventContent){
+		var result = confirm("이 행사로 견적서 요청 하시겠습니까?");
+		if(result){
+			location.href='esrequest.ex?bkNo='+bkNo+'&coId='+coId+'&eventTitle='+eventTitle+'&eventContent='+eventContent;
+		} else{
+			alert("취소");
+		}
+	}
+	// 견적서 요청 하기
+	function estimate(bkNo, coId){
+		var result = confirm("견적서 요청 하시겠습니까?");
+		if(result){
+			location.href="esrequest.ex?bkNo="+bkNo+"&coId="+coId;
+		} else{
+			alert("취소");
+		}
+	}
+	
 
 </script>
 </html>
