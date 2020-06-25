@@ -88,14 +88,14 @@ public class ExpertController2 {
 		ArrayList<Company> list = ExService2.selectTop5havingPoint();
 	//	System.out.println(list);
 	
-		Company company = ExService.selectCompanyInfo(coId);
-		Media photo =  ExService2.getPhoto(coId);
-	//	System.out.println(photo);
-	// 카테고리 이름가져오기
+		Company company = ExService.selectCompanyInfo(coId);	
+		Media photo =  ExService2.getPhoto(coId);	
 		Category cateName = ExService2.selectCateName(company.getCateNum());
 		
-		mv.addObject("com", company);
-		mv.addObject("photo", photo.getMweb());
+			mv.addObject("com", company);
+		if(photo !=null) {
+			mv.addObject("photo", photo.getMweb());
+		}
 		
 		mv.addObject("cateName", cateName.getCateName());
 		mv.addObject("result", result);
