@@ -438,4 +438,11 @@ public class MainController {
 		}
 		return returnString;
 	}
+	
+	@RequestMapping("updateMember.ho")
+	public String updateMember() {
+		
+		
+		return "myInfo";
+	}
 }

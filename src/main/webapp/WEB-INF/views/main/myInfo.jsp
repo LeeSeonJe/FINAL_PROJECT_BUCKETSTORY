@@ -22,7 +22,7 @@
 					<div class="f-one">
 						<form class="formDiv" action="updateMember.ho" method="post" onsubmit="return update();">
 							폰번호 : <input class="phone1" value="010" disabled="disabled">-<input id="phone" class="phone2" value="${fn:substring(loginUser.phone, 4, 8)}">-<input id="phone2" class="phone2" value="${fn:substring(loginUser.phone, 9, 13)}"><br><br>
-							이메일 : <input class="EN" type="email" value="${loginUser.email}"><br><br>
+							이메일 : <input class="EN" id="email" type="email" value="${loginUser.email}"><br><br>
 							닉네임 : <input class="EN" onchange="nickCheck();" id="nickName" name="nickName" value="${loginUser.nickName}"><span>X</span><br><br>
 							<button type="button">비밀번호 변경</button><input id="submitBtn" type="submit" value="수정">
 						</form>
@@ -95,10 +95,39 @@
 		});
 	}
 	function update(){
-		var nickName = $('#nickName').val().split();
+		var nickName = $('#nickName').val().trim();
+		var email = $('#email').val().trim();
+		var phone = $('#phone').val().trim();
+		var phone2 = $('#phone2').val().trim();
+		
+		if(phone == ""){
+			alert('전화번호을 채워주세요');
+			$('#phone').focus();
+			return false;
+		}
+		if(phone2 == ""){
+			alert('전화번호2을 채워주세요');
+			$('#phone2').focus();
+			return false;
+		}
+		if(email == ""){
+			alert('이메일을 채워주세요');
+			$('#email').focus();
+			return false;
+		}
+		
 		if(submitCheck){
-			return true;
+			var result = confirm('이 정보로 수정하시겠습니까?');
+			if(result){
+				alert('수정이 완료되었습니다.');
+				return true;
+			} else{
+				alert('취소');
+				return false;
+			}
+			
 		} else{
+			alert('입력 형식을 다시확인해주세요');
 			return false;
 		}
 	}
