@@ -202,15 +202,15 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	}
 
 	@Override
-	public ArrayList<Pay> selectList(PageInfo pi) {
+	public ArrayList<Pay> selectPayList(PageInfo pi) {
 		return exDAO2.selectList(sqlSession, pi);
 	}
 	@Override
-	public ArrayList<Pay> selectListY(PageInfo pi) {
+	public ArrayList<Pay> selectPayListY(PageInfo pi) {
 		return exDAO2.selectListY(sqlSession,pi);
 	}
 	@Override
-	public ArrayList<Pay> selectListN(PageInfo pi) {
+	public ArrayList<Pay> selectPayListN(PageInfo pi) {
 		return exDAO2.selectListN(sqlSession,pi);
 	}
 
