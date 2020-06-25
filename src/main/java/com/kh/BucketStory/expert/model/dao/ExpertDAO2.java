@@ -171,12 +171,17 @@ public class ExpertDAO2 {
 		
 		int result = sqlSession.selectOne("exMapper2.isBePhoto", coId);
 		
-		 // 사진이 여러개면
-		if(result > 1) {
-			return null;
+		if(result > 0) {
+			 // 사진이 여러개면
+			if(result > 1) {
+				return null;
+			}else {
+				return sqlSession.selectOne("exMapper2.selectPhoto", coId);
+			}
 		}else {
-			return sqlSession.selectOne("exMapper2.selectPhoto", coId);
+			return null;
 		}
+		
 	}
 
 
