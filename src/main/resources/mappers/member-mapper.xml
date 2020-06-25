@@ -145,20 +145,6 @@
 	</select>
 	
 	<select id="getBoard" parameterType="hashMap" resultMap="BoardResultSet">
-<!-- 		select * -->
-<!-- 		from board -->
-<!-- 		where userid = #{ userid } and bkno = #{ bn } and status = 'Y' -->
-<!-- 		order by enrolldate -->
-
-<!-- 			select * -->
-<!-- 			from board b -->
-<!-- 			left join BOARDCOMMENT bc using (bno) -->
-<!-- 			left join member mm on (mm.userid = bc.userid) -->
-<!-- 			left join reply r using (cmno) -->
-<!-- 			left join member m on (r.userid = m.userid) -->
-<!-- 			where b.userid = #{ userid } and bkno = #{ bn } and b.status = 'Y' -->
-<!-- 			order by b.enrolldate, bc.enrolldate desc, rpdate -->
-
 			select BNO, BTITLE, BCONTENT, BLIKE, BCOUNT, b.ENROLLDATE B_ENROLLDATE, B.STATUS B_STATUS, B.USERID B_USERID, BKNO,
 			            CMNO, CMCONTENT, BC.ENROLLDATE BC_ENROLLDATE, BC.USERID BC_USERID, SECRET, BC.STATUS BC_STATUS,
 			            MM.NICKNAME BC_NICKNAME, MM.PR_IMAGE BC_PR_IMAGE, MM.STATUS BC_M_STATUS,
@@ -326,20 +312,19 @@
 	</update>
 	
 	<select id="getWishList" resultMap="wishListResultSet">
-		select WINO, w.enrolldate W_ENROLLDATE, w.BKNO W_BKNO, w.userid W_USERID, 
-		                        CATENUM, CATENAME,
-		                        B.BKNO B_BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE B_ENROLLDATE, BKLIKE, b.userid B_USERID, COMPLETE,
-		                        MWEB,
-		                        MM.NICKNAME B_NICKNAME,
-                                SB.USERID SB_USERID
-		from wishlist w
+        select WINO, w.enrolldate W_ENROLLDATE, w.BKNO W_BKNO, w.userid W_USERID, 
+                    CATENUM, CATENAME,
+                    B.BKNO B_BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE B_ENROLLDATE, BKLIKE, b.userid B_USERID, COMPLETE,
+                    MWEB,
+                    MM.NICKNAME B_NICKNAME,
+                    BUCKETID
+        from wishlist w
 		join bucketList b on (b.bkno = w.bkno)
 		join category using (cateNum)
-		join media m on (b.bkno = m.bkno)
-		join sharebucket sb on (sb.bkno = b.bkno)
-		join member mm on (sb.userid = mm.userid)
-		where w.userid=#{ userid }
-		order by w.ENROLLDATE desc
+        join media m on (b.bkno = m.bkno)
+		join member mm on (w.bucketid = mm.userid)
+        where w.userid = #{ userid }
+        order by w.ENROLLDATE desc
 	</select>
 	
 	<resultMap type="WishList" id="wishListResultSet">
@@ -349,16 +334,12 @@
 		<result property="userId" column="W_USERID" />
 		<result property="cateNum" column="CATENUM" />
 		<result property="cateName" column="CATENAME" />
+		<result property="bucketId" column="BUCKETID"/>
 		<association property="bucketList" resultMap="wishBucketResultSet"></association>
 		<association property="media" resultMap="wishMediaResultSet"></association>
 		<association property="member" resultMap="wishBoardMember"></association>
-		<association property="shareBucket" resultMap="wishsbMember"></association>
 	</resultMap>
-	
-	<resultMap type="ShareBucket" id="wishsbMember">
-		<result property="userId" column="SB_USERID"/>
-	</resultMap>
-	
+
 	<resultMap type="Member" id="wishBoardMember">
 		<result property="nickName" column="B_NICKNAME"/>
 	</resultMap>

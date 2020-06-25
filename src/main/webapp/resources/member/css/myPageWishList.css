@@ -422,25 +422,7 @@ section {
     border: 1px solid #ded9d9;
     background-color: white;
 }
-#bucketcompany{
-	width: 90%;
-    margin-left: 5%;
-    overflow: auto;
-    max-height: 103.4px;
-    margin-top: 15px;
-}
-#bucketcompany>ul>li{
-	font-size: 15px;
-	margin-bottom: 2px;
-}
-#bucketcompany>ul>li:nth-child(n+2){
-	border-top: 1px solid gray;
-}
-#bucketcompany button{
-	float: right;
-    height: 20px;
-    line-height: 16.9px;
-}
+
 #bucketcpeventD{
 	width: 90%;
     margin-left: 5%;
@@ -532,13 +514,6 @@ section {
     color: #666666;
 }
 
-#bucketcpEvent{
-	width:410px;
-	float:left;
-	height:300px;
-	background:black;
-	display:none;
-}
 
 .fa-cog {
     position: absolute;
@@ -590,4 +565,90 @@ section {
     line-height: 30px;
     color: rgb(24, 223, 211);
     right: 13.9px;
+}
+
+
+#bucketcompany{
+	width: 90%;
+    height: 100px;
+    margin-left: 5%;
+    overflow: auto;
+    max-height: 103.4px;
+    margin-top: 15px;
+    border: 1px solid #ded9d9;
+}
+#bucketcompany>ul>li{
+	font-size: 15px;
+	margin-bottom: 2px;
+	border-bottom: 1px solid gray;
+}
+#bucketcompany>ul>li:hover{
+	background:rgba(0,0,0,0.1);
+}
+#bucketcompany>ul>li>label{
+	display: inline-block;
+    width: 78.5%;
+}
+#bucketcompany>ul>li:nth-child(n+2){
+	border-top: 1px solid gray;
+}
+#bucketcompany button{
+	float: right;
+    height: 20px;
+    line-height: 16.9px;
+    width: 21.5%;
+}
+
+#bucketcpEvent{
+	width:400px;
+	float:left;
+	height:300px;
+	display:none;
+	border-left: 1px solid gray;
+}
+#bucketcpEvent-1{
+	width: 90%;
+    height: 260px;
+    margin-left: 5%;
+    overflow: auto;
+    margin-top: 15px;
+    border: 1px solid #ded9d9;
+}
+#bucketcpEvent-1>ul>li{
+	font-size: 15px;
+	margin-bottom: 2px;
+	border-bottom: 1px solid gray;
+}
+
+#bucketcpEvent-1>ul>li:nth-child(n+2){
+	border-top: 1px solid gray;
+}
+#bucketcpEvent-1>ul>li>label{
+	font-weight: 700;
+}
+#bucketcpEvent-1 button{
+	float: right;
+    height: 20px;
+    line-height: 16.9px;
+}
+
+#bucketComAdd{
+	position: absolute;
+    width: 141px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 50px;
+    line-height: 43.5px;
+    font-weight: 700;
+    bottom: 40px;
+    right: 40px;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+#bucketComAdd:hover{
+	color:black;
+	background:#10ccc3;
+	border:1px solid #10ccc3;
 }

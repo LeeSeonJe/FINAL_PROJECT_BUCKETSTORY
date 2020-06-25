@@ -196,7 +196,7 @@ select {
 }
 
 .blogBucket {
-	text-align: center;
+/* 	text-align: center; */
 	padding-bottom: 30px;
 }
 
@@ -347,6 +347,7 @@ a:hover {
 
 .comment_content, .write_comment_content {
 	margin-bottom: 10px;
+	text-align: center;
 }
 
 .comment_list textarea {
@@ -437,3 +438,12 @@ button {
 .fa-heart {
 	color: red;
 } 
+
+.bContent {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.blogBucket>.selBtn {
+	text-align: center;
+}

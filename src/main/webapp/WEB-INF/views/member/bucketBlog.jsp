@@ -213,7 +213,7 @@
 						function prev2Btn() {
 							var last = "${ bList.size() }"
 							var go = $('#goElement').val();
-							$('.blogBucket').eq(0).children('input').next().focus();
+							$('.blogBucket').eq(0).children('div').eq(0).children('input').focus();
 							$('#goElement').val(1);
 						}
 						
@@ -222,7 +222,7 @@
 							var go = $('#goElement').val();
 							if(go > 1) {
 								go--;
-								$('.blogBucket').eq(parseInt(go)-1).children('input').next().focus();
+								$('.blogBucket').eq(parseInt(go)-1).children('div').eq(0).children('input').focus();
 								$('#goElement').val(go);																													
 							} else {
 								console.log(go)
@@ -235,7 +235,7 @@
 							var go = $('#goElement').val();
 							if(last > parseInt(go)) {
 								go++;
-								$('.blogBucket').eq(parseInt(go)-1).children('input').next().focus();
+								$('.blogBucket').eq(parseInt(go)-1).children('div').eq(0).children('input').focus();
 								$('#goElement').val(go);																													
 							} else {
 								next2Btn();
@@ -245,13 +245,13 @@
 						function next2Btn() {
 							var last = "${ bList.size() }"
 							var go = $('#goElement').val();
-							$('.blogBucket').eq(parseInt(last)-1).children('input').next().focus();
+							$('.blogBucket').eq(parseInt(last)-1).children('div').eq(0).children('input').focus();
 							$('#goElement').val(last)
 						}
 						
 						function goBucket() {
 							var go = $('#goElement').val();
-							$('.blogBucket').eq(parseInt(go)-1).children('input').next().focus();
+							$('.blogBucket').eq(parseInt(go)-1).children('div').eq(0).children('input').focus();
 						}
 					</script>
 				</c:if>			
@@ -313,11 +313,13 @@
 					<!-- 블로그 내용 -->
 					<div class="blogBucket">
 						<input type="hidden" value="${ bl.bNo }" />
-						<input type="text" readonly="readonly" value="${ status.index }" style="width:0px; height:0px; font-size: 0px; border: none;">
+						<div class="test" style="text-align: center;">
+							<input type="text" readonly="readonly" value="${ status.index }" style="width:0px; height:0px; font-size: 0px; border: none;" class="selBtn">
+						</div>
 						<br><br>
 						<span id="story_index">'${ getMember.nickName }'님의 ${ status.index + 1 }번째 이야기</span>
 						<br>
-						<h3>${ bl.bTitle }</h3>
+						<h3 style="text-align: center;">${ bl.bTitle }</h3>
 						<div class="profile-area">
 							<c:if test="${ empty getMember.prImage }">
 								<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;" />
@@ -328,7 +330,7 @@
 							<span>${ getMember.nickName }</span>
 							<span style="margin-left: 70%;">${ bl.enrollDate }</span>
 						</div>
-						<div>
+						<div class="bContent">
 							${ bl.bContent }
 						</div>
 						<div class="etc-area">
@@ -538,7 +540,7 @@
 				</c:forEach>
 			</c:if>
 			<c:if test="${ empty bList }">
-				<div class="blogBucket">
+				<div class="blogBucket" style="text-align: center;">
 					<h4>등록된 글이 없습니다.</h4>
 					<h4>멋진 내용을 등록해보세요.</h4>
 				</div>
@@ -1033,10 +1035,10 @@
 						if(nickName1 == nickName2) {
 							$div = $('<div class="reply_profile_area">');
 							$input = $('<input type="hidden">').val(data[data.length-1].rpNo);
-							if('${ loginUser.prImage }'.trim() == "") {
-								$prImg = $('<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
+							if('${ loginUser.prImage }'.trim() != "") {
+								$prImg = $('<img src="resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;">');								
 							} else {
-								$prImg = $('<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;">');								
+								$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
 							}
 							$span1 = $('<span>${ loginUser.nickName }</span>');
 							$span2 = $('<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>');
