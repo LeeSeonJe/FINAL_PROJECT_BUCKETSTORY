@@ -294,26 +294,17 @@
 var dc = 0.3; //할인율
 var IMP = window.IMP;
 IMP.init('imp49697884');
-
 function requestPay(price , coId , today) {
 	var chkbox = document.getElementsByName('agree');
-
-	//console.log(chkbox);
-
 	if (chkbox[0].checked) {
-		//console.log('체크');
 		alert(price * (1 - dc) + '원을 결제합니다.');
-
 		IMP.request_pay({
 			pg : 'inicis',
 			pay_method : 'card',
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : '주문명:포인트충전',
 			amount : price * (1 - dc),
-
-			// 			    buyer_email : 'iamport@siot.do',
 			buyer_name : coId
-
 		}, function(rsp) {
 			if (rsp.success) {
 				$.ajax({
@@ -340,9 +331,7 @@ function requestPay(price , coId , today) {
 				msg += '에러내용 : ' + rsp.error_msg;
 			}
 		});
-
 	} else {
-		//console.log('안체크');
 		alert('이용약관에 동의해주세요');
 	}
 }

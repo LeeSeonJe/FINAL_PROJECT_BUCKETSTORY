@@ -17,9 +17,9 @@ public interface ExpertService2 {
 	
 	int getListCount(String coId);
 	
-	ArrayList<Pay> selectList(PageInfo pi);
-	ArrayList<Pay> selectListY(PageInfo pi);
-	ArrayList<Pay> selectListN(PageInfo pi);
+	ArrayList<Pay> selectPayList(PageInfo pi);
+	ArrayList<Pay> selectPayListY(PageInfo pi);
+	ArrayList<Pay> selectPayListN(PageInfo pi);
 	
 	ArrayList<Pay> selectList(PageInfo pi, String coId);
 	
