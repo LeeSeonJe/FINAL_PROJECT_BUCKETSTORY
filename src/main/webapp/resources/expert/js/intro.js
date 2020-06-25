@@ -13,9 +13,9 @@
 function goHome(){
 	var target = $("#hpTop");
 	$('html, body').animate({scrollTop : target.offset().top - 108}, 500);
-	setTimeout(function() {
-		location.reload();	
-		}, 520);
+//	setTimeout(function() {
+//		location.reload();	
+//		}, 520);
 }
 
 // HelperEdit1 사진넣기
@@ -146,12 +146,12 @@ $(window).scroll(function() {
 	if (scrolltop > 2200) {
 		$("#navigation li").removeClass();
 		$("#navigation li:nth-child(5)").addClass("on");
-		$("#dal img").css({
-			"transtion" : "5s",
-			"transform" : "translate(700px,150px)",
-			"zoom" : "1.8"
-		});
-		$("#dal img").fadeOut(800);
+//		$("#dal img").css({
+//			"transtion" : "5s",
+//			"transform" : "translate(700px,150px)",
+//			"zoom" : "1.8"
+//		});
+		$("#dal img").fadeOut(1200);
 		$('.helperEdit3 p').fadeIn(2000);
 	}
 	if(scrolltop < 2000){
