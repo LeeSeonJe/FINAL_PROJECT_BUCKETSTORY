@@ -37,23 +37,37 @@
 	<!-- 이메일 관련 -->
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl" >
 	    <property name="host" value="smtp.gmail.com" />
-	    <property name="port" value="587" />
-	    <property name="username" value="pbmin1993@gmail.com" />
-	    <property name="password" value="rn15rmf48!((#" />
-	    <property name="javaMailProperties">
+        <property name="port" value="587" />
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="username" value="pbmin1993@gmail.com" />
+        <property name="password" value="rn15rmf48!((#" />
+        
+        <property name="javaMailProperties">
 	        <props>
-	            <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
 	            <prop key="mail.smtp.starttls.enable">true</prop>
 	            <prop key="mail.smtp.auth">true</prop>
 	        </props>
 	    </property>
-	</bean>
 	
-<!-- 	<bean id="mailService" class="service.other.MailServiceImpl"> -->
-<!--    		<property name="javaMailSender" ref="javaMailSender" /> -->
-<!-- 	</bean> -->
+ 	</bean>
+  	  <bean id="email" class="com.kh.BucketStory.common.model.vo.Email">
+    </bean>
+    	<bean id="emailSender" class="com.kh.BucketStory.common.model.vo.EmailSender">
+    </bean>
 
-
+	<!-- Facebook 소셜 로그인 연결 설정 -->
+ 
+    <bean id="connectionFactory"
+        class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+        <constructor-arg value="Client ID" />
+        <constructor-arg value="Secret Code" />
+    </bean>
+ 
+    <bean id="oAuth2Parameters"
+        class="org.springframework.social.oauth2.OAuth2Parameters">
+        <property name="scope" value="email" />
+        <property name="redirectUri" value="https://localhost:8443/Path..." />
+    </bean>
 
 	
 </beans>
