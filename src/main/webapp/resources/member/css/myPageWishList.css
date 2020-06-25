@@ -1,0 +1,593 @@
+@charset "UTF-8";
+
+body {
+	min-width: 1200px;
+	margin: 0;
+}
+
+header {
+	min-width: 1200px;
+	border-bottom: 1px solid rgba(var(- -b38, 219, 219, 219), 1);
+	width: 100%;
+	height: 60px;
+	position: fixed;
+	z-index: 100;
+	background: white;
+}
+
+#extra {
+	width: 100%;
+	height: 60px;
+}
+
+#body-wrap {
+	width: 1000px;
+	min-height: 500px;
+	margin: 0 auto;
+}
+
+#Myheader {
+	width: 100%;
+	height: 225px;
+}
+
+section {
+	width: 100%;
+	min-height: 100px;
+/* 	background: green; */
+	margin-top: 5px;
+}
+
+#profileImg {
+	width: 166px;
+	height: 166px;
+	border-radius: 100px;
+}
+
+#table_area {
+	margin: 0 auto;
+}
+
+#table_area>tbody>tr>td {
+	width: 180px;
+	height: 70px;
+}
+
+.bucket {
+	transform-origin: 50% 50%;
+	transform: translate(0px, 0px);
+	opacity: 1;
+	position: relative;
+	float: left;
+	width: 300px;
+	height: 300px;
+	overflow: hidden;
+	cursor: pointer;
+/* 	background-image: url('../../muploadFiles/'); */
+	background-size: cover;
+	margin: 16px;
+	padding: 0;
+	border: 0;
+	display: block;
+}
+
+.bucketContent {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	text-align: center;
+}
+
+.c-category {
+	width: 100%;
+	height: 20px;
+	font-weight: 800;
+	color: orange;
+	margin-bottom: 8px;
+}
+
+.c-bucket {
+	width: 100%;
+	height: 60px;
+	font-size: 20px;
+	color: white;
+	font-weight: 700;
+}
+
+.c-bucket-1 {
+	width: 240px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.c-Add {
+	width: 100%;
+	height: 40px;
+}
+
+.c-addBtn {
+	width: 76px;
+	height: 30px;
+	border: 1px solid white;
+	color: white;
+	border-radius: 20px;
+	margin: 0 auto;
+	line-height: 27.3px;
+	font-weight: 700;
+}
+
+.c-addBtn:hover {
+	color: black;
+	background: #10ccc3;
+	border: 1px solid #10ccc3;
+}
+
+.c-likewish {
+	display: none;
+	width: 100%;
+	height: 40px;
+}
+
+.c-likeBtn {
+	width: 50%;
+	height: 100%;
+	float: left;
+	color: white;
+}
+
+.c-wishBtn {
+	width: 50%;
+	height: 100%;
+	float: left;
+	color: white;
+}
+
+#bucketAddBtn {
+	position: fixed;
+/*     background-image: url(../images/plus.png); */
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    bottom: 20px;
+	margin-left: 1185.8px;
+    cursor: pointer;
+}
+
+#followBtn {
+	font-weight: 600;
+    color: white;
+    border: 1px solid transparent;
+    background-color: #0095f6;
+    background-color: rgba(var(--d69,0,149,246),1);
+    width: 130px;
+    height: 25px;
+    border-radius: 3px;
+    font-size: 13px;
+    outline: none;
+}
+
+#unFollowBtn {
+	font-weight: 600;
+    color: white;
+    border: 1px solid transparent;
+    background-color: #0095f6;
+    background-color: rgba(var(--d69,0,149,246),1);
+    width: 130px;
+    height: 25px;
+    border-radius: 3px;
+    font-size: 13px;
+    outline: none;
+}
+
+.followList {
+	display: none;
+    width: 500px;
+    height: 300px;
+    z-index: 2147483647;
+    position: absolute;
+    right: 30%;
+    top: 30%;
+    background: white;
+}
+
+.follow-td {
+	
+}
+
+/* 버킷 디테일 */
+
+#FullOverLay{
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 1200px;
+    z-index: 300;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: none;
+    background:rgb(0,0,0,0.3);
+}
+
+#bucketDatail{
+	position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 71.8%;
+    min-height: 100px;
+    z-index: 301;
+    margin-left: 3.9%;
+    margin-bottom: 5%;
+    background:white;
+}
+#bucketexit{
+	position: absolute;
+    width: 50px;
+    height: 50px;
+    color: rgb(91, 90, 255);
+    top: 10px;
+    right: 0px;
+    font-size: 35px;
+    cursor: pointer;
+    font-weight: 700;
+    z-index: 100;
+}
+#bucketGoBlog{
+	position: absolute;
+    width: 120px;
+    height: 30px;
+    color: white;
+    top: 19px;
+    right: 70px;
+    font-size: 20px;
+    font-weight: 700;
+    z-index: 100;
+    text-align: center;
+    background: black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#bucketGoBlog:hover{
+	color:black;
+	background:white;
+}
+#bucketimg{
+	width:100%;
+	background:skyblue;
+	background-size: cover;
+	overflow: hidden;
+	position:relative;
+}
+#bucketimg ul{
+	width:10000000px;
+	position: absolute;
+	top:0;
+	left:0;
+	padding: 0;
+}
+#bucketimg ul li{
+	display: inline-block;
+}
+#bucketcate{
+	position: absolute;
+    bottom: 120px;
+    left: 20px;
+    width: 100px;
+    height: 20px;
+    font-weight: 800;
+    color: orange;
+    font-family: -webkit-pictograph;
+}
+#buckettitle{
+	position: absolute;
+    bottom: 20px;
+    left: 10px;
+    width: 500px;
+    height: 90px;
+    font-size: 30px;
+    color: white;
+    font-weight: 700;
+    font-family: cursive;
+}
+#bucketleft{
+	position: absolute;
+    top: 360px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 30px;
+    font-weight: 700;
+    background: rgb(0,0,0,0.3);
+    text-align: center;
+    line-height: 46.3px;
+    cursor: pointer;
+    display: none;
+}
+#bucketleft:hover{
+	color:#36FFFF;
+}
+#bucketright{
+	position: absolute;
+    top: 360px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 30px;
+    font-weight: 700;
+    background: rgb(0,0,0,0.3);
+    text-align: center;
+    line-height: 46.3px;
+    cursor: pointer;
+}
+#bucketright:hover{
+	color:#36FFFF;
+}
+#bucketAdd{
+	position: absolute;
+    width: 141px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 50px;
+    line-height: 43.5px;
+    font-weight: 700;
+    bottom: 40px;
+    right: 170px;
+    text-align: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+#bucketAdd:hover{
+	color:black;
+	background:#10ccc3;
+	border:1px solid #10ccc3;
+}
+#bucketlike{
+	position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 50px;
+    bottom: 40px;
+    right: 100.9px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 43.5px;
+    cursor: pointer;
+}
+#bucketlike:hover{
+	color:#10ccc3;
+}
+#bucketwish{
+	position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 1px solid white;
+    color: white;
+    border-radius: 50px;
+    bottom: 40px;
+    right: 32.1px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 43.5px;
+    font-weight: 700;
+    cursor: pointer;
+}
+#bucketwish:hover{
+	color:#10ccc3;
+}
+
+#bucketcp{
+	float:left;
+	height:300px;
+}
+#bucketTag{
+	width: 90%;
+    height: 26px;
+    margin-left: 5%;
+    margin-top: 22px;
+}
+#bucketTag1{
+	display: inline-block;
+    padding: 1px 2px;
+    margin-right: 2px;
+    margin-bottom: 4px;
+    border: 1px solid #dddada;
+    border-radius: 30px;
+    font-size: 11px;
+    color: #666666;
+    transition: border-color 0.3s;
+    cursor: pointer;
+}
+#bucketTag1:hover{
+	border-color: #10c5bc;
+}
+#bucketTag1>span{
+	color: #10c5bc;
+}
+#bucketexplain{
+	width: 90%;
+    font-size: 13px;
+    color: #666666;
+    margin-left: 5%;
+    line-height: 24px;
+    height: 90px;
+    overflow: auto;
+    border: 1px solid #ded9d9;
+    background-color: white;
+}
+#bucketcompany{
+	width: 90%;
+    margin-left: 5%;
+    overflow: auto;
+    max-height: 103.4px;
+    margin-top: 15px;
+}
+#bucketcompany>ul>li{
+	font-size: 15px;
+	margin-bottom: 2px;
+}
+#bucketcompany>ul>li:nth-child(n+2){
+	border-top: 1px solid gray;
+}
+#bucketcompany button{
+	float: right;
+    height: 20px;
+    line-height: 16.9px;
+}
+#bucketcpeventD{
+	width: 90%;
+    margin-left: 5%;
+    height: 24.6px;
+    margin-top: 5px;
+}
+#bucketcpeventD>button{
+	float:right;
+}
+
+#bucketwith{
+	width:400px;
+	float:left;
+	height:300px;
+	border-left: 1px solid gray;
+}
+#bucketwithCount{
+	width:80%;
+	height:18px;
+	margin-left: 10%;
+	margin-top:40px;
+}
+#bucketwithCount>span{
+	color:rgb(91, 90, 255);
+}
+#bucketwithPro{
+	width: 90%;
+    margin-left: 5%;
+    margin-top: 20px;
+    height: 221.7px;
+    overflow: auto;
+}
+#profile-div{
+	float: left;
+    margin-left: 6px;
+    margin-top: 20px;
+    margin-right: 6px;
+    width: 60px;
+    height: 80px;
+    cursor: pointer;
+}
+#profile1{
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    background-image: url(../images/profiles/basicProfile.jpg);
+    background-size: cover;
+}
+#profile2{
+	width: 60px;
+	height: 20px;
+	text-align: center;
+}
+#bucketwithBN{
+	position: absolute;
+    bottom: 0px;
+    width: 410px;
+    height: 50px;
+    border-top: 1px solid gray;
+    text-align: center;
+}
+#bucketwithBN-a1{
+	left: 30px;
+	position: absolute;
+    top: 16px;
+    display: inline-block;
+    font-size: 12px;
+    color: #666666;
+}
+#bucketwithBN-Count{
+	display: inline-block;
+    width: 61px;
+    height: 21px;
+    font-size: 14px;
+    color: #797979;
+    border: 1px solid #e0e0e0;
+    border-radius: 30px;
+    line-height: 24px;
+    margin-top: 12px;
+    font-weight: bold;
+    font-family: 'Myriad Pro', sans-serif;
+}
+#bucketwithBN-a2{
+	right: 30px;
+	position: absolute;
+    top: 16px;
+    display: inline-block;
+    font-size: 12px;
+    color: #666666;
+}
+
+#bucketcpEvent{
+	width:410px;
+	float:left;
+	height:300px;
+	background:black;
+	display:none;
+}
+
+.fa-cog {
+    position: absolute;
+    top: 90px;
+    margin-left: 170px;
+    font-size: 21px;
+    color: gray;
+}
+
+.floating_item, .link_item {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    background-color: #fff;
+    text-align: center;
+    -webkit-box-shadow: 3px 4px 10px 2px rgba(0,0,0,.2);
+    box-shadow: 3px 4px 10px 2px rgba(0,0,0,.2);
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+    -webkit-transform-origin: 0 100%;
+    -ms-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    text-decoration: none;
+}
+
+
+.bucketStoryNick{
+	position: absolute;
+    width: 100px;
+    height: 30px;
+    text-align: left;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 30px;
+    color: rgb(24, 223, 211);
+    left: 10px;
+}
+
+.bucketStoryStory{
+	position: absolute;
+    width: 60px;
+    height: 30px;
+    text-align: right;
+    font-size: 15px;
+    line-height: 30px;
+    color: rgb(24, 223, 211);
+    right: 13.9px;
+}

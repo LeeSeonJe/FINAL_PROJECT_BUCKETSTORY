@@ -2,6 +2,8 @@ package com.kh.BucketStory.bucket.model.vo;
 
 import java.sql.Date;
 
+import com.kh.BucketStory.common.model.vo.Member;
+
 public class WishList {
 	private int wiNo;
 	private Date enrollDate;
@@ -12,6 +14,8 @@ public class WishList {
 	private String cateName;
 	private BucketList bucketList;
 	private Media media;
+	private Member member;
+	private ShareBucket shareBucket;
 
 	public WishList() {
 	}
@@ -25,7 +29,7 @@ public class WishList {
 	}
 
 	public WishList(int wiNo, Date enrollDate, int bkNo, String userId, int cateNum, String cateName,
-			BucketList bucketList, Media media) {
+			BucketList bucketList, Media media, Member member, ShareBucket shareBucket) {
 		super();
 		this.wiNo = wiNo;
 		this.enrollDate = enrollDate;
@@ -35,6 +39,8 @@ public class WishList {
 		this.cateName = cateName;
 		this.bucketList = bucketList;
 		this.media = media;
+		this.member = member;
+		this.shareBucket = shareBucket;
 	}
 
 	public int getWiNo() {
@@ -101,11 +107,19 @@ public class WishList {
 		this.media = media;
 	}
 
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	@Override
 	public String toString() {
 		return "WishList [wiNo=" + wiNo + ", enrollDate=" + enrollDate + ", bkNo=" + bkNo + ", userId=" + userId
 				+ ", cateNum=" + cateNum + ", cateName=" + cateName + ", bucketList=" + bucketList + ", media=" + media
-				+ "]";
+				+ ", member=" + member + ", shareBucket=" + shareBucket + "]";
 	}
 
 }

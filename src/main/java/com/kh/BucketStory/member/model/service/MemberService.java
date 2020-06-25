@@ -83,4 +83,8 @@ public interface MemberService{
 
 	int bucketUpdate(Media m, BucketList bL);
 
+	int profileChange(Member mb);
+
+	int dateUpdate(String userid, int bkNo);
+
 }

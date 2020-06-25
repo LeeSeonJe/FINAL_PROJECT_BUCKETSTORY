@@ -200,4 +200,14 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.bucketUpdate(sqlSession, m, bL);
 	}
 
+	@Override
+	public int profileChange(Member mb) {
+		return mDAO.profileChange(sqlSession, mb);
+	}
+
+	@Override
+	public int dateUpdate(String userid, int bkNo) {
+		return mDAO.dateUpdate(sqlSession, userid, bkNo);
+	}
+
 }

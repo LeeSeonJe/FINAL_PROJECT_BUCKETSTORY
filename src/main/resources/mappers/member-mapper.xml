@@ -329,11 +329,15 @@
 		select WINO, w.enrolldate W_ENROLLDATE, w.BKNO W_BKNO, w.userid W_USERID, 
 		                        CATENUM, CATENAME,
 		                        B.BKNO B_BKNO, BKNAME, BKCONTENT, TAG, b.ENROLLDATE B_ENROLLDATE, BKLIKE, b.userid B_USERID, COMPLETE,
-		                        MWEB
+		                        MWEB,
+		                        MM.NICKNAME B_NICKNAME,
+                                SB.USERID SB_USERID
 		from wishlist w
 		join bucketList b on (b.bkno = w.bkno)
 		join category using (cateNum)
 		join media m on (b.bkno = m.bkno)
+		join sharebucket sb on (sb.bkno = b.bkno)
+		join member mm on (sb.userid = mm.userid)
 		where w.userid=#{ userid }
 		order by w.ENROLLDATE desc
 	</select>
@@ -347,8 +351,17 @@
 		<result property="cateName" column="CATENAME" />
 		<association property="bucketList" resultMap="wishBucketResultSet"></association>
 		<association property="media" resultMap="wishMediaResultSet"></association>
+		<association property="member" resultMap="wishBoardMember"></association>
+		<association property="shareBucket" resultMap="wishsbMember"></association>
 	</resultMap>
 	
+	<resultMap type="ShareBucket" id="wishsbMember">
+		<result property="userId" column="SB_USERID"/>
+	</resultMap>
+	
+	<resultMap type="Member" id="wishBoardMember">
+		<result property="nickName" column="B_NICKNAME"/>
+	</resultMap>
 	<resultMap type="Bucket" id="wishBucketResultSet">
 		<id property="bkNo" column="B_BKNO" />
 		<result property="bkName" column="BKNAME" />
@@ -523,5 +536,29 @@
 		update media
 		set mweb = #{ mweb }
 		where bkno = #{ bkno }
+	</update>
+	
+	<update id="profileChange">
+		update member
+		set PR_IMAGE = #{ prImage }
+		where userid = #{ userId }
+	</update>
+	
+	<select id="bChecked" resultType="_int">
+		select count(*)
+		from SHAREBUCKET
+		where userid = #{ userid } and bkno = #{ bkNo }
+	</select>
+	
+	<update id="shareDateUpdate">
+		update SHAREBUCKET
+		set ENROLLDATE = SYSDATE
+		where userid = #{ userid } and bkno = #{ bkNo }
+	</update>
+
+	<update id="bucketDateUpdate">
+		update bucketList
+		set ENROLLDATE = SYSDATE
+		where bkno = #{ bkNo }
 	</update>
 </mapper>

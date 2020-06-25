@@ -32,7 +32,7 @@
 								$(this).on('click',function(){
 								    var url = "profileChangeGo.me";
 						            var name = "profile change popup";
-						            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+						            var option = "width = 400, height = 500, top = 100, left = 200, location = no"
 						            window.open(url, name, option);
 								})
 							})
@@ -149,7 +149,11 @@
 				</c:forEach>
 			</c:if>
 			<c:if test="${ flag eq 'true' }">
-				<div id="bucketAddBtn"></div>
+				<div id="bucketAddBtn">
+					<a href="#" class="link_item top_item _btnFloating" data-type="top" style="">
+						<span class="icon icon_top"></span><span class="text blind" style=" font-size: 39px; color: black;">+</span>
+					</a>
+				</div>
 			</c:if>
 			<c:if test="${ flag eq 'false' }">
 			</c:if>

@@ -85,7 +85,7 @@
 <script>
 	function validate() {
 		if($('#imgInput').val() == "") {
-			alert()
+			alert("사진 한장이상 등록해주세요.")
 			return false;			
 		}
 	}
