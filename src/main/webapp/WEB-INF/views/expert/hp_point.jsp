@@ -122,7 +122,7 @@
 								<td><p class="p-before">10,000원</p>
 									<p class="p-after">7,000원</p></td>
 								<td><button class="btn btn--primary2"
-										onclick='requestPay(10000,"${coId}","<%=today%>");'>결제하기</button></td>
+										onclick='requestPay(10000);'>결제하기</button></td>
 							</tr>
 							<tr>
 								<td>20,000 point</td>
@@ -130,7 +130,7 @@
 								<td><p class="p-before">20,000원</p>
 									<p class="p-after">14,000원</p></td>
 								<td><button class="btn btn--primary2"
-										onclick='requestPay(20000,"${coId}","<%=today%>");'>결제하기</button></td>
+										onclick='requestPay(20000);'>결제하기</button></td>
 							</tr>
 							<tr>
 								<td>30,000 point</td>
@@ -138,7 +138,7 @@
 								<td><p class="p-before">30,000원</p>
 									<p class="p-after">21,000원</p></td>
 								<td><button class="btn btn--primary2"
-										onclick='requestPay(30000,"${coId}","<%=today%>");'>결제하기</button></td>
+										onclick='requestPay(30000);'>결제하기</button></td>
 							</tr>
 							<tr>
 								<td>40,000 point</td>
@@ -146,7 +146,7 @@
 								<td><p class="p-before">40,000원</p>
 									<p class="p-after">28,000원</p></td>
 								<td><button class="btn btn--primary2"
-										onclick='requestPay(40000,"${coId}","<%=today%>");'>결제하기</button></td>
+										onclick='requestPay(40000);'>결제하기</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -294,7 +294,8 @@
 var dc = 0.3; //할인율
 var IMP = window.IMP;
 IMP.init('imp49697884');
-function requestPay(price , coId , today) {
+
+function requestPay(price) {
 	var chkbox = document.getElementsByName('agree');
 	if (chkbox[0].checked) {
 		alert(price * (1 - dc) + '원을 결제합니다.');
@@ -303,18 +304,13 @@ function requestPay(price , coId , today) {
 			pay_method : 'card',
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : '주문명:포인트충전',
-			amount : price * (1 - dc),
-			buyer_name : coId
+			amount : price * (1 - dc)
 		}, function(rsp) {
 			if (rsp.success) {
 				$.ajax({
 					url : "pinsert.ex",
 					data : {
-						pa_no : 9999,
 						pa_pay : price * 1.1, //보너스 포인트 포함
-						coid : coId,
-						status : 'Y',
-						pdate : today,
 					},
 					success : function(data) {
 						var msg = '결제가 완료되었습니다.';
@@ -539,7 +535,7 @@ function requestPay(price , coId , today) {
 
 
 	<jsp:include page="/WEB-INF/views/expert/hp_upper.jsp" />
-<!-- 	<script src="resources/expert/js/point.js"></script> -->
+<!-- <script src="resources/expert/js/point.js"></script>  -->
 
 <script>
 $(window).scroll(function() {

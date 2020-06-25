@@ -209,7 +209,7 @@ public class ExpertController2 {
 	public ModelAndView goPointSimple(HttpSession session,ModelAndView mv) {
 		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
 		mv.addObject("coId", coId);
-		mv.addObject("point", getPoint(coId));
+		mv.addObject("hp", getPoint(coId));
 		mv.setViewName("hp_point");
 		return mv;
 	}
@@ -218,16 +218,17 @@ public class ExpertController2 {
 	 *  --------------------------------------------------
 	 */
 	@RequestMapping("pinsert.ex")
-	public String pointInsert(HttpSession session, @ModelAttribute Pay p, HttpServletRequest request) {
-
+	public String pointInsert(HttpSession session,  @RequestParam(value = "pa_pay") int pa_pay,
+			HttpServletRequest request) {
 		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
-		System.out.println(p);
-
+		Pay p = new Pay(0 , pa_pay,coId,'Y',null);
+		
 		// PAY 테이블에 Point 집어넣기
 		int result = ExService2.insertPoint(p);
 		Company c = new Company();
 		c.setCoId(coId);
 		c.setPoint(getPoint(coId));
+		
 		// Company 에 보유포인트 갱신
 		int result2 = ExService2.updateCompanyPoint(c);
 		if (result > 0 && result2 > 0) {
