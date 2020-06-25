@@ -112,7 +112,6 @@
 	
 	<select id="selectListAllN" resultMap = "PayResultSet">
 	select *
-	from PAY
 	from PAY where STATUS = 'N'
 	order by PA_NO desc
 	</select>
