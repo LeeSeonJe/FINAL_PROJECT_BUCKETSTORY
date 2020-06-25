@@ -78,7 +78,7 @@
 		<div class="point-inner background">
 
 			<ul id="pointMenu">
-				<li><a href="#hpTop">포인트 충전</a></li>
+				<li class="on"><a href="#hpTop">포인트 충전</a></li>
 				<li><a href="#hpBottom">포인트 내역조회</a></li>
 			</ul>
 			<div id="pointArea">
@@ -333,15 +333,12 @@ function requestPay(price , coId , today) {
 						msg += '카드 승인번호 : ' + rsp.apply_num;
 						alert(msg);
 						location.reload();
-						
-						
 					}
 				});
 			} else {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
 			}
-			alert(msg);
 		});
 
 	} else {
@@ -365,13 +362,12 @@ function requestPay(price , coId , today) {
 				<%--     <h3>${coId} 님 환영합니다!</h3> --%>
 
 			
-				<h3><span id="PT1">포인트 충전/사용</span>(<input style="border: none; width:25px; font-weight: 600; color:#036; font-size:24px" type="text" id='search' readonly="readonly">) 횟수 : 
-							<input style="border: none; width:25px; font-weight: 600; font-size:24px; color:#036;" type='text' id='listCount' readonly="readonly"></h3>
-				<h3><span id="PT2">총 충전 포인트 : </span><input style="border: none; width:100px; font-weight: 400; font-size:22px; color:#333;" type='text' id='point' readonly="readonly">Point</h3>
+				<h3><span id="PT1">포인트 충전/사용</span>(<input style="border: none; background:whitesmoke;width:25px; font-weight: 600; color:#036; border-radius:4px; font-size:24px" type="text" id='search' readonly="readonly">) 횟수 : 
+							<input style="border: none; width:30px; font-weight: 600; background:whitesmoke;font-size:24px; color:#036;  border-radius:4px;" type='text' id='listCount' readonly="readonly"></h3>
+				<h3><span id="PT2">총 충전 포인트 : </span><input style="border: none; background:whitesmoke; width:100px; font-weight: 400; font-size:22px; border-radius:4px; color:#333;" type='text' id='point' readonly="readonly">Point</h3>
 				<!--         게시판 목록 영역 -->
 				<div id="board-area">
 						<table class="board pboard" id="hpBottom">
-<%-- 							<caption id ="point_head">포인트 : 사용 :</caption> --%>
 							<tr>
 								<th scope="cols" width="8%">번호</th>
 								<th scope="cols" width="30%">포인트</th>
@@ -384,12 +380,11 @@ function requestPay(price , coId , today) {
 								</th>
 							</tr>
 						</table>
-
 						<table class="board bp" id="payData"></table>
 						<div class="paging"></div>
-						<input type='hidden' id='currPage'>	<input type='hidden' id='pageLimit'>
-						<input type='hidden' id='maxPage'>	<input type='hidden' id='nth'>	
-
+						<input type='hidden' id='currPage'><input type='hidden' id='pageLimit'>
+						<input type='hidden' id='maxPage'><input type='hidden' id='nth'>	
+				
 						<script>
 						function goShowAll(){
 							newPaging('all');
@@ -416,21 +411,28 @@ function requestPay(price , coId , today) {
 						$(function(){
 								$('#nth').val(0);
 								$('#currPage').val(1);
-								newPaging('all');				
+								newPaging('all');	
 						});
 						function newPaging(key){
 							$('#search').val(key);
-							
+
 							$.ajax({
 						        url :'pointCountAjax.ex?search='+ key,
 				 		        dataType:'json',
 						        	success:function(data){
 						        		$('#maxPage').val(data.pi.maxPage);
 						        		$('#pageLimit').val(data.pi.pageLimit);
+						        		console.log(data.pi.listCount);
 						        		$('#listCount').val(data.pi.listCount);
 						        		$('#point').val(data.point);
 						        		paging(0);
 						        		$('.paging button').removeClass('active').eq(1).addClass('active');
+						        },
+						        error:function(data){
+						        	$('#maxPage').val(1);
+						        	$('#pageLimit').val(1);
+						        	$('#listCount').val(0);
+						        	$('#point').val(0);
 						        }		
 						    });
 							buildBoard(1);
@@ -462,29 +464,23 @@ function requestPay(price , coId , today) {
 						}
 						
 						function preBoard(){
-							
 							var num = Number($('#currPage').val());		
 							if((num - 1) < 1){
 								$('#currPage').val(1);
 								buildBoard(1)
 							}else{
-
 								const pageLimit = $('#pageLimit').val();
 								var nth = Number($('#nth').val());
-								
 								if((num -1) <= pageLimit*nth){
 									$('#nth').val(nth-1);
-									paging(nth-1);
-									
+									paging(nth-1);	
 									$('#currPage').val(num-1);
 									buildBoard(num-1);
 								}else{
 									$('#currPage').val(num-1);
 									buildBoard(num-1);
 								}
-								
 							}
-							
 						}
 						function nextBoard(){
 							var num = Number($('#currPage').val());
@@ -523,6 +519,7 @@ function requestPay(price , coId , today) {
 							
 							$('#currPage').val(num);
 							$('.paging button').removeClass('active').eq(select).addClass('active');
+
 							$.ajax({
 						        url :'pointListAjax.ex?page='+num,
 						        data :{
@@ -530,8 +527,6 @@ function requestPay(price , coId , today) {
 						        },
 						        dataType:'json',
 						        success:function(data){
-						    //		console.log(data);
-										
 						            $text ="";
 						            for(var i in data){
 						                $text += "<tr><td>" + data[i].pa_no + "</td>"
@@ -539,7 +534,13 @@ function requestPay(price , coId , today) {
 						                      + "<td>" + data[i].pdate + "</td>"
 						                      + "<td>" + data[i].status + "</td></tr>";
 						            }
-						            $('#payData').html($text);
+						        
+						            
+						            if($text==""){
+						            	$('#payData').html("<tr><td>내역이 없습니다.</td></tr>")
+						            }else{
+						                $('#payData').html($text);
+						            }
 						        }		
 						    });
 

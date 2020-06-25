@@ -209,12 +209,7 @@ public class ExpertController2 {
 	public ModelAndView goPointSimple(HttpSession session,ModelAndView mv) {
 		String coId = ((Company) session.getAttribute("loginCompany")).getCoId();
 		mv.addObject("coId", coId);
-		if (ExService2.getListCount(coId) > 0) {
-			mv.addObject("hp", getPoint(coId));
-		} else { 
-			mv.addObject("hp", 0);
-		}
-
+		mv.addObject("point", getPoint(coId));
 		mv.setViewName("hp_point");
 		return mv;
 	}
@@ -247,10 +242,24 @@ public class ExpertController2 {
 	 *  --------------------------------------------------
 	 */
 	public int getPoint(String coId) {
-		System.out.println(coId);
-		int yPoint = ExService2.getYPoint(coId); // 충전 포인트
-		int nPoint = ExService2.getNPoint(coId); // 사용 포인트
-		return yPoint - nPoint;
+		
+		int Ypoint = 0;
+		int Npoint = 0;
+		
+		//System.out.println(coId);	
+		// Null 처리 ->NVL이 안먹는다.
+		if (ExService2.getListCount(coId) > 0) {
+
+			if(ExService2.getListCountY(coId)>0) {
+				Ypoint = ExService2.getYPoint(coId);
+			}
+			if(ExService2.getListCountN(coId)>0) {
+				Npoint = ExService2.getNPoint(coId);
+			}
+			return Ypoint - Npoint;
+		} else { 
+			return 0;
+		}
 	}
 	/*
 	 * ===================================
@@ -309,17 +318,14 @@ public class ExpertController2 {
 								  @RequestParam(value = "page", required = false) Integer page,
 								  @RequestParam(value = "search") @Nullable String search,
 								  HttpServletResponse response){
-		
 		String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
 		int currentPage = 1;
 		if (page != null) {
 			currentPage = page;
 		}
-		
 		int listCount = 0;
 		ArrayList<Pay> list = null;
 		PageInfo pi = null;
-		
 		if(search.equals("all")) {
 			listCount = ExService2.getListCount(coId);
 			pi = pagination.getPageInfo(currentPage, listCount);
@@ -335,7 +341,6 @@ public class ExpertController2 {
 			pi = pagination.getPageInfo(currentPage, listCount);
 			list = ExService2.selectListN(pi, coId);
 		}
-		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		try {
 			gson.toJson(list, response.getWriter());
@@ -344,8 +349,7 @@ public class ExpertController2 {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 
 
