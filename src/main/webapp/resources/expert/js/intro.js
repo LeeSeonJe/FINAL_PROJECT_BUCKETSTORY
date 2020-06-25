@@ -7,7 +7,6 @@
 	}
 	$('#intro_content').fadeIn(1000);
 	$('#intro_background').fadeIn(1000);
-
 })();
 
 function goHome(){
@@ -52,68 +51,6 @@ $(document).ready(function() {
 
 });
 
-var oldPwd = document.getElementById('oldPwd');
-var newPwd = document.getElementById('newPwd');
-var isEqualsOldCheck = false;
-
-// 기존비밀번호 일치 확인
-oldPwd.onchange = function() {
-	$.ajax({ // 현재 아이디 보내서 비교해서 값을 받아오기
-		url : 'helperPwdCheck.ex',
-		data : {
-			oldPwd : oldPwd.value
-		},
-		success : function(data) {
-			console.log(data);
-			if (data == 'ok') {
-				$('#pwdCheck1').show();	$('#pwdCheck2').hide();
-				isEqualsOldCheck = true;
-			} else {
-				$('#pwdCheck2').show();	$('#pwdCheck1').hide();
-			}
-		},
-		error : function(request, status, errorData) {
-			console.log("error code :" + request.status + "\n" + "message : "
-					+ request.responseText + "\n" + "error : " + errorData);
-		}
-	});
-}
-
-// 비밀번호 규칙 : 비밀번호는 영문 숫자 7~11자리
-var re4 = /^[a-zA-Z\d]{7,11}$/;
-var isCanPwdCheck = false;
-newPwd.onchange = function() {
-	if (re4.test(newPwd.value)) {
-		// alert('비밀번호는 영문 숫자7~11자리 ');
-		$('#pwdCheck3').show();
-		$('#pwdCheck4').hide();
-		// console.log(newPwd.value);
-		isCanPwdCheck = true;
-	} else {
-		$('#pwdCheck4').show();
-		$('#pwdCheck3').hide();
-	}
-};
-
-/*
- * 유효성을 체크한다.
- */
-function submitCheck(form) {
-	console.log(canSubmit);
-	if (!isEqualsOldCheck) {
-		alert('입력한 현재 비밀번호가 일치하지 않습니다.다시 확인해주세요');
-		return false;
-	}
-	if (!isCanPwdCheck) {
-		alert('비밀번호는 영문 숫자조합 7~11자리만 가능합니다.');
-		return false;
-	}
-	if (isCanPwdCheck && isCanPwdCheck) {
-		alert('전송합니다.');
-		return true;
-	}
-
-}
 
 // 스크롤 이벤트
 $(window).scroll(function() {
@@ -146,21 +83,13 @@ $(window).scroll(function() {
 	if (scrolltop > 2200) {
 		$("#navigation li").removeClass();
 		$("#navigation li:nth-child(5)").addClass("on");
-//		$("#dal img").css({
-//			"transtion" : "5s",
-//			"transform" : "translate(700px,150px)",
-//			"zoom" : "1.8"
-//		});
 		$("#dal img").fadeOut(1200);
 		$('.helperEdit3 p').fadeIn(2000);
 	}
 	if(scrolltop < 2000){
-		$("#dal img").css({
-			"zoom" : "1"
-		}).show();
+		$("#dal img").show();
 		$('.helperEdit3 p').fadeOut(500);
 	}
-
 });
 
 $("a[href^='#']").click(function(event) {
