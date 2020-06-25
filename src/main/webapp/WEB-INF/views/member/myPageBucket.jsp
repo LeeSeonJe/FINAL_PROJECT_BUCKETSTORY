@@ -83,7 +83,7 @@
 			</c:if>
 			<c:if test="${ !empty myBucketList }">
 				<c:forEach var="b" items="${ myBucketList }" varStatus="status">
-					<div class="bucket ${ b.bkNo }" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, '${b.cateName}', '${b.bucket.bkName}', '${b.bucket.bkContent}', '${b.bucket.tag}', '${b.bucket.userId}');">
+					<div class="bucket ${ b.bkNo }" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, '${b.cateName}', '${b.bucket.bkName}', '${b.bucket.bkContent}', '${b.bucket.tag}', '${b.member.nickName}');">
 					<script>
  						$('.bucket').eq(${ status.index }).css('background-image', 'url(resources/muploadFiles/${ b.media.mweb })');
 					</script>
@@ -117,12 +117,12 @@
 							</c:if>	
 							<div class="c-likewish ${ b.bkNo }" id="c-likewish${ b.bkNo }">
 								<div class="c-likeBtn ${ b.bkNo }" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bucket.bkLike }</label></div>
-								<div class="c-wishBtn ${ b.bkNo }" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.member.userId }');">
+								<div class="c-wishBtn ${ b.bkNo }" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.member.nickName }');">
 									<span class="wishhover" style="font-size:20px">☆ </span>
 									위시 
 									<c:set var="loop_flag" value="false"/>
 									<c:forEach var="w" items="${ wishList }">
-										<c:if test="${w.bkNo == b.bkNo}">
+										<c:if test="${w.bkNo == b.bkNo && w.bucketId == b.member.nickName}">
 											<c:set var="loop_flag" value="true"/>
 										</c:if>
 									</c:forEach>
@@ -234,6 +234,30 @@
 	</div>
 </body>
 <script>		
+
+	$(function(){
+		// 기업일때는 전체 기업 검색임
+		if('${loginCompany.coId}' != ""){
+			$('#bucketcompany>ul>li>label').css('width', '100%');
+		}
+		
+		
+		var hg = $('.bucket').css('width');
+		$('.bucket').css('height', hg);
+		
+		$(window).resize(function(){
+			var hg = $('.bucket').css('width');
+			$('.bucket').css('height', hg);
+			var bkhg = $('#bucketDatail').width()/16 * 9;
+			$('#bucketimg').css('height', bkhg);
+			var bkcphg = $('#bucketimg').width()-411;
+			$('#bucketcp').css('width', bkcphg);
+			$('#bucketleft').css('top', bkhg/2);
+			$('#bucketright').css('top', bkhg/2);
+			$('#bucketimg img').css('width', $('#bucketimg').width());
+			$('#bucketimg img').css('height', bkhg);
+		});
+	})
 	
 	$(".followList").on("mouseenter", function(){
 		event.stopPropagation();
@@ -318,13 +342,14 @@
 	//위시 등록취소하기
 	function wishRegist(bkNo, userId){
 		if('${loginUser}' != null){
-			if('${loginUser.userId}' == userId){
+			if('${loginUser.nickName}' == userId){
 				alert("나의 버킷은 위시등록 할 수 없습니다.");
 			} else{
 				$.ajax({
 					url:'wishRegi.ho',
 					data:{
-						bkNo:bkNo
+						bkNo:bkNo,
+						bucketId:userId
 					},
 					async : false,
 					success:function(data){
@@ -654,6 +679,104 @@
 		}
 	}
 	
+	function right(bkNo, userId){
+		first++;
+		$.ajax({
+			url:'blogMedia.ho',
+			data:{
+				bkNo:bkNo,
+				nickName:userId
+			},
+			async : false,
+			success:function(data){
+				if(data.length > 0){
+					dataNum = data.length+2;
+				}
+			}
+		});
+		$.ajax({
+			url:'bloginfo.ho',
+			data:{
+				bkNo:bkNo,
+				nickName:userId
+			},
+			async : false,
+			success:function(data){
+				$('#buckettitle').text(data[first-2].bTitle);
+				$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'&bNo='+data[first-2].bNo+'"');
+			}
+		});
+		var val1 = $('#bucketimg>ul').css('left').replace('px', '');
+		var val2 = $('#bucketimg li').width();
+		var leftval = val1 - val2;
+		if(first < dataNum){
+			$('#bucketimg>ul').animate({
+				left:leftval
+			});
+			if(first == 1){
+				$('#bucketleft').hide();
+			} else{
+				$('#bucketleft').show();
+			}
+			if(first == dataNum-1){
+				$('#bucketright').hide();
+			} else{
+				$('#bucketright').show();
+			}
+		}
+	}
+	
 
+	function left(bkNo, userId, bkName){
+		first--;
+		$.ajax({
+			url:'blogMedia.ho',
+			data:{
+				bkNo:bkNo,
+				nickName:userId
+			},
+			async : false,
+			success:function(data){
+				if(data.length > 0){
+					dataNum = data.length+2;
+				}
+			}
+		});
+		$.ajax({
+			url:'bloginfo.ho',
+			data:{
+				bkNo:bkNo,
+				nickName:userId
+			},
+			async : false,
+			success:function(data){
+				if(first==1){
+					$('#buckettitle').text(bkName);
+					$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
+				} else{
+					$('#buckettitle').text(data[first-2].bTitle);
+					$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'&bNo='+data[first-2].bNo+'"');
+				}
+			}
+		});
+		var val1 = $('#bucketimg>ul').css('left').replace('px', '');
+		var val2 = $('#bucketimg li').width();
+		var leftval = parseInt(val1) + val2;
+		if(first > 0){
+			$('#bucketimg>ul').animate({
+				left:leftval
+			});
+			if(first == 1){
+				$('#bucketleft').hide();
+			} else{
+				$('#bucketleft').show();
+			}
+			if(first == dataNum-1){
+				$('#bucketright').hide();
+			} else{
+				$('#bucketright').show();
+			}
+		}
+	}
 </script>
 </html>
