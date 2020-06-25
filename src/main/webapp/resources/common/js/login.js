@@ -1,4 +1,4 @@
-// 회원, 기업 폼이 바뀌는 토글 스크립트
+// '회원'회원가입, '기업'회원가입 폼이 바뀌는 토글 스크립트
 			var check = $("#insertSwt");
 				check.click(function(){
 					var p = $("#tp");
@@ -10,11 +10,11 @@
 					if(p.text()=='회원'){
 						$('#User').css('display','block');
 						$('#Company').css('display','none');
-						$('#modal1').css('height', '640px');
+						$('#modal1').css('height', '590px');
 					} else {
 						$('#Company').css('display','block');
 						$('#User').css('display','none');
-						$('#modal1').css('height', '890px');
+						$('#modal1').css('height', '840px');
 					}
 				});
 				
@@ -30,10 +30,12 @@
 					if(p.text()=='회원'){
 						$('#login').css('display','block');
 						$('#Clogin').css('display','none');
+						$('#facebookBtn').css('display', 'block');
 					} else {
 						$('#Clogin').css('display','block');
 						$('#login').css('display','none');
 						$('.input').css('background-image', '#fac 0%, hsl(0, 100%, 70%) 15%, rgba(255, 0, 0, 0.3) 28%, hsla(0, 100%, 30%, 0) 70% );');
+						$('#facebookBtn').css('display', 'none');
 					}
 				});		
 				
@@ -193,31 +195,105 @@
 					}
 				});
 			});
+		
+// 로그인
+			$(function(){
+				check = false;
+			});
 			
-// 페이스북 로그인 스크립트 
-			window.fbAsyncInit = function() {
-				FB.init({
-				  appId      : '553110938733873',
-				  cookie     : true,  // enable cookies to allow the server to access 
-				                      // the session
-				  xfbml      : true,  // parse social plugins on this page
-				  version    : 'v2.8' // use graph api version 2.8
+			$('#subbtn').click(function(){
+				
+			});
+			function validate(){
+				if($('#mUserid').val().trim().length==0){
+					alert('아이디를 입력해주세요');
+					$('#mUserid').focus();
+					return false;
+				}
+				if($('#mPwd').val().trim().length==0){
+					alert('비밀번호를 입력해주세요');
+					$('#mPwd').focus();
+					return false;
+				}
+				var userId = $('#mUserid');
+				var userPwd = $('#mPwd');
+				
+				$.ajax({ // 아이디, 비번질문, 비번질문답으로 회원인지 조회
+					url: 'memberlogin.co',
+					type: 'post',
+					data:{userId: userId.val(), userPwd: userPwd.val()},
+					async : false,
+					success: function(data){
+						console.log(data);
+						if(data.trim() == "fail"){
+							check = false; 
+						}else{
+							check = true;
+						}
+					}
 				});
-				
-			(function(d, s, id) {
-			      var js, fjs = d.getElementsByTagName(s)[0];
-			      if (d.getElementById(id)) return;
-			      js = d.createElement(s); js.id = id;
-			      js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8&appId=553110938733873";
-			      fjs.parentNode.insertBefore(js, fjs);
-			    }(document, 'script', 'facebook-jssdk'));
+				console.log(check);
+				if(check){
+					return true; //로그인서블릿으로
+				}else{
+					alert('입력하신 사항이 일치하지 않습니다 다시 확인해주세요');
+					userId.focus();
+					return false;
+				}
 			}
+			
+// 기업 로그인
+			$(function(){
+				check = false;
+			});
+			
+			$('#subbtn2').click(function(){
 				
+			});
+			function validate2(){
+				if($('#mCoid').val().trim().length==0){
+					alert('아이디를 입력해주세요');
+					$('#mCoid').focus();
+					return false;
+				}
+				if($('#mCopwd').val().trim().length==0){
+					alert('비밀번호를 입력해주세요');
+					$('#mCopwd').focus();
+					return false;
+				}
+				var coId = $('#mCoid');
+				var coPwd = $('#mCopwd');
+				
+				$.ajax({ // 아이디, 비번질문, 비번질문답으로 회원인지 조회
+					url: 'companylogin.co',
+					type: 'post',
+					data:{coId: coId.val(), coPwd: coPwd.val()},
+					async : false,
+					success: function(data){
+						console.log(data);
+						if(data.trim() == "fail"){
+							check = false; 
+						}else{
+							check = true;
+						}
+					}
+				});
+				console.log(check);
+				if(check){
+					return true; //로그인서블릿으로
+				}else{
+					alert('입력하신 사항이 일치하지 않습니다 다시 확인해주세요');
+					coId.focus();
+					return false;
+				}
+			}
+			
 //			  /* 아이디 유효성 검사 ajax 중복불가*/
 			var isidUsable = false; 	// 아이디 중복 시false, 사용가능시 true
 			var isIdChecked = false;	// 아이디 중복확인을 했는지 안했는지 검사
 			var re1 =/^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$/; //시작은 영문으로만, '_'를 제외한 특수문자 안되며 영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하
-
+			var userId = $('#userId');
+			
 			$("#userId").on('change paste keyup', function(){
 				isIdChecked = false;
 			});
@@ -252,9 +328,60 @@
 								isidUsable = false;
 								isIdChecked= false;
 								
-							 	if($('#memberid_checked').css("display")=="none"){
-						 		$('#memberid_checked').show();
-						 		$('#memberid_check').hide();
+							 	if($('#userId_checked').css("display")=="none"){
+						 		$('#userId_checked').show();
+						 		$('#userId_check').hide();
+							 	}
+								
+							}
+						}
+					});
+				}
+			});
+			
+//			  /* 기업 아이디 유효성 검사 ajax 중복불가*/
+			var isidUsable = false; 	// 아이디 중복 시false, 사용가능시 true
+			var isIdChecked = false;	// 아이디 중복확인을 했는지 안했는지 검사
+			var re1 =/^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$/; //시작은 영문으로만, '_'를 제외한 특수문자 안되며 영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하
+			var coId = $('#coId');
+			
+			$("#coId").on('change paste keyup', function(){
+				isIdChecked = false;
+			});
+			
+			$('#coId').change(function(){
+				var coId = $('#coId');
+				
+				if(!re1.test(coId.val())){ //아이디 값이 아니거나, 아이디값이 3자보다 짧으면
+					alert('아이디는 영문자로 시작하는 4~12글자 이하로 입력하세요.');
+					usercoId.focus();
+				} else{
+					$.ajax({
+						url:'dupid2.co',
+						data:{coId: coId.val()},
+						success: function(data){ //data로 반환 받아옴
+							
+							if(data == "success"){
+//		 						$('#idResult').text('사용가능합니다.');
+//		 						$('#idResult').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+								isidUsable = true;
+								isIdChecked= true;
+								
+								if($('#coId_check').css("display")=="none"){
+									$('#coId_check').show();
+									$('#coId_checked').hide();
+								}
+								
+							}else{
+//		 						$('#idResult').text('사용 불가능 합니다.');
+//		 						$('#idResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+								coId.focus();
+								isidUsable = false;
+								isIdChecked= false;
+								
+							 	if($('#coId_checked').css("display")=="none"){
+						 		$('#coId_checked').show();
+						 		$('#coId_check').hide();
 							 	}
 								
 							}
@@ -267,16 +394,17 @@
 			
 			var isnameUsable = false; 	// 이름  false, 사용가능시 true
 			var re2 = /^[가-힣]{2,}$/; // 이름 정규식
+			var username = $('#userName');
 			
 			$('#userName').change(function(){
-				var membername = $('#userName');
-				
+				var username = $('#userName');
+				console.log(re2.test(username.val()))
 				if(!re2.test(username.val())){
 //		 			$('#nameResult').text('사용불가합니다.');
 //		 			$('#nameResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
 					alert('이름은 한글로 2자이상 입력하세요.');
 					isnameUsable = false;
-					membername.focus();
+					username.focus();
 					
 					if($('#userName_checked').css("display")=="none"){
 				 		$('#userName_checked').show();
@@ -295,40 +423,99 @@
 					
 				}
 			});
+
+/* 대표이사 유효성 검사 ajax 중복불가 */
+			
+			var isceoUsable = false; 	// 이름  false, 사용가능시 true
+			var re45 = /^[가-힣]{2,}$/; // 이름 정규식
+			var ceo = $('#ceo');
+			
+			$('#ceo').change(function(){
+				var ceo = $('#ceo');
+				
+				if(!re45.test(ceo.val())){
+//		 			$('#nameResult').text('사용불가합니다.');
+//		 			$('#nameResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+					alert('한글로 2자이상 입력하세요.');
+					isceoUsable = false;
+					ceo.focus();
+					
+					if($('#ceo_checked').css("display")=="none"){
+				 		$('#ceo_checked').show();
+				 		$('#ceo_check').hide();
+					 	}
+					
+				}else{
+//		 			$('#nameResult').text('사용가능합니다.');
+//		 			$('#nameResult').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+					isceoUsable = true;
+
+					if($('#ceo_check').css("display")=="none"){
+						$('#ceo_check').show();
+						$('#ceo_checked').hide();
+					}
+					
+				}
+			});
+/* 신청자이름 유효성 검사 ajax 중복불가 */
+			
+			var isapnameUsable = false; 	// 이름  false, 사용가능시 true
+			var re54 = /^[가-힣a-zA-Z\d]{2,}$/; // 이름 정규식
+			var apname = $('#apName');
+			
+			$('#apName').change(function(){
+				var apname = $('#apName');
+				console.log(re54.test(apname.val()));
+				if(!re2.test(apname.val())){
+//		 			$('#nameResult').text('사용불가합니다.');
+//		 			$('#nameResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+					alert('신청자 이름은 영문 혹은 한글로 1자 이상 입력하세요.');
+					isapnameUsable = false;
+					apname.focus();
+					
+					if($('#apname_checked').css("display")=="none"){
+				 		$('#apname_checked').show();
+				 		$('#apname_check').hide();
+					 	}
+					
+				}else{
+//		 			$('#nameResult').text('사용가능합니다.');
+//		 			$('#nameResult').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+					isapnameUsable = true;
+
+					if($('#apname_check').css("display")=="none"){
+						$('#apname_check').show();
+						$('#apname_checked').hide();
+					}
+					
+				}
+			});
 			
 			/* 닉네임 유효성 검사 ajax 중복불가 */		
 			var isnickUsable = false; 	// 닉네임 중복 시false, 사용가능시 true
 			var isnickChecked = false;	// 닉네임 중복확인을 했는지 안했는지 검사
-			var re3 = /^[가-힣a-zA-Z\d]{2,}$/; // 닉네임 정규식 한글 2자이상
-			
-			
-			$("#nickName").on('change paste keyup', function(){
-				isnickChecked = false;
-			});
+			var re24 = /^[가-힣a-zA-Z\d]{2,}$/; // 닉네임 정규식 한글 2자이상
 			
 			$('#nickName').change(function(){
-				var userNick = $('#nickName');
-				
-				if(!re3.test(userNick.val())){
+				var nickName = $('#nickName');
+				console.log(nickName.val());
+				console.log(re24.test(nickName.val()))
+				if(!re24.test(nickName.val())){
 					alert('닉네임은 영문 혹은 한글 2자리 이상이어야 합니다.');
-//		 			$('#nickResult').text('사용 불가능 합니다.');
-//		 			$('#nickResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
-					userNick.focus();
+					nickName.focus();
 					
 					if($('#nickName_checked').css("display")=="none"){ //반려
 				 		$('#nickName_checked').show();
 				 		$('#nickName_check').hide();
 					}
-					
-				} else{
+				} else{	
 					$.ajax({
-						url:'<%= request.getContextPath() %>/nickNameCheck.mem',
-						data:{userNick: userNick.val()},
+						url:'nickChk.co',
+						data:{nickName: nickName.val()},
+						async: false,
 						success: function(data){ //data로 반환 받아옴
 							
 							if(data == "success"){
-//		 						$('#nickResult').text('사용가능합니다.');
-//		 						$('#nickResult').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
 								isnickUsable = true;
 								isnickChecked= true;
 								
@@ -336,19 +523,16 @@
 							 		$('#nickName_check').show();
 							 		$('#nickName_checked').hide();
 								}
-								
 							}else{
-//		 						$('#nickResult').text('사용 불가능 합니다.');
-//		 						$('#nickResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
-								userNick.focus();
+								nickName.focus();
 								isnickUsable = false;
 								isnickChecked= false;
 								
 								if($('#nickName_checked').css("display")=="none"){
 							 		$('#nickNname_checked').show();
 							 		$('#nickName_check').hide();
-								 	}
-								
+							 		alert('닉네임 중복됩니다.');
+								 }
 							}
 						}
 					});
@@ -360,7 +544,7 @@
 			var ispassChecked = false;
 			var re4 = /^[a-zA-Z\d]{7,11}$/; 
 			var password = $('#userPwd');
-			var password2 = $('#userpwd2');
+			var password2 = $('#userPwd2');
 			
 			$("#userPwd").on('change paste keyup', function(){
 				ispassChecked = false;
@@ -416,70 +600,222 @@
 					
 				}
 			});
-				
-			//기존아디와 현재아디가 일치하는지 확인
-	     	$('#userId').change(function(){
-	     		var id = $('#userId').val();
-	     		
-			$.ajax({  //현재 아이디 보내서 비교해서 값을 받아오기
-				url: '<%= request.getContextPath() %>/mempwdFind.co',
-				data: {id:id},
-				success: function(data){
-					console.log(data);
-				
-				if(data == 'success'){
-					isidUsable = true;
-					isIdChecked= true;
-					if($('#pwdChkResult_check').css("display")=="none"){
-						$('#pwdChkResult_check').show();
-						$('#pwdChkResult_checked').hide();
-					}
-				}else{
-					userId.focus();
-					isidUsable = false;
-					isIdChecked= false;
+			
+			// 기업 비번 유효성 검사
+			var iscopassUsable = false;
+			var iscopassChecked = false;
+			var re8 = /^[a-zA-Z\d]{7,11}$/; 
+			var copassword = $('#coPwd');
+			var copassword2 = $('#coPwd2');
+			
+			$("#coPwd").on('change paste keyup', function(){
+				iscopassChecked = false;
+			});
+			
+			$('#coPwd').change(function(){ //패스워드 1만 정규식 체크 후 
+				if(!re8.test(copassword.val())){
+//		 			$('#pwdResult1').text('사용 불가능 합니다.');
+//		 			$('#pwdResult1').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+					alert('비밀번호는 영문 7~11자리 이어야 합니다.');
+					copassword.focus();
+					iscopassUsable = false;
 					
-				 	if($('#pwdChkResult_checked').css("display")=="none"){
-			 		$('#pwdChkResult_checked').show();
-			 		$('#pwdChkResult_check').hide();
-				 	}
-				}
-
-				}
-	        });
-	     });	
-	     	
-	     	$('#coId').change(function(){
-	     		var id = $('#coId').val();
-	     		
-			$.ajax({  //현재 아이디 보내서 비교해서 값을 받아오기
-				url: '<%= request.getContextPath() %>/compwdFind.co',
-				data: {id:id},
-				success: function(data){
-					console.log(data);
-				
-				if(data == 'success'){
-					isidUsable = true;
-					isIdChecked= true;
-					if($('#pwdChkResult2_check').css("display")=="none"){
-						$('#pwdChkResult2_check').show();
-						$('#pwdChkResult2_checked').hide();
-					}
-				}else{
-					userId.focus();
-					isidUsable = false;
-					isIdChecked= false;
+					if($('#coPwd_checked').css("display")=="none"){
+				 		$('#coPwd_checked').show();
+				 		$('#coPwd_check').hide();
+					 	}
 					
-				 	if($('#pwdChkResult2_checked').css("display")=="none"){
-			 		$('#pwdChkResult2_checked').show();
-			 		$('#pwdChkResult2_check').hide();
-				 	}
+				} else {
+//		 			$('#pwdResult1').text('사용가능합니다.');
+//		 			$('#pwdResult1').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+					iscopassUsable = true;
+					
+					if($('#coPwd_check').css("display")=="none"){
+				 		$('#coPwd_check').show();
+				 		$('#coPwd_checked').hide();
+					 	}
 				}
-
+			});
+			
+			// 기업 패스워드 1과 기업 패스워트 2 동일한지 검사.
+			$('#coPwd2').keyup(function(){
+				if(copassword.val() == copassword2.val()){
+//		 			$('#pwdResult2').text('사용가능합니다.');
+//		 			$('#pwdResult2').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+					iscopassUsable = true;
+					
+					if($('#coPwd2_check').css("display")=="none"){
+				 		$('#coPwd2_check').show();
+				 		$('#coPwd2_checked').hide();
+					 	}
+					
+				}else{
+//		 			$('#pwdResult2').text('비밀번호가 일치하지 않습니다.');
+//		 			$('#pwdResult2').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+					copassword2.focus();
+					iscopassUsable = false;
+					
+					if($('#coPwd2_checked').css("display")=="none"){
+				 		$('#coPwd2_checked').show();
+				 		$('#coPwd2_check').hide();
+					 	}
+					
 				}
-	        });
-	     });			
-
+			});
+			
+			/* 이메일 유효성 검사 ajax 중복불가 */		
+			var isemailUsable = false; 	// 이메일 중복 시false, 사용가능시 true
+			var isemailChecked = false;	// 이메일 중복확인을 했는지 안했는지 검사
+			var re87 = /^[a-zA-Z\d]{3,}$/; // 이메일 정규식 한글 2자, 영문2글자 이상
+			var email = $('#email_1');
+			
+			
+			$("#email_1").on('change paste keyup', function(){
+				isemailChecked = false;
+			});
+			
+			$('#email_1').change(function(){
+				var email = $('#email_1');
+				
+				if(!re87.test(email.val())){
+					alert('이메일을 올바르게 입력해 주십시오');
+//		 			$('#nickResult').text('사용 불가능 합니다.');
+//		 			$('#nickResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+					email.focus();
+					
+					if($('#emailResult_checked').css("display")=="none"){ //반려
+				 		$('#emailResult_checked').show();
+				 		$('#emailResult_check').hide();
+					}
+					
+				} else{
+					$.ajax({
+						url:'emailCheck.co',
+						data:{email: email.val()},
+						success: function(data){ //data로 반환 받아옴
+							
+							if(data == "success"){
+//		 						$('#nickResult').text('사용가능합니다.');
+//		 						$('#nickResult').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+								isemailUsable = true;
+								isemailChecked= true;
+								
+								if($('#emailResult_check').css("display")=="none"){
+							 		$('#emailResult_check').show();
+							 		$('#emailResult_checked').hide();
+								}
+								
+							}else{
+//		 						$('#nickResult').text('사용 불가능 합니다.');
+//		 						$('#nickResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+								email.focus();
+								isemailUsable = false;
+								isemailChecked= false;
+								
+								if($('#emailResult_checked').css("display")=="none"){
+							 		$('#emailResult_checked').show();
+							 		$('#emailResult_check').hide();
+								 	}
+								
+							}
+						}
+					});
+				}
+			});
+			
+			/* 기업 이메일 유효성 검사 ajax 중복불가 */		
+			var isbusiemailUsable = false; 	// 이메일 중복 시false, 사용가능시 true
+			var isbusiemailChecked = false;	// 이메일 중복확인을 했는지 안했는지 검사
+			var re44 = /^[a-zA-Z\d]{3,}$/; // 이메일 정규식 한글 2자, 영문2글자 이상
+			var busiemail = $('#busiemail_1');
+			
+			
+			$("#busiemail_1").on('change paste keyup', function(){
+				isbusiemailChecked = false;
+			});
+			
+			$('#busiemail_1').change(function(){
+				var busiemail = $('#busiemail_1');
+				
+				if(!re44.test(email.val())){
+					alert('이메일을 올바르게 입력해 주십시오');
+//		 			$('#nickResult').text('사용 불가능 합니다.');
+//		 			$('#nickResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+					busiemail.focus();
+					
+					if($('#busiemail_checked').css("display")=="none"){ //반려
+				 		$('#busiemail_checked').show();
+				 		$('#busiemail_check').hide();
+					}
+					
+				} else{
+					$.ajax({
+						url:'emailCheck.co',
+						data:{busiemail: busiemail.val()},
+						success: function(data){ //data로 반환 받아옴
+							
+							if(data == "success"){
+//		 						$('#nickResult').text('사용가능합니다.');
+//		 						$('#nickResult').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+								isbusiemailUsable = true;
+								isbusiemailChecked= true;
+								
+								if($('#busiemail_check').css("display")=="none"){
+							 		$('#busiemail_check').show();
+							 		$('#busiemail_checked').hide();
+								}
+								
+							}else{
+//		 						$('#nickResult').text('사용 불가능 합니다.');
+//		 						$('#nickResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+								busiemail.focus();
+								isbusiemailUsable = false;
+								isbusiemailChecked= false;
+								
+								if($('#busiemail_checked').css("display")=="none"){
+							 		$('#busiemail_checked').show();
+							 		$('#busiemail_check').hide();
+								 	}
+								
+							}
+						}
+					});
+				}
+			});
+			
+// 회원 아이디 찾기
+			$(function(){
+				find = false;
+			});
+			$('#good').click(function(){
+				if($('#emailfind_1').val().trim().length==0){
+					alert('이메일을 입력해주세요');
+					$('#emailfind_1').focus();
+				}
+				if($('#emailfind_2').val().trim().length==0){
+					alert('이메일을 입력해주세요');
+					$('#emailfind_2').focus();
+				}
+				var emailfind_1 = $('#emailfind_1');
+				var emailfind_2 = $('#emailfind_2');
+				
+				$.ajax({ // 아이디, 비번질문, 비번질문답으로 회원인지 조회
+					url: 'compareEmail.co',
+					type: 'post',
+					data:{email_1: emailfind_1.val(), email_2: emailfind_2.val()},
+					async : false,
+					success: function(data){
+						if(data == "fail"){
+							alert('이메일이 일치 하지않습니다.');
+						}else{
+							alert('회원님의 아이디는 '+data+' 입니다');
+						}
+					}
+				});
+			});
+		
+// 기업 아이디 찾기
+			
 
 // 파일 첨부 창이 뜨도록 설정하는 함수
 				$(function(){
@@ -505,44 +841,6 @@
 					}
 				}
 
-// 아이디 찾기
-				$('#good').click(function(){
-		     		var email = $('#email').val();
-		     		
-				$.ajax({  // 입력한 이메일을 디비랑 비교하기
-					url: 'compareEmail.co',
-					data: {email:email},
-					success: function(data){
-						console.log(data);
-					
-					if(data == 'success'){
-						alert("회원님의 아이디는" + "#userId" + "입니다");
-						$('#pwdcheck').text('비밀번호가 일치합니다');
-					}else{
-						alert("이메일을 올바르게 입력해주세요");
-					}
-				}
-	        });
-	     });
-//				$(function(){
-//					$('#finish').click(function(){
-//						
-//						var emailfind_1 = $('#emailfind_1').val();
-//						var emailfind_2 = $('#emailfind_2').val());
-//						var loginEmail = <%= loginUser.getEmail() %>;
-//						
-//						if(emailfind_1 == loginPwd and emailfind_2 = == loginPwd){
-//							response.sendRedirect("views/myPage/pwdUpdate.jsp");
-//							if(result){
-//								alert("'회원님의 아이디는' + '' + '입니다'");
-//							} else {
-//								alert("비밀번호 변경 실패! 다시 시도해주시길 바랍니다.");
-//								location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
-//							}
-//						}
-//					});
-//				});
-				
 				
 // 비밀번호 찾기		
 				 
@@ -557,11 +855,21 @@
 				});
 				
 				function sendMail(){
+//					alert("클릭");
+					
 					var email_1 = $('#email_1'); 
 					var email_2 = $('#email_2'); 
 					var email = email_1.val() + '@' + email_2.val();
 					var email_Confirm =$('#email_Confirm');
-					
+
+					$.ajax({
+						url: 'auth.co',
+						type: 'POST',
+						data:{email:email},
+						success: function(data){
+						
+						}
+					});
 					
 					$.ajax({  //이메일이 중복되는지 확인
 						url: '<%= request.getContextPath() %>/email.mem',
@@ -644,4 +952,48 @@
 						email_Confirm.focus();
 						return false; //반려
 					}
+					
+// 페이스북 로그인 스크립트 
+					function fbLogin() {
+					    // 로그인 여부 체크
+					    FB.getLoginStatus(function(response) {
+
+					        if (response.status === 'connected') {
+					            FB.api('/me', function(res) {
+					                // 제일 마지막에 실행
+					                console.log("Success Login : " + response.name);
+					                // alert("Success Login : " + response.name);
+					            });
+					        } else if (response.status === 'not_authorized') {
+					            // 사람은 Facebook에 로그인했지만 앱에는 로그인하지 않았습니다.
+					            alert('앱에 로그인해야 이용가능한 기능입니다.');
+					        } else {
+					            // 그 사람은 Facebook에 로그인하지 않았으므로이 앱에 로그인했는지 여부는 확실하지 않습니다.
+					            alert('페이스북에 로그인해야 이용가능한 기능입니다.');
+					        }
+					    }, true); // 중복실행방지
+					}
+					
+					window.fbAsyncInit = function() {		
+						FB.init({
+						  appId      : '553110938733873',
+						  cookie     : true,  // enable cookies to allow the server to access 
+						                      // the session
+						  xfbml      : true,  // parse social plugins on this page
+						  version    : 'v2.8' // use graph api version 2.8
+						});
+						
+					(function(d, s, id) {
+					      var js, fjs = d.getElementsByTagName(s)[0];
+					      if (d.getElementById(id)) return;
+					      js = d.createElement(s); js.id = id;
+					      js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8&appId=553110938733873";
+					      fjs.parentNode.insertBefore(js, fjs);
+					    }(document, 'script', 'facebook-jssdk'));
+					}
+						
 				}
+				
+				
+				
+				

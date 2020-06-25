@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mtbatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="commonMapper">
+	<!-- 유저 -->
 	<select id="memberLogin" parameterType="Member" resultMap="commonResultSet">
 		select *
 		from Member
@@ -27,11 +28,40 @@
 		values(#{userId}, #{userPwd}, #{userName}, #{phone}, #{email}, #{birth}, #{gender}, #{nickName}, default, null, default, sysdate, default)
 	</insert>
 	
+	<!-- 아뒤 중복검사 -->
+	<select id="checkIdDup" resultType="_int">
+		select *
+		from Member
+		where userId=#{userId}
+	</select>
 	
+	<!-- 닉넴 중복검사 -->
+	<select id="nickChk" resultType="int">
+		select *
+		from Member
+		where nickName=#{nickName}
+	</select>
+		
+	<!-- 아이디 찾기 : 이메일 비교 -->	
+	<select id="compareEmail" resultType="string">
+		select userId
+		from Member
+		where email=#{email}
+	</select>
+	
+	<!-- 비번 찾기 : 임시 비번보내고 그걸로 변경 -->	
+	<select id="getPw" resultType="int">
+		select count(*)
+		from Member
+		where userId=#{id} and email=#{email}
+	</select>
+	
+	
+	<!-- 기업 -->	
 	<select id="companyLogin" parameterType="Company" resultMap="CompanyResultSet">
 		select * 
 		from company
-		where coid=#{coId}
+		where coid=#{coId} and approval = 'Y'
 	</select>	
 	<resultMap id="CompanyResultSet" type="Company">
 		<id property="coId" column="COID"/>
@@ -64,9 +94,18 @@
 		where email=#{ email }
 	</select>
 	
-	<!-- 비밀번호 변경 -->
-	<update id="update_pw" parameterType="member">
-		update member set userPwd = #{userPwd} where userId = #{userId}
-	</update>
+	<!-- 기업 아뒤 중복검사 -->
+	<select id="checkIdDup2" resultType="_int">
+		select *
+		from company
+		where coId=#{coId}
+	</select>
+	
+	<!-- 기업 아이디 찾기 : 이메일 비교 -->	
+	<select id="compareEmail2" resultType="string">
+		select *
+		from company
+		where busiEmail=#{busiEmail}
+	</select>
 	
 </mapper>

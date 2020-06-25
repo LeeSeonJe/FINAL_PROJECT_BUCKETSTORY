@@ -6,7 +6,7 @@
 <meta charset="EUC-KR">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/common/css/login.css">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
-<title>Insert title here</title>
+<title>LOGIN</title>
 <style>
 	
 </style>
@@ -34,7 +34,7 @@
 			<table id="User" cellpadding="0" cellspacing="20">
 					<tr>
 						<th align=right><label class="must"></label>아이디</th>
-						<td><input type="text" id="userid" name="userId" class="user" maxlength="15" required>
+						<td><input type="text" id="userId" name="userId" class="user" maxlength="15" required>
 							<label id="idResult"></label>
 							<img id="userId_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 							<img id="userId_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
@@ -45,12 +45,15 @@
 					<tr>
 						<th align=right><label class="must"></label>이름</th>
 						<td>
-						<input type="text" id="username" name="userName" class="user" maxlength="10" required>
+						<input type="text" id="userName" name="userName" class="user" maxlength="10" required>
+							<label id="nameResult"></label>
+							<img id="userName_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+							<img id="userName_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 						</td>
 					</tr>
 					<tr>
 						<th align=right><label class="must"></label>닉네임</th>
-						<td><input type="text" id="nickname" name="nickName" class="user" maxlength="10" required>
+						<td><input type="text" id="nickName" name="nickName" class="user" maxlength="10" required>
 							<label id="nickResult"></label>
 							<img id="nickName_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 							<img id="nickName_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
@@ -60,7 +63,7 @@
 					<tr>
 						<th align=right>비밀번호</th>
 						<td>
-							<input type="password" id=userpwd name="userPwd" class="user">
+							<input type="password" id=userPwd name="userPwd" class="user">
 							<img id="userPwd_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 							<img id="userPwd_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 						</td>
@@ -68,7 +71,7 @@
 					<tr>
 						<th align=right>비밀번호 재확인</th>
 						<td>
-							<input type="password" id="userpwd2" name="userPwd2" class="user">
+							<input type="password" id="userPwd2" name="userPwd2" class="user">
 							<img id="userPwd2_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 							<img id="userPwd2_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 						</td>
@@ -134,24 +137,21 @@
 										<option value="nate.com">nate.com</option>
 										<option value="gmail.com">gmail.com</option>
 								</select>  <!-- 본인 이메일로 이동하여 인증확인!-->
-							<label id="emailResult"></label>
-							<img id="emailResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
-							<img id="emailResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<th align=right>인증 번호 확인</th>
 						<td>
 						<input type="number" id="email_injeung" name="email_injeung" class="user" placeholder="인증번호를 입력하세요.">
 							<span>
-								<button type="button" class="btn btn-info2" id="emailBtn" style='cursor:pointer;'>이메일 발송</button>
+								<button type="button" class="btn btn-info2" id="emailBtn" style='cursor:pointer;' onclick="sendMail()">이메일 발송</button>
 								<button type="button" class="btn btn-info" id="emailAuthBtn" style='cursor:pointer;'>이메일 인증</button>
 								<img id="emailChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 								<img id="emailChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 							</span>
-							<!-- 본인 이메일로 이동하여 인증확인!-->
+							본인 이메일로 이동하여 인증확인!
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
 						<td align=right><button id="finish" onclick="validate(); location.href='main.ho'" style='cursor:pointer'>가입하기</button></td>
@@ -159,30 +159,43 @@
 				</table>
 				</form>
 				
-<!-- -------------------- 회사 회원가입폼 -------------------- -->
+<!-- -------------------- 기업 회원가입폼 -------------------- -->
 				<form action="CompanyIn.co" method="post" enctype="Multipart/form-data">
 				<table id="Company" cellpadding="0" cellspacing="20">
 					<tr>
 						<th align=right><label class="must"></label>아이디</th>
-						<td><input type="text" id="coid" name="coId" class="coid" maxlength="15" required>
-						<label id="idResult"></label></td>
+						<td><input type="text" id="coId" name="coId" class="coid" maxlength="15" required>
+							<label id="coIdResult"></label></td>
+							<img id="coId_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+							<img id="coId_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 <!-- 						<span><button id="idCheck" onclick="checkId();">중복확인</button></span> -->
 <!-- 							<td width="200px"><label id="idResult"></label></td> -->
 					</tr>
 					<tr>
 						<th align=right>비밀번호</th>
-						<td><input type="password" id=copwd name="coPwd"
-							class="member"></td>
+						<td><input type="password" id=coPwd name="coPwd"
+							class="company">
+							<label id="coPwdResult"></label>
+							<img id="coPwd_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+							<img id="coPwd_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />	
+						</td>
 					</tr>
 					<tr>
 						<th align=right>비밀번호 재확인</th>
-						<td><input type="password" id="copwd2" name="copwd2"
-							class="member"></td>
+						<td><input type="password" id="coPwd2" name="copwd2"
+							class="member">
+							<label id="coPwd2Result"></label>
+							<img id="coPwd2_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+							<img id="coPwd2_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />		
+						</td>
 					</tr>
 					<tr>
 						<th align=right><label class="must"></label>기업명</th>
 						<td>
-							<input type="text" id="coname" name="coName" class="coname">
+							<input type="text" id="coName" name="coName" class="coName">
+							<label id="coNameResult"></label>
+							<img id="coName_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+							<img id="coName_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />	
 						</td>
 					</tr>
 					<tr>
@@ -203,12 +216,18 @@
 						<th align=right><label class="must"></label>대표이사 이름</th>
 						<td>
 							<input type="text" id="ceo" name="ceo" class="ceo" maxlength="10" required>
+								<label id="ceoResult"></label>
+								<img id="ceo_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+								<img id="ceo_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 						</td>
 					</tr>
 					<tr>
 						<th align=right><label class="must"></label>신청자 이름</th>
 						<td>
-							<input type="text" id="apname" name="apName" class="apname">
+							<input type="text" id="apName" name="apName" class="apname">
+								<label id="apnameResult"></label>
+								<img id="apname_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+								<img id="apname_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 						</td>
 					</tr>
 					<tr>
@@ -245,6 +264,9 @@
 								<option value="7">&nbsp&nbsp&nbspShopping</option>
 								<option value="8">&nbsp&nbsp&nbspLifeStyle</option>
 							</select>
+								<label id="coemailResult"></label></td>
+								<img id="coemail_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+								<img id="coemail_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 						</td>
 					</tr>
 					<tr>
@@ -262,16 +284,16 @@
 								</select>  <!-- 본인 이메일로 이동하여 인증확인!-->
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<th align=right>인증 번호 확인</th>
 						<td>
 						<input type="text" id="email_injeung" name="email_injeung" class="company" placeholder="인증번호를 입력하세요.">
 							<span>
 								<button id="emailAuthBtn" style='cursor:pointer;'>인증메일</button>
 							</span>
-							<!-- 본인 이메일로 이동하여 인증확인!-->
+							본인 이메일로 이동하여 인증확인!
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
 						<td align=right><button id="finish2" onclick="validate(); location.href='expertIntro.ex'" style='cursor:pointer'>가입하기</button></td>
@@ -296,7 +318,7 @@
 				<p id="idtp" style="color: white;">회원</p>
 			</div>
 			  <!-- 회원 아이디 찾기 -->
-		      <form id="MemidFind" action="memberidFind.co" method="post" style="margin-top:50px;">
+			  <div id="MemidFind" style="margin-top:50px;">
 		      <h3 align=center><p id="tp" style="color: white; font-size: 18px; font-weight: bold">회원</p> 아이디 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
@@ -312,16 +334,19 @@
 									<option value="nate.com">nate.com</option>
 									<option value="gmail.com">gmail.com</option>
 							</select>  <!-- 본인 이메일로 이동하여 인증확인!-->
+								<label id="emailResult"></label></td>
+								<img id="email_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+								<img id="email_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 					</td>
 				</tr>
 				<tr>
 					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-					<td align=right><button id="good" style='cursor:pointer'>확인</button></td>
+					<td align=right><button id="good" style='cursor:pointer' type="button">확인</button></td>
 				</tr>
 		    </table>
-		    </form>
+		    </div>
 		    <!-- 기업 아이디 찾기 -->
-		     <form id="ComidFind" action="companyidFind.co" method="post" style="margin-top:50px;">
+		     <div id="ComidFind" style="margin-top:50px;">
 		      <h3 align=center>기업 아이디 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
@@ -341,10 +366,10 @@
 				</tr>
 				<tr>
 					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-					<td align=right><button id="good2" style='cursor:pointer'>확인</button></td>
+					<td align=right><button id="good2" style='cursor:pointer' type="button">확인</button></td>
 				</tr>
 		    </table>
-		    </form>
+		    </div>
 		</div>
 		
 <!-------------------- 비번찾기 모달 -------------------->	
@@ -389,7 +414,7 @@
 				</tr>
 				<tr>
 					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-					<td align=right><button id="yeah" onclick="validate(); location.href='login.co'" style='cursor:pointer'>확인</button></td>
+					<td align=right><button id="yeah" onclick="" style='cursor:pointer' onclick="location.href='mempwdFind.co'">확인</button></td>
 				</tr>
 		      </table>
 		      </form>
@@ -450,13 +475,13 @@
 				<p id="ctp" style="color: white;">회원</p> 
 			</div>	
 			<!-- 유저 로그인 -->
-			<form id="login" action="memberlogin.co" method="post"> 
+			<form id="login" action="loginSuccess.co" method="post" onsubmit="return validate();"> 
 				<div id="idPwdInput">
 					<div id="loginlogo">
 						<img id="loginlogo" src="resources/common/images/LogoWhite.png" width="500px" height="90px" style='margin-left:-90px; margin-height:"0"'/>
 					</div>
-					<input name="userId" type="text" class="idPwd" placeholder="&ensp; ID">
-					<input name="userPwd" type="password" class="idPwd" placeholder="&ensp; Password">
+					<input id="mUserid" name="userId" type="text" class="idPwd" placeholder="&ensp; ID">
+					<input id="mPwd" name="userPwd" type="password" class="idPwd" placeholder="&ensp; Password">
 				</div>
 				<!-- 로그인 성공하면 바로 메인메뉴로 이동함 -->
 				<div id="submit" style='float:left'> 
@@ -465,17 +490,17 @@
 			</form>
 			
 			<!-- 컴퍼니 로그인 -->
-			<form id="Clogin" action="companylogin.co" method="post"> 
+			<form id="Clogin" action="loginSuccess2.co" method="post" onsubmit="return validate2();"> 
 				<div id="idPwdInput">
 					<div id="loginlogo" style="color: white">
 						<img id="loginlogo3" src="resources/common/images/LogoBlack.png" width="500px" height="90px" style="margin-left:-90px;"/>
 					</div>
-					<input name="coId" type="text" class="idPwd" placeholder="&ensp; ID">
-					<input name="coPwd" type="password" class="idPwd" placeholder="&ensp; Password">
+					<input id="mCoid" name="coId" type="text" class="idPwd" placeholder="&ensp; ID">
+					<input id="mCopwd" name="coPwd" type="password" class="idPwd" placeholder="&ensp; Password">
 				</div>
 				<!-- 로그인 성공하면 바로 메인메뉴로 이동함 -->
 				<div id="submit" style='float:left'> 
-					<button id="subbtn" style='cursor:pointer;margin-left:8px;margin-top:95px'>LOGIN</button>
+					<button id="subbtn2" style='cursor:pointer;margin-left:8px;margin-top:95px'>LOGIN</button>
 				</div>
 			</form>
 			
@@ -492,7 +517,9 @@
 			</div>
 			<!-- <hr color="white" width="325px" align="left"> -->
 			<div>
-				<button id="facebookBtn" style='cursor:pointer'><img src="resources/common/images/facebook.png" width="24px" height="24px">&ensp;Facebook으로 로그인</button>
+				<a href="${facebook_url}"> 
+				<button id="facebookBtn" style='cursor:pointer' data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true" onclick="fbLogin();"> <img src="resources/common/images/facebook.png" width="24px" height="24px" >&ensp;Facebook으로 로그인</button>
+				</a>
 			</div>
 			<div id="fb-root"></div>
 		</div>

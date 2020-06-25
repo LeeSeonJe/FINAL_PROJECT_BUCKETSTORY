@@ -1,12 +1,16 @@
 package com.kh.BucketStory.common.model.dao;
 
+import java.util.HashMap;
+
 import org.apache.catalina.User;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.vo.Company;
+import com.sun.javafx.collections.MappingChange.Map;
 
 @Transactional
 @Repository("cDAO")
@@ -32,10 +36,43 @@ public class CommonDAO {
 		return sqlSession.selectOne("commonMapper.checkIdDup", id);
 	}
 
+	public int idDuplicateCheck2(SqlSessionTemplate sqlSession, String id2) {
+		return sqlSession.selectOne("commonMapper.checkIdDup2", id2);
+	}
+
+	public int nickNameCheck(SqlSessionTemplate sqlSession, String nick) {
+		return sqlSession.selectOne("commonMapper.nickChk", nick);
+	}
+	
 	public Member findAccount(SqlSessionTemplate sqlSession, String email) {
 		return (Member) sqlSession.selectOne("commonMapper.findAccount", email);
 	}
 
-	
+	public int getPw(SqlSessionTemplate sqlSession, String id, String email) {
+		HashMap<String, Object> hs = new HashMap<String, Object>();
+		hs.put("id", id);
+		hs.put("email", email);
+		return sqlSession.selectOne("commonMapper.getPw", hs);
+	}
+
+	public int SearchPw(SqlSessionTemplate sqlSession, String id, String email, String joinCode) {
+		HashMap<String, Object> hs = new HashMap<String, Object>();
+		hs.put("id", id);
+		hs.put("email", email);
+		hs.put("joinCode", joinCode);
+		return sqlSession.selectOne("commonMapper.SearchPW", hs);
+	}
+
+	public Object update_pw(SqlSessionTemplate sqlSession, String joinCode) {
+		return sqlSession.selectOne("commonMapper.update_pw", joinCode);
+	}
+
+	public String compareEmail(SqlSessionTemplate sqlSession, String email) {
+		return sqlSession.selectOne("commonMapper.compareEmail", email);
+	}
+
+	public String compareEmail2(SqlSessionTemplate sqlSession, String busiemail) {
+		return sqlSession.selectOne("commonMapper.compareEmail2", busiemail);
+	}
 	
 }
