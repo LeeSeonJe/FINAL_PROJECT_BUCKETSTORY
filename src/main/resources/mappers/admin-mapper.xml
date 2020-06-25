@@ -66,10 +66,12 @@
 	</select>
 	
 	<select id="boardselectList" resultMap="notifyResultSet">
-		select *
-		from notify
-		where cmno is not null
-		order by no_no desc
+	   	select n.no_no, c.cmno, r.rpno, n.no_kind, n.no_check, c.cmcontent, r.rpcontent, n.pigouser, n.sinuser, n.enrolldata
+        from notify n
+        	join board using(bno)
+        	join boardcomment c using (bno)
+        	join reply r on(c.cmno = r.cmno)
+        where c.cmno is not null or r.rpno is not null
 	</select>
 	
 	<select id="boardCautionListCount" resultType="_int">
@@ -88,7 +90,7 @@
 		from notify n
     		left join member m on n.pigouser = m.userid
     		left join board b on n.bno = b.bno
-		where n.sinuser = #{userid} and n.bno is not null
+		where n.pigouser = #{userid} and n.bno is not null
 	</select>
 	
 	<update id="warningboard">

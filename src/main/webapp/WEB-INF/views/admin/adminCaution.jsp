@@ -99,6 +99,7 @@ h2{
 						<th><input type="checkbox" name="chk_head" id="checkAll">선택</th>
 						<th>번호</th>
 						<th>말머리</th>
+						<th>내용</th>
 						<th>상태</th>
 						<th>아이디</th>
 						<th>신고자</th>
@@ -112,9 +113,11 @@ h2{
 							</td>
 							<td>${ notify.no_no }</td>
 							<td>
-								<c:if test="${ notify.no_kind == 1 }">게시글</c:if>
-								<c:if test="${ notify.no_kind == 2 }">댓글</c:if>
-								<c:if test="${ notify.no_kind == 3 }">대댓글</c:if>
+								<c:if test="${ notify.cmno > 0 }">댓글</c:if>
+							</td>
+							<td>
+								<c:if test="${ notify.cmno > 0 }">${ notify.cmContent }</c:if>
+								<c:if test="${ notify.rpno > 0 }">${ notify.rpContent }</c:if>
 							</td>
 							<td>
 								<c:if test="${ notify.no_check eq 'N'.charAt(0) }">경고아님</c:if>

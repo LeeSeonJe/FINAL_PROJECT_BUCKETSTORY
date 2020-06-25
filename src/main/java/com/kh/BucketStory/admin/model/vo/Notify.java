@@ -14,9 +14,13 @@ public class Notify {
 	private String sinuser; // 신고자
 	private String pigouser; //피고자
 	private String nickname;
+	private String cmContent; 
+	private String rpContent;
 	
 	public Notify() {}
 
+	
+	/* 기본 테이블 */
 	public Notify(int no_no, Date enrolldata, char status, int no_kind, char no_check, int bno, int cmno, int rpno,
 			String sinuser, String pigouser) {
 		super();
@@ -32,7 +36,7 @@ public class Notify {
 		this.pigouser = pigouser;
 	}
 
-	
+	/* 닉네임 받아오는 객체 */
 	public Notify(int no_no, Date enrolldata, char status, int no_kind, char no_check, int bno, int cmno, int rpno,
 			String sinuser, String pigouser, String nickname) {
 		super();
@@ -48,6 +52,26 @@ public class Notify {
 		this.pigouser = pigouser;
 		this.nickname = nickname;
 	}
+
+	
+	/* 댓글, 대댓글 받아오는 객체 */
+	public Notify(int no_no, Date enrolldata, char status, int no_kind, char no_check, int bno, int cmno, int rpno,
+			String sinuser, String pigouser, String cmContent, String rpContent) {
+		super();
+		this.no_no = no_no;
+		this.enrolldata = enrolldata;
+		this.status = status;
+		this.no_kind = no_kind;
+		this.no_check = no_check;
+		this.bno = bno;
+		this.cmno = cmno;
+		this.rpno = rpno;
+		this.sinuser = sinuser;
+		this.pigouser = pigouser;
+		this.cmContent = cmContent;
+		this.rpContent = rpContent;
+	}
+
 
 	public String getNickname() {
 		return nickname;
@@ -137,13 +161,33 @@ public class Notify {
 		this.pigouser = pigouser;
 	}
 
+	public String getCmContent() {
+		return cmContent;
+	}
+
+
+	public void setCmContent(String cmContent) {
+		this.cmContent = cmContent;
+	}
+
+
+	public String getRpContent() {
+		return rpContent;
+	}
+
+
+	public void setRpContent(String rpContent) {
+		this.rpContent = rpContent;
+	}
+
 	@Override
 	public String toString() {
 		return "Notify [no_no=" + no_no + ", enrolldata=" + enrolldata + ", status=" + status + ", no_kind=" + no_kind
 				+ ", no_check=" + no_check + ", bno=" + bno + ", cmno=" + cmno + ", rpno=" + rpno + ", sinuser="
-				+ sinuser + ", pigouser=" + pigouser + ", nickname=" + nickname + "]";
+				+ sinuser + ", pigouser=" + pigouser + ", nickname=" + nickname + ", cmContent=" + cmContent
+				+ ", rpContent=" + rpContent + "]";
 	}
-
+	
 	
 	
 	

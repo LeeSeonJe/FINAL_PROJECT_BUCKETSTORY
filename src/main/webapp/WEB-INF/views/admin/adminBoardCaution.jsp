@@ -105,6 +105,9 @@ h2{
 					</tr>
 					<c:forEach var="b" items="${ list }">
 						<tr>
+							<c:url var="view" value="cautionView.ad">
+								<c:param name="userid" value="${ b.pigouser }"></c:param>
+							</c:url>
 							<td>
 								<input type="checkbox" name="chk_box" value="${b.no_no}" id="checkSelect">
 							</td>
@@ -116,14 +119,10 @@ h2{
 								<c:if test="${ b.no_check eq 'N'.charAt(0) }">경고아님</c:if>
 								<c:if test="${ b.no_check eq 'Y'.charAt(0) }">경고</c:if>
 							</td>
-							<c:url var="view" value="cautionView.ad">
-								<c:param name="userid" value="${ b.pigouser }"></c:param>
-							</c:url>
 							<td><a href="${ view }">${ b.pigouser }</a></td>
-							<td>${ b.singouser }<td>
+							<td>${ b.sinuser }</td>
 							<td>${ b.enrolldata }</td>
 						</tr>
-
 					</c:forEach>
 				</table>
 			</form>
