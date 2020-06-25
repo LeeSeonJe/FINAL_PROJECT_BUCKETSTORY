@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +25,7 @@ import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
 import com.kh.BucketStory.bucket.model.vo.WishList;
+import com.kh.BucketStory.common.model.service.CommonService;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
@@ -34,6 +37,13 @@ public class MainController {
 	
 	@Autowired
 	private MainService mainService;
+	
+	@Autowired
+	private CommonService cService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	
 	@RequestMapping("main.ho")
 	public ModelAndView Main(@RequestParam("menuNum") int menuNum, @RequestParam("category") int category,
@@ -104,11 +114,11 @@ public class MainController {
 	}
 	
 	@RequestMapping("wishRegi.ho")
-	public void BucketWish(@RequestParam("bkNo") int bkNo, HttpSession session, HttpServletResponse response) {
+	public void BucketWish(@RequestParam("bkNo") int bkNo,@RequestParam("bucketId") String bucketId, HttpSession session, HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 		String UserId = ((Member)session.getAttribute("loginUser")).getUserId();
 		
-		String wishCheck = mainService.blWish(bkNo, UserId);
+		String wishCheck = mainService.blWish(bkNo, UserId, bucketId);
 		
 		PrintWriter out;
 		try {
@@ -440,9 +450,56 @@ public class MainController {
 	}
 	
 	@RequestMapping("updateMember.ho")
-	public String updateMember() {
+	public String updateMember(@ModelAttribute Member m, HttpSession session,
+							   @RequestParam("phone1") String phone1, @RequestParam("phone2") String phone2) {
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		m.setUserId(userId);
 		
+		String phone = "010-"+phone1+"-"+phone2;
+		m.setPhone(phone);
 		
+		int result = mainService.updateMember(m);
+		if(result > 0) {
+			Member member = new Member();
+			member.setUserId(userId);
+			Member loginUser = cService.memberLogin(member); 
+			session.setAttribute("loginUser", loginUser);
+		} else {
+			System.out.println("업데이트 실패");
+		}
+		return "myInfo";
+	}
+	
+	@RequestMapping("passCheck.ho")
+	@ResponseBody
+	public String passCheck(@RequestParam("nowPw") String nowPw, HttpSession session) {
+		String returnString = null;
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		if(bcryptPasswordEncoder.matches(nowPw, loginUser.getUserPwd())) {
+			returnString = "success";
+		} else {
+			returnString = "fail";
+		}
+		
+		return returnString;
+	}
+	
+	@RequestMapping("updatePassword.ho")
+	public String updatePassword(@RequestParam("pw") String pw, HttpSession session) {
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		String encPwd = bcryptPasswordEncoder.encode(pw);
+		
+		int result = mainService.updatePwd(userId, encPwd);
+		if(result>0) {
+			Member member = new Member();
+			member.setUserId(userId);
+			Member loginUser = cService.memberLogin(member); 
+			session.setAttribute("loginUser", loginUser);
+		} else {
+			System.out.println("비번 업데이트 실패");
+		}
 		return "myInfo";
 	}
 }

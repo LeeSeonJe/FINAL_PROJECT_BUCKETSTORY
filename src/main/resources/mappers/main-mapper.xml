@@ -128,23 +128,33 @@
 		from wishlist
 		where userid = #{userId}
 		and bkNo = #{bkNo}
+		and bucketId = (select userId from member where nickname = #{bucketId})
 	</select>
 	<delete id="deleteWish">
 		delete from wishlist
 		where userid = #{userId}
 		and bkNo = #{bkNo}
+		and bucketId = (select userId from member where nickname = #{bucketId})
 	</delete>
 	<insert id="insertWish">
 		insert into wishlist
-		values(seq_wishlist.nextval, sysdate, #{bkNo}, #{userId})
+		values(seq_wishlist.nextval, sysdate, #{bkNo}, #{userId}, (select userId from member where nickname = #{bucketId}))
 	</insert>
 	
 	<!-- 로그인한 회원 위시리스트 -->
-	<select id="selectWishList" resultType="WishList">
-		select *
-		from wishlist
-		where userid = #{userId}
+	<select id="selectWishList" resultMap="wishListResultSet">
+		select WINO, w.ENROLLDATE, BKNO, w.USERID, nickName
+		from wishlist w
+		join member m on(m.USERID = bucketid)
+		where w.userid = #{userId}
 	</select>
+	<resultMap type="WishList" id="wishListResultSet">
+		<id property="wiNo" column="WINO"/>
+		<result property="enrollDate" column="ENROLLDATE"/>
+		<result property="bkNo" column="BKNO"/>
+		<result property="userId" column="USERID"/>
+		<result property="bucketId" column="NICKNAME"/>
+	</resultMap>
 	
 	<!-- 버킷공유하기 -->
 	<insert id="blShere">
@@ -328,4 +338,18 @@
 		from member
 		where nickname = #{nickName}
 	</select>
+	
+	<!-- 인포에서 회원정보 변경 -->
+	<update id="updateMember">
+		update member
+		set nickname = #{nickName}, phone = #{phone}, email = #{email}
+		where userid = #{userId}
+	</update>
+	
+	<!-- 인포에서 비밀번호 변경 -->
+	<update id="updatePwd">
+		update member
+		set USERPWD = #{encPwd}
+		where userid = #{userId}
+	</update>
 </mapper>
