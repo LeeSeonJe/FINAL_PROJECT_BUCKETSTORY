@@ -24,10 +24,7 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	private SqlSessionTemplate sqlSession;
 
 	//
-	@Override
-	public int getListCount() {
-		return exDAO2.getListCount(sqlSession);
-	}
+
 	@Override
 	public int getListCount(String coId) {
 		return exDAO2.getListCount(sqlSession,coId);
@@ -41,10 +38,6 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 		return exDAO2.getListCountN(sqlSession,coId);
 	}
 
-	@Override
-	public ArrayList<Pay> selectList(PageInfo pi) {
-		return exDAO2.selectList(sqlSession, pi);
-	}
 	@Override
 	public ArrayList<Pay> selectList(PageInfo pi, String coId) {
 		return exDAO2.selectList(sqlSession, pi,coId);
@@ -192,5 +185,34 @@ public class ExpertServiceImpl2 implements ExpertService2 {
 	}
 
 
+	
+	// 정호가 쓸것 아래
+	@Override
+	public int getListCount() {
+		return exDAO2.getListCount(sqlSession);
+	}
+	
+	@Override
+	public int getListCountY() {
+		return exDAO2.getListCountY(sqlSession);
+	}
+	@Override
+	public int getListCountN() {
+		return exDAO2.getListCountN(sqlSession);
+	}
 
+	@Override
+	public ArrayList<Pay> selectList(PageInfo pi) {
+		return exDAO2.selectList(sqlSession, pi);
+	}
+	@Override
+	public ArrayList<Pay> selectListY(PageInfo pi) {
+		return exDAO2.selectListY(sqlSession,pi);
+	}
+	@Override
+	public ArrayList<Pay> selectListN(PageInfo pi) {
+		return exDAO2.selectListN(sqlSession,pi);
+	}
+
+	
 }

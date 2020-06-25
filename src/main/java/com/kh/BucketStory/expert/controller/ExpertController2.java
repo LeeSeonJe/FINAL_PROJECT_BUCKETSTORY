@@ -231,7 +231,7 @@ public class ExpertController2 {
 		// Company 에 보유포인트 갱신
 		int result2 = ExService2.updateCompanyPoint(c);
 		if (result > 0 && result2 > 0) {
-			return "redirect:point.ex?search=insertPay";
+			return "redirect:point.ex?search=all";
 		} else {
 			throw new ExpertException("실패하였습니다.");
 		}
@@ -249,7 +249,6 @@ public class ExpertController2 {
 		//System.out.println(coId);	
 		// Null 처리 ->NVL이 안먹는다.
 		if (ExService2.getListCount(coId) > 0) {
-
 			if(ExService2.getListCountY(coId)>0) {
 				Ypoint = ExService2.getYPoint(coId);
 			}

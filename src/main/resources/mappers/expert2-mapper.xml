@@ -84,6 +84,42 @@
 	from PAY
 	</select>
 	
+	<select id = "getListCountAllY" resultType ="_int">
+	select count(*)
+	from PAY
+	where STATUS = 'Y'
+	</select>
+	
+	<select id = "getListCountAllN" resultType ="_int">
+	select count(*)
+	from PAY
+	where STATUS = 'N'
+	</select>
+	
+			
+	<!-- PAY 전체 리스트 -->
+	<select id="selectListAll" resultMap = "PayResultSet">
+	select *
+	from PAY
+	order by PA_NO desc
+	</select>
+	
+	<select id="selectListAllY" resultMap = "PayResultSet">
+	select *
+	from PAY where STATUS = 'Y'
+	order by PA_NO desc
+	</select>
+	
+	<select id="selectListAllN" resultMap = "PayResultSet">
+	select *
+	from PAY
+	from PAY where STATUS = 'N'
+	order by PA_NO desc
+	</select>
+	
+	
+	
+	
 	<!-- 특정 기업아이디와 일치하는 PAY 내역리스트 개수 구한다. -->
 	<select id ="getListCount"  resultType ="_int">
 	select count(*)
@@ -103,14 +139,7 @@
 	where COID = #{coId} AND STATUS = 'N'
 	</select>
 	
-		
-	<!-- PAY 전체 리스트 -->
-	<select id="selectListAll" resultMap = "PayResultSet">
-	select *
-	from PAY
-	order by PA_NO desc
-	</select>
-	
+
 	
 	<!-- PAY 리스트(coid) -->
 	<select id="selectList" resultMap = "PayResultSet">
