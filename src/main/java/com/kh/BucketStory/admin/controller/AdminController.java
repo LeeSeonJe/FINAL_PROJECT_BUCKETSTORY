@@ -178,7 +178,8 @@ public class AdminController {
 		if(result > 0) {
 			mv.addObject("page", page)
 			  .addObject("adminQnA", a)
-			  .setViewName("redirect:qnadetail.ad?q_no=" + a.getQ_no());
+			  .setViewName("redirect:adminQnAlist.ad");
+//			  .setViewName("redirect:qnadetail.ad?q_no=" + a.getQ_no());
 			
 		} else {
 			throw new BoardException("게시글 수정에 실패했습니다.");
@@ -186,6 +187,23 @@ public class AdminController {
 		 
 		return mv;
 	}
+	
+	
+	/* 답변 완료된 QnA */
+	@RequestMapping("viewAnswer.ad")
+	public ModelAndView qnaviewAnswer(@ModelAttribute adminQnA a,@RequestParam("q_no") int qno, @RequestParam("page") int page, ModelAndView mv) {
+		
+		adminQnA adminQnA = bService.qnaviewAnswer(a);
+		
+		
+		mv.addObject("adminQnA", adminQnA)
+		  .addObject("page", page)
+		  .setViewName("adminQnAview");
+		
+		return mv;
+		
+	}
+	
 	
 	/* 신고된 회원 리스트 */
 	@RequestMapping("cautionlist.ad")
@@ -204,7 +222,7 @@ public class AdminController {
 		
 		ArrayList<Notify> list = bService.notifyselectList(pi);
 		
-		System.out.println("경고 페이지 리스트 " + list);
+//		System.out.println("경고 페이지 리스트 " + list);
 		
 		if(list != null) {
 			
@@ -232,7 +250,7 @@ public class AdminController {
 		
 		ArrayList<Notify> list = bService.boardCautionList(pi);
 		
-		System.out.println("게시글 경고 페이지 " + list);
+//		System.out.println("게시글 경고 페이지 " + list);
 		
 		if(list != null) {
 			
@@ -250,13 +268,13 @@ public class AdminController {
 	public String cautionView(@RequestParam("userid") String id, Model m) {
 		
 						
-		System.out.println("값 받아오니 " + id);
+//		System.out.println("값 받아오니 " + id);
 		
 		Notify result = bService.cautionview(id);
 		m.addAttribute("nickName", result.getNickname());
 		m.addAttribute("bno", result.getBno());
 		
-		System.out.println("결과 넘어오니? " + result);
+//		System.out.println("결과 넘어오니? " + result);
 		
 		return "redirect:myBlog.me";
 		
@@ -272,6 +290,7 @@ public class AdminController {
 	public String warningboard(@RequestParam(value="b[]") List<String> no) {
 		
 		System.out.println("b 값 " + no);
+		
 		int result = bService.warningboard(no);
 		
 		System.out.println("result 값 " + result);
@@ -329,7 +348,7 @@ public class AdminController {
 	}
 	
 	
-	/* 회원 강제 탈퇴 */
+	/* 댓글 회원 강제 탈퇴 */
 	@RequestMapping("delectMember.ad")
 	public String deleteMember(@RequestParam("Notify[]") List<String> no) {
 		
@@ -339,6 +358,25 @@ public class AdminController {
 //		}
 //		
 		int result = bService.deleteMember(no);
+		
+		if(result > 0) {
+			return "redirect:adminwarning.ad";
+		} else {
+			throw new BoardException("회원 삭제 실패");
+		}
+		
+	}
+	
+	/* 회원 강제 탈퇴 */
+	@RequestMapping("delectMember2.ad")
+	public String deleteMember2(@RequestParam("Notify[]") List<String> no) {
+		
+//		int[] no = new int [no_no.size()];
+//		for(int i = 0; i < no.length; i++) {
+//			no[i] = Integer.parseInt(no_no.get(i));
+//		}
+//		
+		int result = bService.deleteMember2(no);
 		
 		if(result > 0) {
 			return "redirect:adminwarning.ad";
@@ -426,4 +464,52 @@ public class AdminController {
 			throw new BoardException("기업 거절에 실패하였습니다");
 		}
 	}
+	
+//	/* 결제내역 포인트 */
+//	   @RequestMapping(value = "helperQnaList.ex", method = RequestMethod.GET)
+//	   public ModelAndView showQnAList(HttpSession session, 
+//	                     @RequestParam(value = "page", required = false) Integer page,
+//	                     @RequestParam(value = "search") @Nullable String search,
+//	         ModelAndView mv) {
+//
+//	      
+//	      int currentPage = 1;
+//	      if (page != null) {
+//	         currentPage = page;
+//	      }
+//	      
+//	      int listCount = 0;
+//	      PageInfo pi = null;
+//	      ArrayList<adminQnA> list = null;
+//	      
+//	      
+//	      if(search.equals("all")) {
+//	         listCount = ExService2.getListQnACount(coId);
+//	         pi = pagination.getPageInfo(currentPage, listCount);
+//	         list = ExService2.selectQnAList(pi, coId);
+//	      }
+//	      if(search.equals("Y")) {
+//	         listCount = ExService2.getListQnACountY(coId);
+//	         pi = pagination.getPageInfo(currentPage, listCount);
+//	         list = ExService2.selectQnAListY(pi, coId);
+//	      }
+//	      if(search.equals("N")) {
+//	         listCount = ExService2.getListQnACountN(coId);
+//	         pi = pagination.getPageInfo(currentPage, listCount);
+//	         list = ExService2.selectQnAListN(pi, coId);
+//	      }
+//
+//	      if (list != null) {
+//	         mv.addObject("list", list);
+//	         mv.addObject("pi", pi);
+//	         mv.addObject("coId", coId);
+//	         mv.addObject("search",search);
+//	         mv.setViewName("hp_QnAList");
+//	      } else {
+//	         throw new ExpertException("QnA 내역 조회에 실패했습니다.");
+//	      }
+//	      return mv;
+//	   }
+	   
+	
 }

@@ -76,13 +76,24 @@ h2{
 								<c:param name="q_no" value="${ qna.q_no }" />
 								<c:param name="page" value="${ pi.currentPage }" />
 							</c:url>
+							<c:url var="view" value="viewAnswer.ad">
+								<c:param name="q_no" value="${ qna.q_no }" />
+								<c:param name="page" value="${ pi.currentPage }" />
+							</c:url>
 							<td>${ qna.q_no }</td>
-							<td><a href="${qnadetail}">${ qna.q_title }</a></td>
+							<td>
+								<c:if test="${ qna.answer eq 'N'.charAt(0) }">
+									<a href="${qnadetail}">${ qna.q_title }</a>
+								</c:if>
+								<c:if test="${ qna.answer eq 'Y'.charAt(0) }">
+									<a href="${ view }">${ qna.q_title }</a>	
+								</c:if>
+								</td>
 							<td>${ qna.userid }${ qna.coid }</td>
 							<td>${ qna.q_date }</td>
 							<td>
-								<c:if test="${ qna.answer eq 'Y'.charAt(0) }">답변 안료</c:if>
-								<c:if test="${ qna.answer eq 'N'.charAt(0) }">미 답변</c:if>
+								<c:if test="${ qna.answer eq 'Y'.charAt(0) }">답변 완료</c:if>
+								<c:if test="${ qna.answer eq 'N'.charAt(0) }">미답변</c:if>
 							</td>
 						</tr>
 					</c:forEach>

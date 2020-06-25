@@ -136,6 +136,16 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.warningboard(sqlSession, no);
 	}
 
+	@Override
+	public int deleteMember2(List<String> no) {
+		return bDAO.deleteMember2(sqlSession, no);
+	}
+
+	@Override
+	public adminQnA qnaviewAnswer(adminQnA a) {
+		return bDAO.qnaviewAnswer(sqlSession, a);
+	}
+
 
 
 

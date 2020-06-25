@@ -113,7 +113,7 @@ public class BoardDAO {
 //	}
 
 	public int warningMember(SqlSessionTemplate sqlSession, List<String> no) {
-		int result =  sqlSession.update("adminMapper.warningMember", no);
+		int result =  sqlSession.update("adminMapper.warningandcaution", no);
 		
 //		System.out.println("DAO 결과 값 " + result );
 		
@@ -183,6 +183,20 @@ public class BoardDAO {
 		} else{
 			throw new BoardException("신고회원 등록 실패");
 		}
+	}
+
+	public int deleteMember2(SqlSessionTemplate sqlSession, List<String> no) {
+		int result = sqlSession.update("adminMapper.deleteNotify2", no);
+		
+		if(result > 0) {
+			return sqlSession.update("adminMapper.deleteMember2", no);
+		} else {
+			throw new BoardException("회원  삭제 실패");
+		}
+	}
+
+	public adminQnA qnaviewAnswer(SqlSessionTemplate sqlSession, adminQnA a) {
+		return sqlSession.selectOne("qnaviewAnswer", a);
 	}
 
 

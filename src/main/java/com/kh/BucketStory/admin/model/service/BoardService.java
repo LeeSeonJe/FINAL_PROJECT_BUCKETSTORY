@@ -55,6 +55,10 @@ public interface BoardService {
 
 	int warningboard(List<String> no);
 
+	int deleteMember2(List<String> no);
+
+	adminQnA qnaviewAnswer(adminQnA a);
+
 
 
 

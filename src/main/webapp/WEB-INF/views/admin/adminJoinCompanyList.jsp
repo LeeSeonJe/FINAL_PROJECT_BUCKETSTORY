@@ -61,7 +61,7 @@ h2{
 					</tr>
 					<c:forEach var="company" items="${ list }">
 						<tr>
-							<c:url var="companyDetail" value="adminCompany.ad">
+							<c:url var="companyDetail" value="companyDetail.ad">
 								<c:param name="coId" value="${ company.coId }"/>
 								<c:param name="page" value="${ pi.currentPage }"/>
 							</c:url>
@@ -70,7 +70,7 @@ h2{
 							<td>${ company.coName }</td>
 							<td>${ company.apName }</td>
 							<td>${ company.enrollDate }</td>
-							<td><c:if test="${ company.approval eq 'N'.charAt(0) }">승인대기중</c:if></td>
+							<td><c:if test="${ company.approval eq 'N' }">승인대기중</c:if></td>
 						</tr>
 					</c:forEach>
 				</table>
