@@ -1,4 +1,4 @@
-	package com.kh.BucketStory.member.controller;
+package com.kh.BucketStory.member.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +42,6 @@ import com.kh.BucketStory.member.model.vo.BoardComment;
 import com.kh.BucketStory.member.model.vo.Follow;
 import com.kh.BucketStory.member.model.vo.MemberMyBucketList;
 import com.kh.BucketStory.member.model.vo.Reply;
-import com.sun.prism.impl.BaseMesh.FaceMembers;
 
 @Controller
 public class MemberController {
@@ -149,6 +147,10 @@ public class MemberController {
 		if(userId != null) {
 			wishList = mainService.selectWishList(userId);
 			shareList = mainService.selectShareList(userId);
+		} else {
+			String getUserId = mService.getUserId(nickName);
+			wishList = mainService.selectWishList(getUserId);
+			shareList = mainService.selectShareList(getUserId);
 		}
 		
 		ArrayList<MemberMyBucketList> myBucketList = new ArrayList<MemberMyBucketList>();
@@ -160,6 +162,10 @@ public class MemberController {
 		} else if(loginUser != null ) {
 			myBucketList = mService.myBucketList(nickName);
 			followCheck = mService.followCheck(nickName, loginUser.getUserId());
+		} else {
+			String getUserId = mService.getUserId(nickName);
+			myBucketList = mService.myBucketList(nickName);
+			followCheck = mService.followCheck(nickName, getUserId);
 		}
 		int list = myBucketList.size();
 		session.setAttribute("getMember", getMember);
@@ -187,7 +193,10 @@ public class MemberController {
 		String flag = "false";
 		session.setAttribute("nickName", nickName);
 		int followCheck = 2;
-		Member loginUser = (Member) session.getAttribute("loginUser");
+		Member loginUser = null;
+		if(session.getAttribute("loginUser") != null) {
+			loginUser = (Member) session.getAttribute("loginUser");			
+		}
 		int currentPage = 1;
 
 		if (page != null) {
@@ -247,8 +256,13 @@ public class MemberController {
 			flag = "true";
 		} else if(loginUser != null){
 			bList = mService.getBoard(nickName, bn);
-			getMember = mService.getMember(nickName);
 			followCheck = mService.followCheck(nickName, loginUser.getUserId());
+		} else {
+			String getUserId = mService.getUserId(nickName);
+			bList = mService.getBoard(nickName, bn);
+			followCheck = mService.followCheck(nickName, getUserId);
+			System.out.println(bList);
+			
 		}
 		getMember = mService.getMember(nickName);
 		

@@ -87,4 +87,6 @@ public interface MemberService{
 
 	int dateUpdate(String userid, int bkNo);
 
+	String getUserId(String nickName);
+
 }
