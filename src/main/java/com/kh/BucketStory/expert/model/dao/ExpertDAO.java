@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +19,9 @@ import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Esoption;
 import com.kh.BucketStory.expert.model.vo.Estimate;
+import com.kh.BucketStory.expert.model.vo.PageInfo;
+import com.kh.BucketStory.expert.model.vo.Pay;
+import com.kh.BucketStory.member.model.vo.Board;
 
 @Repository("exDAO")
 public class ExpertDAO {
@@ -79,8 +83,10 @@ public class ExpertDAO {
 		return sqlSession.insert("exMapper.insertEsmedia", media);
 	}
 
-	public ArrayList<Estimate> selectEstimateList(SqlSessionTemplate sqlSession, String coId) {
-		return (ArrayList)sqlSession.selectList("exMapper.selectEstimateList", coId);
+	public ArrayList<Estimate> selectEstimateList(SqlSessionTemplate sqlSession, String coId,PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("exMapper.selectEstimateList", coId,rowBounds);
 	}
 
 	public Estimate selectEstimate(SqlSessionTemplate sqlSession, String esno) {
@@ -95,8 +101,10 @@ public class ExpertDAO {
 		return (ArrayList)sqlSession.selectList("exMapper.selectMediaList",es_no);
 	}
 
-	public ArrayList<Estimate> selectMakingEstimateList(SqlSessionTemplate sqlSession, String coId) {
-		return (ArrayList)sqlSession.selectList("exMapper.selectMakingEstimateList",coId);
+	public ArrayList<Estimate> selectMakingEstimateList(SqlSessionTemplate sqlSession, String coId, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("exMapper.selectMakingEstimateList",coId,rowBounds);
 	}
 
 	public int updateEstimate(SqlSessionTemplate sqlSession, Estimate es) {
@@ -119,8 +127,10 @@ public class ExpertDAO {
 		return (ArrayList)sqlSession.selectList("exMapper.selectBucketMedia");
 	}
 
-	public ArrayList<Estimate> selectCompleteEstimateList(SqlSessionTemplate sqlSession, String coId) {
-		return (ArrayList)sqlSession.selectList("exMapper.selectCompleteEstimateList", coId);
+	public ArrayList<Estimate> selectCompleteEstimateList(SqlSessionTemplate sqlSession, String coId,PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("exMapper.selectCompleteEstimateList", coId,rowBounds);
 	}
 
 	public ArrayList<Estimate> selectUserEstimate(SqlSessionTemplate sqlSession, String userId) {
@@ -141,6 +151,20 @@ public class ExpertDAO {
 
 	public int deleteEstimate(SqlSessionTemplate sqlSession, int es_no) {
 		return sqlSession.update("exMapper.deleteEstimate",es_no);
+	}
+
+	public int getEsListCount(SqlSessionTemplate sqlSession, String string) {
+		return sqlSession.selectOne("exMapper.getEsreqListCount",string);
+	}
+
+	public ArrayList<EsRequest> selectEsRequest(SqlSessionTemplate sqlSession, String coId, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList) sqlSession.selectList("exMapper.selectEsRequest", coId, rowBounds);
+	}
+
+	public int EsListCount(SqlSessionTemplate sqlSession, Map<String, String> status) {
+		return sqlSession.selectOne("exMapper.EsListCount", status);
 	}
 }
 

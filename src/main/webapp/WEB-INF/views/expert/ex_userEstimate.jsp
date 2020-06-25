@@ -63,9 +63,11 @@
 						if(index == 1){
 							$('#status1').css("background","lightgreen");
 							$('#status3').css("background","lightgrey");
+							$('#area').css("background","red");
 						}else{
 							$('#status3').css("background","lightgreen");
 							$('#status1').css("background","lightgrey");
+							$('#area').css("background","green");
 						}
 						$.ajax({
 							url:"myEstimate.ex",

@@ -14,6 +14,8 @@ import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Esoption;
 import com.kh.BucketStory.expert.model.vo.Estimate;
+import com.kh.BucketStory.expert.model.vo.PageInfo;
+import com.kh.BucketStory.member.model.vo.Board;
 
 public interface ExpertService {
 
@@ -41,7 +43,7 @@ public interface ExpertService {
 
 	int insertEsmedia(Media media);
 
-	ArrayList<Estimate> selectEstimteList(String coId);
+	ArrayList<Estimate> selectEstimteList(PageInfo pi, String coId);
 
 	Estimate selectEstimate(String esno);
 
@@ -49,7 +51,7 @@ public interface ExpertService {
 
 	ArrayList<Media> selectMediaList(int es_no);
 
-	ArrayList<Estimate> selectMakingEstimteList(String coId);
+	ArrayList<Estimate> selectMakingEstimteList(PageInfo pi, String coId);
 
 	int updateEstimate(Estimate es);
 
@@ -61,7 +63,7 @@ public interface ExpertService {
 
 	ArrayList<Media> selectAllBucketMediaList();
 
-	ArrayList<Estimate> selectCompleteEstimteList(String coId);
+	ArrayList<Estimate> selectCompleteEstimteList(PageInfo pi, String coId);
 
 	ArrayList<Estimate> selectUserEstimate(String userId);
 
@@ -72,6 +74,14 @@ public interface ExpertService {
 	int insertEvent(C_event ce);
 
 	int deleteEstimate(int es_no);
+
+	int getEsListCount(String coId);
+
+	ArrayList<EsRequest> selectEsRequest(PageInfo pi, String coId);
+
+	int makingEsListCount(String coId, int status);
+
+	int EsListCount(Map<String, String> status);
 
 
 

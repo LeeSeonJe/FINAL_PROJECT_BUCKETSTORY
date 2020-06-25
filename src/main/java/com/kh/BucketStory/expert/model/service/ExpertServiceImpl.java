@@ -19,6 +19,8 @@ import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Esoption;
 import com.kh.BucketStory.expert.model.vo.Estimate;
+import com.kh.BucketStory.expert.model.vo.PageInfo;
+import com.kh.BucketStory.member.model.vo.Board;
 
 @Service("ExService")
 public class ExpertServiceImpl implements ExpertService {
@@ -80,8 +82,8 @@ public class ExpertServiceImpl implements ExpertService {
 		return exDAO.insertEsMedia(sqlSession,media);
 	}
 @Override
-	public ArrayList<Estimate> selectEstimteList(String coId) {
-		return exDAO.selectEstimateList(sqlSession,coId);
+	public ArrayList<Estimate> selectEstimteList(PageInfo pi,String coId) {
+		return exDAO.selectEstimateList(sqlSession,coId,pi);
 	}
 @Override
 	public Estimate selectEstimate(String esno) {
@@ -96,8 +98,8 @@ public class ExpertServiceImpl implements ExpertService {
 		return exDAO.selectMediaList(sqlSession,es_no);
 	}
 	@Override
-	public ArrayList<Estimate> selectMakingEstimteList(String coId) {
-		return exDAO.selectMakingEstimateList(sqlSession,coId);
+	public ArrayList<Estimate> selectMakingEstimteList(PageInfo pi,String coId) {
+		return exDAO.selectMakingEstimateList(sqlSession,coId,pi);
 	}
 	@Override
 	public int updateEstimate(Estimate es) {
@@ -120,8 +122,8 @@ public class ExpertServiceImpl implements ExpertService {
 		return exDAO.selectAllBucketMediaList(sqlSession);
 	}
 	@Override
-	public ArrayList<Estimate> selectCompleteEstimteList(String coId) {
-		return exDAO.selectCompleteEstimateList(sqlSession,coId);
+	public ArrayList<Estimate> selectCompleteEstimteList(PageInfo pi,String coId) {
+		return exDAO.selectCompleteEstimateList(sqlSession,coId,pi);
 	}
 	@Override
 	public ArrayList<Estimate> selectUserEstimate(String userId) {
@@ -143,5 +145,21 @@ public class ExpertServiceImpl implements ExpertService {
 	public int deleteEstimate(int es_no) {
 		return exDAO.deleteEstimate(sqlSession,es_no);
 	}
-
+	@Override
+	public int getEsListCount(String string) {
+		return exDAO.getEsListCount(sqlSession,string);
+	}
+	@Override
+	public ArrayList<EsRequest> selectEsRequest(PageInfo pi, String coId) {
+		return exDAO.selectEsRequest(sqlSession, coId,pi);
+	}
+	@Override
+	public int EsListCount(Map<String, String> status) {
+		return exDAO.EsListCount(sqlSession, status);
+	}
+	@Override
+	public int makingEsListCount(String coId, int status) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

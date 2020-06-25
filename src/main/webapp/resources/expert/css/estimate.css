@@ -1,15 +1,28 @@
 @charset "UTF-8";
 #page{width:80%; margin: 0 auto;}
-	#profileImage {
-	    width: 100px;
-	    height: 100px;
+	#profileImg {
+	width: 166px;
+	height: 166px;
+	border-radius: 100px;
+}
+section {
+	width: 100%;
+	min-height: 100px;
+/* 	background: green; */
+	margin-top: 5px;
+}
+#profileImage {
+	    width: 210px;
+	    height: 197px;
 	    margin-left: 41px;
 	    margin-right: 14px;
+	    float: left;
 	}
 	#helperProfile{
-		width: 80%;
-		height: 200px;
-		margin:auto;}
+	width: 80%;
+	height: 200px;
+	margin:auto;
+}
 	.subtitle{width:80%;margin:auto;}
 	#inputSchedule{
 		width:100%;
@@ -30,3 +43,7 @@
   			height: 50px;
   			cursor:pointer;}
   	.deleteOption{cursor:pointer;}
+  	.ppp{
+	width: 100px;
+    text-align: right;
+}

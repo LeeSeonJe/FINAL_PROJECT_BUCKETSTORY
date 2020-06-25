@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
+import com.kh.BucketStory.admin.model.exception.BoardException;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.ComInBucket;
 import com.kh.BucketStory.bucket.model.vo.Media;
@@ -35,7 +36,10 @@ import com.kh.BucketStory.expert.model.vo.C_event;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.EsRequest;
 import com.kh.BucketStory.expert.model.vo.Estimate;
+import com.kh.BucketStory.expert.model.vo.PageInfo;
 import com.kh.BucketStory.expert.model.vo.Pay;
+import com.kh.BucketStory.expert.model.vo.pagination;
+import com.kh.BucketStory.member.model.vo.Board;
 
 @Controller
 public class ExpertController {
@@ -169,44 +173,42 @@ public class ExpertController {
 	}
 
 	
-	 @RequestMapping("getRequest.ex")
-	 public ModelAndView ex_getRequestView(HttpSession session,ModelAndView mv) {
-		 Company loginCom = (Company) session.getAttribute("loginCompany");
-		
-		 ArrayList<EsRequest> er = ExService.selectEsRequest(loginCom.getCoId());
-		 
-		 Map<String,BucketList> bucket = new HashMap<String,BucketList>();
-		 
-		 for(int i=0;i<er.size();i++) {
-			 BucketList b = ExService.selectBucket(Integer.parseInt(er.get(i).getBkNo()));
-			 bucket.put(b.getBkNo()+"",b);
-		 }
-		
-		 mv.addObject("bucket",bucket);
-		 mv.addObject("coId",loginCom.getCoId());
-		 mv.addObject("er",er);
-		 mv.setViewName("ex_getRequest");
-		 
-		 return mv;
-	 }
+	/*
+	 * @RequestMapping("getRequest.ex") public ModelAndView
+	 * ex_getRequestView(HttpSession session,ModelAndView mv) { Company loginCom =
+	 * (Company) session.getAttribute("loginCompany");
+	 * 
+	 * ArrayList<EsRequest> er = ExService.selectEsRequest(loginCom.getCoId());
+	 * 
+	 * Map<String,BucketList> bucket = new HashMap<String,BucketList>();
+	 * 
+	 * for(int i=0;i<er.size();i++) { BucketList b =
+	 * ExService.selectBucket(Integer.parseInt(er.get(i).getBkNo()));
+	 * bucket.put(b.getBkNo()+"",b); }
+	 * 
+	 * mv.addObject("bucket",bucket); mv.addObject("coId",loginCom.getCoId());
+	 * mv.addObject("er",er); mv.setViewName("ex_getRequest");
+	 * 
+	 * return mv; }
+	 */
 	 
-	 @RequestMapping("makingRequestView.ex")
-	 public ModelAndView makingRequestView(ModelAndView mv,HttpSession session) {
-		 Company loginCom = (Company) session.getAttribute("loginCompany");
-		 ArrayList<Estimate> arr = ExService.selectMakingEstimteList(loginCom.getCoId()); 
-		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
-		 
-		 for(int i=0;i<arr.size();i++) {
-			 BucketList b = ExService.selectBucket(arr.get(i).getBkNo());
-			 bucket.put(b.getBkNo(),b);
-		 }
-		 
-		 mv.addObject("bucket",bucket);
-		 mv.addObject("coId",loginCom.getCoId());
-		 mv.addObject("estimate",arr);
-		 mv.setViewName("ex_MakingRequest");
-		 return mv;
-	 }
+//	 @RequestMapping("makingRequestView.ex")
+//	 public ModelAndView makingRequestView(ModelAndView mv,HttpSession session) {
+//		 Company loginCom = (Company) session.getAttribute("loginCompany");
+//		 ArrayList<Estimate> arr = ExService.selectMakingEstimteList(loginCom.getCoId()); 
+//		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+//		 
+//		 for(int i=0;i<arr.size();i++) {
+//			 BucketList b = ExService.selectBucket(arr.get(i).getBkNo());
+//			 bucket.put(b.getBkNo(),b);
+//		 }
+//		 
+//		 mv.addObject("bucket",bucket);
+//		 mv.addObject("coId",loginCom.getCoId());
+//		 mv.addObject("estimate",arr);
+//		 mv.setViewName("ex_MakingRequest");
+//		 return mv;
+//	 }
 	 
 	 @RequestMapping("makingEstimate.ex")
 	 public ModelAndView makingEstimate(@RequestParam("es_no") String esno,ModelAndView mv) {
@@ -238,41 +240,41 @@ public class ExpertController {
 		 
 	 }
 	 
-	 @RequestMapping("completeRequestView.ex")
-	 public ModelAndView completeRequestView(ModelAndView mv,HttpSession session) {
-		 Company loginCom = (Company) session.getAttribute("loginCompany");
-		 ArrayList<Estimate> estimate = ExService.selectCompleteEstimteList(loginCom.getCoId());
-		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
-		 
-		 for(int i=0;i<estimate.size();i++) {
-			 BucketList b = ExService.selectBucket(estimate.get(i).getBkNo());
-			 bucket.put(b.getBkNo(),b);
-		 }
-		 mv.addObject("bucket",bucket);
-		 mv.addObject("es",estimate);
-		 mv.addObject("coId",loginCom.getCoId());
-		 mv.setViewName("ex_completeRequest");
-		 return mv;
-	 }
-	 @RequestMapping("roadingRequestView.ex")
-	 public ModelAndView roadingRequestView(HttpSession session,ModelAndView mv) {
-		 Company loginCom = (Company) session.getAttribute("loginCompany");
-		 ArrayList<Estimate> es = ExService.selectEstimteList(loginCom.getCoId());
-		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
-		 
-		 for(int i=0;i<es.size();i++) {
-			 BucketList b = ExService.selectBucket(es.get(i).getBkNo());
-			 bucket.put(b.getBkNo(),b);
-		 }
-		 mv.addObject("bucket",bucket);
-		 mv.addObject("coId",loginCom.getCoId());
-		 mv.addObject("estimate",es);
-		 mv.addObject("companyId",loginCom.getCoId());
-		 
-		 mv.setViewName("ex_roadingListView");
-		 
-		 return mv;
-	 }
+//	 @RequestMapping("completeRequestView.ex")
+//	 public ModelAndView completeRequestView(ModelAndView mv,HttpSession session) {
+//		 Company loginCom = (Company) session.getAttribute("loginCompany");
+//		 ArrayList<Estimate> estimate = ExService.selectCompleteEstimteList(loginCom.getCoId());
+//		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+//		 
+//		 for(int i=0;i<estimate.size();i++) {
+//			 BucketList b = ExService.selectBucket(estimate.get(i).getBkNo());
+//			 bucket.put(b.getBkNo(),b);
+//		 }
+//		 mv.addObject("bucket",bucket);
+//		 mv.addObject("es",estimate);
+//		 mv.addObject("coId",loginCom.getCoId());
+//		 mv.setViewName("ex_completeRequest");
+//		 return mv;
+//	 }
+//	 @RequestMapping("roadingRequestView.ex")
+//	 public ModelAndView roadingRequestView(HttpSession session,ModelAndView mv) {
+//		 Company loginCom = (Company) session.getAttribute("loginCompany");
+//		 ArrayList<Estimate> es = ExService.selectEstimteList(loginCom.getCoId());
+//		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+//		 
+//		 for(int i=0;i<es.size();i++) {
+//			 BucketList b = ExService.selectBucket(es.get(i).getBkNo());
+//			 bucket.put(b.getBkNo(),b);
+//		 }
+//		 mv.addObject("bucket",bucket);
+//		 mv.addObject("coId",loginCom.getCoId());
+//		 mv.addObject("estimate",es);
+//		 mv.addObject("companyId",loginCom.getCoId());
+//		 
+//		 mv.setViewName("ex_roadingListView");
+//		 
+//		 return mv;
+//	 }
 	 @RequestMapping("requestDetail.ex")
 	 public ModelAndView requestDetail(@RequestParam String esr_no,ModelAndView mv) {
 		 EsRequest er = ExService.RequestDetail(esr_no);
@@ -280,8 +282,10 @@ public class ExpertController {
 		 if(er != null) {
 			 mv.addObject("er",er);
 			 Company company = ExService.selectCompanyInfo(er.getCoId());
+			 Member member = ExService.selectMember(er.getUserId());
 			 BucketList bucket = ExService.selectBucket(Integer.parseInt(er.getBkNo()));
-			 if(company != null && bucket != null) {
+			 if(company != null && bucket != null && member != null) {
+				 mv.addObject("member", member);
 				 mv.addObject("company",company);
 				 mv.addObject("bucket",bucket);
 			 }
@@ -641,4 +645,135 @@ public class ExpertController {
 		 return "HelperInsertFestival";
 	 }
 	 
+	 @RequestMapping("getRequest.ex")
+	 public ModelAndView pagingTest(HttpSession session,ModelAndView mv ,@RequestParam(value="page",required = false) Integer page) {
+		 
+			 Company loginCom = (Company) session.getAttribute("loginCompany");
+			 
+			 int currentPage = 1;
+		 
+			if(page != null) {
+				currentPage = page;
+			}
+			
+			int listCount = ExService.getEsListCount(loginCom.getCoId());
+			
+			PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<EsRequest> er = ExService.selectEsRequest(pi,loginCom.getCoId());
+			
+		 
+		 Map<String,BucketList> bucket = new HashMap<String,BucketList>();
+		 
+		 for(int i=0;i<er.size();i++) {
+			 BucketList b = ExService.selectBucket(Integer.parseInt(er.get(i).getBkNo()));
+			 bucket.put(b.getBkNo()+"",b);
+		 }
+		 
+		 mv.addObject("pi",pi);
+		 mv.addObject("bucket",bucket);
+		 mv.addObject("coId",loginCom.getCoId());
+		 mv.addObject("er",er);
+		 mv.setViewName("ex_getRequest");
+		 
+		 return mv;
+	 }
+	 	
+	 @RequestMapping("makingRequestView.ex")
+	 public ModelAndView makingRequestView(ModelAndView mv,HttpSession session,@RequestParam(value="page",required = false) Integer page) {
+		 Company loginCom = (Company) session.getAttribute("loginCompany");
+		 int currentPage = 1;
+		 
+			if(page != null) {
+				currentPage = page;
+			}
+		Map<String,String> status = new HashMap<String,String>();
+		status.put("coId", loginCom.getCoId());
+		status.put("status", "2");
+		
+		int listCount = ExService.EsListCount(status);
+		 
+		PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+		
+		 ArrayList<Estimate> arr = ExService.selectMakingEstimteList(pi,loginCom.getCoId()); 
+		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+		 
+		 for(int i=0;i<arr.size();i++) {
+			 BucketList b = ExService.selectBucket(arr.get(i).getBkNo());
+			 bucket.put(b.getBkNo(),b);
+		 }
+		 mv.addObject("pi",pi);
+		 mv.addObject("bucket",bucket);
+		 mv.addObject("coId",loginCom.getCoId());
+		 mv.addObject("estimate",arr);
+		 mv.setViewName("ex_MakingRequest");
+		 return mv;
+	 }
+	 @RequestMapping("roadingRequestView.ex")
+	 public ModelAndView roadingRequestView(HttpSession session,ModelAndView mv,@RequestParam(value="page",required = false) Integer page) {
+		 Company loginCom = (Company) session.getAttribute("loginCompany");
+		 
+		 int currentPage = 1;
+		 
+			if(page != null) {
+				currentPage = page;
+			}
+		Map<String,String> status = new HashMap<String,String>();
+			status.put("coId", loginCom.getCoId());
+			status.put("status", "1");
+		
+		int listCount = ExService.EsListCount(status);
+		
+		PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+		
+		 ArrayList<Estimate> arr = ExService.selectEstimteList(pi,loginCom.getCoId()); 
+		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+		 
+		 for(int i=0;i<arr.size();i++) {
+			 BucketList b = ExService.selectBucket(arr.get(i).getBkNo());
+			 bucket.put(b.getBkNo(),b);
+		 }
+		 mv.addObject("pi",pi);
+		 mv.addObject("bucket",bucket);
+		 mv.addObject("coId",loginCom.getCoId());
+		 mv.addObject("estimate",arr);
+		 mv.addObject("companyId",loginCom.getCoId());
+		 
+		 mv.setViewName("ex_roadingListView");
+		 
+		 return mv;
+	 }
+	 
+	 @RequestMapping("completeRequestView.ex")
+	 public ModelAndView completeRequestView(ModelAndView mv,HttpSession session,@RequestParam(value="page",required = false) Integer page) {
+		 Company loginCom = (Company) session.getAttribute("loginCompany");
+		 
+		 int currentPage = 1;
+		 
+			if(page != null) {
+				currentPage = page;
+			}
+			
+		Map<String,String> status = new HashMap<String,String>();
+			status.put("coId", loginCom.getCoId());
+			status.put("status", "3");
+		 
+		int listCount = ExService.EsListCount(status);
+		
+		PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+		
+		 ArrayList<Estimate> estimate = ExService.selectCompleteEstimteList(pi,loginCom.getCoId());
+		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+		 
+		 for(int i=0;i<estimate.size();i++) {
+			 BucketList b = ExService.selectBucket(estimate.get(i).getBkNo());
+			 bucket.put(b.getBkNo(),b);
+		 }
+		 mv.addObject("pi",pi);
+		 mv.addObject("bucket",bucket);
+		 mv.addObject("es",estimate);
+		 mv.addObject("coId",loginCom.getCoId());
+		 mv.setViewName("ex_completeRequest");
+		 return mv;
+	 }
 }

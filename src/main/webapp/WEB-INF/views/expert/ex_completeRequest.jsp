@@ -18,7 +18,7 @@
 	<div id="page">
 		<div id="submenu">
 			<ul>
-				<li><a href="getRequest.ex">받은요청 &nbsp</a></li>
+				<li><a href="pageingTest.ex?">받은요청 &nbsp</a></li>
 				<li><a href="makingRequestView.ex">작성중 &nbsp</a></li>
 				<li><a href="roadingRequestView.ex">대기중 &nbsp</a></li>
 				<li><h3 style="display: inline;">완료요청</h3></li>
@@ -92,6 +92,49 @@
 		<c:if test="${ empty es }">
 			<h2 style="text-align:center">완료된 견적이 없습니다.</h2>
 		</c:if>
+		<table style="margin: auto;">
+			<tr align="center" height="20" id="buttonTab">
+				<td colspan="6">
+				
+					<!-- [이전] -->
+					<c:if test="${ pi.currentPage <= 1 }">
+						[이전] &nbsp;
+					</c:if>
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="before" value="completeRequestView.ex">
+							<c:param name="page" value="${ pi.currentPage - 1 }"/>
+						</c:url>
+						<a href="${ before }">[이전]</a> &nbsp;
+					</c:if>
+					
+					<!-- 페이지 -->
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<font color="red" size="4"><b>[${ p }]</b></font>
+						</c:if>
+						
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="pagination" value="completeRequestView.ex">
+								<c:param name="page" value="${ p }"/>
+							</c:url>
+							<a href="${ pagination }">${ p }</a> &nbsp;
+						</c:if>
+					</c:forEach>
+					
+					<!-- [다음] -->
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						[다음]
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="completeRequestView.ex">
+							<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						</c:url> 
+						<a href="${ after }">[다음]</a>
+					</c:if>
+				</td>
+			</tr>
+		</table>
+		<br><br>
 		<script>
 			function del(val){
 				if(confirm("해당 요청을 정말 삭제하겠습니까?") == true){
