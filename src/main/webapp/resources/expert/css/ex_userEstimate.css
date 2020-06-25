@@ -47,6 +47,11 @@ section {
 	margin: 0 auto;
 }
 
+#table_area>tbody>tr>td {
+	width: 180px;
+	height: 70px;
+}
+
 #page{width:90%; margin:0 auto;}
 
  #page a:link { color: red; text-decoration: none;}

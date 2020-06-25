@@ -24,20 +24,55 @@
 		<div id="Myheader">
 			<table id="table_area">
 				<tr>
-					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="resources/member/images/profiles/123.jpg" alt="프로필 사진" />					
+					<td id="profile_td" rowspan="4" style="width: 250px;">
+						<c:if test="${ loginUser != null && getMember.userId eq loginUser.userId }">
+							<i class="fa fa-cog" aria-hidden="true" style="display: none;"></i>
+						<script type="text/javascript">
+// 							$('#profile_td').mouseenter(function(){
+// 								$('i.fa.fa-cog').css('display','block');
+// 								$(this).find('img').css('cursor','pointer').css('border','2px solid')
+// 								$(this).on('click',function(){
+// 								    var url = "profileChangeGo.me";
+// 						            var name = "profile change popup";
+// 						            var option = "width = 400, height = 500, top = 100, left = 200, location = no"
+// 						            window.open(url, name, option);
+// 								})
+// 							})
+							
+// 							$('#profile_td').mouseleave(function(){
+// 								$('i.fa.fa-cog').css('display','none');
+// 								$(this).find('img').css('cursor','pointer').css('border','none')
+// 							})
+						</script>
+						</c:if>
+						<c:if test="${ getMember.prImage == null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" />					
+						</c:if>
+						<c:if test="${ getMember.prImage != null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />					
+						</c:if>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 30px;">Seonxi_l</td>
+					<td colspan="2" style="font-size: 30px;">${ getMember.nickName }</td>
+					<td>
+						<c:if test="${ loginUser != null && getMember.userId ne loginUser.userId}">
+							<c:if test="${ followCheck == 1 }">
+								<button type="button" id="unFollowBtn" onclick="unfollow(this);">팔로우 취소</button>
+							</c:if>
+							<c:if test="${ followCheck == 0 }">
+								<button type="button" id="followBtn" onclick="follow(this);">팔로우</button>
+							</c:if>
+						</c:if>
+					</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="font-size: 20px;">이선제</td>
+					<td colspan="3" style="font-size: 20px;">${ getMember.userName }</td>
 				</tr>
 				<tr>
-					<td>게시물수 199</td>
-					<td>팔로워 40</td>
-					<td>팔로우 30</td>
+					<td>게시물 ${ list }</td>
+					<td class="follow-td" onclick="follower(this);" style="cursor: pointer;" >팔로워 <span id="follower">${ followerList.size() }</span></td>
+					<td class="follow-td" onclick="following(this);" style="cursor: pointer;">팔로잉 ${ followingList.size() }</td>
 				</tr>
 			</table>
 		</div>
@@ -57,17 +92,26 @@
 				<script>
 				
 					$(function(){
+
+						$('#overlay').css('top','-2px');
+					  	$('#sidewrap').css('top','56px');
+						$('nav>a:eq(3)').css('border-top','3px solid rgba(var(--b38,219,219,219),1)');
+						
+						$('.gnb_menu .gnb_menu_ul li a .text:eq(0)').css('color', '#fff');
+						$('.gnb_menu .gnb_menu_ul li a.gnb1').css('background','url("resources/layout/images/bg01_on.jpg") no-repeat 0 center #f3f3f2');
+						$('.gnb_menu .gnb_menu_ul li a.gnb1 .ico').css('background', 'url("resources/layout/images/ico01_on.png") no-repeat 0 0');
+						$('.gnb_menu .gnb_menu_ul li a.gnb1 .text span').css('color','#fff');
 						$('#status1').trigger("click");
 					});
 					function position(index){
 						if(index == 1){
 							$('#status1').css("background","lightgreen");
 							$('#status3').css("background","lightgrey");
-							$('#area').css("background","red");
+							$('#area').css({"background":"#f5f5f5","border":"0.5px solid gray"});
 						}else{
 							$('#status3').css("background","lightgreen");
 							$('#status1').css("background","lightgrey");
-							$('#area').css("background","green");
+							$('#area').css({"background":"#e8eef3","border":"0.5px solid gray"});
 						}
 						$.ajax({
 							url:"myEstimate.ex",
@@ -135,6 +179,7 @@
 							}
 						})
 					}
+					
 				</script>
 		</div>
 		</section>

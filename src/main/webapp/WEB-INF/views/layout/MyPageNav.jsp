@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +29,22 @@
 			<span>&nbsp;</span>
 			
 		<span>&nbsp;</span>
-		<a class="myPagemenu" href="myEstimateView.ex">
-			<span>▤견적서</span>
-
-		</a>
+		
+		<c:if test="${ loginUser.userId eq getMember.userId }">
+			<a class="myPagemenu" href="myEstimateView.ex">
+				<span>▤견적서</span>
+			</a>
+		</c:if>
+		<c:if test="${ loginUser == null && loginUser.userId ne getMember.userId && loginCompany != null }">
+			<a class="myPagemenu" onclick="tt(this);">
+				<span>▤견적서</span>
+			</a>			
+			<script type="text/javascript">
+				function tt(t){
+					alert("블로그 주인만 접근할 수 있습니다.");					
+				}
+			</script>
+		</c:if>
 		<span>&nbsp;</span>
 	</nav>
 </body>
