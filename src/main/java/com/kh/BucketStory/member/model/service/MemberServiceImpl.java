@@ -210,4 +210,9 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.dateUpdate(sqlSession, userid, bkNo);
 	}
 
+	@Override
+	public String getUserId(String nickName) {
+		return mDAO.getUserId(sqlSession, nickName);
+	}
+
 }

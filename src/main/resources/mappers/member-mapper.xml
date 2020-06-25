@@ -528,7 +528,7 @@
 	
 	<update id="bucketUpdate">
 		update bucketlist
-		set BKNAME = #{ bkName }, BKCONTENT = #{ bkContent }, TAG = #{ tag }
+		set BKNAME = #{ bkName }, BKCONTENT = #{ bkContent }, TAG = #{ tag }, catenum = #{ cateNum }
 		where bkno = #{ bkNo }
 	</update>
 	

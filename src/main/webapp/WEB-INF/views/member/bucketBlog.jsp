@@ -291,15 +291,19 @@
 							if(tags[i] == "") {
 							} else {
 								$tagBtn = $('<button class="tagBtn">').text("#" + tags[i])
+								$tagBtn.attr("onclick", "searchTag('"+ tags[i] +"')")
 								$('#bucketTag').append($tagBtn)
 							}
+						}
+						function searchTag(t){
+							location.href="searchTag.ho?t="+t;
 						}
 					</script>
 					<input type="hidden" value="<%= mbl.get(index).getBucket().getBkNo() %>" />
 					<c:if test="${ flag eq 'true' }">
 						<button id="blogWriteBtn" style="width: 100px;">스토리 작성하기</button>
 					</c:if>
-					<% if(mbl.get(index).getBucket().getUserId().equals(user.getUserId())) { %>
+					<% if(user != null && mbl.get(index).getBucket().getUserId().equals(user.getUserId())) { %>
 						<button id="bucketUpdateBtn" onclick="bucketUpdate(<%= mbl.get(index).getBkNo() %>, ${ pi.currentPage })" style="width: 100px;">수정하기</button>						
 					<% } %>
 				</c:if>
@@ -648,6 +652,7 @@
 				}
 			}
 		}
+		
 		var length = $('.etc-area').length;
 		var userId = '${ loginUser.userId }';
 		var getId = '${ getMember.userId }';
@@ -1161,7 +1166,8 @@
 	$('.gnb_menu .gnb_menu_ul li a.gnb1').css('background','url("resources/layout/images/bg01_on.jpg") no-repeat 0 center #f3f3f2');
 	$('.gnb_menu .gnb_menu_ul li a.gnb1 .ico').css('background', 'url("resources/layout/images/ico01_on.png") no-repeat 0 0');
 	$('.gnb_menu .gnb_menu_ul li a.gnb1 .text span').css('color','#fff');
-
+	
+	
 	
 	////////////////////////
 	// Make the DIV element draggable:
