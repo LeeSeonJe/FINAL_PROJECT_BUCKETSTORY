@@ -58,6 +58,7 @@ public class BoardDAO {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("adminMapper.boardselectList", null, rowBounds);
+		
 //		ArrayList list = (ArrayList)sqlSession.selectList("adminMapper.boardselectList", null, rowBounds);
 		
 //		if(list.size() > 0){
