@@ -211,4 +211,22 @@ public class MemberDAO {
 		return result2;
 	}
 
+	public int profileChange(SqlSessionTemplate sqlSession, Member mb) {
+		return sqlSession.update("memberMapper.profileChange", mb);
+	}
+
+	public int dateUpdate(SqlSessionTemplate sqlSession, String userid, int bkNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userid", userid);
+		map.put("bkNo", bkNo);
+		int checked = sqlSession.selectOne("memberMapper.bChecked", map);
+		int result = 0;
+		if(checked > 0) {
+			result = sqlSession.update("memberMapper.shareDateUpdate", map);
+		} else {
+			result = sqlSession.update("memberMapper.bucketDateUpdate", map);
+		}
+		return result;
+	}
+
 }

@@ -66,6 +66,7 @@ public class MemberController {
 			userId = loginUser.getUserId();
 		} 
 		
+		ArrayList<Board> blogList = mainService.selectBlogList();
 		ArrayList<WishList> wishList = new ArrayList<WishList>();
 		ArrayList<ShareBucket> shareList = new ArrayList<ShareBucket>();
 		if(userId != null) {
@@ -77,7 +78,8 @@ public class MemberController {
 		ArrayList<WishList> memberWishList = mService.getWishList(nickName);
 		if(wishList != null) {
 			m.addAttribute("memberWishList", memberWishList).addAttribute("followCheck", followCheck)
-			.addAttribute("wishList", wishList).addAttribute("shareList", shareList).addAttribute("getMember", getMember);
+			.addAttribute("wishList", wishList).addAttribute("shareList", shareList)
+			.addAttribute("getMember", getMember).addAttribute("blogList", blogList);
 			return "myPageWishList";
  		} else {
  			return "myPageWishList";
@@ -100,11 +102,14 @@ public class MemberController {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String nickName = (String) session.getAttribute("nickName");
 		String userid = loginUser.getUserId();
-
+		
+		int checked = mService.dateUpdate(userid, bkNo);
+		
+		
 		Board board = new Board(bTitle, bContent, userid, bkNo);
 		int result = mService.blogInsert(board);
 
-		if (result > 0) {
+		if (result > 0 && checked > 0) {
 			return "redirect:myBlog.me?nickName=" + URLEncoder.encode(nickName, "UTF-8") + "&bkNo=" + board.getBkNo()
 					+ "&page=" + page;
 		} else {
@@ -125,10 +130,13 @@ public class MemberController {
 		Member loginUser = null;
 		int followCheck = 2;
 		String userId = null;
+		Member getMember = new Member();
 		if(session.getAttribute("loginUser") != null) {
 			loginUser = (Member) session.getAttribute("loginUser");
 			userId = loginUser.getUserId();
+			getMember = mService.getMember(nickName);
 		} 
+		getMember = mService.getMember(nickName);
 		
 		ArrayList<Follow> followingList = mService.getFollowingList(nickName);
 		ArrayList<Follow> followerList = mService.getFollowerList(nickName);
@@ -144,15 +152,12 @@ public class MemberController {
 		}
 		
 		ArrayList<MemberMyBucketList> myBucketList = new ArrayList<MemberMyBucketList>();
-		Member getMember = new Member();
 
 		String flag = "false";
 		if (loginUser != null && loginUser.getNickName().equals(nickName)) {
-			getMember = mService.getMember(loginUser.getNickName());
 			myBucketList = mService.myBucketList(loginUser.getNickName());
 			flag = "true";
-		} else {
-			getMember = mService.getMember(nickName);
+		} else if(loginUser != null ) {
 			myBucketList = mService.myBucketList(nickName);
 			followCheck = mService.followCheck(nickName, loginUser.getUserId());
 		}
@@ -239,13 +244,13 @@ public class MemberController {
 		ArrayList<Board> bList = new ArrayList<Board>();
 		if (loginUser != null && loginUser.getNickName().equals(nickName)) {
 			bList = mService.getBoard(loginUser.getNickName(), bn);
-			getMember = mService.getMember(loginUser.getNickName());
 			flag = "true";
-		} else {
+		} else if(loginUser != null){
 			bList = mService.getBoard(nickName, bn);
 			getMember = mService.getMember(nickName);
 			followCheck = mService.followCheck(nickName, loginUser.getUserId());
 		}
+		getMember = mService.getMember(nickName);
 		
 //		int list = myBucketList.size();
 		session.setAttribute("getMember", getMember);
@@ -593,10 +598,63 @@ public class MemberController {
 	}
 	
 	@RequestMapping("profileChangeGo.me")
-	public String profileChangeGo(HttpSession session, Model m) {
+	public String profileChangeGo(HttpSession session, Model m, @RequestParam(value = "status", required = false) String status) {
 		Member b = (Member) session.getAttribute("loginUser");
 		Member getMember = mService.getMember(b.getNickName());
-		m.addAttribute("getMember", getMember);
+		if(status == null) {
+			status = "2";
+		}
+		m.addAttribute("getMember", getMember).addAttribute("status", status);
 		return "ProfileChange";
+	}
+	
+	@RequestMapping("profileChange.me")
+	public String profileChange(HttpSession session, Model m, @RequestParam("uploadFile") MultipartFile uploadFile, HttpServletRequest request) throws UnsupportedEncodingException {
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		Member mb = new Member();
+		System.out.println(loginUser.getUserId());
+		if (uploadFile != null && !uploadFile.isEmpty()) {
+			String profileImg = profileSaveFile(uploadFile, request);
+			if (profileImg != null) {
+				mb.setUserId(loginUser.getUserId());
+				mb.setPrImage(profileImg);
+			}
+		} else {
+			System.out.println("이건?");
+			mb.setUserId(loginUser.getUserId());
+			mb.setPrImage("");
+		}
+		int result = mService.profileChange(mb);
+		if(result > 0) {
+			return "redirect:profileChangeGo.me?status=1";			
+		} else {
+			return "redirect:myBucket.me";	
+		}
+	}
+	
+	public String profileSaveFile(MultipartFile file, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\member\\images\\profiles";
+
+		File folder = new File(savePath);
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originFileName = file.getOriginalFilename();
+		String renameFileName = sdf.format(new Date(System.currentTimeMillis())) + "."
+				+ originFileName.substring(originFileName.lastIndexOf(".") + 1);
+		String renamePath = folder + "//" + renameFileName;
+
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return renameFileName;
 	}
 }

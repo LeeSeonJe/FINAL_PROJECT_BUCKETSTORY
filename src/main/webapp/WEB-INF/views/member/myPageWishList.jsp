@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" href="resources/member/css/myPageBucket.css">
+	<link rel="stylesheet" href="resources/member/css/myPageWishList.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
@@ -61,7 +61,7 @@
 			</c:if>
 			<c:if test="${ !empty memberWishList}">
 				<c:forEach var="w" items="${ memberWishList }" varStatus="status">
-					<div class="bucket ${ w.bkNo }" id="bucket${ w.bkNo }" onclick="bkDetail(${w.bkNo}, '${w.cateName}', '${w.bucketList.bkName}', '${w.bucketList.bkContent}', '${w.bucketList.tag}', '${w.bucketList.userId}');">
+					<div class="bucket ${ w.bkNo }" id="bucket${ w.bkNo }" onclick="bkDetail(${w.bkNo}, '${w.cateName}', '${w.bucketList.bkName}', '${w.bucketList.bkContent}', '${w.bucketList.tag}', '${w.member.nickName}');">
 					<script>
 						$('.bucket').eq(${ status.index }).css('background-image', 'url(resources/muploadFiles/${ w.media.mweb })');
 					</script>
@@ -71,6 +71,22 @@
 							<c:set var="Sloop_flag" value="true"/>
 						</c:if>
 					</c:forEach>
+					
+						<c:if test="${ w.bucketList ne '관리자찡' }">
+							<div class="bucketStoryNick">${ w.member.nickName }</div>
+						</c:if>
+						<c:if test="${ w.bucketList eq '관리자찡' }">
+							<div class="bucketStoryNick">추천</div>
+						</c:if>
+						
+						<c:set var="bCount" value="0"/>
+						<c:forEach var="blog" items="${ blogList }">
+							<c:if test="${ blog.userid == w.bucketList.userId && blog.bkNo == w.bucketList.bkNo}">
+								<c:set var="bCount" value="${ bCount + 1 }"/>
+							</c:if>
+						</c:forEach>
+						<div class="bucketStoryStory">${ bCount }</div>
+	
 						<div class="bucketContent">
 							<div class="c-category">
 								<c:choose>
@@ -271,6 +287,7 @@
 					success:function(data){
 						var blwish = '.c-wishBtn.'+bkNo+'>label';
 						$(blwish).text(data);
+						location.reload();
 					}
 				});
 			}
@@ -371,7 +388,7 @@
 		}
 		// 블로그 사진 가져오기
 		$('#bucketGoBlog').show();
-		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+'${ getMember.nickName }'+'"');
+		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+ userId + '"');
 		if(userId == '관리자찡'){
 			$('#bucketGoBlog').hide();
 		}
