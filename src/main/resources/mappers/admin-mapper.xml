@@ -66,12 +66,12 @@
 	</select>
 	
 	<select id="boardselectList" resultMap="notifyResultSet">
-	   	select n.no_no, c.cmno, r.rpno, n.no_kind, n.no_check, c.cmcontent, r.rpcontent, n.pigouser, n.sinuser, n.enrolldata
+	   	select n.no_no, c.cmno, r.rpno, n.no_kind, n.no_check, c.cmcontent, r.rpcontent, n.pigouser, n.sinuser, n.enrolldata, n.status
         from notify n
         	join board using(bno)
         	join boardcomment c using (bno)
         	join reply r on(c.cmno = r.cmno)
-        where c.cmno is not null or r.rpno is not null
+        where c.cmno is not null or r.rpno is not null and n.no_check = 'Y'
 	</select>
 	
 	<select id="boardCautionListCount" resultType="_int">
@@ -102,17 +102,6 @@
 		</foreach>
 	</update>
 	
-	<update id="warningMember" parameterType="java.util.List">
-		update member
-		set caution = 'Y'
-		where userid in (select pigouser 
-						from notify 
-						where no_no in
-						<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
-								#{item}
-						</foreach>
-						)
-	</update>
 	
 <!-- 	<select id="replyselectList" resultMap="notifyResultSet"> -->
 <!-- 		select * -->
@@ -128,28 +117,28 @@
 <!-- 		order by no_no desc -->
 <!-- 	</selct> -->
 	
-	<resultMap type="notify" id="notifyResultSet">
-		<id property="no_no" column="NO_NO"/>
-		<result property="enrolldata" column="ENROLLDATA"/>
-		<result property="status" column="STATUS"/>
-		<result property="no_kind" column="NO_KIND"/>
-		<result property="no_check" column="NO_CHECK"/>
-		<result property="bno" column="BNO"/>
-		<result property="cmno" column="CMNO"/>
-		<result property="rpno" column="RPNO"/>
-		<result property="sinuser" column="SINUSER"/>
-		<result property="pigouser" column="PIGOUSER"/>
-		<result property="nickname" column="NICKNAME"/>
-	</resultMap>
 	
-<!-- 	<update id="warningMember"> -->
-<!-- 		update notify -->
-<!-- 		set no_check = 'Y' -->
-<!-- 		where no_check = 'N' and no_no in  -->
-<!-- 		<foreach collection="list" item="item" index="index" separator="," open="(" close=")"> -->
-<!--  	   		#{item} -->
-<!-- 		</foreach> -->
-<!-- 	</update> -->
+	
+	<update id="warningandcaution">
+		update notify
+		set no_check = 'Y'
+		where no_check = 'N' and no_no in 
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+ 	   		#{item}
+		</foreach>
+	</update>
+
+	<update id="warningMember" parameterType="java.util.List">
+		update member
+		set caution = 'Y'
+		where userid in (select pigouser 
+						from notify 
+						where no_no in
+						<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+								#{item}
+						</foreach>
+						)
+	</update>
 	
 	<update id="cautionMember" parameterType="java.util.List">
 		update member
@@ -192,6 +181,27 @@
 						 )
 	</update>
 	
+	<update id="deleteNotify2" >
+		update notify
+		set status = 'Y'
+		where no_no in
+			<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+			</foreach>
+	</update>
+	
+	<update id="deleteMember2" parameterType="java.util.List">
+		update member
+		set status = 'N'
+		where userid in (select pigouser
+						 from notify
+						 where no_no in
+						 <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+						 		#{item}
+						 </foreach>
+						 )
+	</update>
+	
 	<!-- 기업승인 -->
 	<select id="companyListCount" resultType="_int">
 		select count(*)
@@ -223,7 +233,30 @@
 		set status = 'N'
 		where coId = #{coId}
 	</update>
-		<resultMap id="CompanyResultSet" type="Company">
+	
+	<select id="qnaviewAnswer" resultMap="QnAResultSet">
+		select * 
+		from qna
+		where q_no = #{q_no}
+	</select>
+	
+	
+	<resultMap type="notify" id="notifyResultSet">
+		<id property="no_no" column="NO_NO"/>
+		<result property="enrolldata" column="ENROLLDATA"/>
+		<result property="status" column="STATUS"/>
+		<result property="no_kind" column="NO_KIND"/>
+		<result property="no_check" column="NO_CHECK"/>
+		<result property="bno" column="BNO"/>
+		<result property="cmno" column="CMNO"/>
+		<result property="rpno" column="RPNO"/>
+		<result property="sinuser" column="SINUSER"/>
+		<result property="pigouser" column="PIGOUSER"/>
+		<result property="nickname" column="NICKNAME"/>
+	</resultMap>
+	
+	
+	<resultMap id="CompanyResultSet" type="Company">
 		<id property="coId" column="COID"/>
 		<result property="coPwd" column="COPWD"/>
 		<result property="coName" column="CONAME"/>

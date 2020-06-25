@@ -52,6 +52,9 @@ h2{
  	color: black; text-decoration: none;
   }
   
+  #ad_board{
+  	font-size: 14px;
+  }
   
 </style>
 <body>
@@ -86,12 +89,11 @@ h2{
 	</div>
 	<div id="board-area">
 	<div>
-		<h3>신고된 회원</h3>
-		<a href="boardCaution.ad">게시판</a>
+		<h3>댓글 신고 게시판</h3>
 	</div>
 	<div class="a_list">
-		<h2><a href="cautionlist.ad"  class="ad_list" id="l_list">신고</a></h2>
-		<h2><a href="adminwarning.ad"  class="ad_list" id="R_list">경고</a></h2>
+		<h2><a href="boardCaution.ad"  class="ad_list" id="l_list">게시글</a></h2>
+		<h2><a href="cautionlist.ad"  class="ad_list" id="R_list">댓글</a></h2>
 	</div>
 			<form action="warning.ad">
 				<table class="board" id="ad_board">
@@ -104,6 +106,7 @@ h2{
 						<th>아이디</th>
 						<th>신고자</th>
 						<th>신고일</th>
+						<th>활동</th>
 					</tr>
 					<c:forEach var="notify" items="${ list }">
 <%-- 					<c:set var="str" value="${ notify.no_check }" /> --%>
@@ -126,6 +129,10 @@ h2{
 							<td>${ notify.pigouser }</td>
 							<td>${ notify.sinuser }</td>
 							<td>${ notify.enrolldata }</td>
+							<td>
+								<c:if test="${ notify.status eq 'N'.charAt(0) }">활동</c:if>
+								<c:if test="${ notify.status eq 'Y'.charAt(0) }">강제 탈퇴</c:if>
+							</td>
 						</tr>
 
 					</c:forEach>
@@ -176,6 +183,7 @@ h2{
 			</select> 
 				<input type="text"><a href="#">검색</a>
 			<button onclick="chk_warning();" id="waring">회원 경고</button>
+			<button onclick="chk_delete();" id="waring">강제 탈퇴</button>
 		</div>
 	</div>
 <script>
@@ -282,18 +290,31 @@ $(function(){
 	});
 }
 
+/* 강제 탈퇴 */
+	function chk_delete(){
+	 	alert("강제 탈퇴를 주었습니다.");
 
-/* 리스트 변경 버튼 */
-// 	function goShowAll() {
-// 		location.href = "adminCautQnaList.ex?search=all";
-// 	}
-// 	function goShowY() {
-// 		location.href = "helperQnaList.ex?search=Y";
-// 	}
-// 	function goShowN() {
-// 		location.href = "helperQnaList.ex?search=N";
-// 	}
-
+	
+	var chk_Arr = []; // 배열 초가화
+	$("input[name='chk_box']:checked").each(function(i){
+		chk_Arr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
+	});
+	
+	$.ajax({
+		url: 'delectMember.ad',
+		data: {Notify : chk_Arr},
+		success: function(data){
+			
+		console.log("data 값 보자 " + data);
+			
+		 location.reload();
+		
+		}			
+			
+		
+	});
+}
+	
 </script>
 </body>
 </html>

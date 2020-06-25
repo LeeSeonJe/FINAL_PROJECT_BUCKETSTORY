@@ -86,11 +86,11 @@ h2{
 	</div>
 	<div id="board-area">
 	<div>
-		<h3>신고 목록</h3>
+		<h3>게시글 신고 게시판</h3>
 	</div>
 	<div class="a_list">
-<!-- 		<h2><a href="cautionlist.ad"  class="ad_list" id="l_list">신고</a></h2> -->
-<!-- 		<h2><a href="adminwarning.ad"  class="ad_list" id="R_list">경고</a></h2> -->
+		<h2><a href="boardCaution.ad"  class="ad_list" id="l_list">게시글</a></h2>
+		<h2><a href="cautionlist.ad"  class="ad_list" id="R_list">댓글</a></h2>
 	</div>
 			<form action="boardCaution.ad">
 				<table class="board" id="ad_board">
@@ -102,6 +102,7 @@ h2{
 						<th>아이디</th>
 						<th>신고자</th>
 						<th>신고일</th>
+						<th>활동</th>
 					</tr>
 					<c:forEach var="b" items="${ list }">
 						<tr>
@@ -122,6 +123,10 @@ h2{
 							<td><a href="${ view }">${ b.pigouser }</a></td>
 							<td>${ b.sinuser }</td>
 							<td>${ b.enrolldata }</td>
+							<td>
+								<c:if test="${ b.status eq 'N'.charAt(0) }">활동</c:if>
+								<c:if test="${ b.status eq 'Y'.charAt(0) }">강제탈퇴</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -171,6 +176,7 @@ h2{
 			</select> 
 				<input type="text"><a href="#">검색</a>
 			<button onclick="chk_warning();" id="waring">회원 경고</button>
+			<button onclick="chk_delete();" id="waring">강제 탈퇴</button>
 		</div>
 	</div>
 <script>
@@ -231,6 +237,31 @@ $(function(){
 	$.ajax({
 		url: 'warningboard.ad',
 		data: {b : chk_Arr},
+		success: function(data){
+			
+		console.log("data 값 보자 " + data);
+			
+		 location.reload();
+		
+		}			
+			
+		
+	});
+}
+
+	/* 강제 탈퇴 */
+	function chk_delete(){
+	 	alert("강제 탈퇴를 주었습니다.");
+
+	
+	var chk_Arr = []; // 배열 초가화
+	$("input[name='chk_box']:checked").each(function(i){
+		chk_Arr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
+	});
+	
+	$.ajax({
+		url: 'delectMember2.ad',
+		data: {Notify : chk_Arr},
 		success: function(data){
 			
 		console.log("data 값 보자 " + data);
