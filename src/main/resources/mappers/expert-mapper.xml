@@ -164,6 +164,7 @@
 		where es_no = #{es_no}
 	</delete>
 	
+	
 	<resultMap id="estimateSet" type="estimate">
 		<id property="es_no" column="ES_NO"/>
 		<result property="esr_no" column="ESR_NO"/>

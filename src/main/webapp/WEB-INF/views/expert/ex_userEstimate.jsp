@@ -55,6 +55,7 @@
 				</div>
 				
 				<script>
+				
 					$(function(){
 						$('#status1').trigger("click");
 					});
@@ -73,15 +74,16 @@
 								},
 							dataType: 'json',
 							success : function(data){
-								console.log(data);
-								console.log(data.list);
-								console.log(data.bucket[3]);
-								var text;
+								console.log(data.list.length)
+								var text ="";
+								
+								$('#area').html("  ");
+								
 								if(data.list.length >0){
-									$('#area').html("");
-									for( var i in data.list)
-										 text +=
-											"<div id='requestMember'>"
+									
+									for( var i in data.list){
+										console.log(data.list[i])
+										 text +="<div id='requestMember'>"
 											+"<table style='width: 780px;''>"
 											+"<tr>"
 											+"<td rowspan='3' style='width:100px;''>"
@@ -103,16 +105,27 @@
 											+"</tr>"
 											+"<tr>"
 												+"<td>"
-													+"<div id='bucketListDetail'><a href='estimateView.ex?es_no="+data.list[i].es_no+"'>견적서 확인하기</a></div>"
-												+"</td>"
-											+"</tr>"
+												if(data.list[i].status == 1){
+													text += "<div id='bucketListDetail'><a href='estimateView.ex?es_no="+data.list[i].es_no+"'>견적서 확인하기</a></div></td>"
+												}else{
+													if(data.list[i].status == 3 && data.list[i].reviewScore == 0){
+														text += "<div id='bucketListDetail'><a href='estimateView.ex?es_no="+data.list[i].es_no+"'>리뷰작성하기</a></div></td>"
+													}else{
+														text += "<div id='reviewScore'>평점("+data.list[i].reviewScore+")<br> 리뷰내용:  "+data.list[i].reviewContent+"</div></td>"
+																+"<td><a href='estimateView.ex?es_no="+data.list[i].es_no+"'>견적서 확인</a></td>"
+													}
+												}
+											
+												text +="</td>"
+											text +="</tr>"
 										+"</table>"
 									+"</div>"
 									+"<hr style='width:840px;margin: auto;'>"
+									+"<br>"
+								}
 								}else{
 									text = "<h1 style='text-align:center;'>받은 견적서가 없습니다.</h1>";
 								}
-								
 								$('#area').html(text); 
 							},error:function(data){
 								console.log("오류");

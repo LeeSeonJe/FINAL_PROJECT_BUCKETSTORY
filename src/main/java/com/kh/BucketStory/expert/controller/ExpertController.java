@@ -581,11 +581,12 @@ public class ExpertController {
 			ArrayList<Estimate> list = ExService.selectMyEstimate(m);
 			System.out.println(list.size());
 			 Map<Integer,String> bucket = new HashMap<Integer,String>();
-			 
+			 Map<Integer,String> media = new HashMap<Integer,String>();
 			 for(int i=0;i<list.size();i++) {
 				 BucketList b = ExService.selectBucket(list.get(i).getBkNo());
 				 bucket.put(list.get(i).getBkNo(),b.getBkName());
 			 }
+			 
 			 Map<String,Object> map = new HashMap<String,Object>();
 				map.put("list",list);
 				map.put("bucket", bucket);
