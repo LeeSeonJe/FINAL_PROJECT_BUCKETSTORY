@@ -415,7 +415,6 @@ function requestPay(price , coId , today) {
 						});
 						function newPaging(key){
 							$('#search').val(key);
-
 							$.ajax({
 						        url :'pointCountAjax.ex?search='+ key,
 				 		        dataType:'json',
@@ -485,28 +484,22 @@ function requestPay(price , coId , today) {
 						function nextBoard(){
 							var num = Number($('#currPage').val());
 							var max = Number($('#maxPage').val());
-							
 							if(num + 1 > max){
 								$('#currPage').val(max);
 								buildBoard(max);
 							}else{
 								const pageLimit = $('#pageLimit').val();
-								
 								var nth = Number($('#nth').val());
-								
 								if(pageLimit*(nth+1) < num + 1){
 									$('#nth').val(nth+1);
 									paging(nth+1);
-									
 									$('#currPage').val(num+1);
 									buildBoard(num+1);
 								}else{
 									$('#currPage').val(num+1);
 									buildBoard(num+1);
-								}
-								
-							}
-							
+								}	
+							}	
 						}
 						function buildBoard(num){
 

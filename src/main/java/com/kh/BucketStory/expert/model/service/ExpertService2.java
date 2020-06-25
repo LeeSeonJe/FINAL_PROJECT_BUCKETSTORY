@@ -12,11 +12,15 @@ import com.kh.BucketStory.expert.model.vo.Pay;
 public interface ExpertService2 {
 	
 	int getListCount();
-
+	int getListCountY();
+	int getListCountN();
+	
 	int getListCount(String coId);
 	
 	ArrayList<Pay> selectList(PageInfo pi);
-
+	ArrayList<Pay> selectListY(PageInfo pi);
+	ArrayList<Pay> selectListN(PageInfo pi);
+	
 	ArrayList<Pay> selectList(PageInfo pi, String coId);
 	
 	int insertPoint(Pay p);
