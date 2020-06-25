@@ -275,16 +275,7 @@ $(function(){
 }
 
 
-/* 리스트 변경 버튼 */
-// 	function goShowAll() {
-// 		location.href = "adminCautQnaList.ex?search=all";
-// 	}
-// 	function goShowY() {
-// 		location.href = "helperQnaList.ex?search=Y";
-// 	}
-// 	function goShowN() {
-// 		location.href = "helperQnaList.ex?search=N";
-// 	}
+
 
 </script>
 </body>
