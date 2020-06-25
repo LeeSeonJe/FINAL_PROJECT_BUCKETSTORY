@@ -141,4 +141,6 @@ public class ExpertDAO {
 
 	public int deleteEstimate(SqlSessionTemplate sqlSession, int es_no) {
 		return sqlSession.update("exMapper.deleteEstimate",es_no);
-	}}
+	}
+}
+

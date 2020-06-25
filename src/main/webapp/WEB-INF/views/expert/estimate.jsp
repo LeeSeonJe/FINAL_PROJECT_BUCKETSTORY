@@ -83,7 +83,7 @@
 					<td></td>
 					<td><input type="text" class="optionName" name="optionName" style="width:100%;" placeholder="옵션이름"></td>
 					<td></td>
-					<td><input type="number" class="optionCost" name="optionPrice" style="width:83%;" placeholder="옵션가격">원</td>
+					<td><input type="text" name="optionPrice" style="width:83%;" placeholder="옵션가격">원</td>
 					<td></td>
 				</tr>
 				
@@ -187,6 +187,7 @@
 						}
 					});
 				});
+				
 				
 				//NULL check
 				function isEmpty(value){
