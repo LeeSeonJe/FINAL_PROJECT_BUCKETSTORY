@@ -776,4 +776,19 @@ public class ExpertController {
 		 mv.setViewName("ex_completeRequest");
 		 return mv;
 	 }
+//	 @RequestMapping("estimateAdd.ex")
+//	 public String estimateAdd(@RequestParam("page") int page,@RequestParam("status") String sts,HttpSession session) {
+//		
+//		 Company loginCom = (Company) session.getAttribute("loginCompany");
+//		 
+//		 Map<String,String> status = new HashMap<String,String>();
+//			status.put("coId", loginCom.getCoId());
+//			status.put("status", sts);
+//		
+//			int listCount = ExService.EsListCount(status);
+//			
+//			PageInfo pi = pagination.getPageInfo(page, listCount);
+//			
+//			 ArrayList<Estimate> estimate = ExService.addEstimateList(pi,status);
+//	 }
 }

@@ -114,12 +114,25 @@
 		</table>
 		<br><br>
 		
-		<!-- <div id="ListAdd">
+		<<%-- div id="ListAdd">
 			<div id="ListArea">
-				<h4 style="display:inline">더보기</h4>
+				<h4 id="listAdd" onclick="addList(${pi.currentPage + 1},${ estimate[0].status });"style="display:inline">더보기</h4>
+				
 				&nbsp;&nbsp;&nbsp;▼
 			</div>
-		</div> -->
+		</div> --%>
+		<!-- <script>
+			function addList(no,status){
+				console.log(no,status);
+				$.ajax({
+					url:'estimateAdd.ex',
+					data:{ page:no , status:status},
+					success:function(data){
+						
+					}
+				}); 
+			}		
+		</script> -->
 	</div>
 </section>
 </body>
