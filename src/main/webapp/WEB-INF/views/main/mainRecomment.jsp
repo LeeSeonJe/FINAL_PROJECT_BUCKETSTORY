@@ -29,7 +29,7 @@
 		<%@ include file="/WEB-INF/views/layout/mainLeftSide.jsp" %>
 		<c:forEach var="b" items="${ bucketList }">
 		<c:if test="${ b.cateNum == category || category == 0}">
-		<div class="bucket ${ b.bkNo }" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
+		<div class="bucket ${ b.bkNo } ${b.userId}" id="bucket${ b.bkNo }" onclick="bkDetail(${b.bkNo}, ${b.cateNum}, '${b.bkName}', '${b.bkContent}', '${b.tag}', '${b.userId}');">
 			<!-- 버킷 사진 -->
 			<c:forEach var="m" items="${blImg}">
 				<c:if test="${ m.bkno == b.bkNo }">
@@ -76,7 +76,7 @@
 						위시 
 						<c:set var="loop_flag" value="false"/>
 						<c:forEach var="w" items="${ wishList }">
-							<c:if test="${w.bkNo == b.bkNo}">
+							<c:if test="${w.bkNo == b.bkNo && w.bucketId == b.userId}">
 								<c:set var="loop_flag" value="true"/>
 							</c:if>
 						</c:forEach>
@@ -91,10 +91,10 @@
 		</div>
 <script>
 	//좋아요위시버튼 나오게하기
-	$('#bucket${ b.bkNo }').hover(function(){
-		$('#c-likewish${ b.bkNo }').show();
+	$('.bucket.${ b.bkNo }.${b.userId}').hover(function(){
+		$('.c-likewish.${ b.bkNo }.${b.userId}').show();
 	}, function(){
-		$('#c-likewish${ b.bkNo }').hide();
+		$('.c-likewish.${ b.bkNo }.${b.userId}').hide();
 	});
 	if('${loginUser}' != ""){
 		if('${loginUser.nickName}' == '${b.userId}'){
@@ -204,18 +204,19 @@ function wishRegist(bkNo, userId){
 			$.ajax({
 				url:'wishRegi.ho',
 				data:{
-					bkNo:bkNo
+					bkNo:bkNo,
+					bucketId:userId
 				},
 				async : false,
 				success:function(data){
-					var blwish = '.c-wishBtn.'+bkNo+'>label';
+					var blwish = '.c-wishBtn.'+bkNo+'.'+userId+'>label';
 					$(blwish).text(data);
 				}
 			});
 		}
-		if($('.c-wishBtn.'+bkNo+'>label').text() == '취소'){
+		if($('.c-wishBtn.'+bkNo+'.'+userId+'>label').text() == '취소'){
 			$('#bucketwish').css('color', '#10ccc3');
-		} else if($('.c-wishBtn.'+bkNo+'>label').text() == '등록'){
+		} else if($('.c-wishBtn.'+bkNo+'.'+userId+'>label').text() == '등록'){
 			$('#bucketwish').css('color', 'white');
 		}
 	}
@@ -279,7 +280,7 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 		}
 	}
 	$('#bucketAdd').show();
-	if($('#c-wishBtn'+bkNo+'>label').text() == '취소'){
+	if($('.c-wishBtn.'+bkNo+'.'+userId+'>label').text() == '취소'){
 		$('#bucketwish').css('color', '#10ccc3');
 	}
 	$('#bucketComAdd').attr('onclick', 'InPutCoBucket('+bkNo+');');
