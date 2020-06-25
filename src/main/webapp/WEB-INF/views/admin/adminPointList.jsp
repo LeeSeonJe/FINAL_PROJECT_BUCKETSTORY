@@ -131,13 +131,16 @@
 
                      <c:if test="${empty list }">
                         <tr>
-                           <td colspan="4">포인트 충전내역이 없습니다.</td>
+                           <td colspan="5">포인트 충전내역이 없습니다.</td>
                         </tr>
                      </c:if>
 
                      <c:forEach var="b" items="${ list }">
                         <tr>
                            <td class="rowp" scope="row" align="center">${ b.pa_no }</td>
+                           <td align="center">${ b.pa_pay }</td>
+                           <td align="center">${ b.coid }</td>
+                           <td align="center">${ b.pdate }</td>
                            <!--                    char 형과 비교 -->
                            <c:if test="${b.status eq 'Y'.charAt(0)}">
                               <td align="center">충전</td>
@@ -145,10 +148,6 @@
                            <c:if test="${b.status eq 'N'.charAt(0)}">
                               <td align="center">사용</td>
                            </c:if>
-
-                           <td align="center">${ b.pa_pay }</td>
-                           <td align="center">${ b.pdate }</td>
-                           <td align="center">${ b.status }</td>
                         </tr>
                      </c:forEach>
 
@@ -191,7 +190,7 @@
                      <button id="prev">이전</button>
                   </c:if>
                   <c:if test="${ pi.currentPage > 1 }">
-                     <c:url var="before" value="point.ex?search=${search }">
+                     <c:url var="before" value="adminBill.ad?search=${search}">
                         <c:param name="page" value="${ pi.currentPage - 1 }" />
                      </c:url>
                      <a href="${ before }"><button id="prev">이전</button></a>
@@ -203,7 +202,7 @@
                         <button class="sBtn active">${ p }</button>
                      </c:if>
                      <c:if test="${ p ne pi.currentPage }">
-                        <c:url var="pagination" value="point.ex?search=${search}">
+                        <c:url var="pagination" value="adminBill.ad?search=${search}">
                            <c:param name="page" value="${ p }" />
                         </c:url>
                         <a href="${ pagination }"><button class="sBtn">${ p }</button></a>
@@ -215,7 +214,7 @@
                      <button id="next">다음</button>
                   </c:if>
                   <c:if test="${ pi.currentPage < pi.maxPage }">
-                     <c:url var="after" value="point.ex?search=${search}">
+                     <c:url var="after" value="adminBill.ad?search=${search}">
                         <c:param name="page" value="${ pi.currentPage + 1 }" />
                      </c:url>
                      <a href="${ after }"><button id="next">다음</button></a>
