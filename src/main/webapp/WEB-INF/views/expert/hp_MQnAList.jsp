@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="resources/expert/css/hp_QNA.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style>
-     @media screen and (max-width : 1400px) {
+     @media screen and (max-width : 1600px) {
          #moba{ display:none;}
          #moba-content{ position: absolute; left:50px; top:100px; width:150px; height:150px;}
      }
