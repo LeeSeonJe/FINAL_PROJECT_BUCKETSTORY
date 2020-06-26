@@ -404,7 +404,8 @@
 									<!-- 비밀글 여부 -->
 									<c:if test="${ bl_bc.secret == 1}">
 										<div class="comment_content">
-											<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;" readonly="readonly" >${ bl_bc.cmContent }</textarea>
+											<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" 
+											style="width: 98%; padding: 7px;" readonly="readonly" >${ bl_bc.cmContent }</textarea>
 										</div>
 										<div class="comment_submit">
 											<c:set var="sum" value="0"/>
@@ -425,7 +426,8 @@
 											<c:when test="${ loginUser.nickName eq bl_bc.member.nickName }">
 												<div class="comment_content">
 													<img src="/BucketStory/resources/member/images/secret.png" style="width: 23px; height: 23px;" />
-													<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;" readonly="readonly" >${ bl_bc.cmContent }</textarea>
+													<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" 
+													style="width: 98%; padding: 7px;" readonly="readonly" >${ bl_bc.cmContent }</textarea>
 												</div>
 												<div class="comment_submit">
 													<c:set var="sum" value="0"/>
@@ -444,7 +446,8 @@
 											<c:when test="${ loginUser.nickName eq getMember.nickName }">
 												<div class="comment_content">
 													<img src="/BucketStory/resources/member/images/secret.png" style="width: 23px; height: 23px;"/>
-													<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;" readonly="readonly" >${ bl_bc.cmContent }</textarea>
+													<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" 
+													style="width: 98%; padding: 7px;" readonly="readonly" >${ bl_bc.cmContent }</textarea>
 												</div>
 												<div class="comment_submit">
 													<c:set var="sum" value="0"/>
@@ -463,7 +466,8 @@
 											<c:otherwise>
 												<div class="comment_content">
 													<img src="/BucketStory/resources/member/images/secret.png" style="width: 23px; height: 23px; " />
-													<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" style="width: 98%; padding: 7px;" readonly="readonly" >비밀글입니다.</textarea>
+													<textarea name="cmcontent" class="cmcontent" onkeyup="commentCount(this);" 
+													style="width: 98%; padding: 7px;" readonly="readonly" >비밀글입니다.</textarea>
 												</div>												
 											</c:otherwise>
 										</c:choose>
@@ -477,10 +481,12 @@
 												<div class="reply_profile_area">
 													<input type="hidden" value="${ reply.rpNo }" />
 													<c:if test="${ empty reply.rmember.prImage }">
-														<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;" />
+														<img src="/BucketStory/resources/member/images/profiles/basicProfile.jpg" 
+														style="width: 23px; height: 23px; border-radius: 100px;" />
 													</c:if>
 													<c:if test="${ not empty reply.rmember.prImage }">
-														<img src="/BucketStory/resources/member/images/profiles/${ reply.rmember.prImage }" style="width: 23px; height: 23px; border-radius: 100px;" />
+														<img src="/BucketStory/resources/member/images/profiles/${ reply.rmember.prImage }" 
+														style="width: 23px; height: 23px; border-radius: 100px;" />
 													</c:if>
 													<c:if test="${ loginUser.nickName eq reply.rmember.nickName }">
 														<span>${ reply.rmember.nickName }</span>
@@ -500,7 +506,8 @@
 													<input type="hidden" value="${ reply.userid }" />
 												</div>
 												<div class="reply_content">
-													<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" style="width: 98%; padding: 7px;" readonly="readonly">${ reply.rpContent }</textarea>
+													<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" 
+													style="width: 98%; padding: 7px;" readonly="readonly">${ reply.rpContent }</textarea>
 												</div>					
 											</c:if>
 										</c:forEach>
@@ -650,7 +657,7 @@
 			for(var i = 0; i < length; i++) {
 				if($('.blogBucket').children('input[type=hidden]').eq(i).val() == bNo){
 					console.log(i);
-					$('.blogBucket').children('input[type=hidden]').eq(i).next().focus();
+					$('.blogBucket').children('input[type=hidden]').eq(i).next().children().focus();
 				}
 			}
 		}

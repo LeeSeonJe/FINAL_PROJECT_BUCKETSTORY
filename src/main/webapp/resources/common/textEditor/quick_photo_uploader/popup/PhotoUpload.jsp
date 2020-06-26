@@ -24,11 +24,9 @@
     String filename_ext = filename.substring(filename.lastIndexOf(".") + 1);
     //확장자를소문자로 변경
     filename_ext = filename_ext.toLowerCase();
- 
-    //이미지 검증 배열변수
+
+    // jsp, png, bmp, gif 파일이 맞는지 확인을 한다.
     String[] allow_file = { "jpg", "png", "bmp", "gif" };
- 
-    //돌리면서 확장자가 이미지인지 
     int cnt = 0;
     for (int i = 0; i < allow_file.length; i++) {
         if (filename_ext.equals(allow_file[i])) {
@@ -36,7 +34,7 @@
         }
     }
  
-    //이미지가 아님
+    // 위에 확인된 값이 아닐경우 
     if (cnt == 0) {
         out.println("NOTALLOW_" + filename);
     } else {
@@ -75,11 +73,8 @@
  
         // 정보 출력
         sFileInfo += "&bNewLine=true";    
-//         System.out.println("1 " + sFileInfo);
         sFileInfo += "&sFileName=" + filename;    
-//         System.out.println("2 " + sFileInfo);
         sFileInfo += "&sFileURL=/BucketStory/resources/member/images/blogUploade/"+realFileNm;
-//         System.out.println("3 " + sFileInfo);
         out.println(sFileInfo);
     }
 %>
