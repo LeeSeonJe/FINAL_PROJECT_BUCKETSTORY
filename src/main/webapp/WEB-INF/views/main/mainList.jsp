@@ -497,7 +497,7 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 				if('${loginUser}' != ""){
 					var $button = $('<button>');
 					$button.attr('onclick', 'estimate('+bkNo+', "'+data[key].coId+'");');
-					$button.text('견적서 작성');
+					$button.text('견적서 요청');
 					$value.append($button);
 				}
 				$('#bucketcompany>ul').append($value);

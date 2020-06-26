@@ -105,7 +105,7 @@ section{
 	width: 100%;
    	height: 60px;
     font-size: 20px;
-    color: white;
+    color: rgb(91, 90, 255);
     font-weight: 700;
 }
 .c-bucket-1{
@@ -252,7 +252,7 @@ section{
     width: 500px;
     height: 90px;
     font-size: 30px;
-    color: white;
+    color: rgb(91, 90, 255);
     font-weight: 700;
     font-family: cursive;
 }
@@ -263,7 +263,7 @@ section{
     width: 500px;
     height: 90px;
     font-size: 16.4px;
-    color: ivory;
+    color: rgb(91, 90, 255);
     font-weight: 700;
     font-family: cursive;
 }
@@ -271,7 +271,7 @@ section{
 	position: absolute;
     width: 141px;
     height: 50px;
-    color: white;
+    color: rgb(91, 90, 255);
     bottom: -10px;
     right: 18.6px;
     text-align: right;
@@ -281,7 +281,7 @@ section{
 	position: absolute;
     width: 141px;
     height: 50px;
-    color: white;
+    color: rgb(91, 90, 255);
     bottom: 10px;
     right: 19px;
     text-align: right;
