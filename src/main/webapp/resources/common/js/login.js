@@ -30,12 +30,12 @@
 					if(p.text()=='회원'){
 						$('#login').css('display','block');
 						$('#Clogin').css('display','none');
-						$('#facebookBtn').css('display', 'block');
+//						$('#facebookBtn').css('display', 'block');
 					} else {
 						$('#Clogin').css('display','block');
 						$('#login').css('display','none');
 						$('.input').css('background-image', '#fac 0%, hsl(0, 100%, 70%) 15%, rgba(255, 0, 0, 0.3) 28%, hsla(0, 100%, 30%, 0) 70% );');
-						$('#facebookBtn').css('display', 'none');
+//						$('#facebookBtn').css('display', 'none');
 					}
 				});		
 				
