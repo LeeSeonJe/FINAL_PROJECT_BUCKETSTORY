@@ -18,7 +18,7 @@
 	<div id="page">
 		<div id="submenu">
 			<ul>
-				<li><a href="pageingTest.ex?">받은요청 &nbsp</a></li>
+				<li><a href="getRequest.ex">받은요청 &nbsp</a></li>
 				<li><a href="makingRequestView.ex">작성중 &nbsp</a></li>
 				<li><a href="roadingRequestView.ex">대기중 &nbsp</a></li>
 				<li><h3 style="display: inline;">완료요청</h3></li>

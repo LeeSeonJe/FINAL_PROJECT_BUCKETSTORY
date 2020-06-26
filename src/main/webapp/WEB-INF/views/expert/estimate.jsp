@@ -135,7 +135,7 @@
 			var OptionCount=0;
 			var fileCount=1;
 				$('#addOption').on('click',function(){
-					if(OptionCount<5){
+					if(OptionCount<4){
 						var optionTr = '<tr class="optionAdd">'
 									   +'<td></td>'
 									   +'<td><input type="text" class="optionName" name="optionName" style="width:100%;" placeholder="옵션이름"></td>'
