@@ -143,16 +143,20 @@ public class ExpertController {
 		BucketList bl = ExService.selectBucket(bkNo);
 		
 		Company com = ExService.selectCompanyInfo(coId);
-		
+		Media media = ExService.selectproImg(com.getCoId());
 		if(eventTitle != null && eventContent != null) {
 			mv.addObject("eventTitle",eventTitle);
 			mv.addObject("eventContent",eventContent);
 		}
 		
+		
 		if (loginUser != null) {
 			mv.addObject("company", com);
 			if (bl != null) {
 				mv.addObject("bucket", bl);
+			}
+			if(media != null) {
+				mv.addObject("media", media);
 			}
 		}
 		mv.setViewName("esrequest");

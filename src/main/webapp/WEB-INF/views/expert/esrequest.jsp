@@ -20,7 +20,12 @@
 			<table id="table_area">
 				<tr>
 					<td rowspan="4" style="width: 250px;">
-						<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />
+						<c:if test="${ getMember.prImage != null }">
+							<img id="profileImg" src="/BucketStory/resources/member/images/profiles/${ getMember.prImage }" />
+						</c:if>
+						<c:if test="${ getMember.prImage == null }">
+							<img id="profileImg" src="resources/expert/images/photo.jpg" />
+						</c:if>
 					</td>
 				</tr>
 				<tr>
@@ -47,7 +52,12 @@
 					<h2 class="subtitle">요청헬퍼 정보</h2>
 					<br>
 					<div id="helperProfile" style="border:1px solid black;">
+						<c:if test="${ empty media }">
 							<img src="resources/expert/images/photo.jpg" id="profileImage" >
+						</c:if>
+						<c:if test="${ not empty media }">
+							<img src="resources/muploadFiles/${ media.mweb }" id="profileImage" >
+						</c:if>
 							<h3 style="margin-top: 40px;"> ${ company.coId } </h3>
 							<div id="coIntro">
 								${company.coIntro }
