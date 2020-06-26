@@ -105,11 +105,11 @@
                         <th colspan="5">
                      </tr>
                      <tr>
-                        <th scope="cols" width="100px">번호</th>
-                        <th scope="cols" width="100px%">포인트</th>
-                        <th scope="cols" width="100px">아이디</th>
-                        <th scope="cols" width="100px">날짜</th>
-                        <th scope="cols" width="140px">
+                        <th scope="cols" width="90px">번호</th>
+                        <th scope="cols" width="90px">포인트</th>
+                        <th scope="cols" width="90px">아이디</th>
+                        <th scope="cols" width="90px">날짜</th>
+                        <th scope="cols" width="90px">
                         	<c:if test="${search eq 'all' || search eq 'none'}">
                               <button class="btn btn--primary2" onclick="goShowAll();">전체</button>
                               <button class="btn" onclick="goShowY();">충전</button>
