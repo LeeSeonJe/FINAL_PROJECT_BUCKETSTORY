@@ -29,8 +29,8 @@
 	</insert>
 	
 	<!-- 아뒤 중복검사 -->
-	<select id="checkIdDup" resultType="_int">
-		select *
+	<select id="idDuplicateCheck" resultType="_int">
+		select count(*)
 		from Member
 		where userId=#{userId}
 	</select>
@@ -95,8 +95,8 @@
 	</select>
 	
 	<!-- 기업 아뒤 중복검사 -->
-	<select id="checkIdDup2" resultType="_int">
-		select *
+	<select id="idDuplicateCheck2" resultType="_int">
+		select count(*)
 		from company
 		where coId=#{coId}
 	</select>

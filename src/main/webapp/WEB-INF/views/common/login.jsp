@@ -34,7 +34,7 @@
 			<table id="User" cellpadding="0" cellspacing="20">
 					<tr>
 						<th align=right><label class="must"></label>아이디</th>
-						<td><input type="text" id="userId" name="userId" class="user" maxlength="15" required>
+						<td><input type="text" id="userId" name="userId" class="user" maxlength="15" required onchange="DuplIdCheck();">
 							<label id="idResult"></label>
 							<img id="userId_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 							<img id="userId_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
@@ -154,7 +154,7 @@
 					</tr> -->
 					<tr>
 						<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-						<td align=right><button id="finish" onclick="validate(); location.href='main.ho'" style='cursor:pointer'>가입하기</button></td>
+						<td align=right><button id="finish" onclick="validate11(); location.href='main.ho'" style='cursor:pointer'>가입하기</button></td>
 					</tr>
 				</table>
 				</form>
@@ -165,11 +165,12 @@
 					<tr>
 						<th align=right><label class="must"></label>아이디</th>
 						<td><input type="text" id="coId" name="coId" class="coid" maxlength="15" required>
-							<label id="coIdResult"></label></td>
+							<label id="coIdResult"></label>
 							<img id="coId_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 							<img id="coId_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 <!-- 						<span><button id="idCheck" onclick="checkId();">중복확인</button></span> -->
 <!-- 							<td width="200px"><label id="idResult"></label></td> -->
+						</td>
 					</tr>
 					<tr>
 						<th align=right>비밀번호</th>
@@ -296,7 +297,7 @@
 					</tr> -->
 					<tr>
 						<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-						<td align=right><button id="finish2" onclick="validate(); location.href='expertIntro.ex'" style='cursor:pointer'>가입하기</button></td>
+						<td align=right><button id="finish2" onclick="validate12(); location.href='expertIntro.ex'" style='cursor:pointer'>가입하기</button></td>
 					</tr>
 				</table>
 				</form>
@@ -526,4 +527,36 @@
 	</div>
 	<script type="text/javascript" src="resources/common/js/login.js"></script>
 </body>
+	<script>
+		//기업 아이디 찾기 (이 스크립트만 따로 jsp에 입력함)
+		$(function(){
+			find = false;
+		});
+		$('#good2').click(function(){
+			if($('#busiemailfind_1').val().trim().length==0){
+				alert('이메일을 입력해주세요');
+				$('#busiemailfind_1').focus();
+			}
+			if($('#busiemailfind_2').val().trim().length==0){
+				alert('이메일을 입력해주세요');
+				$('#busiemailfind_2').focus();
+			}
+			var busiemailfind_1 = $('#busiemailfind_1');
+			var busiemailfind_2 = $('#busiemailfind_2');
+			
+			$.ajax({ // 아이디, 비번질문, 비번질문답으로 회원인지 조회
+				url: 'compareEmail2.co',
+				type: 'post',
+				data:{busiemail_1: busiemailfind_1.val(), busiemail_2: busiemailfind_2.val()},
+				async : false,
+				success: function(data){
+					if(data == "fail"){
+						alert('이메일이 일치 하지않습니다.');
+					}else{
+						alert('회원님의 아이디는 '+data+' 입니다');
+					}
+				}
+			});
+		});
+	</script>
 </html>

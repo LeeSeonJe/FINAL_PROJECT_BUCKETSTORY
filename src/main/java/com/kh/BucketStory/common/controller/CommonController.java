@@ -231,7 +231,7 @@ public class CommonController {
 	}
     
     // ID 유효성 체크
-    @RequestMapping("dupid.co")
+    @RequestMapping("idDuplicateCheck.co")
 	  public void idDuplicateCheck(@RequestParam("userId") String id, HttpServletResponse response) {
 		  
 		  int result = cService.idDuplicateCheck(id);
@@ -247,7 +247,7 @@ public class CommonController {
 	  }
     
     // 기업 ID 유효성 체크
-    @RequestMapping("dupid2.co")
+    @RequestMapping("idDuplicateCheck2.co")
 	  public void idDuplicateCheck2(@RequestParam("coId") String id2, HttpServletResponse response) {
 		  
 		  int result = cService.idDuplicateCheck2(id2);
@@ -316,8 +316,8 @@ public class CommonController {
 		return returnValue;
 	}	
 
-    // 비밀번호 찾기 : 임시 비밀번호 이메일로 보냄과 동시에 비번변경
-    @RequestMapping("mempwdFind.co")
+    // 회원 비밀번호 찾기 : 임시 비밀번호 이메일로 보냄과 동시에 비번변경
+    @RequestMapping("getPw.co")
     public ModelAndView sendEmailAction (@RequestParam("email_1") String email_1, @RequestParam("email_2") String email_2, @RequestParam("memPwdEmail") String email, ModelMap model) throws Exception {
         ModelAndView mav;
         
@@ -339,7 +339,7 @@ public class CommonController {
             emailSender.SendEmail(EEmail);
             
             cService.update_pw(encPwd);
-            
+            System.out.println(encPwd);
             model.addAttribute("msg", "회원님의 메일로 임시 비밀번호를 발송 하였습니다.");
             mav= new ModelAndView("redirect:/login.co");
             return mav;
@@ -350,6 +350,8 @@ public class CommonController {
             return mav;
         }
     }
+    
+ // 기업 비밀번호 찾기 : 임시 비밀번호 이메일로 보냄과 동시에 비번변경
     
  // join  뷰로 매핑
     @RequestMapping(value = "/join", method = { RequestMethod.GET, RequestMethod.POST })
