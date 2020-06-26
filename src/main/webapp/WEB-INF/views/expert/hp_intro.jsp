@@ -87,8 +87,15 @@
                         <tr>
                             <td class="rown"><p>업체사진</p></td>
                             <td><div id="igm-area">
-                             <img id="foo" src="resources/muploadFiles/${photo }" /></div></td>
-<%--                                     <img id="foo" src="resources/muploadFiles/${com.checkImg }" /></div></td> --%>
+                            <c:if test ="${photo ne null }">
+                        
+                             <img id="foo" src="resources/muploadFiles/${photo }"/>
+                             </c:if>
+                             <c:if test ="${photo eq null }">
+                                <img id="foo" src="resources/muploadFiles/default.png"/>
+                             </c:if>
+                             
+                             </div></td>
                             <td><input type="file" name="uploadFile" id="imgInp"></td>
                         </tr>
                         <tr>
