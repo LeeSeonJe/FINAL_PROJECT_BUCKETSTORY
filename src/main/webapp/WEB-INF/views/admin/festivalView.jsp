@@ -89,76 +89,28 @@ form>div>div>ul>li{
 			<div id="adw_menu">
 				<ul>
 					<li>
-						<a href="">축제 작성</a>	
+						<a href="adminwrite.ad">축제 작성</a>	
 					</li>
 					<li>
-						<a href="">가입확인</a>
+						<a href="adminCompany.ad">가입확인</a>
 					</li>
 					<li>
-						<a href="">결제내역</a>
+						<a href="adminBill.ad?search=all">결제내역</a>
 					</li>
 					<li>
 						<a href="">통계</a>
 					</li>
 					<li>
-						<a href="">신고</a>
+						<a href="cautionlist.ad">신고</a>
 					</li>
 					<li>
-						<a href="">QnA</a>
+						<a href="adminQnAlist.ad">QnA</a>
 					</li>
 				</ul>
 			</div>
 		</nav>
-	
-			<div id="adw_choyears">
-				@2020
-			</div>
-
-		<form action="finsert.ad" method="post" id="adw_table">
-			<div>
-				<div id="adw_years">
-					2020년
-				</div>
-				<div id="adw_formimg">
-					<img src="${ contextPath}">
-				</div>
-			</div>
-			<div id="adw_formDiv">
-				<div class="adw_formdiv">
-					<ul>
-						<li>
-							<span>제목:</span> 
-							<span>${ festival.fetitle }</span>
-						</li>
-						<li>
-							<span>일시:</span> 
-							<span>${ festival.feDate }</span>
-						</li>
-						<li>
-							<span>장소:</span> 
-							<!-- <span>장소:</span> -->
-						</li>
-					</ul>
-				</div>
-				<div class="test" id="map"
-					style="width: 300px; height: 300px; float: right;"></div>
-				<div>
-					<span>내용작성</span> 
-					<span>${ festival.fecontent }</span>
-				</div>
-			</div>
-		</form>
 	</div>
 	
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=deba653fd81e7e506676cae7697d70bf&libraries=services"></script>
-	<script>	
-	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-		level: 3 //지도의 레벨(확대, 축소 정도)
-	};
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-	</script>
 	
 </body>
 </html>

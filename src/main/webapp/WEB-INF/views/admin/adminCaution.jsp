@@ -116,7 +116,7 @@ h2{
 							</td>
 							<td>${ notify.no_no }</td>
 							<td>
-								<c:if test="${ notify.cmno > 0 }">댓글</c:if>
+								<c:if test="${ notify.no_kind > 0 }">댓글</c:if>
 							</td>
 							<td>
 								<c:if test="${ notify.cmno > 0 }">${ notify.cmContent }</c:if>
