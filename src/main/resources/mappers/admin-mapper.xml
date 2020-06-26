@@ -71,7 +71,7 @@
         	join board using(bno)
         	join boardcomment c using (bno)
         	join reply r on(c.cmno = r.cmno)
-        where c.cmno is not null or r.rpno is not null and n.no_check = 'Y'
+        where c.cmno is not null or r.rpno is not null
 	</select>
 	
 	<select id="boardCautionListCount" resultType="_int">

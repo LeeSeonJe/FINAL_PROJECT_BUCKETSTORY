@@ -112,8 +112,8 @@ nav{
 						<b> ${ adminQnA.q_title }</b>
 					</div>
 					<div id="qna_info">
-						<span>[이미지 넣기] ${ adminQnA.userid } ${ adminQnA.coid }</span> 
-						<span>[이미지 넣기] ${ adminQnA.q_date }</span>
+						<span>아이디 ${ adminQnA.userid } ${ adminQnA.coid }</span> 
+						<span>날짜 ${ adminQnA.q_date }</span>
 					</div>
 					<br clear="all">
 					<div id="qna_content">${ adminQnA.q_content }</div>

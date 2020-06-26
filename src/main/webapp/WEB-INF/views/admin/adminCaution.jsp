@@ -109,7 +109,6 @@ h2{
 						<th>활동</th>
 					</tr>
 					<c:forEach var="notify" items="${ list }">
-<%-- 					<c:set var="str" value="${ notify.no_check }" /> --%>
 						<tr>
 							<td>
 								<input type="checkbox" name="chk_box" value="${notify.no_no}" id="checkSelect">
@@ -134,7 +133,6 @@ h2{
 								<c:if test="${ notify.status eq 'Y'.charAt(0) }">강제 탈퇴</c:if>
 							</td>
 						</tr>
-
 					</c:forEach>
 				</table>
 			</form>
