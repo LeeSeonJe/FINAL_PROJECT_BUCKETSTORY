@@ -31,16 +31,16 @@ public class HomeController {
 		System.out.println("솔로끼리");
 		System.out.println("when soltal");
 		System.out.println("YOU SOLO ~");
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("Welcme home! The client locale is {}.", locale);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
+//		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "redirect:login.co";
 	}
 	
 }

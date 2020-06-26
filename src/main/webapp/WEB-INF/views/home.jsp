@@ -32,5 +32,11 @@
 
 <a href="esrequest.ex?coId=123&bkNo=3">견적서 발송</a>
 
+<script>
+	$(function(){
+		location.href="login.co";
+	})
+</script>
+
 </body>
 </html>
