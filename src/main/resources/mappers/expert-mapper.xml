@@ -177,6 +177,12 @@
 		where coid =#{coId} and status = #{status}
 	</select>
 	
+	<select id="selectcoProImg" resultMap="MediaResultSet">
+		select *
+		from media
+		where coid=#{coId} and muse = 4
+	</select>
+	
 	<resultMap id="estimateSet" type="estimate">
 		<id property="es_no" column="ES_NO"/>
 		<result property="esr_no" column="ESR_NO"/>

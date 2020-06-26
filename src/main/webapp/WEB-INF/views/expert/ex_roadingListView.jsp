@@ -32,7 +32,12 @@
 					<table style="width: 780px;">
 						<tr>
 							<td rowspan="3" style="width:100px;">
-								<img id="requestImage" src="resources/expert/images/photo.jpg" id="profileImage">
+								<c:if test="${request.userId != m.get(request.userId).userId }">
+									<img id="requestImage" src="resources/expert/images/photo.jpg" id="profileImage">
+								</c:if>
+								<c:if test="${request.userId == m.get(request.userId).userId }">
+									<img id="requestImage" src="resources/member/images/profiles/${m.get(request.userId).prImage }" id="profileImage">
+								</c:if>
 							</td>
 							<td>
 								<h3 style="display:inline">${ request.userId }</h3>

@@ -83,6 +83,8 @@ public interface ExpertService {
 
 	int EsListCount(Map<String, String> status);
 
+	Media selectproImg(String coId);
+
 
 
 	

@@ -26,7 +26,12 @@
 			<br>
 			<table id="helperProfile" style="border:1px solid black;">
 				<tr>
-					<td rowspan="3" style="width: 185px;"><img src="resources/expert/images/photo.jpg" id="profileImage" ></td>
+					<c:if test="${ member.prImage == null }">
+						<td rowspan="3" style="width: 185px;"><img src="resources/expert/images/photo.jpg" id="profileImage" ></td>
+					</c:if>
+					<c:if test="${ member.prImage != null }">
+						<td rowspan="3" style="width: 185px;"><img src="resources/member/images/profiles/${ member.prImage } " id="profileImage" ></td>
+					</c:if>
 					<td>닉네임:${ member.nickName } </td>
 					<td>요청날자:${ er.esr_enrollDate }</td>
 				</tr>
