@@ -166,5 +166,9 @@ public class ExpertDAO {
 	public int EsListCount(SqlSessionTemplate sqlSession, Map<String, String> status) {
 		return sqlSession.selectOne("exMapper.EsListCount", status);
 	}
+
+	public Media selectproImg(SqlSessionTemplate sqlSession, String coId) {
+		return sqlSession.selectOne("exMapper.selectcoProImg", coId);
+	}
 }
 

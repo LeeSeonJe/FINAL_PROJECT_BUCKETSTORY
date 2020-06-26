@@ -583,18 +583,20 @@ public class ExpertController {
 		 	m.put("status", status);
 		 	
 			ArrayList<Estimate> list = ExService.selectMyEstimate(m);
-			System.out.println(list.size());
 			 Map<Integer,String> bucket = new HashMap<Integer,String>();
-			 Map<Integer,String> media = new HashMap<Integer,String>();
+			 Map<String,Media> media = new HashMap<String,Media>();
 			 for(int i=0;i<list.size();i++) {
 				 BucketList b = ExService.selectBucket(list.get(i).getBkNo());
+				 Media mi = ExService.selectproImg(list.get(i).getCoId());
 				 bucket.put(list.get(i).getBkNo(),b.getBkName());
+				 media.put(list.get(i).getCoId(), mi);
 			 }
-			 
+			 System.out.println(media.get(list.get(0).getCoId()));
 			 Map<String,Object> map = new HashMap<String,Object>();
 				map.put("list",list);
 				map.put("bucket", bucket);
-
+				map.put("prImg", media);
+				
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			try {
 				gson.toJson(map, response.getWriter());
@@ -664,12 +666,15 @@ public class ExpertController {
 			
 		 
 		 Map<String,BucketList> bucket = new HashMap<String,BucketList>();
-		 
+		 Map<String,Member> member = new HashMap<String,Member>();
 		 for(int i=0;i<er.size();i++) {
 			 BucketList b = ExService.selectBucket(Integer.parseInt(er.get(i).getBkNo()));
+			 Member m = ExService.selectMember(er.get(i).getUserId());
 			 bucket.put(b.getBkNo()+"",b);
+			 member.put(m.getUserId(), m);
 		 }
 		 
+		 mv.addObject("m",member);
 		 mv.addObject("pi",pi);
 		 mv.addObject("bucket",bucket);
 		 mv.addObject("coId",loginCom.getCoId());
@@ -697,11 +702,15 @@ public class ExpertController {
 		
 		 ArrayList<Estimate> arr = ExService.selectMakingEstimteList(pi,loginCom.getCoId()); 
 		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+		 Map<String,Member> member = new HashMap<String,Member>();
 		 
 		 for(int i=0;i<arr.size();i++) {
 			 BucketList b = ExService.selectBucket(arr.get(i).getBkNo());
+			 Member m = ExService.selectMember(arr.get(i).getUserId());
 			 bucket.put(b.getBkNo(),b);
+			 member.put(m.getUserId(), m);
 		 }
+		 mv.addObject("m",member);
 		 mv.addObject("pi",pi);
 		 mv.addObject("bucket",bucket);
 		 mv.addObject("coId",loginCom.getCoId());
@@ -728,11 +737,15 @@ public class ExpertController {
 		
 		 ArrayList<Estimate> arr = ExService.selectEstimteList(pi,loginCom.getCoId()); 
 		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+		 Map<String,Member> member = new HashMap<String,Member>();
 		 
 		 for(int i=0;i<arr.size();i++) {
 			 BucketList b = ExService.selectBucket(arr.get(i).getBkNo());
+			 Member m = ExService.selectMember(arr.get(i).getUserId());
 			 bucket.put(b.getBkNo(),b);
+			 member.put(m.getUserId(),m);
 		 }
+		 mv.addObject("m",member);
 		 mv.addObject("pi",pi);
 		 mv.addObject("bucket",bucket);
 		 mv.addObject("coId",loginCom.getCoId());
@@ -764,11 +777,15 @@ public class ExpertController {
 		
 		 ArrayList<Estimate> estimate = ExService.selectCompleteEstimteList(pi,loginCom.getCoId());
 		 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+		 Map<String,Member> member = new HashMap<String,Member>();
 		 
 		 for(int i=0;i<estimate.size();i++) {
 			 BucketList b = ExService.selectBucket(estimate.get(i).getBkNo());
+			 Member m = ExService.selectMember(estimate.get(i).getUserId());
 			 bucket.put(b.getBkNo(),b);
+			 member.put(m.getUserId(),m);
 		 }
+		 mv.addObject("m",member);
 		 mv.addObject("pi",pi);
 		 mv.addObject("bucket",bucket);
 		 mv.addObject("es",estimate);

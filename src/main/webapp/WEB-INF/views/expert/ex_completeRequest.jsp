@@ -35,7 +35,12 @@
 			<table style="width: 780px;">
 				<tr>
 					<td rowspan="4" style="width:100px;">
-						<img id="requestImage" src="<%=request.getContextPath() %>/views/프로필.png" id="profileImage">
+						<c:if test="${estimate.userId != m.get(estimate.userId).userId }">
+									<img id="requestImage" src="resources/expert/images/photo.jpg" id="profileImage">
+								</c:if>
+								<c:if test="${estimate.userId == m.get(estimate.userId).userId }">
+									<img id="requestImage" src="resources/member/images/profiles/${m.get(estimate.userId).prImage }" id="profileImage">
+								</c:if>
 					</td>
 					<td rowspan="2">
 						<h3 style="display:inline">${ estimate.userId }</h3>

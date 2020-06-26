@@ -126,15 +126,21 @@
 								$('#area').html("  ");
 								
 								if(data.list.length >0){
-									
+									console.log(data.prImg)
+									console.log(data.prImg)
 									for( var i in data.list){
-										console.log(data.list[i])
+										
+										console.log(data.prImg[data.list[i].coId].coid)
 										 text +="<div id='requestMember'>"
 											+"<table style='width: 780px;''>"
 											+"<tr>"
 											+"<td rowspan='3' style='width:100px;''>"
-											+"<img id='requestImage' src='resources/expert/images/photo.jpg' id='profileImage'>"
-											+"</td>"
+											if(data.list[i].coId == data.prImg[data.list[i].coId].coid){
+												text += "<img id='requestImage' src='resources/muploadFiles/"+data.prImg[data.list[i].coId].mweb+"' id='profileImage'>"
+											}else{
+												text += "<img id='requestImage' src='resources/expert/images/photo.jpg' id='profileImage'>"
+											}
+											text += "</td>"
 											+"<td>"
 												+"<h3 style='display:inline'>"+data.list[i].coId+"</h3>"
 											+"</td>"
