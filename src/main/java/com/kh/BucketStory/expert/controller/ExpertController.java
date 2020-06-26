@@ -149,6 +149,7 @@ public class ExpertController {
 			mv.addObject("eventContent",eventContent);
 		}
 		
+		
 		if (loginUser != null) {
 			mv.addObject("company", com);
 			if (bl != null) {

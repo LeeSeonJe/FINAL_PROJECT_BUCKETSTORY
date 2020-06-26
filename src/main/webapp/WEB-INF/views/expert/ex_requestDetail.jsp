@@ -39,7 +39,7 @@
 						<br>
 						<div id="helperProfile" style="border:1px solid black;">
 							<c:if test="${ member.prImage != null }">
-								<img src="resources/muploadFilesi${ member.prImage }" id="profileImage" >
+								<img src="resources/member/images/profiles/${ member.prImage }" id="profileImage" >
 							</c:if>
 							<c:if test="${ member.prImage == null }">
 								<img src="resources/expert/images/photo.jpg" id="profileImage" >
