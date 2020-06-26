@@ -81,7 +81,7 @@
 						
 						<c:set var="bCount" value="0"/>
 						<c:forEach var="blog" items="${ blogList }">
-							<c:if test="${ blog.userid == w.bucketList.userId && blog.bkNo == w.bucketList.bkNo}">
+							<c:if test="${ blog.userid == w.member.nickName && blog.bkNo == w.bucketList.bkNo}">
 								<c:set var="bCount" value="${ bCount + 1 }"/>
 							</c:if>
 						</c:forEach>
@@ -498,7 +498,7 @@
 					var $li = '<li><img src="http://images.hwlife.hscdn.com//library/'+value+'_view_01.jpg"></li>';
 					$('#bucketimg>ul').append($li);
 				}
-			});
+			});"src/main/webapp/WEB-INF/views/member/myPageWishList.jsp"
 		} else{
 			$.ajax({
 				url:'bkDetailMedia.ho',
@@ -515,7 +515,7 @@
 		
 		// 블로그 사진 가져오기
 		$('#bucketGoBlog').show();
-		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+ userId + '"');
+		$('#bucketGoBlog').attr('onclick', 'location.href="myBlog.me?bkNo='+bkNo+'&nickName='+userId+'"');
 		if(userId == '관리자찡'){
 			$('#bucketGoBlog').hide();
 		}
@@ -530,7 +530,9 @@
 				if(data.length > 0){
 					$('#bucketright').show();
 					for(var key in data){
+						console.log(data[key])
 						var $li = '<li><img src="resources/member/images/blogUploade/'+data[key]+'"></li>';
+						console.log($li)
 						$('#bucketimg>ul').append($li);
 					}
 				} else{
@@ -703,7 +705,7 @@
 		}
 	}
 	
-	
+
 	function left(bkNo, userId, bkName){
 		first--;
 		$.ajax({

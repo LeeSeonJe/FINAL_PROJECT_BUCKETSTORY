@@ -35,13 +35,23 @@
 				<span>▤견적서</span>
 			</a>
 		</c:if>
+		<c:if test="${ loginUser.userId ne getMember.userId }">
+			<a class="myPagemenu" onclick="tt(this);">
+				<span>▤견적서</span>
+			</a>
+			<script type="text/javascript">
+				function tt(t){
+					alert("페이지 주인만 접근할 수 있습니다.");					
+				}
+			</script>
+		</c:if>
 		<c:if test="${ loginUser == null && loginUser.userId ne getMember.userId && loginCompany != null }">
 			<a class="myPagemenu" onclick="tt(this);">
 				<span>▤견적서</span>
 			</a>			
 			<script type="text/javascript">
 				function tt(t){
-					alert("블로그 주인만 접근할 수 있습니다.");					
+					alert("페이지 주인만 접근할 수 있습니다.");					
 				}
 			</script>
 		</c:if>
