@@ -88,9 +88,9 @@
 					<div class="c-addBtn" onclick="sharebl(${ b.bkNo }, '${ b.userId }');"> + ADD</div>
 				</div>
 				</c:if>
-				<div class="c-likewish ${ b.bkNo }" id="c-likewish${ b.bkNo }">
+				<div class="c-likewish ${ b.bkNo } ${b.userId}" id="c-likewish${ b.bkNo }">
 					<div class="c-likeBtn ${ b.bkNo }" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bkLike }</label></div>
-					<div class="c-wishBtn ${ b.bkNo }" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
+					<div class="c-wishBtn ${ b.bkNo } ${b.userId}" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
 						<span class="wishhover" style="font-size:20px">☆ </span>
 						위시 
 						<c:set var="loop_flag" value="false"/>
@@ -109,7 +109,7 @@
 			</div>
 		</div>
 <script>
-	//좋아요위시버튼 나오게하기
+//좋아요위시버튼 나오게하기
 	$('.bucket.${ b.bkNo }.${b.userId}').hover(function(){
 		$('.c-likewish.${ b.bkNo }.${b.userId}').show();
 	}, function(){
@@ -499,7 +499,7 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 				if('${loginUser}' != ""){
 					var $button = $('<button>');
 					$button.attr('onclick', 'estimate('+bkNo+', "'+data[key].coId+'");');
-					$button.text('견적서 작성');
+					$button.text('견적서 요청');
 					$value.append($button);
 				}
 				$('#bucketcompany>ul').append($value);

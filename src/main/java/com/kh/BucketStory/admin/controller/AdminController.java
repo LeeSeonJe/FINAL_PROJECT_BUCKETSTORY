@@ -55,7 +55,7 @@ public class AdminController {
 	@RequestMapping("list.ad")
 	public String adminfestivalList() {
 
-		return "adminPointList";
+		return "festivalWrite";
 	}
 	
 	/* 페스티벌 작성 페이지 */
@@ -277,7 +277,7 @@ public class AdminController {
 		
 		Notify result = bService.cautionview(id);
 		m.addAttribute("nickName", result.getNickname());
-		m.addAttribute("bno", result.getBno());
+		m.addAttribute("bNo", result.getBno());
 		
 //		System.out.println("결과 넘어오니? " + result);
 		

@@ -335,7 +335,7 @@ public class ExpertController {
 				 }
 			 int result = ExService.insertEstimate(es,media);
 			 
-			 if(result>0) {
+			 if(result>0 && es.getStatus()==1) {
 				 Pay p = new Pay();
 				 p.setCoid(es.getCoId());
 				 p.setPa_pay(500);
@@ -591,7 +591,6 @@ public class ExpertController {
 				 bucket.put(list.get(i).getBkNo(),b.getBkName());
 				 media.put(list.get(i).getCoId(), mi);
 			 }
-			 System.out.println(media.get(list.get(0).getCoId()));
 			 Map<String,Object> map = new HashMap<String,Object>();
 				map.put("list",list);
 				map.put("bucket", bucket);

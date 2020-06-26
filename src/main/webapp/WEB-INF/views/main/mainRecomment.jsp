@@ -69,9 +69,9 @@
 					<div class="c-addBtn" onclick="sharebl(${ b.bkNo }, '${ b.userId }');"> + ADD</div>
 				</div>
 				</c:if>
-				<div class="c-likewish ${ b.bkNo }" id="c-likewish${ b.bkNo }">
+				<div class="c-likewish ${ b.bkNo } ${b.userId}" id="c-likewish${ b.bkNo }">
 					<div class="c-likeBtn ${ b.bkNo }" id="c-likeBtn${ b.bkNo }" onclick="blLikeUp(${ b.bkNo });"><span class="likehover" style="font-size:20px">♡ </span><label class="likelabel">${ b.bkLike }</label></div>
-					<div class="c-wishBtn ${ b.bkNo }" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
+					<div class="c-wishBtn ${ b.bkNo } ${b.userId}" id="c-wishBtn${ b.bkNo }" onclick="wishRegist(${ b.bkNo }, '${ b.userId }');">
 						<span class="wishhover" style="font-size:20px">☆ </span>
 						위시 
 						<c:set var="loop_flag" value="false"/>

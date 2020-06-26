@@ -368,14 +368,20 @@
 		var tags = tag.split(',');
 		$('#bucketTag').html('');
 		for(var i in tags){
-			$('#bucketTag').append('<div id="bucketTag1"><span>#</span>'+tags[i]+'</div>');
+			if(tags[i] != ""){
+				var $div = $('<div>');
+				$div.attr('id', 'bucketTag1');
+				$div.attr('onclick', 'searchTag("'+tags[i]+'");');
+				$div.append('<span>#</span>'+tags[i]);
+				$('#bucketTag').append($div);
+			}
 		}
 		$('#bucketAdd').show();
 		if($('.c-wishBtn.'+bkNo+'.'+userId+'>label').text() == '취소'){
 			$('#bucketwish').css('color', '#10ccc3');
 		}
 		// 버킷사진 가져오기
-		if(1<=bkNo&&bkNo<=10){
+		if(1<=bkNo&&bkNo<=20){
 			$.ajax({
 				url:'bkDetailMedia.ho',
 				data:{
@@ -558,7 +564,7 @@
 							}
 							if(data[key].userId != 'admin'){
 								if(data[key].prImage != null){
-									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/muploadFiles/'+data[key].prImage+'" style="width:100%;height:100%"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
+									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"><img src="resources/member/images/profiles/'+data[key].prImage+'" style="width:100%;height:100%; border-radius: 100px;"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
 									$('#bucketwithPro').append($div);
 								} else{
 									var $div = '<a href="myBucket.me?nickName='+data[key].nickName+'"><div id="profile-div"><div id="profile1"></div><div id="profile2">'+data[key].nickName+'</div></div></a>';
