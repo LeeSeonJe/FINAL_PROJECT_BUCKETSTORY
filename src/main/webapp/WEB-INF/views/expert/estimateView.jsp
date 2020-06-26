@@ -149,7 +149,7 @@
 					</div>
 				</c:if>
 			</c:if>
-			<c:if test="${ sessionScope.loginUser.userId != member.userId }">
+			<c:if test="${ sessionScope.loginCompany != null }">
 				<c:if test="${ es.status == 1 }">
 					<div id="status">
 							<h3 style="text-align:center;color:green;">승낙 대기중입니다.</h3>
@@ -269,8 +269,6 @@
 						var optionName = $("<input>") .attr("type", "hidden") .attr("name", "optionName").val(name); 
 						var optionPrice = $("<input>") .attr("type", "hidden") .attr("name", "optionPrice").val(value); 
 						
-						console.log(t);
-						console.log($(t));
 						$(t).parent().append(optionName);
 						$(t).parent().append(optionPrice);
 						
@@ -287,7 +285,6 @@
 						
 						$(t).next().next().remove();
 						$(t).next().remove();
-						console.log($(t).next());
 						$('#price').text(val);
 						$('#es_price').val(val);
 
