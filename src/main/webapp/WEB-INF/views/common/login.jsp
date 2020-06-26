@@ -517,12 +517,12 @@
 				<!-- <button class="joinBtn2" href="leftForm" style='cursor:pointer'>회원가입</button> -->
 			</div>
 			<!-- <hr color="white" width="325px" align="left"> -->
-			<div>
+			<%-- <div>
 				<a href="${facebook_url}"> 
 				<button id="facebookBtn" style='cursor:pointer' data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true" onclick="fbLogin();"> <img src="resources/common/images/facebook.png" width="24px" height="24px" >&ensp;Facebook으로 로그인</button>
 				</a>
 			</div>
-			<div id="fb-root"></div>
+			<div id="fb-root"></div> --%>
 		</div>
 	</div>
 	<script type="text/javascript" src="resources/common/js/login.js"></script>
