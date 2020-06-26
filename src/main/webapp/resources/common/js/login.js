@@ -288,7 +288,7 @@
 				}
 			}
 			
-//			  /* 아이디 유효성 검사 ajax 중복불가*/
+//	아이디 유효성 검사 ajax 중복불가
 			var isidUsable = false; 	// 아이디 중복 시false, 사용가능시 true
 			var isIdChecked = false;	// 아이디 중복확인을 했는지 안했는지 검사
 			var re1 =/^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$/; //시작은 영문으로만, '_'를 제외한 특수문자 안되며 영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하
@@ -298,21 +298,22 @@
 				isIdChecked = false;
 			});
 			
-			$('#userId').change(function(){
+			function DuplIdCheck(){
 				var userId = $('#userId');
 				
 				if(!re1.test(userId.val())){ //아이디 값이 아니거나, 아이디값이 3자보다 짧으면
-					alert('아이디는 영문자로 시작하는 4~12글자 이하로 입력하세요.');
+					$('#userId_checked').show();
+			 		$('#userId_check').hide();
+					alert('아이디는 영문자로 시작하는 4~12글자 이하로 입력하세요');
 					userId.focus();
 				} else{
 					$.ajax({
-						url:'dupid.co',
+						url:'idDuplicateCheck.co',
 						data:{userId: userId.val()},
+						async:false,
 						success: function(data){ //data로 반환 받아옴
-							
-							if(data == "success"){
-//		 						$('#idResult').text('사용가능합니다.');
-//		 						$('#idResult').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+							console.log(data);
+							if(data == "true"){
 								isidUsable = true;
 								isIdChecked= true;
 								
@@ -320,10 +321,7 @@
 									$('#userId_check').show();
 									$('#userId_checked').hide();
 								}
-								
 							}else{
-//		 						$('#idResult').text('사용 불가능 합니다.');
-//		 						$('#idResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
 								userId.focus();
 								isidUsable = false;
 								isIdChecked= false;
@@ -331,15 +329,15 @@
 							 	if($('#userId_checked').css("display")=="none"){
 						 		$('#userId_checked').show();
 						 		$('#userId_check').hide();
+						 		alert('아이디가 중복됩니다');
 							 	}
-								
 							}
 						}
 					});
 				}
-			});
+			}
 			
-//			  /* 기업 아이디 유효성 검사 ajax 중복불가*/
+//	기업 아이디 유효성 검사 ajax 중복불가
 			var isidUsable = false; 	// 아이디 중복 시false, 사용가능시 true
 			var isIdChecked = false;	// 아이디 중복확인을 했는지 안했는지 검사
 			var re1 =/^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$/; //시작은 영문으로만, '_'를 제외한 특수문자 안되며 영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하
@@ -353,17 +351,17 @@
 				var coId = $('#coId');
 				
 				if(!re1.test(coId.val())){ //아이디 값이 아니거나, 아이디값이 3자보다 짧으면
-					alert('아이디는 영문자로 시작하는 4~12글자 이하로 입력하세요.');
+					$('#coId_checked').show();
+			 		$('#coId_check').hide();
+					alert('아이디는 영문자로 시작하는 4~12글자 이하로 입력하세요');
 					usercoId.focus();
 				} else{
 					$.ajax({
-						url:'dupid2.co',
+						url:'idDuplicateCheck2.co',
 						data:{coId: coId.val()},
 						success: function(data){ //data로 반환 받아옴
 							
-							if(data == "success"){
-//		 						$('#idResult').text('사용가능합니다.');
-//		 						$('#idResult').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+							if(data == "true"){
 								isidUsable = true;
 								isIdChecked= true;
 								
@@ -371,10 +369,7 @@
 									$('#coId_check').show();
 									$('#coId_checked').hide();
 								}
-								
 							}else{
-//		 						$('#idResult').text('사용 불가능 합니다.');
-//		 						$('#idResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
 								coId.focus();
 								isidUsable = false;
 								isIdChecked= false;
@@ -382,8 +377,8 @@
 							 	if($('#coId_checked').css("display")=="none"){
 						 		$('#coId_checked').show();
 						 		$('#coId_check').hide();
+						 		alert('아이디가 중복됩니다');
 							 	}
-								
 							}
 						}
 					});
@@ -814,8 +809,6 @@
 				});
 			});
 		
-// 기업 아이디 찾기
-			
 
 // 파일 첨부 창이 뜨도록 설정하는 함수
 				$(function(){
@@ -841,7 +834,6 @@
 					}
 				}
 
-				
 // 비밀번호 찾기		
 				 
 

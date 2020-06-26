@@ -33,11 +33,11 @@ public class CommonDAO {
 	}
 
 	public int idDuplicateCheck(SqlSessionTemplate sqlSession, String id) {
-		return sqlSession.selectOne("commonMapper.checkIdDup", id);
+		return sqlSession.selectOne("commonMapper.idDuplicateCheck", id);
 	}
 
 	public int idDuplicateCheck2(SqlSessionTemplate sqlSession, String id2) {
-		return sqlSession.selectOne("commonMapper.checkIdDup2", id2);
+		return sqlSession.selectOne("commonMapper.idDuplicateCheck2", id2);
 	}
 
 	public int nickNameCheck(SqlSessionTemplate sqlSession, String nick) {
