@@ -18,6 +18,8 @@ import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.main.model.dao.MainDAO;
 import com.kh.BucketStory.member.model.vo.Board;
 
+import oracle.net.aso.a;
+
 @Service("mainService")
 public class MainServiceImpl implements MainService {
 	
@@ -205,6 +207,11 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int insertCAlert(Alarm alert) {
 		return mainDAO.insertCAlert(sqlSession, alert);
+	}
+
+	@Override
+	public int alertCheck(Integer aNum) {
+		return mainDAO.alertCheck(sqlSession, aNum);
 	}
 
 }

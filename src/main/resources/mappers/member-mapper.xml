@@ -249,7 +249,7 @@
 	</insert>
 	
 	<select id="getReplyList" resultMap="ReplyResultSet2">
-		select RPNO, RPCONTENT, CMNO, RPDATE, NICKNAME, RPSTATUS
+		select RPNO, RPCONTENT, CMNO, RPDATE, NICKNAME, RPSTATUS, PR_IMAGE
 		from reply
 		join member using (userid)
 		where cmno = #{ cmNo } and RPSTATUS = 'Y'
@@ -263,6 +263,11 @@
 		<result property="rpDate" column="RPDATE"/>
 		<result property="userid" column="NICKNAME"/>
 		<result property="status" column="RPSTATUS"/>
+		<association property="rmember" resultMap="rMemberResultSet"></association>
+	</resultMap>
+	
+	<resultMap type="member" id="rMemberResultSet">
+		<result property="prImage" column="PR_IMAGE"/>
 	</resultMap>
 	
 	<update id="bCommentUpdate">

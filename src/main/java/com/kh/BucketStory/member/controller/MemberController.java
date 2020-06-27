@@ -351,8 +351,8 @@ public class MemberController {
 	//	댓글 등록 
 	@RequestMapping(value = "bCommentInsert.me", method = RequestMethod.POST)
 	public void bCommentInsert(@ModelAttribute BoardComment boardComment, HttpSession session, HttpServletResponse response,
-			@RequestParam String susinNike, @RequestParam Integer bkNo) {
-		String susinId = mService.getUserId(susinNike);
+			@RequestParam String susinNick, @RequestParam Integer bkNo) {
+		String susinId = mService.getUserId(susinNick);
 		response.setContentType("application/json; charset=UTF-8");
 		Member m = (Member) session.getAttribute("loginUser");
 		boardComment.setUserid(m.getUserId());
@@ -360,15 +360,14 @@ public class MemberController {
 		
 
 		////////////// 댓글 알람
-		Alarm alert = new Alarm();
-		String aLink = "location.href=myBlog.me?bkNo="+ bkNo +"&nickName=" + susinNike + "&bNo=" + boardComment.getbNo();
-		alert.setaLink(aLink);
-		alert.setaContent(m.getNickName() + "님이 댓글을 등록하였습니다.");
-		alert.setUserId(susinId);
-		
-		mainService.insertAlert(alert);
-		
-		System.out.println(alert);
+		if(!m.getUserId().equals(susinId)) {
+			Alarm alert = new Alarm();
+			String aLink = "myBlog.me?bkNo="+ bkNo +"&nickName=" + susinNick + "&bNo=" + boardComment.getbNo();
+			alert.setaLink(aLink);
+			alert.setaContent(m.getNickName() + "님이 댓글을 등록하였습니다.");
+			alert.setUserId(susinId);
+			mainService.insertAlert(alert);			
+		}
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		try {
@@ -384,11 +383,24 @@ public class MemberController {
 	
 	//	댓글의 답글 등록
 	@RequestMapping(value = "replyInsert.me", method = RequestMethod.POST)
-	public void replyInsert(@ModelAttribute Reply reply, HttpSession session, HttpServletResponse response) {
+	public void replyInsert(@ModelAttribute Reply reply, HttpSession session, HttpServletResponse response,
+			@RequestParam String susinNick, @RequestParam Integer bkNo, @RequestParam Integer bNo, @RequestParam String susinId) {
 		response.setContentType("application/json; charset=UTF-8");
 		Member m = (Member) session.getAttribute("loginUser");
 		reply.setUserid(m.getUserId());
 		ArrayList<Reply> replyList = mService.replyInsert(reply);
+		
+		////////////// 답글 알람
+		if(!m.getUserId().equals(susinId)) {
+			Alarm alert = new Alarm();
+			String aLink = "myBlog.me?bkNo="+ bkNo +"&nickName=" + susinNick + "&bNo=" + bNo;
+			alert.setaLink(aLink);
+			alert.setaContent(m.getNickName() + "님이 답글을 등록하였습니다.");
+			alert.setUserId(susinId);
+			
+			mainService.insertAlert(alert);			
+		}
+		
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		try {
