@@ -352,4 +352,11 @@
 		set USERPWD = #{encPwd}
 		where userid = #{userId}
 	</update>
+	
+	<!-- 알람 불러오기 -->
+	<select id="selectAlarm" resultType="Alarm">
+		select *
+		from alarm
+		where userid = #{userId}
+	</select>
 </mapper>

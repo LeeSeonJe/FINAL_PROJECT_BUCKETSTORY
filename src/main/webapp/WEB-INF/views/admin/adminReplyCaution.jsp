@@ -29,6 +29,7 @@
     margin-left: 15px;	
     font-size: 15px;
 }
+
 .a_list{
     display: flex;
     margin-bottom: 10px;
@@ -56,6 +57,9 @@ h2{
  	color: black; text-decoration: none;
   }
   
+  #ad_board{
+  	font-size: 14px;
+  }
   
 </style>
 <body>
@@ -90,47 +94,48 @@ h2{
 	</div>
 	<div id="board-area">
 	<div>
-		<h3>게시글 신고 게시판</h3>
+		<h3>대댓글 신고 게시판</h3>
 	</div>
 	<div class="a_list">
 		<h2><a href="boardCaution.ad"  class="ad_list" id="l_list">게시글</a></h2>
 		<h2><a href="cautionlist.ad"  class="ad_list" id="R_list">댓글</a></h2>
 		<h2><a href="replyCaution.ad" class="ad_list" id="M_list">대댓글</a></h2>
 	</div>
-			<form action="boardCaution.ad">
+			<form action="warning.ad">
 				<table class="board" id="ad_board">
 					<tr>
 						<th><input type="checkbox" name="chk_head" id="checkAll">선택</th>
 						<th>번호</th>
 						<th>말머리</th>
+						<th>내용</th>
 						<th>상태</th>
 						<th>아이디</th>
 						<th>신고자</th>
 						<th>신고일</th>
 						<th>활동</th>
 					</tr>
-					<c:forEach var="b" items="${ list }">
+					<c:forEach var="notify" items="${ list }">
 						<tr>
-							<c:url var="view" value="cautionView.ad">
-								<c:param name="userid" value="${ b.pigouser }"></c:param>
-							</c:url>
 							<td>
-								<input type="checkbox" name="chk_box" value="${b.no_no}" id="checkSelect">
+								<input type="checkbox" name="chk_box" value="${notify.no_no}" id="checkSelect">
 							</td>
-							<td>${ b.no_no }</td>
+							<td>${ notify.no_no }</td>
 							<td>
-								<c:if test="${ b.no_kind == 1 }">게시글</c:if>
+								<c:if test="${ notify.no_kind == 3 }">대댓글</c:if>
 							</td>
 							<td>
-								<c:if test="${ b.no_check eq 'N'.charAt(0) }">경고아님</c:if>
-								<c:if test="${ b.no_check eq 'Y'.charAt(0) }">경고</c:if>
+								<c:if test="${ notify.no_kind == 3 }">${ notify.rpContent }</c:if>
 							</td>
-							<td><a href="${ view }">${ b.pigouser }</a></td>
-							<td>${ b.sinuser }</td>
-							<td>${ b.enrolldata }</td>
 							<td>
-								<c:if test="${ b.status eq 'N'.charAt(0) }">활동</c:if>
-								<c:if test="${ b.status eq 'Y'.charAt(0) }">강제탈퇴</c:if>
+								<c:if test="${ notify.no_check eq 'N'.charAt(0) }">경고아님</c:if>
+								<c:if test="${ notify.no_check eq 'Y'.charAt(0) }">경고</c:if>
+							</td>
+							<td>${ notify.pigouser }</td>
+							<td>${ notify.sinuser }</td>
+							<td>${ notify.enrolldata }</td>
+							<td>
+								<c:if test="${ notify.status eq 'N'.charAt(0) }">활동</c:if>
+								<c:if test="${ notify.status eq 'Y'.charAt(0) }">강제 탈퇴</c:if>
 							</td>
 						</tr>
 					</c:forEach>
@@ -142,7 +147,7 @@ h2{
 							<button id ="prev">이전</button>
 						</c:if> 
 						<c:if test="${ pi.currentPage > 1 }">
-							<c:url var="before" value="boardCaution.ad">
+							<c:url var="before" value="replyCaution.ad">
 								<c:param name="page" value="${ pi.currentPage - 1 }" />
 							</c:url>
 							<a href="${ before }"><button id ="prev">이전</button></a>
@@ -155,7 +160,7 @@ h2{
 							</c:if>
 
 							<c:if test="${ p ne pi.currentPage }">
-								<c:url var="pagination" value="boardCaution.ad">
+								<c:url var="pagination" value="replyCaution.ad">
 									<c:param name="page" value="${ p }" />
 								</c:url>
 								<a href="${ pagination }"><button class ="sBtn">${ p }</button></a>
@@ -167,7 +172,7 @@ h2{
 							<button id= "next">다음</button>
 						</c:if> 
 						<c:if test="${ pi.currentPage < pi.maxPage }">
-							<c:url var="after" value="boardCaution.ad">
+							<c:url var="after" value="replyCaution.ad">
 								<c:param name="page" value="${ pi.currentPage + 1 }" />
 							</c:url>
 							<a href="${ after }"><button id= "next">다음</button></a>
@@ -229,7 +234,41 @@ $(function(){
     });
 });
 
-/* 게시글 회원 경고 주기 */
+
+// /* 경고 먹는 회원 스크립트 */
+	
+// function chk_warning(){
+// 	alert("클릭");
+	
+// 	var checkArr = []; // 배열 초기화
+// // 	var check = "";
+	
+// 	$("input[name='chk_box']:checked").each(function(i){
+// 		var va = $(this).val();
+// // 		console.log(va);
+// // 		console.log(typeof(va));
+		
+// 		checkArr.push(va);
+// 		console.log(checkArr);
+// 		console.log(typeof(checkArr));
+// // 		checkArr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
+// 	});
+	
+// // 	console.log(typeof(checkArr));
+		
+// 	$.ajax({
+// 		url: 'warning.ad',
+// 		type: 'POST',
+// 		data: {no_no : va},
+// 		success: function(data){
+// 			if(data == 'success'){
+// 				console.log(data);
+// 			}
+// 		}
+// 	});
+// }
+
+/* 회원 경고 주기 */
 	function chk_warning(){
 	 	alert("경고를 주었습니다.");
 
@@ -240,32 +279,7 @@ $(function(){
 	});
 	
 	$.ajax({
-		url: 'warningboard.ad',
-		data: {b : chk_Arr},
-		success: function(data){
-			
-		console.log("data 값 보자 " + data);
-			
-		 location.reload();
-		
-		}			
-			
-		
-	});
-}
-
-	/* 강제 탈퇴 */
-	function chk_delete(){
-	 	alert("강제 탈퇴를 주었습니다.");
-
-	
-	var chk_Arr = []; // 배열 초가화
-	$("input[name='chk_box']:checked").each(function(i){
-		chk_Arr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
-	});
-	
-	$.ajax({
-		url: 'delectMember2.ad',
+		url: 'warning.ad',
 		data: {Notify : chk_Arr},
 		success: function(data){
 			
@@ -279,9 +293,31 @@ $(function(){
 	});
 }
 
+/* 강제 탈퇴 */
+	function chk_delete(){
+	 	alert("강제 탈퇴를 주었습니다.");
 
-
-
+	
+	var chk_Arr = []; // 배열 초가화
+	$("input[name='chk_box']:checked").each(function(i){
+		chk_Arr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
+	});
+	
+	$.ajax({
+		url: 'delectMember.ad',
+		data: {Notify : chk_Arr},
+		success: function(data){
+			
+		console.log("data 값 보자 " + data);
+			
+		 location.reload();
+		
+		}			
+			
+		
+	});
+}
+	
 </script>
 </body>
 </html>

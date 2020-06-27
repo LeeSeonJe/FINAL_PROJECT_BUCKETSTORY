@@ -48,9 +48,10 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public int nickNameCheck(String nick) {
-		return cDAO.nickNameCheck(sqlSession, nick);
+	public int nickCheck(String nick) {
+		return cDAO.nickCheck(sqlSession, nick);
 	}
+	
 	@Override
 	public Member findAccount(String email) {
 		return cDAO.findAccount(sqlSession, email);

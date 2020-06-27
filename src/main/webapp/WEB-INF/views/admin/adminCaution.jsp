@@ -25,6 +25,11 @@
    font-size: 15px;
 }
 
+#M_list{
+    margin-left: 15px;	
+    font-size: 15px;
+}
+
 .a_list{
     display: flex;
     margin-bottom: 10px;
@@ -94,6 +99,7 @@ h2{
 	<div class="a_list">
 		<h2><a href="boardCaution.ad"  class="ad_list" id="l_list">게시글</a></h2>
 		<h2><a href="cautionlist.ad"  class="ad_list" id="R_list">댓글</a></h2>
+		<h2><a href="replyCaution.ad" class="ad_list" id="M_list">대댓글</a></h2>
 	</div>
 			<form action="warning.ad">
 				<table class="board" id="ad_board">
@@ -115,11 +121,10 @@ h2{
 							</td>
 							<td>${ notify.no_no }</td>
 							<td>
-								<c:if test="${ notify.no_kind > 0 }">댓글</c:if>
+								<c:if test="${ notify.no_kind == 2 }">댓글</c:if>
 							</td>
 							<td>
-								<c:if test="${ notify.cmno > 0 }">${ notify.cmContent }</c:if>
-								<c:if test="${ notify.rpno > 0 }">${ notify.rpContent }</c:if>
+								<c:if test="${ notify.no_kind == 2 }">${ notify.cmContent }</c:if>
 							</td>
 							<td>
 								<c:if test="${ notify.no_check eq 'N'.charAt(0) }">경고아님</c:if>

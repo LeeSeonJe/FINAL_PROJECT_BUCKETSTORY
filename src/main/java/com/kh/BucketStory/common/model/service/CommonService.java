@@ -17,7 +17,7 @@ public interface CommonService {
 
 	int idDuplicateCheck2(String id2);
 	
-	int nickNameCheck(String nick);
+	int nickCheck(String nick);
 	
 	Member findAccount(String email);
 

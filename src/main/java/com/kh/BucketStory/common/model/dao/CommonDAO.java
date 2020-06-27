@@ -37,8 +37,8 @@ public class CommonDAO {
 		return sqlSession.selectOne("commonMapper.idDuplicateCheck2", id2);
 	}
 
-	public int nickNameCheck(SqlSessionTemplate sqlSession, String nick) {
-		return sqlSession.selectOne("commonMapper.nickChk", nick);
+	public int nickCheck(SqlSessionTemplate sqlSession, String nick) {
+		return sqlSession.selectOne("commonMapper.nickCheck", nick);
 	}
 	
 	public Member findAccount(SqlSessionTemplate sqlSession, String email) {

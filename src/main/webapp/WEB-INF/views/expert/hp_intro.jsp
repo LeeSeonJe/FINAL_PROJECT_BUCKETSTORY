@@ -228,6 +228,8 @@
 
 			// 기존비밀번호 일치 확인
 			oldPwd.onchange = function() {
+				var isEqualsOldCheck = false;
+				
 				$.ajax({ // 현재 아이디 보내서 비교해서 값을 받아오기
 					url : 'helperPwdCheck.ex',
 					data : {
@@ -253,6 +255,7 @@
 			var re4 = /^[a-zA-Z\d]{7,11}$/;
 			var isCanPwdCheck = false;
 			newPwd.onchange = function() {
+				var isCanPwdCheck = false;
 				if (re4.test(newPwd.value)) {
 					// alert('비밀번호는 영문 숫자7~11자리 ');
 					$('#pwdCheck3').show();
@@ -270,6 +273,7 @@
 			 * 유효성을 체크한다.
 			 */
 			function submitCheck() {
+				
 				if (!isEqualsOldCheck) {
 					alert('입력한 현재 비밀번호가 일치하지 않습니다.다시 확인해주세요');
 					return false;
