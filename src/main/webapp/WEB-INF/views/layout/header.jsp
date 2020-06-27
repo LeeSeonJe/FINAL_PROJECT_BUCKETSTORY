@@ -97,12 +97,32 @@
     			$('#alertDiv').html('');
     			for(var key in data){
     				console.log(data);
-    				var $div = '<div>'+data[key].aContent+'</div>';
+    				var $div = $('<div>');
+    				$div.text(data[key].aContent);
+    				$div.attr('onclick', 'alertLink('+data[key].aNum+',"'+data[key].aLink+'");');
+    				if(data[key].aCheck == 'Y'){
+    					$div.css('background', 'rgba(0,0,0,0.2)');
+    				}
     				$('#alertDiv').append($div);
     			}
     		}
     	});
     }
+    
+    function alertLink(aNum, aLink){
+    	location.href=aLink;
+    	$.ajax({
+    		url:'alertCheck.ho',
+    		data:{
+    			aNum:aNum
+    		},
+    		async:false,
+    		success:function(){
+    			alert();
+    		}
+    	});
+    }
+    
 
     $(document).ready(function(){
     	send_message();
