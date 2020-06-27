@@ -28,6 +28,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
+import com.kh.BucketStory.bucket.model.vo.Alarm;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -349,11 +350,25 @@ public class MemberController {
 	
 	//	댓글 등록 
 	@RequestMapping(value = "bCommentInsert.me", method = RequestMethod.POST)
-	public void bCommentInsert(@ModelAttribute BoardComment boardComment, HttpSession session, HttpServletResponse response) {
+	public void bCommentInsert(@ModelAttribute BoardComment boardComment, HttpSession session, HttpServletResponse response,
+			@RequestParam String susinNike, @RequestParam Integer bkNo) {
+		String susinId = mService.getUserId(susinNike);
 		response.setContentType("application/json; charset=UTF-8");
 		Member m = (Member) session.getAttribute("loginUser");
 		boardComment.setUserid(m.getUserId());
 		ArrayList<BoardComment> bCommentList =  mService.bCommentInsert(boardComment);
+		
+
+		////////////// 댓글 알람
+		Alarm alert = new Alarm();
+		String aLink = "location.href=myBlog.me?bkNo="+ bkNo +"&nickName=" + susinNike + "&bNo=" + boardComment.getbNo();
+		alert.setaLink(aLink);
+		alert.setaContent(m.getNickName() + "님이 댓글을 등록하였습니다.");
+		alert.setUserId(susinId);
+		
+		mainService.insertAlert(alert);
+		
+		System.out.println(alert);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		try {
