@@ -3,6 +3,7 @@ package com.kh.BucketStory.main.model.service;
 import java.util.ArrayList;
 
 import com.kh.BucketStory.admin.model.vo.Festival;
+import com.kh.BucketStory.bucket.model.vo.Alarm;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -77,5 +78,7 @@ public interface MainService {
 	int updateMember(Member m);
 
 	int updatePwd(String userId, String encPwd);
+
+	ArrayList<Alarm> selectAlert(String userId);
 
 }

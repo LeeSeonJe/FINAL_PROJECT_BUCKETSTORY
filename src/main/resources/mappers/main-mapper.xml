@@ -354,9 +354,10 @@
 	</update>
 	
 	<!-- 알람 불러오기 -->
-	<select id="selectAlarm" resultType="Alarm">
+	<select id="selectAlert" resultType="Alarm">
 		select *
 		from alarm
 		where userid = #{userId}
 	</select>
+	
 </mapper>

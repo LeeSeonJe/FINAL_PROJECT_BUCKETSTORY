@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.BucketStory.admin.model.vo.Festival;
+import com.kh.BucketStory.bucket.model.vo.Alarm;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -184,6 +185,11 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public String blWish(int bkNo, String userId, String bucketId) {
 		return mainDAO.blWish(sqlSession, bkNo, userId, bucketId);
+	}
+
+	@Override
+	public ArrayList<Alarm> selectAlert(String userId) {
+		return mainDAO.selectAlert(sqlSession, userId);
 	}
 
 }

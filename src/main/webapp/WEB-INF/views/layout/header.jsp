@@ -24,7 +24,11 @@
 		<div id="logo-wrap">
 			<div id="logo"><a href="main.ho?menuNum=1&category=0"><img src="resources/layout/images/mainlogo.png"></a></div>
 		</div>
+		<div id="alertDiv">
+			<div></div>
+		</div>
 	</header>
+	
 	
 </body>
 <script>
@@ -36,16 +40,18 @@
 			alert("로그아웃 취소");
 		}
 	});
-	//var wsUri = "ws://localhost:9480/BucketStory/count";
+	
+	// 웹소켓 실행
 	var wsUri = "ws://localhost:9480/BucketStory/count";
+	var websocket = null;
 
-	function send_message() {
+	function send_message(data) {
 
         websocket = new WebSocket(wsUri);
 
         websocket.onopen = function(evt) {
 
-            onOpen(evt);
+            onOpen(evt, data);
 
         };
 
@@ -65,23 +71,42 @@
 
    
 
-    function onOpen(evt) {
-       //websocket.send("${loginUser.userId}");
+    function onOpen(evt, data) {
+    	if(data != null){
+    		websocket.send(data);
+    	}
     }
 
     function onMessage(evt) {
     	console.log(evt.data);
-    		$('#count').append(evt.data);
+    	if(evt.data == 'reload'){
+    		alert();
+    	}
     }
 
     function onError(evt) {
 
     }
+    
+    // 알람창 불러오기
+    function alert(){
+    	$.ajax({
+    		url:'selectAlert.ho',
+    		async:false,
+    		success:function(data){
+    			$('#alertDiv').html('');
+    			for(var key in data){
+    				console.log(data);
+    				var $div = '<div>'+data[key].aContent+'</div>';
+    				$('#alertDiv').append($div);
+    			}
+    		}
+    	});
+    }
 
     $(document).ready(function(){
-    	//setInterval(function(){
-    		send_message();
-    	//}, 2000);
+    	send_message();
+    	alert();
     });
 
 

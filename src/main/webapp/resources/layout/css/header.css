@@ -78,3 +78,20 @@
     background-color: #eaeaea;
     border-left: 1px solid #ccc;
 }
+
+#alertDiv{
+	position: fixed;
+    width: 200px;
+    height: 400px;
+    overflow: auto;
+    background: #fff;
+    right: 1.3px;
+    top: 109.1px;
+    z-index: 400;
+    border: 1px solid;
+}
+#alertDiv div{
+	width: 100%;
+    height: 30px;
+    background: #faebd7;
+}
