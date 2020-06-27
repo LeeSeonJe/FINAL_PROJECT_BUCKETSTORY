@@ -291,6 +291,9 @@ public class MemberController {
 			@RequestParam("tags") List<String> tags, HttpServletRequest request, HttpSession session,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		response.setContentType("text/html;charset=UTF-8");
+		System.out.println();
+		BL.setBkContent(BL.getBkContent().replaceAll(System.getProperty("line.separator"), "<br>"));
+		System.out.println(BL.getBkContent());
 		String nickName = (String) session.getAttribute("nickName");
 		Media m = new Media();
 		String tag = String.join(",", tags);

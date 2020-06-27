@@ -4,17 +4,14 @@
 					var p = $("#tp");
 					if(p.text() =='회원'){
 						p.text('기업').css('color', 'black');
-					} else {
-						p.text('회원').css('color', 'white');
-					}
-					if(p.text()=='회원'){
-						$('#User').css('display','block');
-						$('#Company').css('display','none');
-						$('#modal1').css('height', '590px');
-					} else {
 						$('#Company').css('display','block');
 						$('#User').css('display','none');
 						$('#modal1').css('height', '840px');
+					} else {
+						p.text('회원').css('color', 'white');
+						$('#User').css('display','block');
+						$('#Company').css('display','none');
+						$('#modal1').css('height', '650px');
 					}
 				});
 				
@@ -79,7 +76,7 @@
 			$(function() {
 				  $('.joinBtn2').on('click', function() {
 					  if($('#modal1').css('display') == 'none'){
-						  $('#modal1').css('display','block');
+						  $('#modal1').css({'display':'block', 'height':'650px'});
 						  $('#modal2').css('display','none');
 						  $('#modal3').css('display','none');
 					  } else{
@@ -493,8 +490,6 @@
 			
 			$('#nickName').change(function(){
 				var nickName = $('#nickName');
-				console.log(nickName.val());
-				console.log(re24.test(nickName.val()))
 				if(!re24.test(nickName.val())){
 					alert('닉네임은 영문 혹은 한글 2자리 이상이어야 합니다.');
 					nickName.focus();
@@ -509,7 +504,8 @@
 						data:{nickName: nickName.val()},
 						async: false,
 						success: function(data){ //data로 반환 받아옴
-							
+							console.log("?ASDF")
+							console.log(data)
 							if(data == "success"){
 								isnickUsable = true;
 								isnickChecked= true;
@@ -834,158 +830,6 @@
 					}
 				}
 
-// 비밀번호 찾기		
-				 
-
-// 이메일 관련 스크립트
-				/*이메일 중복 확인메일 발송  */ //emailResult
-				var ismailUsable = false; 	// 이메일 중복 시false, 사용가능시 true
-//			 	var ismailChecked = false;	// 이메일 중복확인을 했는지 안했는지 검사
-				
-				$('#email_1,#email_2').on('paste keyup', function(){
-					ismailChecked = false;
-				});
-				
-				function sendMail(){
-//					alert("클릭");
-					
-					var email_1 = $('#email_1'); 
-					var email_2 = $('#email_2'); 
-					var email = email_1.val() + '@' + email_2.val();
-					var email_Confirm =$('#email_Confirm');
-
-					$.ajax({
-						url: 'auth.co',
-						type: 'POST',
-						data:{email:email},
-						success: function(data){
-						
-						}
-					});
-					
-					$.ajax({  //이메일이 중복되는지 확인
-						url: '<%= request.getContextPath() %>/email.mem',
-						data: {email:email},
-						success: function(data){
-							
-							if(email_1.val() != "" && email_2.val() != "" && data == 'success'){ //중복아니라면 success =>인증메일 발송 가능
-								$.ajax({ //이메일 보내기
-									url: '<%= request.getContextPath() %>/send.do',
-									data: {email:email},
-									success: function(data1){
-
-//			 							$('#emailResult').text('이메일 인증을 진행해주세요.');
-										alert('입력하신 이메일로 인증메일이 발송되었습니다.');
-										
-										if($('#emailResult_check').css("display")=="none"){
-									 		$('#emailResult_check').show();
-									 		$('#emailResult_checked').hide();
-										 }
-										
-										$('#chkNum').click(function(){ //인증확인 버튼을 눌렀을 때
-											if(data1.trim() == $('#email_Confirm').val().trim()){ //인증번호와 사용자 입력이 일치하면
-//			 									$('#emailResult').text('이메일 인증에 성공하였습니다.');
-												ismailUsable = true;
-											
-											if($('#emailChkResult_check').css("display")=="none"){
-										 		$('#emailChkResult_check').show();
-										 		$('#emailChkResult_checked').hide();
-											 }	
-												
-												
-											} else{
-//			 									$('#emailResult').text('인증번호가 다릅니다.');
-												ismailUsable = false;
-												alert('인증번호가 일치하지 않습니다.');
-												if($('#emailChkResult_checked').css("display")=="none"){
-											 		$('#emailChkResult_checked').show();
-											 		$('#emailChkResult_check').hide();
-												 }
-												
-											}
-										})
-									}
-								})
-							} else{ //중복이라서 인증메일 발송 불가
-								alert('중복된 이메일이거나 없는 이메일은 사용할 수 없습니다.');
-								email_1.select();
-								ismailUsable = false;
-//			 					$('#emailResult').text('중복된 이메일은 사용할 수 없습니다.');
-								if($('#emailResult_checked').css("display")=="none"){
-							 		$('#emailResult_checked').show();
-							 		$('#emailResult_check').hide();
-								 }
-							}
-						}
-					});
-					
-				}
-				
-				/* 이메일 인증번호 안적었는데 인증확인 먼저 눌렀을때 */
-				$('#chkNum').click(function(){
-					var email_Confirm = $('#email_Confirm');	
-				
-					if(email_Confirm.val() == ""){
-						if($('#emailChkResult_checked').css("display")=="none"){
-							alert('인증번호를 입력하여 주시기 바랍니다.');
-							email_Confirm.focus();
-					 		$('#emailChkResult_checked').show();
-					 		$('#emailChkResult_check').hide();
-						}
-					}
-				});
-				
-				/* 메일인증 안하고 가입하기 눌렀을때 */
-				function emalivalidate(){
-					if(ismailUsable){
-						return true; //가입
-					}else{
-						alert('메일인증을 진행해주세요.');
-						email_Confirm.focus();
-						return false; //반려
-					}
-					
-// 페이스북 로그인 스크립트 
-					function fbLogin() {
-					    // 로그인 여부 체크
-					    FB.getLoginStatus(function(response) {
-
-					        if (response.status === 'connected') {
-					            FB.api('/me', function(res) {
-					                // 제일 마지막에 실행
-					                console.log("Success Login : " + response.name);
-					                // alert("Success Login : " + response.name);
-					            });
-					        } else if (response.status === 'not_authorized') {
-					            // 사람은 Facebook에 로그인했지만 앱에는 로그인하지 않았습니다.
-					            alert('앱에 로그인해야 이용가능한 기능입니다.');
-					        } else {
-					            // 그 사람은 Facebook에 로그인하지 않았으므로이 앱에 로그인했는지 여부는 확실하지 않습니다.
-					            alert('페이스북에 로그인해야 이용가능한 기능입니다.');
-					        }
-					    }, true); // 중복실행방지
-					}
-					
-					window.fbAsyncInit = function() {		
-						FB.init({
-						  appId      : '553110938733873',
-						  cookie     : true,  // enable cookies to allow the server to access 
-						                      // the session
-						  xfbml      : true,  // parse social plugins on this page
-						  version    : 'v2.8' // use graph api version 2.8
-						});
-						
-					(function(d, s, id) {
-					      var js, fjs = d.getElementsByTagName(s)[0];
-					      if (d.getElementById(id)) return;
-					      js = d.createElement(s); js.id = id;
-					      js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.8&appId=553110938733873";
-					      fjs.parentNode.insertBefore(js, fjs);
-					    }(document, 'script', 'facebook-jssdk'));
-					}
-						
-				}
-				
-				
+		
 				
 				
