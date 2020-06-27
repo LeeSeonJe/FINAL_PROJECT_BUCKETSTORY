@@ -495,8 +495,7 @@ function requestPay(price) {
 								$('.paging button').removeClass('active').eq(
 										select).addClass('active');
 
-								$
-										.ajax({
+								$.ajax({
 											url : 'pointListAjax.ex?page='
 													+ num,
 											data : {
