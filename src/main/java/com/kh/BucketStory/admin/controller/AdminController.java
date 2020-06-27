@@ -210,7 +210,7 @@ public class AdminController {
 	}
 	
 	
-	/* 신고된 회원 리스트 */
+	/* 댓글 신고된 회원 리스트 */
 	@RequestMapping("cautionlist.ad")
 	public ModelAndView cautionlist(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 		
@@ -225,7 +225,7 @@ public class AdminController {
 				
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<Notify> list = bService.notifyselectList(pi);
+		ArrayList<Notify> list = bService.boardCommentList(pi);
 		
 //		System.out.println("경고 페이지 리스트 " + list);
 		
@@ -238,6 +238,33 @@ public class AdminController {
 			throw new BoardException("게시글 전체 조회에 실패했습니다.");
 		}
 		return mv;
+	}
+	
+	/*대 댓글 신고된 회원 리스트*/
+	@RequestMapping("replyCaution.ad")
+	public ModelAndView replyCaution(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
+		
+		int currentPage = 1;
+		if(page != null) {
+			currentPage = page;
+		}
+		
+		int listCount = bService.getReplyCautionListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Notify> list = bService.replyCautiontList(pi);
+		
+		if(list != null) {
+			
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("adminReplyCaution");
+		} else {
+			throw new BoardException("게시글 전체 조회에 실패했습니다.");
+		}
+		return mv;
+		
 	}
 	
 	/* 게시글 신고 회원 리스트 */

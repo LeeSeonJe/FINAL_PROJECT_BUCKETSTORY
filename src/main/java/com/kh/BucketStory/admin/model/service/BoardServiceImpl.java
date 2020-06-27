@@ -57,8 +57,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ArrayList<Notify> notifyselectList(PageInfo pi) {
-		return bDAO.notifyselectList(sqlSession, pi);
+	public ArrayList<Notify> boardCommentList(PageInfo pi) {
+		return bDAO.boardCommentList(sqlSession, pi);
 	}
 
 	@Override
@@ -145,6 +145,17 @@ public class BoardServiceImpl implements BoardService {
 	public adminQnA qnaviewAnswer(adminQnA a) {
 		return bDAO.qnaviewAnswer(sqlSession, a);
 	}
+
+	@Override
+	public int getReplyCautionListCount() {
+		return bDAO.getReplyCautionListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Notify> replyCautiontList(PageInfo pi) {
+		return bDAO.replyCautiontList(sqlSession, pi);
+	}
+
 
 
 
