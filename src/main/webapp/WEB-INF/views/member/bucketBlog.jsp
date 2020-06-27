@@ -300,7 +300,7 @@
 							location.href="searchTag.ho?t="+t;
 						}
 					</script>
-					<input type="hidden" value="<%= mbl.get(index).getBucket().getBkNo() %>" />
+					<input type="hidden" id="bucketNum" value="<%= mbl.get(index).getBucket().getBkNo() %>" />
 					<c:if test="${ flag eq 'true' }">
 						<button id="blogWriteBtn" style="width: 100px;">스토리 작성하기</button>
 					</c:if>
@@ -998,6 +998,9 @@
 		} else {
 			var bNo = $(b).prev().val();
 			var cmContent = $(b).parent().prev().val();
+			var susinId = '${ getMember.userId }';
+			var susinNike = '${ getMember.nickName }';
+			var bucketNum = $('#bucketNum').val();
 			var secret = $('input:checkbox[name=secret]:checked').length + 1;
 			$.ajax({
 				url: "bCommentInsert.me",
@@ -1005,9 +1008,12 @@
 				data: {
 					bNo:bNo, 
 					cmContent:cmContent,
+					susinNike:susinNike,
+					bkNo:bucketNum,
 					secret:secret
 				},
 				success: function(data) {
+					send_message(susinId);
 					location.reload();	
 				}
 			})
