@@ -116,6 +116,7 @@ public class ExpertController2 {
 		// String checkImg = request.getParameter("checkImg");
 		String compaName = request.getParameter("compaName");
 		String coIntro = request.getParameter("coIntro");
+		coIntro = coIntro.replaceAll(System.getProperty("line.separator"), "<br>");
 		int cateNum = Integer.parseInt(request.getParameter("cateNum"));
 		String image = null;
 		Company c = new Company(coId, coName, compaName,cateNum, coIntro);

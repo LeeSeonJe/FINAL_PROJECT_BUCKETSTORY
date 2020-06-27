@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.text.SimpleDateFormat, java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>   
 <% 			SimpleDateFormat dateFormat = new SimpleDateFormat ("yyyy-MM-dd");
 			String today = dateFormat.format(new Date());
 			int num = 1;
@@ -126,7 +127,11 @@
                         </tr>              
                         <tr>
                             <td class="rown"><p>업체소개</p></td>
-                            <td colspan="2"><textarea id="textArea" name="coIntro">${com.coIntro}</textarea></td>
+                            <td colspan="2"><textarea id="textArea" name="coIntro"></textarea></td>
+                            <script>
+								var coIntroContent = $('textarea[name=coIntro]');
+								coIntroContent.text('${ fn:replace(com.coIntro, "<br>", "\\n") }');
+							</script>
                         </tr>
                         <tr>
                             <th colspan="3"><p class="op">&nbsp;</p></th>
