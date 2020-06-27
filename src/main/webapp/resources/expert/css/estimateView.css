@@ -56,3 +56,15 @@
     border: 1px solid;
     overflow: auto;
 }
+#profileImage {
+	    width: 210px;
+	    height: 197px;
+	    margin-left: 41px;
+	    margin-right: 14px;
+	    float: left;
+	}
+#coIntro{
+	width: 67%;
+    margin-left: 259px;
+    height: 112px;
+}

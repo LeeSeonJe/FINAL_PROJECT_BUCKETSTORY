@@ -166,4 +166,12 @@ public class ExpertServiceImpl implements ExpertService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	@Override
+	public Media selectbkImg(int bkNo) {
+		return exDAO.selectbkImg(sqlSession,bkNo);
+	}
+@Override
+	public ArrayList<Estimate> selectEstimateAddList(PageInfo pi, Map<String, String> status) {
+		return exDAO.selectEstimateAddLsit(sqlSession,pi,status);
+	}
 }

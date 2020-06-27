@@ -6,7 +6,7 @@
 <head>
 <link rel="stylesheet" href="resources/expert/css/ex_getRequest.css">
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>ex_roadingListView</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
@@ -43,7 +43,7 @@
 								<h3 style="display:inline">${ request.userId }</h3>
 							</td>
 							<td>
-								${ request.enrollDate }
+								요청일 : ${ request.enrollDate }
 							</td>
 						</tr>
 						<tr>
@@ -58,12 +58,7 @@
 								<div id="bucketListDetail"><a href="estimateView.ex?es_no=${ request.es_no }">견적서 확인</a></div>
 							</td>
 							<td>
-								<c:choose>
-									<c:when test="${request.status eq 1 }">
-										<h3 style="text-align:center; color:green">수락 대기</h3>
-									</c:when>
-								</c:choose>
-								
+								<h3 style="text-align:center; color:green">수락 대기</h3>
 							</td>
 							
 						</tr>
@@ -75,7 +70,8 @@
 		<c:if test="${ empty estimate }">
 			<h2 style="text-align:center">수락대기중인 견적서가 없습니다.</h2>
 		</c:if>
-		<table style="margin: auto;">
+		</div>
+		<%-- <table style="margin: auto;">
 			<tr align="center" height="20" id="buttonTab">
 				<td colspan="6">
 				
@@ -116,29 +112,79 @@
 					</c:if>
 				</td>
 			</tr>
-		</table>
+		</table> --%>
+		<br><br>
+		<div id="ListAdd">
+			<div id="ListArea">
+			 <img style="width: 100px;height: 97px;" src="resources/expert/images/더보기.png">
+			</div>
+		</div>
 		<br><br>
 		
-		<<%-- div id="ListAdd">
-			<div id="ListArea">
-				<h4 id="listAdd" onclick="addList(${pi.currentPage + 1},${ estimate[0].status });"style="display:inline">더보기</h4>
-				
-				&nbsp;&nbsp;&nbsp;▼
-			</div>
-		</div> --%>
-		<!-- <script>
-			function addList(no,status){
-				console.log(no,status);
+		<script>
+			var page = 2;
+			
+			$('#ListArea').on("click",function(){
 				$.ajax({
 					url:'estimateAdd.ex',
-					data:{ page:no , status:status},
-					success:function(data){
+					data:{page:page , status:1},
+					dataType:'json',
+					success(data){
 						
+						
+						var bucket = data.bucket;
+						var pi = data.pi;
+						page = pi.currentPage +1;
+						var er = data.er;
+						var m = data.m;
+						var div = $('#page')
+						var text ="";
+						if(er.length >0){
+							for(var i =0; i<er.length;i++){
+							text+="<div id='requestMember'>"
+								+"<table style='width: 780px;'>"
+								+"<tr>"
+								+"<td rowspan='3' style='width:100px;'>"
+								if(er[i].userId == m[er[i].userId].userId){
+								text += "<img id='requestImage' src='resources/member/images/profiles/"+m[er[i].userId].prImage+"' id='profileImage'>"
+								}else{
+								text += "<img id='requestImage' src='resources/expert/images/photo.jpg' id='profileImage'>"
+								}
+									text += "</td>"
+										+"<td>"
+										 +"<h3 style='display:inline'>"+m[er[i].userId].nickName+"</h3>"
+								   		+"</td>"
+								   		+"<td>요청일 : "+er[i].enrollDate+"<td>"
+								   	+"</tr>"
+								   	+"<tr>"
+								   		+"<td>"
+										   +"버킷리스트: "+bucket[er[i].bkNo].bkName+"</td>"
+										 +"<td>"
+										 +"</td>"
+									+"</tr>"
+									+"<tr>"
+										 +"<td>"
+										 	+"<div id='bucketListDetail'>"
+										 		+"<div id='bucketListDetail'><a href='estimateView.ex?es_no="+er[i].es_no+"'>견적서확인</a>"	
+										 	+"</div>"
+										 +"</td>"
+										 +"<td>"
+										 	+"<h3 style='text-align:center; color:green'>수락 대기</h3>"
+										 +"</td>"
+									+"</tr>"
+							+"</table>"
+							+"</div>"
+						    +"<hr style='width:840px;margin: auto;' class='line'>"
+							}
+							div.append(text);
+						}else{
+							$('#ListArea').attr("display","none");
+		                    $('#ListAdd').html("<h3 style='text-align:center'>더 불러올 목록이 없습니다</h3>");
+						}
 					}
-				}); 
-			}		
-		</script> -->
-	</div>
+				})
+				})
+		</script>
 </section>
 </body>
 </html>

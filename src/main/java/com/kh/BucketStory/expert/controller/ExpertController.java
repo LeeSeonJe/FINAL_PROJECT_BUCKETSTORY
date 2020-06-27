@@ -144,6 +144,7 @@ public class ExpertController {
 		
 		Company com = ExService.selectCompanyInfo(coId);
 		Media media = ExService.selectproImg(com.getCoId());
+		Media bkImg = ExService.selectbkImg(bkNo);
 		if(eventTitle != null && eventContent != null) {
 			mv.addObject("eventTitle",eventTitle);
 			mv.addObject("eventContent",eventContent);
@@ -157,6 +158,9 @@ public class ExpertController {
 			}
 			if(media != null) {
 				mv.addObject("media", media);
+			}
+			if(bkImg != null) {
+				mv.addObject("bkImg",bkImg);
 			}
 		}
 		mv.setViewName("esrequest");
@@ -288,10 +292,13 @@ public class ExpertController {
 			 Company company = ExService.selectCompanyInfo(er.getCoId());
 			 Member member = ExService.selectMember(er.getUserId());
 			 BucketList bucket = ExService.selectBucket(Integer.parseInt(er.getBkNo()));
+			 Media bkImg = ExService.selectbkImg(Integer.parseInt(er.getBkNo()));
+			 
 			 if(company != null && bucket != null && member != null) {
 				 mv.addObject("member", member);
 				 mv.addObject("company",company);
 				 mv.addObject("bucket",bucket);
+				 mv.addObject("bkImg",bkImg);
 			 }
 			 mv.setViewName("ex_requestDetail");
 		 }
@@ -433,13 +440,31 @@ public class ExpertController {
      }
 	 
 	 @RequestMapping("estimateView.ex")
-	 public ModelAndView estimateView(@RequestParam("es_no") String esno,ModelAndView mv) {
+	 public ModelAndView estimateView(@RequestParam("es_no") String esno,ModelAndView mv,HttpSession session) {
 		 Estimate es = ExService.selectEstimate(esno);
 		 BucketList bucket = ExService.selectBucket(es.getBkNo());
-		 Member m = ExService.selectMember(es.getUserId());
+		 
 		 EsRequest er = ExService.selectEsRequestOne(es.getEsr_no());
 		 ArrayList<Media> media = ExService.selectMediaList(es.getEs_no());
 		 ArrayList<String[]> arr = new ArrayList<String[]>();
+		 
+		 Member member = null;
+		 Company com = null;
+		 Media comImg = null;
+		 
+		 if(session.getAttribute("loginUser") != null) {
+			 System.out.println("loginCompany");
+			 com = ExService.selectCompanyInfo(es.getCoId());
+			 comImg = ExService.selectproImg(es.getCoId());
+			 System.out.println(com);
+		 }
+		 if(session.getAttribute("loginCompany") != null) {
+			 System.out.println("loginUser");
+			 member = ExService.selectMember(es.getUserId());
+			 System.out.println(member);
+		 }
+		
+		 
 		 if(es.getEs_option()!= null) {
 			 String[] option = es.getEs_option().split(",");
 			 for(int i=0; i<option.length;i++) {
@@ -447,13 +472,14 @@ public class ExpertController {
 				 arr.add(op);
 			 }
 		 }
-		 
+		 mv.addObject("comImg",comImg);
+		 mv.addObject("company",com);
+		 mv.addObject("member",member);
 		 mv.addObject("media",media);
 		 mv.addObject("er", er);
 		 mv.addObject("es",es);
 		 mv.addObject("option",arr);
 		 mv.addObject("bucket",bucket);
-		 mv.addObject("member",m);
 		 mv.setViewName("estimateView");
 		 
 		 return mv;
@@ -811,4 +837,92 @@ public class ExpertController {
 //			
 //			 ArrayList<Estimate> estimate = ExService.addEstimateList(pi,status);
 //	 }
+	 @RequestMapping("RequestAdd.ex")
+	 public void requestAdd(HttpSession session,@RequestParam(value="page",required = false) Integer page,HttpServletResponse response) {
+		 response.setContentType("application/json; charset=UTF-8");
+			 Company loginCom = (Company) session.getAttribute("loginCompany");
+			 
+			int currentPage = page;
+			
+			int listCount = ExService.getEsListCount(loginCom.getCoId());
+			
+			PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<EsRequest> er = ExService.selectEsRequest(pi,loginCom.getCoId());
+			
+		 
+			 Map<String,BucketList> bucket = new HashMap<String,BucketList>();
+			 Map<String,Member> member = new HashMap<String,Member>();
+			 
+			 for(int i=0;i<er.size();i++) {
+				 BucketList b = ExService.selectBucket(Integer.parseInt(er.get(i).getBkNo()));
+				 Member m = ExService.selectMember(er.get(i).getUserId());
+				 bucket.put(b.getBkNo()+"",b);
+				 member.put(m.getUserId(), m);
+			 }
+			 
+			 Map<String,Object> map = new HashMap<String,Object>();
+			 map.put("m", member);
+			 map.put("pi", pi);
+			 map.put("bucket", bucket);
+			 map.put("coId", loginCom.getCoId());
+			 map.put("er", er);
+			 
+			 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+				try {
+					gson.toJson(map, response.getWriter());
+				} catch (JsonIOException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	 }
+	 @RequestMapping("estimateAdd.ex")
+	 public void estimateAdd(HttpSession session,@RequestParam("page") Integer page,@RequestParam("status") String sta,HttpServletResponse response) {
+		 response.setContentType("application/json; charset=UTF-8");
+			 Company loginCom = (Company) session.getAttribute("loginCompany");
+			 
+			int currentPage = page;
+			
+			Map<String,String> status = new HashMap<String,String>();
+			status.put("coId", loginCom.getCoId());
+			status.put("status", sta);
+			
+			int listCount = ExService.EsListCount(status);
+			
+			PageInfo pi = pagination.getPageInfo(currentPage, listCount);
+			
+			ArrayList<Estimate> er = ExService.selectEstimateAddList(pi,status);
+			
+			 Map<Integer,BucketList> bucket = new HashMap<Integer,BucketList>();
+			 Map<String,Member> member = new HashMap<String,Member>();
+		 
+			 for(int i=0;i<er.size();i++) {
+				 BucketList b = ExService.selectBucket(er.get(i).getBkNo());
+				 Member m = ExService.selectMember(er.get(i).getUserId());
+				 bucket.put(b.getBkNo(),b);
+				 member.put(m.getUserId(), m);
+			 }
+			 
+			 
+			 Map<String,Object> map = new HashMap<String,Object>();
+			 map.put("m", member);
+			 map.put("pi", pi);
+			 map.put("bucket", bucket);
+			 map.put("coId", loginCom.getCoId());
+			 map.put("er", er);
+			 
+			 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+				try {
+					gson.toJson(map, response.getWriter());
+				} catch (JsonIOException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	 }
+	 
+	 
 }

@@ -170,5 +170,16 @@ public class ExpertDAO {
 	public Media selectproImg(SqlSessionTemplate sqlSession, String coId) {
 		return sqlSession.selectOne("exMapper.selectcoProImg", coId);
 	}
+
+	public Media selectbkImg(SqlSessionTemplate sqlSession, int bkNo) {
+		return sqlSession.selectOne("exMapper.selectbkImg",bkNo);
+	}
+
+	public ArrayList<Estimate> selectEstimateAddLsit(SqlSessionTemplate sqlSession, PageInfo pi,
+			Map<String, String> status) {
+		int offset = (pi.getCurrentPage()-1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("exMapper.selectEstimateAddList", status, rowBounds);
+	}
 }
 

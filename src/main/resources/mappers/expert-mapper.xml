@@ -183,6 +183,19 @@
 		where coid=#{coId} and muse = 4
 	</select>
 	
+	<select id="selectbkImg" resultMap="MediaResultSet">
+		select *
+		from media
+		where bkno=#{bkNo} and muse = 1
+	</select>
+	
+	<select id="selectEstimateAddList" resultMap="estimateSet">
+		select * 
+		from estimate
+		where coid = #{coId} AND status=#{status}
+		order by es_no desc
+	</select>
+	
 	<resultMap id="estimateSet" type="estimate">
 		<id property="es_no" column="ES_NO"/>
 		<result property="esr_no" column="ESR_NO"/>

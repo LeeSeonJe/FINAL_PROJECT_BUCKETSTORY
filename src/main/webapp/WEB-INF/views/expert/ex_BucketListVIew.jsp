@@ -8,7 +8,7 @@
     	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link rel="stylesheet" href="resources/expert/css/ex_BucketListView.css">
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>ex_BucketListVIew</title>
 </head>
 <body>
 <c:import url="/WEB-INF/views/layout/header.jsp"/>

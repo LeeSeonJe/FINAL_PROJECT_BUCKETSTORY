@@ -8,7 +8,7 @@
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>ex_completeRequest</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
@@ -43,22 +43,20 @@
 								</c:if>
 					</td>
 					<td rowspan="2">
-						<h3 style="display:inline">${ estimate.userId }</h3>
+						<h3 style="display:inline">${ m.get(estimate.userId).nickName }</h3>
 					</td>
 					<td>
 						요청일 ${estimate.enrollDate }
 					</td>
 				</tr>
 				<tr>
-					
 					<td>
-						마감일 2020-05-10
 					</td>
 				</tr>
 				<tr>
 					<td><h5 style="display:inline;">버킷리스트: ${ bucket.get(estimate.bkNo).bkName }</h5></td>
 					<c:if test="${estimate.reviewScore ==0 }">
-						<td style="width: 183px;">
+						<td style="width: 183px;" rowspan="2">
 							<h3 style="color:red;">리뷰기다리는중</h3>
 						</td>
 					</c:if>
@@ -97,7 +95,8 @@
 		<c:if test="${ empty es }">
 			<h2 style="text-align:center">완료된 견적이 없습니다.</h2>
 		</c:if>
-		<table style="margin: auto;">
+		</div>
+		<%-- <table style="margin: auto;">
 			<tr align="center" height="20" id="buttonTab">
 				<td colspan="6">
 				
@@ -138,8 +137,16 @@
 					</c:if>
 				</td>
 			</tr>
-		</table>
+		</table> --%>
+		
 		<br><br>
+		<div id="ListAdd">
+			<div id="ListArea">
+				<img style="width: 100px;height: 97px;" src="resources/expert/images/더보기.png">
+			</div>
+		</div>
+		<br><br>
+		
 		<script>
 			function del(val){
 				if(confirm("해당 요청을 정말 삭제하겠습니까?") == true){
@@ -148,15 +155,97 @@
 					return false;
 				}
 			}
+			
+			
+			var page = 2;
+			
+			$('#ListArea').on("click",function(){
+				$.ajax({
+					url:'estimateAdd.ex',
+					data:{page:page , status:3},
+					dataType:'json',
+					success(data){
+						
+						
+						var bucket = data.bucket;
+						var pi = data.pi;
+						page = pi.currentPage +1;
+						var er = data.er;
+						var m = data.m;
+						var div = $('#page')
+						var text ="";
+						if(er.length >0){
+							for(var i =0; i<er.length;i++){
+							text+="<div id='requestMember'>"
+								+"<table style='width: 780px;'>"
+								+"<tr>"
+								+"<td rowspan='4' style='width:100px;'>"
+								if(er[i].userId == m[er[i].userId].userId){
+								text += "<img id='requestImage' src='resources/member/images/profiles/"+m[er[i].userId].prImage+"' id='profileImage'>"
+								}else{
+								text += "<img id='requestImage' src='resources/expert/images/photo.jpg' id='profileImage'>"
+								}
+									text += "</td>"
+										+"<td rowspan='2'>"
+										 +"<h3 style='display:inline'>"+m[er[i].userId].nickName+"</h3>"
+								   		+"</td>"
+								   		+"<td>요청일 : "+er[i].enrollDate+"<td>"
+								   	+"</tr>"
+								   	+"<tr>"
+								   		+"<td></td>"
+								   	+"</tr>"
+								   	+"<tr>"
+								   		+"<td>"
+										   +"<h5 style='display:inline;'>버킷리스트: "+bucket[er[i].bkNo].bkName+"</h5></td>"
+										   
+									if(er[i].reviewScore == 0){
+									   text +="<td style='widt:183px;'>"
+												+"<h3 style='color:red;'>리뷰기다리는중</h3>"
+											+"</td>"
+										 
+									 		
+									}else if(er[i].reviewScore != 0){
+									text +="<td style='width: 183px;'>"
+										+"<h3 style='display: inline;float: left;margin-top: 7px;'>별점:</h3>"
+										+"<p id='star_grade'>"	
+											 for(var j=0;j<er[i].reviewScore;j++){
+												text += "<p style='float:left;color:red;font-size: x-large;'>★</p>"
+												}
+											for(var j=er[i].reviewScore; j < 5 ; j++){
+												text += "<p style='float:left;font-size: x-large;'>☆</p>"
+												}
+										text +="</p>"
+											+"</td>"
+										 } 
+										 console.log(text)
+								text +="</tr>"
+									+"<tr>"
+									 	+"<td><h3 style='display:inline;'>총 견적 비용: "+er[i].es_price+"원</h3></td>"
+									 	+"<td></td>"
+									 +"</tr>"
+									 +"<tr>"
+									 	+"<td></td>"
+									 	+"<td>"
+										 	+"<div id='bucketListDetail'><a href='estimateView.ex?es_no="+er[i].es_no+"'>견적서 확인</a></div>"	
+										+"</td>"
+										+"<td>"
+											+"<div id='delete' style='cursor:pointer;' onclick='del("+er[i].es_no+");'>삭제</div>"
+										+"</td>"
+									+"</tr>"
+							+"</table>"
+							+"</div>"
+						    +"<hr style='width:840px;margin: auto;' class='line'>"
+							}
+							console.log(text);
+							div.append(text);
+						}else{
+							$('#ListArea').attr("display","none");
+		                    $('#ListAdd').html("<h3 style='text-align:center'>더 불러올 목록이 없습니다</h3>");
+						}
+					}
+				})
+				})
 		</script>
-		
-		<!-- <div id="ListAdd">
-			<div id="ListArea">
-				<h4 style="display:inline">더보기</h4>
-				&nbsp;&nbsp;&nbsp;▼
-			</div>
-		</div> -->
-	</div>
 </section>
 </body>
 </html>

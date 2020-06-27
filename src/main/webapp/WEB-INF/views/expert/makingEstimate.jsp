@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<title>Insert title here</title>
+<title>makingEstimate</title>
 <link rel="stylesheet" href="resources/expert/css/estimate.css">
 </head>
 <body>

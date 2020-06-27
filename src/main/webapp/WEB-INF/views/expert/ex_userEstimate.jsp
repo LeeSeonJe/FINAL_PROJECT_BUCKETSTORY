@@ -12,7 +12,7 @@
  <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ex_userEstimate</title>
 </head>
 <body>
 	<header>
