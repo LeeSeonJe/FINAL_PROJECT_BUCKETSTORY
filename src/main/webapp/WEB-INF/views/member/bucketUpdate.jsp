@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +66,11 @@
 						<option value="8">Lifestyle</option>
 					</select><br><br>
 					설명<br>
-					<textarea name="bkContent" required="required">${ bucket.bkContent }</textarea><br><br>
+					<textarea name="bkContent" required="required"></textarea><br><br>
+					<script>
+						var bucketContent = $('textarea[name=bkContent]');
+						bucketContent.text('${ fn:replace(bucket.bkContent, "<br>", "\\n") }');
+					</script>
 					태그<br>
 					<span>#</span><input type="text" class="tag_input" name="tags"/>
 					<span>#</span><input type="text" class="tag_input" name="tags"/>

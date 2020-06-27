@@ -437,7 +437,7 @@ function bkDetail(bkNo, cateNum, bkName, bkContent, tag, userId){
 	case 8: $('#bucketcate').html('<span style="color:#87adf8;">Lifestyle</span>'); break;
 	}
 	$('#buckettitle').text(bkName);
-	$('#bucketexplain').text(bkContent);
+	$('#bucketexplain').html(bkContent);
 	$('#bucketlike').attr('onclick', 'blLikeUp('+bkNo+');');
 	$('#bucketAdd').attr('onclick', 'sharebl('+bkNo+',"'+userId+'");');
 	$('#bucketwish').attr('onclick', 'wishRegist('+bkNo+',"'+userId+'");');

@@ -589,6 +589,7 @@ public class MemberController {
 			HttpServletResponse response, @RequestParam Integer bkNo, @RequestParam Integer page, @RequestParam String mweb) throws UnsupportedEncodingException {
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		String nickName = loginUser.getNickName();
+		BL.setBkContent(BL.getBkContent().replaceAll(System.getProperty("line.separator"), "<br>"));
 		Media m = new Media();
 		String tag = String.join(",", tags);
 		BL.setTag(tag);

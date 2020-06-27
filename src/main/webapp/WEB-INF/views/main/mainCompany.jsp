@@ -254,7 +254,7 @@ function cpDetail(coId, coName, compaName, apName, homePage, coTel, busiEmail, c
 	$('#compHomepage>label').text(homePage);
 	$('#compPhone>label').text(coTel);
 	$('#compEmail>label').text(busiEmail);
-	$('#bucketexplain').text(coIntro);
+	$('#bucketexplain').html(coIntro);
 	$('#coinformation').text(coInfo);
 	$('#bucketimg>img').attr('src', 'resources/muploadFiles/'+mweb);
 	// 지원하는 버킷리스트 가져오기
