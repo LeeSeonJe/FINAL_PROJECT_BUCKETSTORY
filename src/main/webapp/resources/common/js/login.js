@@ -498,8 +498,6 @@
 			
 			$('#userPwd').change(function(){ //패스워드 1만 정규식 체크 후 
 				if(!re4.test(password.val())){
-//		 			$('#pwdResult1').text('사용 불가능 합니다.');
-//		 			$('#pwdResult1').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
 					alert('비밀번호는 영문 7~11자리 이어야 합니다.');
 					password.focus();
 					ispassUsable = false;
@@ -510,8 +508,6 @@
 					 	}
 					
 				} else {
-//		 			$('#pwdResult1').text('사용가능합니다.');
-//		 			$('#pwdResult1').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
 					ispassUsable = true;
 					
 					if($('#userPwd_check').css("display")=="none"){
@@ -524,8 +520,6 @@
 			//패스워드 1과 패스워트 2 동일한지 검사.
 			$('#userPwd2').keyup(function(){
 				if(password.val() == password2.val()){
-//		 			$('#pwdResult2').text('사용가능합니다.');
-//		 			$('#pwdResult2').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
 					ispassUsable = true;
 					
 					if($('#userPwd2_check').css("display")=="none"){
@@ -534,8 +528,6 @@
 					 	}
 					
 				}else{
-//		 			$('#pwdResult2').text('비밀번호가 일치하지 않습니다.');
-//		 			$('#pwdResult2').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
 					password2.focus();
 					ispassUsable = false;
 					

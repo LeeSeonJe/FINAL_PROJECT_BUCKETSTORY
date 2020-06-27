@@ -117,7 +117,7 @@ body{
 	    margin-top: 220px;
 	    margin-left: 320px;
 	    width: 580px;
-	    height: 430px;
+	    height: 465px;
 	    transition: all 0.5s cubic-bezier(0.25, 0.25, 0.75, 0.75); /* 서서히 나타남 */
 	    display: none;
 	    /* filter: blur(4px);
@@ -310,7 +310,9 @@ body{
 	}
 	
 	/* 인증메일 버튼 */
-	#emailAuthBtn:hover, #emailBtn:hover {
+	#emailAuthBtn:hover, #emailBtn:hover,
+	#emailBtn2:hover, #emailAuthBtn2:hover,
+	#emailBtn3:hover, #emailAuthBtn3:hover {
 		color: #3f4c5fd4;
 	    text-decoration: none;
 	    text-decoration-line: none;
@@ -321,13 +323,16 @@ body{
 	    /* background-color: rgba(255, 255, 255, 0.3); */
 	}
 	
-	#emailAuthBtn:after, #emailBtn:after {
+	#emailAuthBtn:after, #emailBtn:after,
+	#emailBtn2:after, #emailAuthBtn2:after,
+	#emailBtn3:after, #emailAuthBtn3:after {
 	  -webkit-transition: all 0.3s;
 		-moz-transition: all 0.3s;
 	  -o-transition: all 0.3s;
 		transition: all 0.3s;
 	}
-	#emailAuthBtn, #emailBtn {
+	#emailAuthBtn, #emailBtn, #emailBtn2, #emailAuthBtn2,
+	#emailBtn3, #emailAuthBtn3 {
 	  height:50px;
 	  background: none;
 	  border: 3px solid #fff;
@@ -340,20 +345,26 @@ body{
 	}
 	
 	#emailAuthBtn:before, #emailBtn:before,
-	#emailAuthBtn:after, #emailBtn:after {
+	#emailAuthBtn:after, #emailBtn:after,
+	#emailBtn2:before, #emailAuthBtn2:before,
+	#emailBtn3:before, #emailAuthBtn3:before,
+	#emailBtn2:after, #emailAuthBtn2:after,
+	#emailBtn3:after, #emailAuthBtn3:after {
 	  background: #fff;
 	  content: '';
 	  position: absolute;
 	  z-index: -1;
 	}
-	#emailAuthBtn:after, #emailBtn:after{
+	#emailAuthBtn:after, #emailBtn:after,
+	#emailBtn2:after, #emailAuthBtn2:after,
+	#emailBtn3:after, #emailAuthBtn3:after{
 	  height: 0;
 	  left: 0;
 	  top: 0;
 	  width: 100%;
 	}
 	
-	#emailAuthBtn, #emailBtn {
+	#emailAuthBtn, #emailBtn, #emailBtn2, #emailAuthBtn2, #emailBtn3, #emailAuthBtn3 {
 	  height: 100%;
 	}
 	

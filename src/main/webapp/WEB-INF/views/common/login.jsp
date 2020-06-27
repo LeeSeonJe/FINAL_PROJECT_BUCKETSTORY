@@ -389,6 +389,7 @@
 				
 		      <!-- 회원 비번 찾기 -->
 <!-- 		      <form id="MempwdFind" action="mempwdFind.co" method="post" style="margin-top:50px;"> -->
+			<div id="MempwdFind" style="margin-top:50px;">
 		      <h3 align=center><p id="tp" style="color: white; font-size: 18px; font-weight: bold;">회원</p> 비밀번호 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
@@ -430,13 +431,17 @@
 				<tr>
 					<th align=right>새 비밀번호</th>
 					<td>
-						<input type="text" id="newPwd" name="newPwd" disabled="disabled">
+						<input type="password" id="newPwd" name="newPwd" disabled="disabled">
+						<img id="newPwd_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+						<img id="newPwd_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 					</td>
 				</tr>
 				<tr>
 					<th align=right>새 비밀번호 확인</th>
 					<td>
-						<input type="text" id="newPwd2" disabled="disabled">
+						<input type="password" id="newPwd2" disabled="disabled">
+						<img id="newPwd2_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+						<img id="newPwd2_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 					</td>
 				</tr>
 				<tr>
@@ -444,9 +449,11 @@
 					<td align=right><button id="yeah" onclick="" style='cursor:pointer' onclick="location.href='mempwdFind.co'">확인</button></td>
 				</tr>
 		      </table>
+		      </div>
 <!-- 		      </form> -->
 		       <!-- 기업 비번 찾기 -->
 <!-- 		      <form id="CompwdFind" action="compwdFind.co" method="post" style="margin-top:50px;"> -->
+			<div id="CompwdFind" style="margin-top:50px;">
 		      <h3 align=center>기업 비밀번호 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
@@ -486,13 +493,17 @@
 				<tr>
 					<th align=right>새 비밀번호</th>
 					<td>
-						<input type="text" id="CnewPwd" name="newPwd" disabled="disabled">
+						<input type="password" id="CnewPwd" name="newPwd" disabled="disabled">
+						<img id="CnewPwd_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+						<img id="CnewPwd_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 					</td>
 				</tr>
 				<tr>
 					<th align=right>새 비밀번호 확인</th>
 					<td>
-						<input type="text" id="CnewPwd2" disabled="disabled">
+						<input type="password" id="CnewPwd2" disabled="disabled">
+						<img id="CnewPwd2_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+						<img id="CnewPwd2_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />	
 					</td>
 				</tr>
 				<tr>
@@ -500,6 +511,7 @@
 					<td align=right><button id="yeah2" style="'cursor:pointer' 'margin-right:50px;'">확인</button></td>
 				</tr>
 		      </table>
+		      </div>
 <!-- 		      </form> -->
 		</div>
 		
@@ -676,7 +688,58 @@
 		});
 		
 		////////////////////////////////////////////////
-		
+		var ispassUsable = false;
+			var ispassChecked = false;
+			var re41 = /^[a-zA-Z\d]{7,11}$/; 
+			var npassword = $('#newPwd');
+			var npassword2 = $('#newPwd2');
+			
+			$("#newPwd").on('change paste keyup', function(){
+				ispassChecked = false;
+			});
+			
+			$('#newPwd').change(function(){ //패스워드 1만 정규식 체크 후 
+				if(!re41.test(npassword.val())){
+					alert('비밀번호는 영문 7~11자리 이어야 합니다.');
+					npassword.focus();
+					ispassUsable = false;
+					
+					if($('#newPwd_checked').css("display")=="none"){
+				 		$('#newPwd_checked').show();
+				 		$('#newPwd_check').hide();
+					 	}
+					
+				} else {
+					ispassUsable = true;
+					
+					if($('#newPwd_check').css("display")=="none"){
+				 		$('#newPwd_check').show();
+				 		$('#newPwd_checked').hide();
+					 	}
+				}
+			});
+			
+			//패스워드 1과 패스워트 2 동일한지 검사.
+			$('#newPwd2').keyup(function(){
+				if(npassword.val() == npassword2.val()){
+					ispassUsable = true;
+					
+					if($('#newPwd2_check').css("display")=="none"){
+				 		$('#newPwd2_check').show();
+				 		$('#newPwd2_checked').hide();
+					 	}
+					
+				}else{
+					npassword2.focus();
+					ispassUsable = false;
+					
+					if($('#newPwd2_checked').css("display")=="none"){
+				 		$('#newPwd2_checked').show();
+				 		$('#newPwd2_check').hide();
+					 	}
+					
+				}
+			});
 		
 		//////////////////////////////////////////////////
 		
@@ -766,11 +829,60 @@
 		});
 		
 		////////////////////////////////////////////////
-		
+		var ispassUsable = false;
+			var ispassChecked = false;
+			var re42 = /^[a-zA-Z\d]{7,11}$/; 
+			var ncpassword = $('#CnewPwd');
+			var ncpassword2 = $('#CnewPwd2');
+			
+			$("#CnewPwd").on('change paste keyup', function(){
+				ispassChecked = false;
+			});
+			
+			$('#CnewPwd').change(function(){ //패스워드 1만 정규식 체크 후 
+				if(!re42.test(ncpassword.val())){
+					alert('비밀번호는 영문 7~11자리 이어야 합니다.');
+					ncpassword.focus();
+					ispassUsable = false;
+					
+					if($('#CnewPwd_checked').css("display")=="none"){
+				 		$('#CnewPwd_checked').show();
+				 		$('#CnewPwd_check').hide();
+					 	}
+					
+				} else {
+					ispassUsable = true;
+					
+					if($('#CnewPwd_check').css("display")=="none"){
+				 		$('#CnewPwd_check').show();
+				 		$('#CnewPwd_checked').hide();
+					 	}
+				}
+			});
+			
+			//패스워드 1과 패스워트 2 동일한지 검사.
+			$('#CnewPwd2').keyup(function(){
+				if(ncpassword.val() == ncpassword2.val()){
+					ispassUsable = true;
+					
+					if($('#CnewPwd2_check').css("display")=="none"){
+				 		$('#CnewPwd2_check').show();
+				 		$('#CnewPwd2_checked').hide();
+					 	}
+					
+				}else{
+					ncpassword2.focus();
+					ispassUsable = false;
+					
+					if($('#CnewPwd2_checked').css("display")=="none"){
+				 		$('#CnewPwd2_checked').show();
+				 		$('#CnewPwd2_check').hide();
+					 	}
+					
+				}
+			});
 		
 		//////////////////////////////////////////////////
-		
-		
 		
 		$('#yeah2').click(function(){
 			var newPwd = $('#CnewPwd').val();
@@ -831,4 +943,53 @@
 			});
 		});
 	</script>
+	<script>
+		var isnickUsable = false; 	// 닉넴 중복 시false, 사용가능시 true
+		var isnickChecked = false;	// 닉넴 중복확인을 했는지 안했는지 검사
+		var re77 = /^[가-힣a-zA-Z\d]{2,}$/; // 닉넴 두글자 이상
+		var nickName = $('#nickName');
+		
+		$("#nickName").on('change paste keyup', function(){
+			isnickChecked = false;
+		});
+		
+		$('#nickName').change(function(){
+			var nickName = $('#nickName');
+			
+			if(!re77.test(nickName.val())){ //아이디 값이 아니거나, 아이디값이 3자보다 짧으면
+				$('#nickName_checked').show();
+		 		$('#nickName_check').hide();
+				alert('닉네임은 2글자 이상 입력해주세요 ');
+				nickName.focus();
+			} else{
+				$.ajax({
+					url:'nickCheck.co',
+					data:{nickName: nickName.val()},
+					success: function(data){ //data로 반환 받아옴
+						
+						if(data == "true"){
+							isnickUsable = true;
+							isnickChecked= true;
+							
+							if($('#nickName_check').css("display")=="none"){
+								$('#nickName_check').show();
+								$('#nickName_checked').hide();
+							}
+						}else{
+							nickName.focus();
+							isnickUsable = false;
+							isnickChecked= false;
+							
+						 	if($('#nickName_checked').css("display")=="none"){
+					 		$('#nickName_checked').show();
+					 		$('#nickName_check').hide();
+					 		alert('닉네임이 중복됩니다');
+						 	}
+						}
+					}
+				});
+			}
+		});
+	</script>
+	
 </html>
