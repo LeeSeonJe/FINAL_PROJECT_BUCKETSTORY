@@ -529,7 +529,7 @@
 													<div class="reply_submit">
 														<label class="counter">0/300</label>
 														<input type="hidden" value="${ bl_bc.cmNo }" />
-														<button type="button" onclick="reply_btn(this);">등록</button>
+														<button type="button" onclick="reply_btn(this, '${ bl.bNo }', '${ bl_bc.userid }');">등록</button>
 													</div>
 												</div>
 											</div>	
@@ -999,7 +999,7 @@
 			var bNo = $(b).prev().val();
 			var cmContent = $(b).parent().prev().val();
 			var susinId = '${ getMember.userId }';
-			var susinNike = '${ getMember.nickName }';
+			var susinNick = '${ getMember.nickName }';
 			var bucketNum = $('#bucketNum').val();
 			var secret = $('input:checkbox[name=secret]:checked').length + 1;
 			$.ajax({
@@ -1008,7 +1008,7 @@
 				data: {
 					bNo:bNo, 
 					cmContent:cmContent,
-					susinNike:susinNike,
+					susinNick:susinNick,
 					bkNo:bucketNum,
 					secret:secret
 				},
@@ -1022,7 +1022,7 @@
 	
 	/* 답글 등록 ajax */
 	
-	function reply_btn(b) {
+	function reply_btn(b, bNo, susinId) {
 		if($(b).parent().prev().val().trim().length == 0){
 			console.log($(b))
 			alert("내용을 입력해주세요.");
@@ -1030,6 +1030,8 @@
 			var cmNo = $(b).prev().val();
 			var rpContent = $(b).parent().prev().val();
 			var count = $(b).parent().parent().parent().parent().prev().children('label').text();
+			var bucketNum = $('#bucketNum').val();
+			var susinNick = '${ getMember.nickName }';
 			console.log(count)
 			$.ajax({
 				url: "replyInsert.me",
@@ -1037,51 +1039,87 @@
 				type: "POST",
 				data: {
 					cmNo:cmNo, 
-					rpContent:rpContent
+					rpContent:rpContent,
+					susinNick:susinNick,
+					bNo:bNo,
+					susinId:susinId,
+					bkNo:bucketNum
 				},
 				success: function(data) {
 					console.log(data);		
 					count++;
 					var nickName1 = '${ loginUser.nickName }'
 					var nickName2 = '${ getMember.nickName }'
-					if(data[data.length-1].status == 'Y') {
-						console.log(data)
-						if(nickName1 == nickName2) {
-							$div = $('<div class="reply_profile_area">');
-							$input = $('<input type="hidden">').val(data[data.length-1].rpNo);
-							if('${ loginUser.prImage }'.trim() != "") {
-								$prImg = $('<img src="resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;">');								
+					$(b).parent().parent().parent().prev().html("")
+					console.log(data)
+					for(var i in data){
+						if(data[i].status == 'Y') {
+							if(nickName1 == data[i].userid && nickName1 == nickName2) {
+								$div = $('<div class="reply_profile_area">');
+								$input = $('<input type="hidden">').val(data[i].rpNo);
+								if(data[i].rmember.prImage.trim() != "") {
+									$prImg = $('<img src="resources/member/images/profiles/'+ data[i].rmember.prImage+'" style="width: 23px; height: 23px; border-radius: 100px;">');											
+								} else {
+									$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
+								}
+								$span1 = $('<span></span>').text(data[i].userid)
+								$span2 = $('<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>');
+								$span3 = $('<span class="replyDelete" onclick="replyDelete(this)">삭제</span>');
+								$button = $('<button type="button">블로그주인</button>')
+								$span4 = $('<span></span>').text(data[i].rpDate);
+								$div.append($input, $prImg, $span1, $span2, $span3, $button, $span4)
+							} else if(nickName1 == data[i].userid) {
+								$div = $('<div class="reply_profile_area">');
+								$input = $('<input type="hidden">').val(data[i].rpNo);
+								if(data[i].rmember.prImage.trim() != "") {
+									$prImg = $('<img src="resources/member/images/profiles/'+ data[i].rmember.prImage+'" style="width: 23px; height: 23px; border-radius: 100px;">');											
+								} else {
+									$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
+								}
+								$span1 = $('<span></span>').text(data[i].userid)
+								$span2 = $('<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>');
+								$span3 = $('<span class="replyDelete" onclick="replyDelete(this)">삭제</span>');
+								$span4 = $('<span></span>').text(data[i].rpDate);
+								$div.append($input, $prImg, $span1, $span2, $span3, $span4)							
+							} else if(nickName1 != data[i].userid && data[i].userid == nickName2) {
+								$div = $('<div class="reply_profile_area">');
+								$input = $('<input type="hidden">').val(data[i].rpNo);
+								if(data[i].rmember.prImage.trim() != "") {
+									$prImg = $('<img src="resources/member/images/profiles/'+ data[i].rmember.prImage+'" style="width: 23px; height: 23px; border-radius: 100px;">');								
+								} else {
+									$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
+								}
+								$span1 = $('<span></span>').text(data[i].userid)
+								$span2 = $('<span style="cursor: pointer;" class="reply_Report" onclick="replyReport(this);">신고</span>')
+								$button = $('<button type="button">블로그주인</button>')
+								$span4 = $('<span></span>').text(data[i].rpDate);
+								$div.append($input, $prImg, $span1, $span2, $button, $span4)	
 							} else {
-								$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
+								$div = $('<div class="reply_profile_area">');
+								$input = $('<input type="hidden">').val(data[i].rpNo);
+								if(data[i].rmember.prImage.trim() != "") {
+									$prImg = $('<img src="resources/member/images/profiles/'+ data[i].rmember.prImage+'" style="width: 23px; height: 23px; border-radius: 100px;">');											
+								} else {
+									$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
+								}
+								$span1 = $('<span></span>').text(data[i].userid)
+								$span2 = $('<span style="cursor: pointer;" class="reply_Report" onclick="replyReport(this);">신고</span>')
+								$span4 = $('<span></span>').text(data[i].rpDate);
+								$div.append($input, $prImg, $span1, $span2, $span4)	
 							}
-							$span1 = $('<span>${ loginUser.nickName }</span>');
-							$span2 = $('<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>');
-							$span3 = $('<span class="replyDelete" onclick="replyDelete(this)">삭제</span>');
-							$button = $('<button type="button">블로그주인</button>')
-							$span4 = $('<span></span>').text(data[data.length-1].rpDate);
-							$div.append($input, $prImg, $span1, $span2, $span3, $button, $span4)
-						} else {
-							$div = $('<div class="reply_profile_area">');
-							$input = $('<input type="hidden">').val(data[data.length-1].rpNo);
-							$prImg = $('<img src="/BucketStory/resources/member/images/profiles/${ loginUser.prImage }" style="width: 23px; height: 23px; border-radius: 100px;">');
-							$span1 = $('<span>${ loginUser.nickName }</span>');
-							$span2 = $('<span class="replyUpdate" onclick="replyUpdate(this)">수정</span>');
-							$span3 = $('<span class="replyDelete" onclick="replyDelete(this)">삭제</span>');
-							$span4 = $('<span></span>').text(data[data.length-1].rpDate);
-							$div.append($input, $prImg, $span1, $span2, $span3, $span4)							
-						}
-						
-						
-						$div2 = $('<div class="reply_content">')
-						$textarea = $('<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" style="width: 98%; padding: 7px;" readonly="readonly">').text(data[data.length-1].rpContent)
-						
-						$div2.append($textarea)
-						$(b).parent().parent().parent().prev().append($div, $div2);
-						$(b).parent().prev().val("");
-						$(b).prev().prev().text("0/300");
-// 						console.log(count)
-						$(b).parent().parent().parent().parent().prev().children('label').text(count);
+							
+							
+							$div2 = $('<div class="reply_content">')
+							$textarea = $('<textarea name="rpContent" class="rpContent" onkeyup="replyCount(this);" style="width: 98%; padding: 7px;" readonly="readonly">').text(data[i].rpContent)
+							
+							$div2.append($textarea)
+							$(b).parent().parent().parent().prev().append($div, $div2);
+							$(b).parent().prev().val("");
+							$(b).prev().prev().text("0/300");
+							$(b).parent().parent().parent().parent().prev().children('label').text(count);
+						}						
 					}
+					send_message(susinId);
 				}					
 			})
 		}

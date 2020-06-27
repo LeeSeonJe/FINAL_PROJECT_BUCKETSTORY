@@ -547,7 +547,13 @@ public class MainController {
 	}
 	
 	@RequestMapping("alertCheck.ho")
-	public void alertCheck() {
-		
+	@ResponseBody
+	public String alertCheck(@RequestParam Integer aNum) {
+		int result = mainService.alertCheck(aNum);
+		if(result > 0) {
+			return "success";
+		} else {			
+			return "fail";
+		}
 	}
 }

@@ -87,4 +87,6 @@ public interface MainService {
 
 	int insertCAlert(Alarm alert);
 
+	int alertCheck(Integer aNum);
+
 }

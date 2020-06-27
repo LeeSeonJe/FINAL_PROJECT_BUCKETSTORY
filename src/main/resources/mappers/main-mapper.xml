@@ -373,4 +373,11 @@
 		values(seq_alarm.nextval, sysdate, #{aLink}, #{aContent}, default, null, #{coId})
 	</insert>
 	
+	
+	<!-- 알람 조회 업데이트 -->
+	<update id="alertCheck">
+		update ALARM
+		set ACHECK = 'Y'
+		where aNum = #{ aNum }
+	</update>
 </mapper>

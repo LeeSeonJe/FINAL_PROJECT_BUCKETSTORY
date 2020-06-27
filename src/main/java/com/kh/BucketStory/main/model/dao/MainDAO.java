@@ -229,5 +229,9 @@ public class MainDAO {
 		return sqlSession.insert("mainMapper.insertCAlert", alert);
 	}
 
+	public int alertCheck(SqlSessionTemplate sqlSession, Integer aNum) {
+		return sqlSession.update("mainMapper.alertCheck", aNum);
+	}
+
 	
 }
