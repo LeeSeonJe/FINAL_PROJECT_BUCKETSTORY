@@ -81,4 +81,10 @@ public interface MainService {
 
 	ArrayList<Alarm> selectAlert(String userId);
 
+	ArrayList<Alarm> selectCAlert(String coId);
+
+	int insertAlert(Alarm alert);
+
+	int insertCAlert(Alarm alert);
+
 }

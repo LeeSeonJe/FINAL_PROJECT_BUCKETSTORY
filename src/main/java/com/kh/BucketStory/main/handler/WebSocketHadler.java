@@ -13,8 +13,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.kh.BucketStory.bucket.model.vo.Alarm;
 import com.kh.BucketStory.common.model.vo.Member;
+import com.kh.BucketStory.expert.model.vo.Company;
 
 @Repository
 public class WebSocketHadler extends TextWebSocketHandler{
@@ -65,9 +65,13 @@ public class WebSocketHadler extends TextWebSocketHandler{
 	private String getUserId(WebSocketSession session) {
 		Map<String, Object> httpSession = session.getAttributes();
 		Member loginUser = (Member)httpSession.get("loginUser");
+		Company loginCompany = (Company)httpSession.get("loginCompany");
+		
 		
 		if(loginUser != null) {
 			return loginUser.getUserId();
+		} else if(loginCompany != null){
+			return loginCompany.getCoId();
 		} else {
 			return "회원로그인 정보없";
 		}

@@ -359,5 +359,18 @@
 		from alarm
 		where userid = #{userId}
 	</select>
+	<select id="selectCAlert" resultType="Alarm">
+		select *
+		from alarm
+		where coid = #{coId}
+	</select>
+	<insert id="insertAlert">
+		insert into alarm
+		values(seq_alarm.nextval, sysdate, #{aLink}, #{aContent}, default, #{userId}, null)
+	</insert>
+	<insert id="insertCAlert">
+		insert into alarm
+		values(seq_alarm.nextval, sysdate, #{aLink}, #{aContent}, default, null, #{coId})
+	</insert>
 	
 </mapper>
