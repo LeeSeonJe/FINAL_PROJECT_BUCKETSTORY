@@ -483,56 +483,7 @@
 				}
 			});
 			
-// 닉네임 유효성 검사 ajax 중복불가 
-			var isnickUsable = false; 	// 닉네임 중복 시false, 사용가능시 true
-			var isnickChecked = false;	// 닉네임 중복확인을 했는지 안했는지 검사
-			var re24 = /^[가-힣a-zA-Z\d]{2,}$/; // 닉네임 정규식 한글 2자이상
-			var nickName = $('#nickName');
-			
-			$("#nickName").on('change paste keyup', function(){
-				isnickChecked = false;
-			});
-			
-			function nickCheck(){
-				var nickName = $('#nickName');
-				if(!re24.test(nickName.val())){
-					alert('닉네임은 영문 혹은 한글 2자리 이상이어야 합니다.');		
-				if(!re24.test(nickName.val())){ // 닉네임 값이 아니거나, 닉네임값이 2자보다 짧으면
-					$('#nickName_checked').show();
-			 		$('#nickName_check').hide();
-					alert('닉네임은 2글자 이상 입력해 주세요');
-					nickName.focus();
-				} else{
-					$.ajax({
-						url:'nickCheck.co',
-						data:{nickName: nickName.val()},
-						async:false,
-						success: function(data){ //data로 반환 받아옴
-							if(data == "success"){
-							console.log(data);
-							if(data == "true"){
-								isnickUsable = true;
-								isnickChecked= true;
-								
-								if($('#nickName_check').css("display")=="none"){
-									$('#nickName_check').show();
-									$('#nickName_checked').hide();
-								}
-							}else{
-								nickName.focus();
-								isnickUsable = false;
-								isnickChecked= false;
-								
-							 	if($('#nickName_checked').css("display")=="none"){
-							 		$('#nickName_checked').show();
-							 		$('#nickName_check').hide();
-							 		alert('닉네임이 중복됩니다');
-							 	}
-							}
-						}
-					});
-				}
-			}
+			// 닉네임 유효성 검사 ajax 중복불가 
 			
 			/* 비밀번호 유효성 검사 ajax 중복불가 */		
 			var ispassUsable = false;
