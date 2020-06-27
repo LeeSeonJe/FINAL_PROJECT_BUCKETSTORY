@@ -86,6 +86,12 @@ nav{
 	border-bottom: 1px solid #d2d1d1;
     height: 47px;
 }
+
+#viewImage{
+	width: 300px;
+	height: 300px;
+	float: right;
+}
 </style>
 </head>
 <body>
@@ -123,7 +129,8 @@ nav{
 		</div>
 		<form action="feinsert.ad" method="post" id="adw_form" enctype="multipart/form-data">
 			<div id="adw_formimg">
-				<input type="file" name="feUploadFile">
+				<input type="file" name="feUploadFile" id="filename">
+				<img id="viewImage" src="${ pageContext.request.contextPath }/saveFile/${Media.filename}" onerror='this.src="${pageContext.request.contextPath}/resources/common/images/LogoWhite.png"'/>
 			</div>
 			<div id="adw_formDiv">
 				<div class="adw_formdiv">
@@ -164,9 +171,31 @@ nav{
 		</div>
 <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 <script>
-$(function(){
-	$("#postcodify_search_button").postcodifyPopUp();
-});
+// 주소 
+	$(function(){
+		$("#postcodify_search_button").postcodifyPopUp();
+	});
+
+// 이미지 미리보기
+
+	$(function(){
+		$("#filename").on('change',function(){
+			readURL(this);
+		});
+	});
+	
+	function readURL(input){
+		if(input.files && input.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$('#viewImage').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+
+
 </script>
 </body>
 </html>
