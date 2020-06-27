@@ -24,9 +24,11 @@ section {
 	margin:auto;
 }
 #coIntro {
-    width: 67%;
+    width: 481px;
     margin-left: 259px;
-    height: 112px;
+    margin-top: 20px;
+    height: 120px;
+    overflow: auto;
 }
 	.subtitle{width:80%;margin:auto;}
 	#inputSchedule{
@@ -78,4 +80,39 @@ div#buttonArea {
     font-weight: 500;
     background-color: rgba( 255, 255, 255, 0.8 );
     padding: 0 10px 0 10px;
+    }
+    div#Precautions {
+    border: 1px solid;
+    width: 826px;
+    height: 155px;
+}
+div#estimateContent {
+    border: 1px solid;
+    width: 400px;
+    height: 427px;
+    float:left;
+}
+#review {
+    margin: auto;
+    width: 815px;
+}
+#ynbtn{
+	    text-align: center;
+}
+div#recontent {
+    border: 1px solid;
+    height: 150px;
+    overflow: auto;
+}
+#star_grade a{
+        text-decoration: none;
+        color: gray;
+    }
+    #star_grade a.on{
+        color: red;
+    }
+    #star_grade{    
+    float: left;
+    margin-top: 12px;
+    margin-left: 10px;
     }

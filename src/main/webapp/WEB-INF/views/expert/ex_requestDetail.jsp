@@ -116,6 +116,7 @@
 				<div id="btnarea">
 					<input type="submit" id="esrequest" class="btn" value="견적서 작성">
 					<input type="button" id="cancel"  class="btn" value="거절">
+					<input type="button" id="back" class="btn" onclick="history.go(-1);" value="뒤로">
 				</div>
 			</form>
 		</section>

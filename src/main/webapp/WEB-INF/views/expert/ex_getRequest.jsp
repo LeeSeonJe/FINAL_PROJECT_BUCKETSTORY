@@ -14,7 +14,7 @@
 <c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 <section>
 	<div id="page">
-		<div id="submenu">
+		<div id="submenu" style="position: fixed;">
 			<ul>
 				<li><h3 style="display: inline;">받은요청 &nbsp</h3></li>
 				<li><a href="makingRequestView.ex">작성중 &nbsp</a></li>
