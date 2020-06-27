@@ -1,12 +1,7 @@
 package com.kh.BucketStory.common.model.service;
 
-import java.util.HashMap;
-
-import org.apache.catalina.User;
-
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.vo.Company;
-import com.sun.javafx.collections.MappingChange.Map;
 
 public interface CommonService {
 
@@ -22,7 +17,7 @@ public interface CommonService {
 
 	int idDuplicateCheck2(String id2);
 	
-	int nickNameCheck(String nick);
+	int nickCheck(String nick);
 	
 	static void updateInfo(String name, String string, String password) {
 		

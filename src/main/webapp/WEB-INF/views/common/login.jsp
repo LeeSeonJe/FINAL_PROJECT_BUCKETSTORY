@@ -57,7 +57,6 @@
 							<label id="nickResult"></label>
 							<img id="nickName_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 							<img id="nickName_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
-<!-- 								<span><button id="nickCheck" onclick="checkNick();">중복확인</button></span> -->
 						</td>
 					</tr>
 					<tr>

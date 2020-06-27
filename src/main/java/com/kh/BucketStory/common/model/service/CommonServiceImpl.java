@@ -1,7 +1,5 @@
 package com.kh.BucketStory.common.model.service;
 
-import java.util.HashMap;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.kh.BucketStory.common.model.dao.CommonDAO;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.vo.Company;
-import com.sun.javafx.collections.MappingChange.Map;
 
 @Service("cService")
 public class CommonServiceImpl implements CommonService {
@@ -51,9 +48,10 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public int nickNameCheck(String nick) {
-		return cDAO.nickNameCheck(sqlSession, nick);
+	public int nickCheck(String nick) {
+		return cDAO.nickCheck(sqlSession, nick);
 	}
+	
 	@Override
 	public Member findAccount(String email) {
 		return cDAO.findAccount(sqlSession, email);
