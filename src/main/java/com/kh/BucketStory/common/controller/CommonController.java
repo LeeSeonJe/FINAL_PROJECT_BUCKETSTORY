@@ -263,10 +263,10 @@ public class CommonController {
 	  }
     
  // 닉넴 유효성 체크
-    @RequestMapping("nickChk.co")
-	  public void nickNameCheck(@RequestParam("nickName") String nick, HttpServletResponse response) {
+    @RequestMapping("nickCheck.co")
+	  public void nickCheck(@RequestParam("nickName") String nick, HttpServletResponse response) {
 		  
-		  int result = cService.nickNameCheck(nick);
+		  int result = cService.nickCheck(nick);
 		 
 		  boolean inUsable = result == 0 ? true : false;
 		  

@@ -2,15 +2,12 @@ package com.kh.BucketStory.common.model.dao;
 
 import java.util.HashMap;
 
-import org.apache.catalina.User;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.vo.Company;
-import com.sun.javafx.collections.MappingChange.Map;
 
 @Transactional
 @Repository("cDAO")
@@ -40,8 +37,8 @@ public class CommonDAO {
 		return sqlSession.selectOne("commonMapper.idDuplicateCheck2", id2);
 	}
 
-	public int nickNameCheck(SqlSessionTemplate sqlSession, String nick) {
-		return sqlSession.selectOne("commonMapper.nickChk", nick);
+	public int nickCheck(SqlSessionTemplate sqlSession, String nick) {
+		return sqlSession.selectOne("commonMapper.nickCheck", nick);
 	}
 	
 	public Member findAccount(SqlSessionTemplate sqlSession, String email) {

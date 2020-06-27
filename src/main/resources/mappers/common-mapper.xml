@@ -36,8 +36,8 @@
 	</select>
 	
 	<!-- 닉넴 중복검사 -->
-	<select id="nickChk" resultType="int">
-		select *
+	<select id="nickCheck" resultType="_int">
+		select count(*)
 		from Member
 		where nickName=#{nickName}
 	</select>
