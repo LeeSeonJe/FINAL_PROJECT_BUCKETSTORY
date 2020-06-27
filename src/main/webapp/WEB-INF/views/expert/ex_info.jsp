@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
 <link rel="stylesheet" href="resources/expert/css/ex_info.css">
-<title>Insert title here</title>
+<title>ex_info</title>
 </head>
 <body>
 <c:import url="/WEB-INF/views/layout/header.jsp"/>

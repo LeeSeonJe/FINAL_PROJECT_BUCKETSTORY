@@ -1,5 +1,5 @@
 @charset "UTF-8";
-#page{width:80%; margin: 0 auto;}
+#page{width:60%; margin: 0 auto;}
 	#profileImg {
 	width: 166px;
 	height: 166px;
@@ -12,16 +12,21 @@ section {
 	margin-top: 5px;
 }
 #profileImage {
-	    width: 210px;
-	    height: 197px;
-	    margin-left: 41px;
-	    margin-right: 14px;
-	    float: left;
+	        width: 210px;
+    height: 197px;
+    margin-left: 81px;
+    margin-right: 14px;
+    float: left;
 	}
 	#helperProfile{
 	width: 80%;
 	height: 200px;
 	margin:auto;
+}
+#coIntro {
+    width: 67%;
+    margin-left: 259px;
+    height: 112px;
 }
 	.subtitle{width:80%;margin:auto;}
 	#inputSchedule{
@@ -33,11 +38,12 @@ section {
    	#contents{  width: 450px;
 			    height: 420px;
 			    float: left;}
-   	#estimate{width:80%;margin:auto;height:600px}
+   	#estimate{width:80%;margin:auto;height:510px}
    	#costTable{display: inline-table;
-			    width: 50%;
+			    width: 47%;
 			    margin-left: 20px;
-			    margin-top: 70px;}
+			    margin-top: 70px;
+			    float:left;}
 	button{ border-style: none;
     		width: 165px;
   			height: 50px;
@@ -46,4 +52,8 @@ section {
   	.ppp{
 	width: 100px;
     text-align: right;
+}
+div#buttonArea {
+    text-align: center;
+    margin-bottom: 50px;
 }

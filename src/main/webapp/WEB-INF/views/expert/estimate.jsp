@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<title>Insert title here</title>
+<title>estimate</title>
 <link rel="stylesheet" href="resources/expert/css/estimate.css">
 </head>
 <body>
-<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
 <c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
 <c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 
@@ -33,7 +33,7 @@
 							</c:if>
 								<h1 style="margin-top: 40px;"> ${ member.nickName } </h1>
 								<div id="coIntro">
-									<table>
+									<table style="width: 425px;">
 										<tr>
 											<th class="ppp">성별 :</th>
 											<c:if test="${ member.gender == 'M' }">
@@ -126,11 +126,12 @@
 					<td><div id="addfile" style="float:right; cursor:pointer;">파일추가</div></td>
 				</tr> -->
 			</table>
-			
-			<button onclick="return sendstatus(1);">견적보내기</button>
-			<button type="button" onclick="sendstatus(2);">임시저장</button>
-			<button onclick="location.href=''">취소</button>
-			
+			</div>
+			<div id="buttonArea">
+				<button onclick="return sendstatus(1);">견적보내기</button>
+				<button type="button" onclick="sendstatus(2);">임시저장</button>
+				<button onclick="location.href=''">취소</button>
+			</div>
 			<script>
 			var OptionCount=0;
 			var fileCount=1;
@@ -226,7 +227,7 @@
 					return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
 				}
 			</script>
-		</div>		
+			
 	</form>
 	</div>
 	</section>

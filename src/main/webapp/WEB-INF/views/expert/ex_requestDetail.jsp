@@ -5,20 +5,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ex_requestDetail</title>
 	<link rel="stylesheet" href="resources/expert/css/ex_requestDetail.css">
 </head>
 <body>
-	<c:import url="/WEB-INF/views/layout/header.jsp"/>
+	<c:import url="/WEB-INF/views/expert/hp_common.jsp"/>
 	<c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
 	<c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 	<div id="extra"></div>
 	<div id="body-wrap">
-	<section>
-			<form action="estimate.ex">
+	<section style="position:unset;">
+			<form action="estimate.ex" style="margin-top: 117px;">
 				<h1 style="text-align:center;">견적서 작성</h1>
 				<br><br>
-				<h3 style="text-align:center;">제목: ${ bucket.bkName }</h3>
+				<div id="bucketArea">
+				   <img src="resources/muploadFiles/${ bkImg.mweb }" id="bkImg">
+				
+				
+				
+				<div id="bkContent">
+					<h1 id="bkName" style="text-align:center;">${ bucket.bkName }</h1>
+					<p>${ bucket.bkContent }</p>
+				</div>
+				
+				</div>
+				<br><br>
 				
 				<c:if test="${ sessionScope.loginUser.userId == er.userId }">
 					<div id="memberInfo">

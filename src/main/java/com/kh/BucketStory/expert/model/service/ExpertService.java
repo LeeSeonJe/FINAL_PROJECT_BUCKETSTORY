@@ -85,6 +85,10 @@ public interface ExpertService {
 
 	Media selectproImg(String coId);
 
+	Media selectbkImg(int bkNo);
+
+	ArrayList<Estimate> selectEstimateAddList(PageInfo pi, Map<String, String> status);
+
 
 
 	

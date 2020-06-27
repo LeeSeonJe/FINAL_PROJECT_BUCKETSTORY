@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<title>Insert title here</title>
+<title>estimateView</title>
 <link rel="stylesheet" href="resources/expert/css/estimateView.css">
 </head>
 <body>
@@ -21,26 +21,66 @@
 		<br><br>
 		<h3 style="text-align:center;">버킷리스트:${ bucket.bkName }</h3>
 		
-		<div id="memberInfo">
-			<h2 class="subtitle">요청회원 정보</h2>
-			<br>
-			<table id="helperProfile" style="border:1px solid black;">
-				<tr>
-					<td rowspan="3" style="width: 185px;"><img src="resources/expert/images/photo.jpg" id="profileImage" ></td>
-					<td>닉네임:${ member.nickName } </td>
-					<td>견적발송일:${ es.enrollDate }</td>
-				</tr>
-				<tr>
-					<td>성별:${ member.gender }	</td>
-					<td></td>
-					
-				</tr>
-				<tr>
-					<td>연락처:${ member.phone}</td>
-					<td></td>
-				</tr>
-			</table>
-		</div>
+		<c:if test="${ not empty sessionScope.loginUser }">
+			<div id="memberInfo">
+				<h2 class="subtitle">요청헬퍼 정보</h2>
+				<br>
+				<div id="helperProfile" style="border:1px solid black;">
+					<c:if test="${ comImg.coid == company.coId }">
+						<img src="resources/muploadFiles/${ comImg.mweb }" id="profileImage" >
+					</c:if>
+					<c:if test="">
+						<img src="resources/expert/images/photo.jpg" id="profileImage" >
+					</c:if>
+						<h3 style="margin-top: 40px;"> ${ company.coName } </h3>
+						<div id="coIntro">
+							${company.coIntro }
+						</div>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="${ not empty sessionScope.loginCompany}">
+			<div id="memberInfo">
+				<h2 class="subtitle">요청회원 정보</h2>
+				<br>
+				<div id="helperProfile" style="border:1px solid black;">
+					<c:if test="${ member.prImage != null }">
+						<img src="resources/member/images/profiles/${ member.prImage }" id="profileImage" >
+					</c:if>
+					<c:if test="${ member.prImage == null }">
+						<img src="resources/expert/images/photo.jpg" id="profileImage" >
+					</c:if>
+						<h1 style="margin-top: 40px;"> ${ member.nickName } </h1>
+						<div id="coIntro">
+							<table>
+								<tr>
+									<th class="ppp">성별 :</th>
+									<c:if test="${ member.gender == 'M' }">
+										<td class="ppp">남자</td>
+									</c:if>
+									<c:if test="${ member.gender == 'F' }">
+										<td class="ppp">여자</td>
+									</c:if>
+									<td colspan="2" class="ppp"><a href="myBlog.me?nickName=${ member.nickName }&page=1">블로그바로가기</a></td>
+								</tr>
+								<tr>
+									<th class="ppp">생일 : </th>
+									<td class="ppp">${member.birth }</td>
+									<th class="ppp">경고 : </th>
+									<td class="ppp">${member.caution }</td>
+								</tr>				
+								<tr>
+									<th class="ppp">팔로우 : </th>
+									<td class="ppp">${ member.fwCount }</td>
+									<th class="ppp">연락처</th>
+									<td class="ppp" style="width:130px">${ member.phone }</td>
+								</tr>
+								
+							</table>
+						</div>
+				</div>
+			</div>
+		</c:if>
 		<br><br>
 		<div class="subtitle">
 			<table id="inputSchedule">
