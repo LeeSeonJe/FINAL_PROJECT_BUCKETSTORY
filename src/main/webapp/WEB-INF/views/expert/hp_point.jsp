@@ -447,82 +447,87 @@ function requestPay(price) {
 				    		
 						}
 						
-						function preBoard(){
-							var num = Number($('#currPage').val());		
-							if((num - 1) < 1){
-								$('#currPage').val(1);
-								buildBoard(1)
-							}else{
-								const pageLimit = $('#pageLimit').val();
-								var nth = Number($('#nth').val());
-								if((num -1) <= pageLimit*nth){
-									$('#nth').val(nth-1);
-									paging(nth-1);	
-									$('#currPage').val(num-1);
-									buildBoard(num-1);
-								}else{
-									$('#currPage').val(num-1);
-									buildBoard(num-1);
+					
+							function preBoard() {
+								var num = Number($('#currPage').val());
+								if ((num - 1) < 1) {
+									return;
+								} else {
+									const pageLimit = $('#pageLimit').val();
+									var nth = Number($('#nth').val());
+									if ((num - 1) <= pageLimit * nth) {
+										$('#nth').val(nth - 1);
+										paging(nth - 1);
+									}
+									$('#currPage').val(num - 1);
+									buildBoard(num - 1);
 								}
 							}
-						}
-						function nextBoard(){
-							var num = Number($('#currPage').val());
-							var max = Number($('#maxPage').val());
-							if(num + 1 > max){
-								$('#currPage').val(max);
-								buildBoard(max);
-							}else{
-								const pageLimit = $('#pageLimit').val();
-								var nth = Number($('#nth').val());
-								if(pageLimit*(nth+1) < num + 1){
-									$('#nth').val(nth+1);
-									paging(nth+1);
-									$('#currPage').val(num+1);
-									buildBoard(num+1);
-								}else{
-									$('#currPage').val(num+1);
-									buildBoard(num+1);
-								}	
-							}	
-						}
-						function buildBoard(num){
+						
+							function nextBoard() {
+								var num = Number($('#currPage').val());
+								var max = Number($('#maxPage').val());
+								if (num + 1 > max) {
+									return;
+								} else {
+									const pageLimit = $('#pageLimit').val();
+									var nth = Number($('#nth').val());
+									if (pageLimit * (nth + 1) < num + 1) {
+										$('#nth').val(nth + 1);
+										paging(nth + 1);
+									}
+									$('#currPage').val(num + 1);
+									buildBoard(num + 1);
 
-							const pageLimit = Number($('#pageLimit').val());
-							const nth = Number($('#nth').val());
-							var search = $('#search').val();
-							var select = num - pageLimit*nth;
+								}
+							}
 							
-							console.log(num);	
-							
-							$('#currPage').val(num);
-							$('.paging button').removeClass('active').eq(select).addClass('active');
+							function buildBoard(num) {
 
-							$.ajax({
-						        url :'pointListAjax.ex?page='+num,
-						        data :{
-						        	search : search
-						        },
-						        dataType:'json',
-						        success:function(data){
-						            $text ="";
-						            for(var i in data){
-						                $text += "<tr><td>" + data[i].pa_no + "</td>"
-						                      + "<td>" + data[i].pa_pay + "</td>"
-						                      + "<td>" + data[i].pdate + "</td>"
-						                      + "<td>" + data[i].status + "</td></tr>";
-						            }
-						        
-						            
-						            if($text==""){
-						            	$('#payData').html("<tr><td>내역이 없습니다.</td></tr>")
-						            }else{
-						                $('#payData').html($text);
-						            }
-						        }		
-						    });
+								const pageLimit = Number($('#pageLimit').val());
+								const nth = Number($('#nth').val());
+								var search = $('#search').val();
+								var select = num - pageLimit * nth;
 
-						}
+								console.log(num);
+
+								$('#currPage').val(num);
+								$('.paging button').removeClass('active').eq(
+										select).addClass('active');
+
+								$
+										.ajax({
+											url : 'pointListAjax.ex?page='
+													+ num,
+											data : {
+												search : search
+											},
+											dataType : 'json',
+											success : function(data) {
+												$text = "";
+												for ( var i in data) {
+													$text += "<tr><td>"
+															+ data[i].pa_no
+															+ "</td>" + "<td>"
+															+ data[i].pa_pay
+															+ "</td>" + "<td>"
+															+ data[i].pdate
+															+ "</td>" + "<td>"
+															+ data[i].status
+															+ "</td></tr>";
+												}
+
+												if ($text == "") {
+													$('#payData')
+															.html(
+																	"<tr><td>내역이 없습니다.</td></tr>")
+												} else {
+													$('#payData').html($text);
+												}
+											}
+										});
+
+							}
 						</script>
 				</div>
 			</div>
