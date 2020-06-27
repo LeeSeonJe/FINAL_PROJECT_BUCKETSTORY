@@ -25,7 +25,7 @@ public interface BoardService {
 
 	int adminqnaUpdatedetail(adminQnA a);
 
-	ArrayList<Notify> notifyselectList(PageInfo pi);
+	ArrayList<Notify> boardCommentList(PageInfo pi);
 
 	int getcautionListCount();
 
@@ -58,6 +58,10 @@ public interface BoardService {
 	int deleteMember2(List<String> no);
 
 	adminQnA qnaviewAnswer(adminQnA a);
+
+	int getReplyCautionListCount();
+
+	ArrayList<Notify> replyCautiontList(PageInfo pi);
 
 
 

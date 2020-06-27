@@ -52,12 +52,12 @@ public class BoardDAO {
 		return sqlSession.update("adminMapper.adminqnaUpdatedetail", a);
 	}
 
-	public ArrayList<Notify> notifyselectList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	public ArrayList<Notify> boardCommentList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("adminMapper.boardselectList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("adminMapper.boardCommentList", null, rowBounds);
 		
 //		ArrayList list = (ArrayList)sqlSession.selectList("adminMapper.boardselectList", null, rowBounds);
 		
@@ -197,6 +197,18 @@ public class BoardDAO {
 
 	public adminQnA qnaviewAnswer(SqlSessionTemplate sqlSession, adminQnA a) {
 		return sqlSession.selectOne("qnaviewAnswer", a);
+	}
+
+	public int getReplyCautionListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("adminMapper.getReplyCautionListCount");
+	}
+
+	public ArrayList<Notify> replyCautiontList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("adminMapper.replyCautiontList", null, rowBounds);
 	}
 
 

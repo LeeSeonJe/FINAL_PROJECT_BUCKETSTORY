@@ -65,13 +65,10 @@
 		from notify
 	</select>
 	
-	<select id="boardselectList" resultMap="notifyResultSet">
-	   	select n.no_no, c.cmno, r.rpno, n.no_kind, n.no_check, c.cmcontent, r.rpcontent, n.pigouser, n.sinuser, n.enrolldata, n.status
-        from notify n
-        	join board using(bno)
-        	join boardcomment c using (bno)
-        	join reply r on(c.cmno = r.cmno)
-        where c.cmno is not null or r.rpno is not null
+	<select id="boardCommentList" resultMap="notifyResultSet">
+	   	select n.no_no, n.enrolldata, n.status, n.no_kind, n.no_check, n.sinuser, n.pigouser, c.cmcontent
+			from notify n
+		join boardcomment c on (n.cmno = c.cmno)
 	</select>
 	
 	<select id="boardCautionListCount" resultType="_int">
@@ -83,6 +80,17 @@
 		select *
 		from notify
 		where bno is not null	
+	</select>
+	
+	<select id="getReplyCautionListCount" resultType="_int">
+		select count(*)
+		from notify
+	</select>
+	
+	<select id="replyCautiontList" resultMap="notifyResultSet">
+		select n.no_no, n.enrolldata, n.status, n.no_kind, n.no_check, n.sinuser, n.pigouser, r.rpcontent
+		from notify n 
+		join reply r on (n.rpno = r.rpno)
 	</select>
 	
 	<select id="cautionview" resultMap="notifyResultSet">
