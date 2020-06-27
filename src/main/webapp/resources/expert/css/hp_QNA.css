@@ -135,11 +135,16 @@ section{
 	z-index:5;
 	zoom:0.9;
 }
+
+/*모바일*/
+#moba img{
+	width:550px;
+}
 #moba-content{
 	position: absolute;
-	bottom:340px;
-	right:320px;
-	z-index:5;
+	bottom: 320px;
+    right: 270px;
+    z-index: 5;
 }
 
 /*----------------------------------------

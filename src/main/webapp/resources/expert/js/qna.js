@@ -26,7 +26,7 @@ function newQnA(){
 		$('#background').fadeIn(700);
 		$('#board-area').hide();
 		$('#boardDetail').hide();
-		$('#moba-content').html('<div style="color:pink; font-size:32px; transform:translate(50px,50px);"><b>새 문의글을<br>작성합니다.</b></div>');
+		$('#moba-content').html('<div style="color:pink; font-size:26px; transform:translate(34px,70px);"><b>새 문의글을<br>작성합니다.</b></div>');
 	}
 	
 	$('#cancle').on('click',function(){
@@ -41,7 +41,7 @@ function newQnA(){
 		if(title ==""){
 // 			alert('제목을 입력하세요');
 			
-		$('#moba-content').html('<div style="color:red; font-size:32px; transform:translate(50px,50px);"><b> 제목을<br>입력하세요</b></div>');
+		$('#moba-content').html('<div style="color:red; font-size:26px; transform:translate(34px,70px);"><b> 제목을<br>입력하세요</b></div>');
 		setTimeout(function() {
 			$('#moba-content').html('');			
 		},1200);
@@ -49,7 +49,7 @@ function newQnA(){
 		}else if(content == ""){
 //			alert('내용을 입력하세요');
 			
-			$('#moba-content').html('<div style="color:red; font-size:32px; transform:translate(50px,50px);"><b> 내용을<br>입력하세요</b></div>');
+			$('#moba-content').html('<div style="color:red; font-size:26px; transform:translate(34px,70px);"><b> 내용을<br>입력하세요</b></div>');
 			setTimeout(function() {
 				$('#moba-content').html('');			
 			},1200);
@@ -66,7 +66,7 @@ function newQnA(){
 					if(data == 'ok'){
 						console.log('전송성공');
 						// 성공 로직
-						$('#moba-content').html('<div style="color:red; font-size:32px; transform:translate(50px,50px);"><b>문의글<br>전송합니다</b></div>');
+						$('#moba-content').html('<div style="color:red; font-size:26px; transform:translate(34px,70px);"><b>문의글<br>전송합니다</b></div>');
 					setTimeout(function() {
 						$('#moba-content').html('');			
 					},1200);		
