@@ -507,10 +507,33 @@ public class MainController {
 	@RequestMapping("selectAlert.ho")
 	public void selectAlert(HttpSession session, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
-		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		ArrayList<Alarm> list = new ArrayList<Alarm>();
+		if(session.getAttribute("loginUser") != null) {
+			String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+			list = mainService.selectAlert(userId);
+		}
+		if(session.getAttribute("loginCompany") != null) {
+			String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+			list = mainService.selectCAlert(coId);
+		}
 		
-		ArrayList<Alarm> list = mainService.selectAlert(userId);
 		System.out.println(list);
+//		
+//		String aLink = "aLink";
+//		String acontent = "acontent";
+//		Alarm alert = new Alarm();
+//		alert.setaLink(aLink);
+//		alert.setaContent(acontent);
+//		if(session.getAttribute("loginUser") != null) {
+//			String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+//			alert.setUserId(userId);
+//			int result = mainService.insertAlert(alert);
+//		}
+//		if(session.getAttribute("loginCompany") != null) {
+//			String coId = ((Company)session.getAttribute("loginCompany")).getCoId();
+//			alert.setCoId(coId);
+//			int result = mainService.insertCAlert(alert);
+//		}
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		

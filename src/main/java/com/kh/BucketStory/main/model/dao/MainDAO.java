@@ -217,5 +217,17 @@ public class MainDAO {
 		return (ArrayList)sqlSession.selectList("mainMapper.selectAlert", userId);
 	}
 
+	public ArrayList<Alarm> selectCAlert(SqlSessionTemplate sqlSession, String coId) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectCAlert", coId);
+	}
+
+	public int insertAlert(SqlSessionTemplate sqlSession, Alarm alert) {
+		return sqlSession.insert("mainMapper.insertAlert", alert);
+	}
+
+	public int insertCAlert(SqlSessionTemplate sqlSession, Alarm alert) {
+		return sqlSession.insert("mainMapper.insertCAlert", alert);
+	}
+
 	
 }

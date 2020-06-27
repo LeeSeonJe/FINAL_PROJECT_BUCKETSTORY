@@ -192,4 +192,19 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.selectAlert(sqlSession, userId);
 	}
 
+	@Override
+	public ArrayList<Alarm> selectCAlert(String coId) {
+		return mainDAO.selectCAlert(sqlSession, coId);
+	}
+
+	@Override
+	public int insertAlert(Alarm alert) {
+		return mainDAO.insertAlert(sqlSession, alert);
+	}
+
+	@Override
+	public int insertCAlert(Alarm alert) {
+		return mainDAO.insertCAlert(sqlSession, alert);
+	}
+
 }
