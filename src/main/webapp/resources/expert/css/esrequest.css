@@ -106,17 +106,18 @@ section {
 	left: 730px;
 } */
 #bkContent{
-	       width: 33%;
-    height: 295px;
+    width: 33%;
+    height: 225px;
     position: absolute;
-    top: 535px;
+    top: 325px;
     background: whitesmoke;
     text-align: left;
     font-size: medium;
-    margin-left: 235px;
+    margin-left: 217px;
     overflow: auto;
     font-weight: 500;
     background-color: rgba( 255, 255, 255, 0.8 );
+    padding: 0 10px 0 10px;
     }
     
     

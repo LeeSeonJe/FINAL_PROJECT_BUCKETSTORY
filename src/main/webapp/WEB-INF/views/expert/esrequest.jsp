@@ -68,7 +68,7 @@
 						<c:if test="${ not empty media }">
 							<img src="resources/muploadFiles/${ media.mweb }" id="profileImage" >
 						</c:if>
-							<h3 style="margin-top: 40px;"> ${ company.coId } </h3>
+							<h3 style="margin-top: 40px;"> ${ company.coName } </h3>
 							<div id="coIntro">
 								${company.coIntro }
 							</div>
@@ -105,7 +105,7 @@
 				<br>
 				<div id="btnarea">
 					<input type="submit" id="esrequest" class="btn" onclick=" return check();" value="견적 요청">
-					<input type="button" id="cancel"  class="btn" value="취소">
+					<input type="button" id="cancel"  class="btn" onclick="history.go(-1)" value="취소">
 				</div>
 			</form>
 		</section>

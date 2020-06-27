@@ -24,7 +24,9 @@
 				
 				
 				<div id="bkContent">
+				<br>
 					<h1 id="bkName" style="text-align:center;">${ bucket.bkName }</h1>
+					<br>
 					<p>${ bucket.bkContent }</p>
 				</div>
 				

@@ -19,7 +19,21 @@
 	<div id="page">
 		<h1 style="text-align:center;">견적서 작성</h1>
 		<br><br>
-		<h3 style="text-align:center;">버킷리스트:${ bucket.bkName }</h3>
+		<br><br>
+				<div id="bucketArea">
+				   <img src="resources/muploadFiles/${ bkImg.mweb }" id="bkImg">
+				
+				
+				
+				<div id="bkContent">
+				<br>
+					<h1 id="bkName" style="text-align:center;">${ bucket.bkName }</h1>
+					<br>
+					<p>${ bucket.bkContent }</p>
+				</div>
+				
+				</div>
+				<br><br>
 		
 		<div id="memberInfo">
 						<h2 class="subtitle">요청회원 정보</h2>
