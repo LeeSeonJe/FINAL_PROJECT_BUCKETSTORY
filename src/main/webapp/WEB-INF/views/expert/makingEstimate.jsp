@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="resources/expert/css/estimate.css">
 </head>
 <body>
-<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
 <c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
 <c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 
@@ -19,7 +19,21 @@
 	<div id="page">
 		<h1 style="text-align:center;">견적서 작성</h1>
 		<br><br>
-		<h3 style="text-align:center;">버킷리스트:${ bucket.bkName }</h3>
+		<br><br>
+				<div id="bucketArea">
+				   <img src="resources/muploadFiles/${ bkImg.mweb }" id="bkImg">
+				
+				
+				
+				<div id="bkContent">
+				<br>
+					<h1 id="bkName" style="text-align:center;">${ bucket.bkName }</h1>
+					<br>
+					<p>${ bucket.bkContent }</p>
+				</div>
+				
+				</div>
+				<br><br>
 		
 		<div id="memberInfo">
 			<h2 class="subtitle">요청회원 정보</h2>
@@ -72,9 +86,9 @@
 	<form id="send" action="updateEstimate.ex" enctype="Multipart/form-data">
 		<div id="estimate">
 			<h2>견적내용</h2>
-			<textarea rows="15" cols="40" id="contents" name="es_content"  placeholder="견적서 간략소개 작성">${ es.es_content }</textarea>
+			<textarea rows="10" cols="100" id="contents" name="es_content"  placeholder="견적서 간략소개 작성">${ es.es_content }</textarea>
 			<input type="hidden" name="es_no" value="${ es.es_no }">
-			<table id="costTable">
+			<table id="costTable" style="width:383px;">
 				<tr>
 					<td><h3 style="display:inline;float:left;">견적금액</h3></td>
 					<td colspan="3"><input type="text" name="es_price" id="cost" style="width:90%; height:35px;" value="${ es.es_price }">원</td>
@@ -114,11 +128,12 @@
 				</c:if>
 				
 			</table>
-			
-			<button type="button" onclick="sendstatus(1);">견적보내기</button>
-			<button type="button" onclick="sendstatus(2);">임시저장</button>
-			<button onclick="location.href=''">취소</button>
-			
+			</div>
+			<div id="buttonArea">
+				<button type="button" onclick="sendstatus(1);">견적보내기</button>
+				<button type="button" onclick="sendstatus(2);">임시저장</button>
+				<button type="button" onclick="history.go(-1);">취소</button>
+			</div>
 			<script>
 			var OptionCount=0;
 			var fileCount=1;
@@ -216,7 +231,7 @@
 					});
 				}
 			</script>
-		</div>		
+			
 	</form>
 	</div>
 	</section>

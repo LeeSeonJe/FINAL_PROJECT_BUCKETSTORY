@@ -8,18 +8,32 @@
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <title>estimateView</title>
-<link rel="stylesheet" href="resources/expert/css/estimateView.css">
+<link rel="stylesheet" href="resources/expert/css/estimate.css">
 </head>
 <body>
-<c:import url="/WEB-INF/views/layout/header.jsp"/>
+<jsp:include page="/WEB-INF/views/expert/hp_common.jsp" />
 <c:import url="/WEB-INF/views/layout/mainNav.jsp"/>
 <c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 
-
+<section>
 	<div id="page">
-		<h1 style="text-align:center;">요청 대기중인 견적서</h1>
+		<h1 style="text-align:center;">견적서</h1>
 		<br><br>
-		<h3 style="text-align:center;">버킷리스트:${ bucket.bkName }</h3>
+		<br><br>
+				<div id="bucketArea">
+				   <img src="resources/muploadFiles/${ bkImg.mweb }" id="bkImg">
+				
+				
+				
+				<div id="bkContent">
+				<br>
+					<h1 id="bkName" style="text-align:center;">${ bucket.bkName }</h1>
+					<br>
+					<p>${ bucket.bkContent }</p>
+				</div>
+				
+				</div>
+		<br><br>
 		
 		<c:if test="${ not empty sessionScope.loginUser }">
 			<div id="memberInfo">
@@ -32,7 +46,7 @@
 					<c:if test="">
 						<img src="resources/expert/images/photo.jpg" id="profileImage" >
 					</c:if>
-						<h3 style="margin-top: 40px;"> ${ company.coName } </h3>
+						<h3 style="margin-top: 16px;"> ${ company.coName } </h3>
 						<div id="coIntro">
 							${company.coIntro }
 						</div>
@@ -123,7 +137,7 @@
 				<c:forEach var="op" items="${ option }" varStatus="status" >
 					<tr class="optionAdd">
 						<td>
-							<c:if test="${ sessionScope.loginUser.userId == member.userId }">
+							<c:if test="${ not empty sessionScope.loginUser }">
 								<input type="checkbox" id="optionCheck" name="${op[0] }" onclick="totalprice(this,this.value,this.name);" value="${ op[1] }">
 							</c:if>
 						</td>
@@ -147,31 +161,40 @@
 				</c:if>
 			</table>
 		</form>
-			<c:if test="${ sessionScope.loginUser.userId == member.userId }">
+		</div>
+			<c:if test="${ not empty sessionScope.loginUser }">
 				<c:if test="${es.status ==1 }">
-					<div id="status">
+					<div id="ynbtn">
 								<button onclick="sendstatus(3);" style="margin-left: 77px;margin-top: 33px;cursor:pointer">수락</button>
 								<button type="button" onclick="sendstatus(4);" style="cursor:pointer">거절</button>
 					</div>
 				</c:if>
 				<c:if test="${es.status ==3 && es.reviewScore == 0 && es.reviewContent == null}">
-					<div id="status">
-						<h2>리뷰작성</h2>
-						<h3 style="float:left;">별점</h3>
-						<p id="star_grade">
+					<form action="insertReview.ex">	
+					<input type="hidden" name="es_no" value="${ es.es_no }">
+					<input type="hidden" id="score" name="reviewScore" value="">
+					<table id="review">
+							<tr>
+								<th colspan="3" style="text-align:left;">리뷰작성</th>
+							</tr>
+							<tr>
+								<td style="width: 40px;"><h3 style="float:left;">별점</h3></td>
+								<td>
+									<p id="star_grade">
 								        <a href="#" id="1star" style="font-size: x-large;">★</a>
 								        <a href="#" id="2star" style="font-size: x-large;">★</a>
 								        <a href="#" id="3star" style="font-size: x-large;">★</a>
 								        <a href="#" id="4star" style="font-size: x-large;">★</a>
 								        <a href="#" id="5star" style="font-size: x-large;">★</a>
-						</p>
-					<form action="insertReview.ex">						
-						<button style="float:right;">리뷰작성</button>
-						<input type="hidden" name="es_no" value="${ es.es_no }">
-						<input type="hidden" id="score" name="reviewScore" value="">
-						<textarea rows="10" cols="70" name="reviewContent"></textarea>
-					</form>
-					</div>
+									</p>
+								</td>
+								<td  style="text-align:right;"><button>리뷰작성</button></td>
+							</tr>
+							<tr>
+								<td colspan="3"><textarea rows="10" cols="113" name="reviewContent"></textarea></td>
+							</tr>
+						</table>
+						</form>
 				</c:if>
 				<c:if test="${es.status ==3 && (es.reviewScore != 0 || es.reviewContent != null)}">
 					<div id="status">
@@ -201,21 +224,34 @@
 						</div>
 					</c:if>
 					<c:if test="${ es.status == 3 && es.reviewScore !=0}">
-						<div id="status">
-						<h2>받은 리뷰</h2>
-						<h3 style="float:left;">별점</h3>
-						<p id="star_grade">
-							<c:forEach var="a" begin="1" end="${es.reviewScore }">
-								<p style="float:left;color:red;font-size: x-large;margin-top: 12px;">★</p>
-							</c:forEach>
-							<c:forEach var="a" begin="${es.reviewScore }" end="4">
-								<p style="float:left;font-size: x-large;margin-top: 12px;">☆</p>
-							</c:forEach>
-						</p>
-						<div id="recontent" style="">${es.reviewContent}</div>
-						</div>
+						<table id="review">
+							<tr>
+								<th colspan="3" style="text-align:left;">받은 리뷰</th>
+							</tr>
+							<tr>
+								<td style="width: 40px;"><h3 style="float:left;">별점</h3></td>
+								<td>
+									<p id="star_grade">
+										<c:forEach var="a" begin="1" end="${es.reviewScore }">
+											<p style="float:left;color:red;font-size: x-large;">★</p>
+										</c:forEach>
+										<c:forEach var="a" begin="${es.reviewScore }" end="4">
+											<p style="float:left;font-size: x-large;">☆</p>
+										</c:forEach>
+									</p>
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="3"><div id="recontent" style="">${es.reviewContent}</div></td>
+							</tr>
+						</table>
 					</c:if>
 			</c:if>
+			<br><br>
+			<div id="buttonArea" style="text-align:center;">
+				<button type="button" onclick="history.go(-1);">뒤로</button>
+			</div>
 			<script>
 			function sendstatus(val){
 				if(val ==3){
@@ -315,7 +351,7 @@
 						val = currencyFormatter(val);
 						$('#price').text(val);
 						$('#es_price').val(val)
-					}else{
+					}else if($("input:checkbox[name="+name+"]").is(":checked") == false){
 						price= price.replace(/,/g,'');
 						price=parseInt(price);
 						value=parseInt(value);
@@ -332,7 +368,7 @@
 				}
 				
 			</script>
-		</div>		
 	</div>
+	</section>
 </body>
 </html>

@@ -229,6 +229,8 @@ public class ExpertController {
 		 Member member = ExService.selectMember(es.getUserId());
 		 EsRequest er = ExService.selectEsRequestOne(es.getEsr_no());
 		 ArrayList<Media> media = ExService.selectMediaList(Integer.parseInt(esno));
+		 Media bkImg = ExService.selectbkImg(bucket.getBkNo());
+		 
 		 if(es.getEs_option() != null) {
 			 String[] option = es.getEs_option().split(",");
 			 ArrayList<String[]> arr = new ArrayList<String[]>();
@@ -238,6 +240,7 @@ public class ExpertController {
 			 }
 			 mv.addObject("option",arr);
 		 }
+		 mv.addObject("bkImg",bkImg);
 	     mv.addObject("media",media);
 		 mv.addObject("es",es);
 		 mv.addObject("member",member);
@@ -449,7 +452,7 @@ public class ExpertController {
 		 EsRequest er = ExService.selectEsRequestOne(es.getEsr_no());
 		 ArrayList<Media> media = ExService.selectMediaList(es.getEs_no());
 		 ArrayList<String[]> arr = new ArrayList<String[]>();
-		 
+		 Media bkImg = ExService.selectbkImg(es.getBkNo());
 		 Member member = null;
 		 Company com = null;
 		 Media comImg = null;
@@ -474,6 +477,7 @@ public class ExpertController {
 				 arr.add(op);
 			 }
 		 }
+		 mv.addObject("bkImg",bkImg);
 		 mv.addObject("comImg",comImg);
 		 mv.addObject("company",com);
 		 mv.addObject("member",member);

@@ -14,7 +14,7 @@
 <c:import url="/WEB-INF/views/layout/mainLeftSide.jsp"/>
 <section>
 	<div id="page">
-		<div id="submenu">
+		<div id="submenu" style="position: fixed;">
 			<ul>
 				<li><a href="getRequest.ex">받은요청 &nbsp</a></li>
 				<li><a href="makingRequestView.ex">작성중 &nbsp</a></li>
@@ -40,7 +40,7 @@
 								</c:if>
 							</td>
 							<td>
-								<h3 style="display:inline">${ request.userId }</h3>
+								<h3 style="display:inline">${ m.get(request.userId).nickName }</h3>
 							</td>
 							<td>
 								요청일 : ${ request.enrollDate }

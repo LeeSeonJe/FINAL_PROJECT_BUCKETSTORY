@@ -144,7 +144,7 @@
 			<div id="buttonArea">
 				<button onclick="return sendstatus(1);">견적보내기</button>
 				<button type="button" onclick="sendstatus(2);">임시저장</button>
-				<button onclick="location.href=''">취소</button>
+				<button type="button" onclick="history.go(-1);">취소</button>
 			</div>
 			<script>
 			var OptionCount=0;
