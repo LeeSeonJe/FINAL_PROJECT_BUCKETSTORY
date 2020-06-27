@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.BucketStory.admin.model.vo.Festival;
+import com.kh.BucketStory.bucket.model.vo.Alarm;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -210,6 +211,10 @@ public class MainDAO {
 		hashmap.put("userId", userId);
 		hashmap.put("encPwd", encPwd);
 		return sqlSession.update("mainMapper.updatePwd", hashmap);
+	}
+
+	public ArrayList<Alarm> selectAlert(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("mainMapper.selectAlert", userId);
 	}
 
 	

@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.kh.BucketStory.admin.model.vo.Festival;
+import com.kh.BucketStory.bucket.model.vo.Alarm;
 import com.kh.BucketStory.bucket.model.vo.BucketList;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.bucket.model.vo.ShareBucket;
@@ -501,5 +502,24 @@ public class MainController {
 			System.out.println("비번 업데이트 실패");
 		}
 		return "myInfo";
+	}
+	
+	@RequestMapping("selectAlert.ho")
+	public void selectAlert(HttpSession session, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
+		String userId = ((Member)session.getAttribute("loginUser")).getUserId();
+		
+		ArrayList<Alarm> list = mainService.selectAlert(userId);
+		System.out.println(list);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		
+		try {
+			gson.toJson(list, response.getWriter());
+		} catch (JsonIOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
