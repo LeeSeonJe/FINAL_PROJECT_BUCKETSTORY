@@ -545,4 +545,9 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("alertCheck.ho")
+	public void alertCheck() {
+		
+	}
 }

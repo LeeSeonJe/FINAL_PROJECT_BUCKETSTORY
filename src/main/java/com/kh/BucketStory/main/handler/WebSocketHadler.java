@@ -40,16 +40,12 @@ public class WebSocketHadler extends TextWebSocketHandler{
 	//소켓에 메세지를 보냈을때
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		String[] ss = message.getPayload().split("+");
-		WebSocketSession user1session = userSessionsMap.get(ss[0]);
-		WebSocketSession user2session = userSessionsMap.get(ss[1]);
+		String ss = message.getPayload();
+		WebSocketSession user1session = userSessionsMap.get(ss);
 		// user1이 보내고 user2가 받고
 		
 		if(user1session != null) {
 			user1session.sendMessage(new TextMessage("reload"));
-		}
-		if(user2session != null) {
-			user2session.sendMessage(new TextMessage("reload"));
 		}
 		
 	}
