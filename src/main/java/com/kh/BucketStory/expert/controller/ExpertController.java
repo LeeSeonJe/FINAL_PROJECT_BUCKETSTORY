@@ -126,7 +126,9 @@ public class ExpertController {
 		EsRequest er = ExService.RequestDetail(esr_no);
 		BucketList bucket = ExService.selectBucket(Integer.parseInt(er.getBkNo()));
 		Member member = ExService.selectMember(er.getUserId());
+		Media bkImg = ExService.selectbkImg(Integer.parseInt(er.getBkNo()));
 		
+		mv.addObject("bkImg",bkImg);
 		mv.addObject("member",member);
 		mv.addObject("company", loginCom);
 		mv.addObject("bucket",bucket);
