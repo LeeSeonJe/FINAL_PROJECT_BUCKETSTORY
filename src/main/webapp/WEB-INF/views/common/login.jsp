@@ -138,22 +138,22 @@
 								</select>  <!-- 본인 이메일로 이동하여 인증확인!-->
 						</td>
 					</tr>
-					<!-- <tr>
+					<tr>
 						<th align=right>인증 번호 확인</th>
 						<td>
-						<input type="number" id="email_injeung" name="email_injeung" class="user" placeholder="인증번호를 입력하세요.">
+						<input type="text" id="email_injeung" name="email_injeung" class="user" placeholder="인증번호를 입력하세요.">
 							<span>
 								<button type="button" class="btn btn-info2" id="emailBtn" style='cursor:pointer;' onclick="sendMail()">이메일 발송</button>
-								<button type="button" class="btn btn-info" id="emailAuthBtn" style='cursor:pointer;'>이메일 인증</button>
+								<button type="button" class="btn btn-info" id="emailAuthBtn" style='cursor:pointer; display: none;'>이메일 인증</button>
 								<img id="emailChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 								<img id="emailChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 							</span>
-							본인 이메일로 이동하여 인증확인!
+							<br>본인 이메일로 이동하여 인증확인!
 						</td>
-					</tr> -->
+					</tr>
 					<tr>
-						<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
-						<td align=right><button id="finish" onclick="validate11(); location.href='main.ho'" style='cursor:pointer'>가입하기</button></td>
+						<td align=right><button  class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
+						<td align=right><button id="finish" onclick="validate11(); location.href='main.ho'" style='cursor:pointer; display: none;'>가입하기</button></td>
 					</tr>
 				</table>
 				</form>
@@ -295,7 +295,7 @@
 						</td>
 					</tr> -->
 					<tr>
-						<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
+						<td align=right><button  class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
 						<td align=right><button id="finish2" onclick="validate12(); location.href='expertIntro.ex'" style='cursor:pointer'>가입하기</button></td>
 					</tr>
 				</table>
@@ -340,7 +340,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
+					<td align=right><button  class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
 					<td align=right><button id="good" style='cursor:pointer' type="button">확인</button></td>
 				</tr>
 		    </table>
@@ -365,7 +365,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
+					<td align=right><button  class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
 					<td align=right><button id="good2" style='cursor:pointer' type="button">확인</button></td>
 				</tr>
 		    </table>
@@ -388,14 +388,16 @@
 			</div>
 				
 		      <!-- 회원 비번 찾기 -->
-		      <form id="MempwdFind" action="mempwdFind.co" method="post" style="margin-top:50px;">
+<!-- 		      <form id="MempwdFind" action="mempwdFind.co" method="post" style="margin-top:50px;"> -->
 		      <h3 align=center><p id="tp" style="color: white; font-size: 18px; font-weight: bold;">회원</p> 비밀번호 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
 					<th align=right>ID</th>
-					<td><input type="text" id=pwd_find  name="pwd_find" class="pwd_find"></td>
-					<img id="pwdChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
-					<img id="pwdChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
+					<td>
+						<input type="text" id=pwd_find  name="pwd_find" class="pwd_find">
+						<img id="pwdChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+						<img id="pwdChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
+					</td>
 				</tr>
 				<tr>
 					<th align=right>E-mail</th>
@@ -413,13 +415,38 @@
 					</td>
 				</tr>
 				<tr>
-					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
+					<th align=right>인증 번호 확인</th>
+					<td>
+						<input type="text" id="email_injeung2" class="user" placeholder="인증번호를 입력하세요.">
+							<span>
+								<button type="button" class="btn btn-info2" id="emailBtn2" style='cursor:pointer;'>이메일 발송</button>
+								<button type="button" class="btn btn-info" id="emailAuthBtn2" style='cursor:pointer; display: none;'>이메일 인증</button><br>
+								<img id="emailChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
+								<img id="emailChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
+							</span>
+							본인 이메일로 이동하여 인증확인!
+					</td>
+				</tr>
+				<tr>
+					<th align=right>새 비밀번호</th>
+					<td>
+						<input type="text" id="newPwd" name="newPwd" disabled="disabled">
+					</td>
+				</tr>
+				<tr>
+					<th align=right>새 비밀번호 확인</th>
+					<td>
+						<input type="text" id="newPwd2" disabled="disabled">
+					</td>
+				</tr>
+				<tr>
+					<td align=right><button  class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
 					<td align=right><button id="yeah" onclick="" style='cursor:pointer' onclick="location.href='mempwdFind.co'">확인</button></td>
 				</tr>
 		      </table>
-		      </form>
+<!-- 		      </form> -->
 		       <!-- 기업 비번 찾기 -->
-		      <form id="CompwdFind" action="compwdFind.co" method="post" style="margin-top:50px;">
+<!-- 		      <form id="CompwdFind" action="compwdFind.co" method="post" style="margin-top:50px;"> -->
 		      <h3 align=center>기업 비밀번호 찾기</h3>
 		      <table cellpadding="0" cellspacing="20">
 		      	<tr>
@@ -433,35 +460,47 @@
 					<td>
 						<input type="text" id="copwdfind_1" name="copwdfind_1" class="coPWD_find" style="width: 100px;">@ 
 						<input type="text" id="copwdfind_2" name="copwdfind_2" style="width: 100px;" disabled> 
-							<select id="coPwdEmail" name="coPwdEmail" style="width: 108px; height:25px; margin-right: 10px; cursor:pointer;">
-									<option Selected>&nbsp&nbsp&nbsp선택하세요▼</option>
-									<option value="1">직접입력</option>
-									<option value="naver.com">naver.com</option>
-									<option value="hanmail.net">hanmail.net</option>
-									<option value="nate.com">nate.com</option>
-									<option value="gmail.com">gmail.com</option>
-							</select>  <!-- 본인 이메일로 이동하여 인증확인!-->
+						<select id="coPwdEmail" name="coPwdEmail" style="width: 108px; height:25px; margin-right: 10px; cursor:pointer;">
+							<option Selected>&nbsp&nbsp&nbsp선택하세요▼</option>
+							<option value="1">직접입력</option>
+							<option value="naver.com">naver.com</option>
+							<option value="hanmail.net">hanmail.net</option>
+							<option value="nate.com">nate.com</option>
+							<option value="gmail.com">gmail.com</option>
+						</select>  <!-- 본인 이메일로 이동하여 인증확인!-->
 					</td>
 				</tr>
-				<!-- <tr>
+				<tr>
 					<th align=right>인증 번호 확인</th>
 					<td>
-						<input type="text" id="email_injeung" name="email_injeung" class="user" placeholder="인증번호를 입력하세요.">
+						<input type="text" id="email_injeung3" class="user" placeholder="인증번호를 입력하세요.">
 							<span>
-								<button type="button" class="btn btn-info2" id="emailBtn" style='cursor:pointer;'>이메일 발송</button>
-								<button type="button" class="btn btn-info" id="emailAuthBtn" style='cursor:pointer;'>이메일 인증</button>
+								<button type="button" class="btn btn-info2" id="emailBtn3" style='cursor:pointer;'>이메일 발송</button>
+								<button type="button" class="btn btn-info" id="emailAuthBtn3" style='cursor:pointer; display: none;'>이메일 인증</button>
 								<img id="emailChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 								<img id="emailChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 							</span>
 							본인 이메일로 이동하여 인증확인!
 					</td>
-				</tr> -->
+				</tr>
 				<tr>
-					<td align=right><button id="cancel" class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
+					<th align=right>새 비밀번호</th>
+					<td>
+						<input type="text" id="CnewPwd" name="newPwd" disabled="disabled">
+					</td>
+				</tr>
+				<tr>
+					<th align=right>새 비밀번호 확인</th>
+					<td>
+						<input type="text" id="CnewPwd2" disabled="disabled">
+					</td>
+				</tr>
+				<tr>
+					<td align=right><button  class="cancel" data-dismiss="modal" type="button" style='cursor:pointer'>취소하기</button></td>
 					<td align=right><button id="yeah2" style="'cursor:pointer' 'margin-right:50px;'">확인</button></td>
 				</tr>
 		      </table>
-		      </form>
+<!-- 		      </form> -->
 		</div>
 		
 		<!-------------------- 오른쪽 로그인폼 -------------------->
@@ -527,7 +566,241 @@
 	<script type="text/javascript" src="resources/common/js/login.js"></script>
 </body>
 	<script>
-		//기업 아이디 찾기 (이 스크립트만 따로 jsp에 입력함)
+		var dice = 0;
+		$('#emailBtn').click(function(){
+			var email_1 = $('#email_1'); 
+			var email_2 = $('#email_2');
+			if(email_1.val().trim().length == 0) {
+				alert("정확한 이메일을 입력해주세요.")
+			} else if(email_2.val().trim().length == 0) {
+				alert("정확한 이메일을 입력해주세요.")
+			} else {
+				var email = email_1.val() + "@" + email_2.val();
+				$.ajax({
+					url: "emailCheck.co",
+					method: "POST",
+					data: {
+						email:email
+					},
+					success: function(data) {
+						if(data.trim() == 'fail'){
+							alert("중복된 이메일이 존재합니다.")
+						} else {
+							alert("이메일이 발송되었습니다.")
+							$.ajax({
+								metoed : "POST",
+								url : "emailCode.co",
+								data: {
+									email:email
+								},
+								success: function(data){
+									console.log(data)
+									$('#emailAuthBtn').css("display", "inline-block");
+									dice = data;
+								}
+							})
+						}
+					}
+				})
+			}
+		})
+	
+		$('#emailAuthBtn').click(function(){
+			console.log(dice)
+			var code = $('#email_injeung').val();
+			if(dice == code){
+				alert("인증번호가 일치합니다.")
+				$('#finish').css('display', 'block');
+			} else {
+				alert("인증번호가 일치하지 않습니다.")
+			}
+		});
+		
+		
+		// 회원 비밀번호 찾기 
+		var dice2 = 0;
+		
+		$('#emailBtn2').click(function(){
+			var userId = $('#pwd_find'); // 다르게하기
+			var email_1 = $('#pwdfind_1'); // 다르게하기
+			var email_2 = $('#pwdfind_2'); // 다르게하기
+			
+			if(userId.val().trim().length == 0) {
+				alert("아이디를 입력해주세요.")
+			} else if(email_1.val().trim().length == 0) {
+				alert("정확한 이메일을 입력해주세요.")
+			} else if(email_2.val().trim().length == 0) {
+				alert("정확한 이메일을 입력해주세요.")
+			} else {
+				var email = email_1.val() + "@" + email_2.val();
+				$.ajax({
+					url: "idEmailCheck.co", // 다르게하기
+					method: "POST",
+					data: {
+						userId:userId.val(),
+						email:email
+					}, 
+					success: function(data) {
+						if(data.trim() == 'fail'){
+							alert("내용이 일치하지 않습니다.")
+						} else {
+							alert("이메일이 발송되었습니다.")
+							$.ajax({
+								metoed : "POST",
+								url : "emailCode.co",
+								data: {
+									email:email
+								},
+								success: function(data){
+									console.log(data)
+									$('#emailAuthBtn2').css("display", "inline-block");
+									dice2 = data;
+								}
+							})
+						}
+					}
+				})
+			}
+		})
+		
+		$('#emailAuthBtn2').click(function(){
+			console.log(dice2)
+			var code = $('#email_injeung2').val();
+			if(dice2 == code){
+				alert("인증번호가 일치합니다.")
+				$('#newPwd').attr("disabled", false);
+				$('#newPwd2').attr("disabled", false);
+			} else {
+				alert("인증번호가 일치하지 않습니다.")
+			}
+		});
+		
+		////////////////////////////////////////////////
+		
+		
+		//////////////////////////////////////////////////
+		
+		
+		
+		$('#yeah').click(function(){
+			var newPwd = $('#newPwd').val();
+			var newPwd2 = $('#newPwd2').val();			
+			if(newPwd.trim() == newPwd2.trim()) {
+				var userId = $('#pwd_find').val();
+				$.ajax({
+					url: "mempwdChange.co",
+					method: "POST",
+					data: {
+						userId:userId,
+						newPwd:newPwd
+					},
+					success: function(data) {
+						console.log(data)
+						if(data.trim() == "success"){
+							alert("비밀번호 변경이 완료되었습니다.");
+							location.reload();
+						} 
+					}
+				})
+			} else {
+				alert("비밀번호가 일치하지 않습니다.")
+			}
+		})
+		
+		// 기업 비밀번호 찾기 
+		var dice3 = 0;
+		
+		$('#emailBtn3').click(function(){
+			var userId = $('#copwd_find'); // 다르게하기
+			var email_1 = $('#copwdfind_1'); // 다르게하기
+			var email_2 = $('#copwdfind_2'); // 다르게하기
+			
+			if(userId.val().trim().length == 0) {
+				alert("아이디를 입력해주세요.")
+			} else if(email_1.val().trim().length == 0) {
+				alert("정확한 이메일을 입력해주세요.")
+			} else if(email_2.val().trim().length == 0) {
+				alert("정확한 이메일을 입력해주세요.")
+			} else {
+				var email = email_1.val() + "@" + email_2.val();
+				$.ajax({
+					url: "CidEmailCheck.co", // 다르게하기
+					method: "POST",
+					data: {
+						userId:userId.val(),
+						email:email
+					}, 
+					success: function(data) {
+						if(data.trim() == 'fail'){
+							alert("내용이 일치하지 않습니다.")
+						} else {
+							alert("이메일이 발송되었습니다.")
+							$.ajax({
+								metoed : "POST",
+								url : "emailCode.co",
+								data: {
+									email:email
+								},
+								success: function(data){
+									console.log(data)
+									$('#emailAuthBtn3').css("display", "inline-block");
+									dice3 = data;
+								}
+							})
+						}
+					}
+				})
+			}
+		})
+		
+		$('#emailAuthBtn3').click(function(){
+			console.log(dice3)
+			var code = $('#email_injeung3').val();
+			if(dice3 == code){
+				alert("인증번호가 일치합니다.")
+				$('#CnewPwd').attr("disabled", false);
+				$('#CnewPwd2').attr("disabled", false);
+			} else {
+				alert("인증번호가 일치하지 않습니다.")
+			}
+		});
+		
+		////////////////////////////////////////////////
+		
+		
+		//////////////////////////////////////////////////
+		
+		
+		
+		$('#yeah2').click(function(){
+			var newPwd = $('#CnewPwd').val();
+			var newPwd2 = $('#CnewPwd2').val();			
+			if(newPwd.trim() == newPwd2.trim()) {
+				var userId = $('#copwd_find').val();
+				$.ajax({
+					url: "conpwdChange.co",
+					method: "POST",
+					data: {
+						userId:userId,
+						newPwd:newPwd
+					},
+					success: function(data) {
+						console.log(data)
+						if(data.trim() == "success"){
+							alert("비밀번호 변경이 완료되었습니다.");
+							location.reload();
+						} 
+					}
+				})
+			} else {
+				alert("비밀번호가 일치하지 않습니다.")
+			}
+		})
+		
+		
+		
+		
+		
 		$(function(){
 			find = false;
 		});

@@ -68,19 +68,33 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	@Override
-	public int getPw(String id, String email) {
-		return cDAO.getPw(sqlSession, id, email);
-	}
-
-	@Override
 	public int SearchPw(String id, String email, String joinCode) {
 		return cDAO.SearchPw(sqlSession, id, email, joinCode);
 	}
 
 	@Override
-	public void update_pw(String joinCode) {
-		
+	public int emailCheck(String email) {
+		return cDAO.emailCheck(sqlSession, email);
 	}
 
-	
+	@Override
+	public int idEmailCheck(String userId, String email) {
+		return cDAO.idEmailCheck(sqlSession, userId, email);
+	}
+
+	@Override
+	public int mempwdChange(String userId, String newPwd) {
+		return cDAO.mempwdChange(sqlSession, userId,  newPwd);
+	}
+
+	@Override
+	public int CidEmailCheck(String userId, String email) {
+		return cDAO.CidEmailCheck(sqlSession, userId, email);
+	}
+
+	@Override
+	public int conpwdChange(String userId, String encPwd) {
+		return cDAO.conpwdChange(sqlSession, userId,  encPwd);
+	}
+
 }

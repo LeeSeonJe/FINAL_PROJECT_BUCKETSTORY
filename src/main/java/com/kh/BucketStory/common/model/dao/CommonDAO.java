@@ -71,5 +71,37 @@ public class CommonDAO {
 	public String compareEmail2(SqlSessionTemplate sqlSession, String busiemail) {
 		return sqlSession.selectOne("commonMapper.compareEmail2", busiemail);
 	}
+
+	public int emailCheck(SqlSessionTemplate sqlSession, String email) {
+		return sqlSession.selectOne("commonMapper.emailCheck", email);
+	}
+
+	public int idEmailCheck(SqlSessionTemplate sqlSession, String userId, String email) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("email", email);
+		return sqlSession.selectOne("commonMapper.idEmailCheck", map);
+	}
+
+	public int mempwdChange(SqlSessionTemplate sqlSession, String userId, String newPwd) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("newPwd", newPwd);
+		return sqlSession.update("commonMapper.mempwdChange", map);
+	}
+
+	public int CidEmailCheck(SqlSessionTemplate sqlSession, String userId, String email) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("email", email);
+		return sqlSession.selectOne("commonMapper.CidEmailCheck", map);
+	}
+
+	public int conpwdChange(SqlSessionTemplate sqlSession, String userId, String encPwd) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("newPwd", encPwd);
+		return sqlSession.update("commonMapper.conpwdChange", map);
+	}
 	
 }

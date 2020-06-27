@@ -6,27 +6,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.social.MissingAuthorizationException;
-import org.springframework.social.connect.Connection;
-import org.springframework.social.facebook.api.Facebook;
-import org.springframework.social.facebook.api.UserOperations;
-import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
-import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,24 +31,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.BucketStory.common.model.service.CommonService;
-import com.kh.BucketStory.common.model.vo.Email;
-import com.kh.BucketStory.common.model.vo.EmailSender;
 import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.vo.Company;
-import com.sun.javafx.collections.MappingChange.Map;
 
 @SessionAttributes({"loginUser", "loginCompany"})
 @Controller
 public class CommonController {
-
 	@Autowired
-	private EmailSender emailSender;
-	
-	@Autowired
-	private Email EEmail;
+	JavaMailSender mailSender;
 	
 	@Autowired // 의존성 주입
 	private CommonService cService;
@@ -315,43 +302,6 @@ public class CommonController {
 		}
 		return returnValue;
 	}	
-
-    // 회원 비밀번호 찾기 : 임시 비밀번호 이메일로 보냄과 동시에 비번변경
-    @RequestMapping("getPw.co")
-    public ModelAndView sendEmailAction (@RequestParam("email_1") String email_1, @RequestParam("email_2") String email_2, @RequestParam("memPwdEmail") String email, ModelMap model) throws Exception {
-        ModelAndView mav;
-        
-        String Email = email_1 + "@" + email_2;
-    	
-        System.out.println(Email+" "+email);
-        int pw=cService.getPw(Email, email);
-        System.out.println(pw);
-        
-        int ran = new Random().nextInt(100000) + 10000; // 10000 ~ 99999
-        String joinCode = String.valueOf(ran); // 임시비번
-        
-        String encPwd = bcryptPasswordEncoder.encode(joinCode);
-        
-        if(pw>0) {
-            EEmail.setContent("회원님의 비밀번호는 "+joinCode+" 입니다.");
-            EEmail.setReceiver(email);
-            EEmail.setSubject(Email+"님 비밀번호 찾기 메일입니다.");
-            emailSender.SendEmail(EEmail);
-            
-            cService.update_pw(encPwd);
-            System.out.println(encPwd);
-            model.addAttribute("msg", "회원님의 메일로 임시 비밀번호를 발송 하였습니다.");
-            mav= new ModelAndView("redirect:/login.co");
-            return mav;
-        }else {
-        	System.out.println("실패");
-        	model.addAttribute("msg", "아이디 또는 이메일을 정확히 입력해 주세요.");
-            mav=new ModelAndView("redirect:/logout.co");
-            return mav;
-        }
-    }
-    
- // 기업 비밀번호 찾기 : 임시 비밀번호 이메일로 보냄과 동시에 비번변경
     
  // join  뷰로 매핑
     @RequestMapping(value = "/join", method = { RequestMethod.GET, RequestMethod.POST })
@@ -367,7 +317,118 @@ public class CommonController {
     }
     
    
+    @RequestMapping("emailCheck.co")
+    @ResponseBody
+    public String emailCheck(@RequestParam String email) {
+    	
+    	int result = cService.emailCheck(email);
+    	if(result > 0) {
+    		return "fail";
+    	} else {
+    		return "success";    		
+    	}
+    }
     
+    @RequestMapping("CidEmailCheck.co")
+    @ResponseBody
+    public String CidEmailCheck(@RequestParam String email, @RequestParam String userId) {
+    	int result = cService.CidEmailCheck(userId, email);
+    	if(result > 0) {
+    		return "success";
+    	} else {
+    		return "fail";    		
+    	}
+    }
+    
+    @RequestMapping("idEmailCheck.co")
+    @ResponseBody
+    public String idEmailCheck(@RequestParam String email, @RequestParam String userId) {
+    	int result = cService.idEmailCheck(userId, email);
+    	if(result > 0) {
+    		return "success";
+    	} else {
+    		return "fail";    		
+    	}
+    }
+    
+    @RequestMapping("mempwdChange.co")
+    @ResponseBody
+    public String mempwdChange(@RequestParam String userId, @RequestParam String newPwd) {
+    	String encPwd = bcryptPasswordEncoder.encode(newPwd);
+    	int result = cService.mempwdChange(userId, encPwd);
+    	if(result > 0) {
+    		return "success";
+    	} else {
+    		return "fail";    		
+    	}
+    }
+    
+    @RequestMapping("conpwdChange.co")
+    @ResponseBody
+    public String conpwdChange(@RequestParam String userId, @RequestParam String newPwd) {
+    	String encPwd = bcryptPasswordEncoder.encode(newPwd);
+    	int result = cService.conpwdChange(userId, encPwd);
+    	if(result > 0) {
+    		return "success";
+    	} else {
+    		return "fail";    		
+    	}
+    }
+    
+    
+    
+    @RequestMapping("emailCode.co")
+    @ResponseBody
+    public String emailCode (ModelAndView mv, @RequestParam String email, HttpSession session) throws IOException {
+		System.out.println(email);
+		
+        Random r = new Random();
+        int dice = r.nextInt(4589362) + 49311; //이메일로 받는 인증코드 부분 (난수)
+        
+        String setfrom = "tjswp012@gamil.com";
+        String tomail = email; // 받는 사람 이메일
+        String title = "회원가입 인증 이메일 입니다."; // 제목
+        String content =
+        
+        System.getProperty("line.separator")+
+        
+        System.getProperty("line.separator")+
+        
+        "안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
+        
+        +System.getProperty("line.separator")+
+        
+        System.getProperty("line.separator")+
+        
+        " 인증번호는 " +dice+ " 입니다. "
+        
+        +System.getProperty("line.separator")+
+        
+        System.getProperty("line.separator")+
+        
+        "받으신 인증번호를 홈페이지에 입력해 주시면 다음으로 넘어갑니다."; // 내용
+        
+        try {
+        	MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+            messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+            messageHelper.setTo(tomail); // 받는사람 이메일
+            messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+            messageHelper.setText(content); // 메일 내용
+            
+            mailSender.send(message);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        session.removeAttribute("dice");
+        session.setAttribute("dice", dice);
+        
+        String dice2 = String.valueOf(dice);
+        return dice2;
+	}    
+    
+
 }  
     
 	

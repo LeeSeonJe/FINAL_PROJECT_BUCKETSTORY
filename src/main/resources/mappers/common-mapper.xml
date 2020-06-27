@@ -108,4 +108,34 @@
 		where busiEmail=#{busiEmail}
 	</select>
 	
+	<select id="emailCheck" resultType="_int">
+		select count(*)
+		from member
+		where email = #{ email } and status = 'Y'
+	</select>
+	
+	<select id="idEmailCheck" resultType="_int">
+		select count(*)
+		from member
+		where email = #{ email } and userid = #{ userId } and status = 'Y'
+	</select>
+	
+	<update id="mempwdChange">
+		update member
+		set USERPWD = #{ newPwd }
+		where USERID = #{ userId } 
+	</update>
+	
+	
+	<select id="CidEmailCheck" resultType="_int">
+		select count(*)
+		from COMPANY
+		where BUSIEMAIL = #{ email } and COID = #{ userId } and status = 'Y'
+	</select>
+	
+	<update id="conpwdChange">
+		update company
+		set COPWD = #{ newPwd }
+		where COID = #{ userId } 
+	</update>
 </mapper>

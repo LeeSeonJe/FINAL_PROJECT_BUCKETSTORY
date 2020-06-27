@@ -275,11 +275,12 @@
 					<br>
 					<div id="bucketContent">
 						<textarea readonly="readonly">
-							<%= mbl.get(index).getBucket().getBkContent() %>
+							<%= mbl.get(index).getBucket().getBkContent().replaceAll("<br>", "\n") %>							
 						</textarea>
 						<script>
 							var bucketContent = $('#bucketContent').children()
 							var content = $('#bucketContent').children().val()
+							console.log(content)
 							bucketContent.text(content.trim());
 						</script>
 					</div>
