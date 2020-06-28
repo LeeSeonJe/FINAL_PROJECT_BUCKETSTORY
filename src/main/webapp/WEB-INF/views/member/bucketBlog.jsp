@@ -663,7 +663,6 @@
 					</c:if>
 				</div>
 			</div>
-			
 		</section>
 	</div>
 <script>
