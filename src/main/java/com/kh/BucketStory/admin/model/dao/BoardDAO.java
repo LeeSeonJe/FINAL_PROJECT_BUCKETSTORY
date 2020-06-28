@@ -211,6 +211,14 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.replyCautiontList", null, rowBounds);
 	}
 
+	public String selectWarningId(SqlSessionTemplate sqlSession, List<String> no) {
+		return sqlSession.selectOne("adminMapper.selectWarningId", no);
+	}
+
+	public adminQnA selectQna(SqlSessionTemplate sqlSession, int q_no) {
+		return sqlSession.selectOne("adminMapper.selectQna", q_no);
+	}
+
 
 
 

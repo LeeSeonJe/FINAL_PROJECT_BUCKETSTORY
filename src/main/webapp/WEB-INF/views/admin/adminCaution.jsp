@@ -283,7 +283,6 @@ $(function(){
 		data: {Notify : chk_Arr},
 		success: function(data){
 			
-		console.log("data 값 보자 " + data);
 			
 		 location.reload();
 		

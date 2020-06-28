@@ -99,7 +99,7 @@ nav{
 				</ul>
 			</div>
 		</nav>
-		<form action="addAnswer.ad" method="post">
+		<form action="addAnswer.ad" method="post" onsubmit="addAns(${adminQnA.q_no});">
 		<input type="hidden" name="page" value="${ page }">
 		<input type="hidden" name="q_no" value="${ adminQnA.q_no }">
 		
@@ -129,4 +129,22 @@ nav{
 		</form>
 	</div>
 </body>
+<script>
+	function addAns(qNo){
+		$.ajax({
+			url:'addAnsInsertAlarm.ad',
+			data:{
+				qNo:qNo
+			},
+			async:false,
+			success:function(data){
+				if('${adminQnA.userid}' != ""){
+					send_message('${adminQnA.userid}');
+				} else if('${adminQnA.coid}' != ""){
+					send_message('${adminQnA.coid}');
+				}
+			}
+		});
+	}
+</script>
 </html>
