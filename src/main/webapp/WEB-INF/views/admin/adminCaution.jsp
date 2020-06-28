@@ -281,11 +281,14 @@ function chk_warning(){
 	$.ajax({
 		url: 'warning.ad',
 		data: {Notify : chk_Arr},
+		async:false,
 		success: function(data){
-			for(var i in data){
-				send_message(data[i].userId);
+			for(var key in data){
+				var asdf = data[key].userId;
+				console.log(asdf);
+				send_message(data[key].userId);
 			}
-		 //location.reload();
+		 location.reload();
 		
 		}			
 			

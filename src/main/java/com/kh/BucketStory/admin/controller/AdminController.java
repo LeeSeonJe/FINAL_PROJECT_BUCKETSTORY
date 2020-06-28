@@ -345,6 +345,7 @@ public class AdminController {
 	/* 신고된 회원 경고  */
 	@RequestMapping("warning.ad")
 	public void waringmember(@RequestParam(value="Notify[]") List<String> no, HttpServletResponse response) {
+		response.setContentType("application/json; charset=UTF-8");
 		
 		ArrayList<Warning> w = bService.selectWarning(no);
 		ArrayList<Member> list = new ArrayList<Member>();
