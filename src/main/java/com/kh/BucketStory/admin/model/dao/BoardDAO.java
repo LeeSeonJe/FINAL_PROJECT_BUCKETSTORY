@@ -11,6 +11,7 @@ import com.kh.BucketStory.admin.model.exception.BoardException;
 import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
+import com.kh.BucketStory.admin.model.vo.Warning;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.expert.model.vo.Company;
@@ -118,8 +119,7 @@ public class BoardDAO {
 //		System.out.println("DAO 결과 값 " + result );
 		
 		if(result > 0) {
-			return sqlSession.update("adminMapper.cautionMember", no);
-
+			return sqlSession.update("adminMapper.warningMember", no);
 		} else {
 			throw new BoardException("업데이트 실패");
 		}
@@ -211,12 +211,29 @@ public class BoardDAO {
 		return (ArrayList)sqlSession.selectList("adminMapper.replyCautiontList", null, rowBounds);
 	}
 
-	public String selectWarningId(SqlSessionTemplate sqlSession, List<String> no) {
-		return sqlSession.selectOne("adminMapper.selectWarningId", no);
-	}
 
 	public adminQnA selectQna(SqlSessionTemplate sqlSession, int q_no) {
 		return sqlSession.selectOne("adminMapper.selectQna", q_no);
+	}
+
+	public ArrayList<Warning> selectWarning(SqlSessionTemplate sqlSession, List<String> no) {
+		ArrayList<Notify> nList = (ArrayList)sqlSession.selectList("adminMapper.selectNotify", no);
+		ArrayList<Warning> list = new ArrayList<Warning>();
+		for(Notify i : nList) {
+			if(i.getBno() != 0) { // 게시글
+				Warning w = sqlSession.selectOne("adminMapper.selectWarning", i);
+				list.add(w);
+			} else if(i.getCmno() != 0) { // 댓글
+				Warning w = sqlSession.selectOne("adminMapper.selectWarning2", i);
+				list.add(w);
+			} else if(i.getRpno() != 0) { // 답글
+				Warning w = sqlSession.selectOne("adminMapper.selectWarning3", i);
+				list.add(w);
+			}
+		}
+		
+		
+		return list;
 	}
 
 

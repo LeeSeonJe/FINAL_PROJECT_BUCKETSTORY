@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.kh.BucketStory.admin.model.exception.BoardException;
 import com.kh.BucketStory.admin.model.service.BoardService;
 import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
+import com.kh.BucketStory.admin.model.vo.Warning;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Alarm;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.Pagination;
+import com.kh.BucketStory.common.model.vo.Member;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
 import com.kh.BucketStory.expert.model.service.ExpertService2;
 import com.kh.BucketStory.expert.model.vo.Company;
@@ -338,23 +344,36 @@ public class AdminController {
 	
 	/* 신고된 회원 경고  */
 	@RequestMapping("warning.ad")
-	@ResponseBody
-	public String waringmember(@RequestParam(value="Notify[]") List<String> no) {
+	public void waringmember(@RequestParam(value="Notify[]") List<String> no, HttpServletResponse response) {
 		
-		String aLink;
-		String aContent;
-		
-		// 게시글, 댓글, 답글 bno
-		
-		System.out.println("no 값 보기 " + no);
+		ArrayList<Warning> w = bService.selectWarning(no);
+		ArrayList<Member> list = new ArrayList<Member>();
+		for(Warning wa : w) {
+			Alarm alert = new Alarm();
+			String aLink = "myBlog.me?bkNo="+wa.getBkNo()+"&nickName="+wa.getNickName()+"&bNo="+wa.getbNo();
+			String aContent = "작성내용에서 신고가 확인되었습니다.";
+			String userId = wa.getUserId();
+			Member m = new Member();
+			m.setUserId(userId);
+			list.add(m);
+			alert.setaLink(aLink);
+			alert.setaContent(aContent);
+			alert.setUserId(userId);
+			mainService.insertAlert(alert);
+		}
 		
 		int result = bService.warningMember(no);
 		
-		System.out.println("result 값 보기 " + result);
-		
 		if(result > 0) {
-			String userId = bService.selectWarningId(no);
-			return userId;
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			
+			try {
+				gson.toJson(list, response.getWriter());
+			} catch (JsonIOException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} else {
 			throw new BoardException("경고 받은 회원 실패");
 		}

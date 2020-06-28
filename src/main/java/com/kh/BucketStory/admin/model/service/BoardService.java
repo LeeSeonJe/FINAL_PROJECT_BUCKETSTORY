@@ -6,6 +6,7 @@ import java.util.List;
 import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
+import com.kh.BucketStory.admin.model.vo.Warning;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
@@ -63,9 +64,10 @@ public interface BoardService {
 
 	ArrayList<Notify> replyCautiontList(PageInfo pi);
 
-	String selectWarningId(List<String> no);
 
 	adminQnA selectQna(int q_no);
+
+	ArrayList<Warning> selectWarning(List<String> no);
 
 
 
