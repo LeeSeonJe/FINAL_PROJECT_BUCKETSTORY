@@ -32,7 +32,7 @@ public interface BoardService {
 
 	ArrayList<Notify> Memberlist(PageInfo pi);
 
-	int warningMember(List<String> no);
+	int warningMember(List<String> Nlist, List<String> no);
 
 //	int deleteMember(int[] no);
 
@@ -68,6 +68,9 @@ public interface BoardService {
 	adminQnA selectQna(int q_no);
 
 	ArrayList<Warning> selectWarning(List<String> no);
+
+	ArrayList<Notify> warningnumber(List<String> no);
+
 
 
 

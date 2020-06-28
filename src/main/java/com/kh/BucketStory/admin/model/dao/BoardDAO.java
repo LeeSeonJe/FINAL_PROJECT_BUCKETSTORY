@@ -113,8 +113,9 @@ public class BoardDAO {
 //		}
 //	}
 
-	public int warningMember(SqlSessionTemplate sqlSession, List<String> no) {
-		int result =  sqlSession.update("adminMapper.warningandcaution", no);
+	public int warningMember(SqlSessionTemplate sqlSession, List<String> Nlist, List<String> no) {
+		
+		int result =  sqlSession.update("adminMapper.warningandcaution", Nlist);
 		
 //		System.out.println("DAO 결과 값 " + result );
 		
@@ -235,6 +236,11 @@ public class BoardDAO {
 		
 		return list;
 	}
+
+	public ArrayList<Notify> warningnumber(SqlSessionTemplate sqlSession, List<String> no) {
+		return (ArrayList)sqlSession.selectList("adminMapper.waringnumber", no);
+	}
+
 
 
 

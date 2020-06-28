@@ -94,7 +94,7 @@ h2{
 	</div>
 	<div id="board-area">
 	<div>
-		<h3>대댓글 신고 게시판</h3>
+		<h3>답글 신고 게시판</h3>
 	</div>
 	<div class="a_list">
 		<h2><a href="boardCaution.ad"  class="ad_list" id="l_list">게시글</a></h2>
@@ -290,11 +290,8 @@ $(function(){
 				console.log(asdf);
 				send_message(data[key].userId);
 			}
-		 location.reload();
-		
+			 location.reload();
 		}			
-			
-		
 	});
 }
 
@@ -316,10 +313,7 @@ $(function(){
 		console.log("data 값 보자 " + data);
 			
 		 location.reload();
-		
 		}			
-			
-		
 	});
 }
 	

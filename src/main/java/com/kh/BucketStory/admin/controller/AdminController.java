@@ -251,7 +251,7 @@ public class AdminController {
 		return mv;
 	}
 	
-	/*대 댓글 신고된 회원 리스트*/
+	/* 답글 신고된 회원 리스트*/
 	@RequestMapping("replyCaution.ad")
 	public ModelAndView replyCaution(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
 		
@@ -342,7 +342,7 @@ public class AdminController {
 		
 	}
 	
-	/* 신고된 회원 경고  */
+	/* (게시글, 댓글, 답글) 신고된 회원 경고  */
 	@RequestMapping("warning.ad")
 	public void waringmember(@RequestParam(value="Notify[]") List<String> no, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
@@ -362,8 +362,21 @@ public class AdminController {
 			alert.setUserId(userId);
 			mainService.insertAlert(alert);
 		}
+		 
+		ArrayList<Notify> n = bService.warningnumber(no);
 		
-		int result = bService.warningMember(no);
+		ArrayList<String> Nlist = new ArrayList<String>();
+		
+		for(int i = 0; i < n.size(); i++){
+			Nlist.add(i, n.get(i).getPigouser());
+		}
+		
+//		System.out.println("n 값 확인 " + n );
+		
+		int result = bService.warningMember(Nlist,no);
+		
+		System.out.println("result " + result);
+		
 		
 		if(result > 0) {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();

@@ -78,8 +78,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int warningMember(List<String> no) {
-		return bDAO.warningMember(sqlSession, no);
+	public int warningMember(List<String> Nlist, List<String> no) {
+		return bDAO.warningMember(sqlSession, Nlist, no);
 	}
 	
 //	@Override
@@ -167,6 +167,12 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<Warning> selectWarning(List<String> no) {
 		return bDAO.selectWarning(sqlSession, no);
 	}
+
+	@Override
+	public ArrayList<Notify> warningnumber(List<String> no) {
+		return bDAO.warningnumber(sqlSession, no);
+	}
+
 
 
 

@@ -104,7 +104,7 @@
 	<update id="warningboard">
 		update notify
 		set no_check = 'Y'
-		where no_check = 'N' and no_no in 
+		where no_check = 'N' and no_no and pigouser in 
 		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
  	   		#{item}
 		</foreach>
@@ -126,11 +126,20 @@
 <!-- 	</selct> -->
 	
 	
+	<select id="waringnumber"  resultMap="notifyResultSet" parameterType="java.util.List">
+		select *
+		from notify
+		where no_no in 
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+ 	   		#{item}
+		</foreach>
+	</select>
 	
-	<update id="warningandcaution">
+	
+	<update id="warningandcaution" parameterType="java.util.List">
 		update notify
 		set no_check = 'Y'
-		where no_check = 'N' and no_no in 
+		where pigouser in 
 		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
  	   		#{item}
 		</foreach>
