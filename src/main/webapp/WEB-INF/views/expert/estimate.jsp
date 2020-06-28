@@ -183,8 +183,12 @@
 								return false;
 							}
 						}else{
-							alert("보유하고 있는 point가 부족합니다.");
-							return false;
+							if(confirm("보유하고 있는 point가 부족합니다. \n 현재 보유포인트: "+ ${sessionScope.loginCompany.point}+"\n 포인트충전 페이지로 이동하시겠습니까?") == true){
+								location.href="point.ex";
+								return false;
+							}else{
+								return false;
+							}
 						}
 					}
 				}	

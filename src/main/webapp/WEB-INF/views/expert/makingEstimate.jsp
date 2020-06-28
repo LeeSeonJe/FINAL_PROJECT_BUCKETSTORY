@@ -165,11 +165,20 @@
 						    return false;
 						}
 					}else if(val==1){
-						if(confirm("견적서를 보낸뒤에는 수정할수 없습니다. \n 계속하시겠습니까?") == true){
-							var input = $("<input>") .attr("type", "hidden") .attr("name", "status").val(val); $('#send').append($(input));
-							$('#send').submit();
+						if(${ sessionScope.loginCompany.point > 500 }){
+							if(confirm("견적서를 보낸뒤에는 수정할수 없습니다. \n 계속하시겠습니까?") == true){
+								var input = $("<input>") .attr("type", "hidden") .attr("name", "status").val(val); $('#send').append($(input));
+								$('#send').submit();
+							}else{
+								return false;
+							}
 						}else{
-							return false;
+							if(confirm("보유하고 있는 point가 부족합니다. \n 현재 보유포인트: "+ ${sessionScope.loginCompany.point}+"\n 포인트충전 페이지로 이동하시겠습니까?") == true){
+								location.href="point.ex";
+								return false;
+							}else{
+								return false;
+							}
 						}
 					}
 				}
