@@ -554,4 +554,15 @@ public class MainController {
 			return "fail";
 		}
 	}
+	
+	@RequestMapping("alertDelete.ho")
+	@ResponseBody
+	public String alertDelete(@RequestParam Integer aNum) {
+		int result = mainService.alertDelete(aNum);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
 }

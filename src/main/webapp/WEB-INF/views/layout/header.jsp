@@ -24,6 +24,7 @@
 		<div id="logo-wrap">
 			<div id="logo"><a href="main.ho?menuNum=1&category=0"><img src="resources/layout/images/mainlogo.png"></a></div>
 		</div>
+		<div id="alertCount">1</div>
 		<div id="alertDiv">
 			<div><span>sdsa</span><label>X</label></div>
 		</div>
@@ -94,17 +95,26 @@
     		url:'selectAlert.ho',
     		async:false,
     		success:function(data){
+    			var count = 0;
     			$('#alertDiv').html('');
     			for(var key in data){
-    				console.log(data);
     				var $div = $('<div>');
-    				$div.text(data[key].aContent);
-    				$div.attr('onclick', 'alertLink('+data[key].aNum+',"'+data[key].aLink+'");');
+    				var $span = $('<span>');
+    				$span.text(data[key].aContent);
+    				$span.attr('onclick', 'alertLink('+data[key].aNum+',"'+data[key].aLink+'");');
+    				var $label = $('<label>');
+    				$label.text('X');
+    				$label.attr('onclick', 'alertDelete('+data[key].aNum+');')
     				if(data[key].aCheck == 'Y'){
     					$div.css('background', 'rgba(0,0,0,0.2)');
     				}
+    				if(data[key].aCheck == 'N'){
+    					count = count + 1;
+    				}
+    				$div.append($span).append($label);
     				$('#alertDiv').append($div);
     			}
+    			$('#alertCount').text(count);
     		}
     	});
     }
@@ -123,13 +133,33 @@
     	});
     }
     
+    function alertDelete(aNum){
+    	$.ajax({
+    		url:'alertDelete.ho',
+    		data:{
+    			aNum:aNum
+    		},
+    		async:false,
+    		success:function(){
+    			alarm();
+    		}
+    		
+    	});
+    }
+    
 
     $(document).ready(function(){
     	send_message();
-    	//alarm();
+    	alarm();
     });
 
-
+	$('#alertBtn').click(function(){
+		if($('#alertDiv').css('display') == 'none'){
+			$('#alertDiv').show();
+		} else{
+			$('#alertDiv').hide();
+		}
+	});
 	
 
 

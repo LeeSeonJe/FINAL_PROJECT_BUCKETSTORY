@@ -214,4 +214,9 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.alertCheck(sqlSession, aNum);
 	}
 
+	@Override
+	public int alertDelete(Integer aNum) {
+		return mainDAO.alertDelete(sqlSession, aNum);
+	}
+
 }

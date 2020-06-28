@@ -89,4 +89,6 @@ public interface MainService {
 
 	int alertCheck(Integer aNum);
 
+	int alertDelete(Integer aNum);
+
 }

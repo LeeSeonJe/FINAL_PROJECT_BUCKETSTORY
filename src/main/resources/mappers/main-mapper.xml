@@ -380,4 +380,10 @@
 		set ACHECK = 'Y'
 		where aNum = #{ aNum }
 	</update>
+	
+	<!-- 알람 삭제 -->
+	<delete id="alertDelete">
+		delete from alarm
+		where aNum = #{aNum}
+	</delete>
 </mapper>

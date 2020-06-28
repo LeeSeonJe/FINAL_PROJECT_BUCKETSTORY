@@ -233,5 +233,9 @@ public class MainDAO {
 		return sqlSession.update("mainMapper.alertCheck", aNum);
 	}
 
+	public int alertDelete(SqlSessionTemplate sqlSession, Integer aNum) {
+		return sqlSession.delete("mainMapper.alertDelete", aNum);
+	}
+
 	
 }
