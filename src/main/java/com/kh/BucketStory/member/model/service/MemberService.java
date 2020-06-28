@@ -91,5 +91,7 @@ public interface MemberService{
 
 	ArrayList<BLike> getBLikeList(String nickName);
 
+	int shareCheck(String userId, Integer bkNo);
+
 
 }

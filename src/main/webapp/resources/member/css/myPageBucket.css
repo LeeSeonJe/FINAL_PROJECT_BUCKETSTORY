@@ -704,3 +704,12 @@ section {
 #BLikeList-area ul>li {
 	margin: 13px;
 }
+
+#BlikeList-header {
+	text-align: center;
+    border-bottom: 1.5px solid #f8d3d3;
+    padding-bottom: 10px;
+    color: #da8f43;
+    font-size: 15px;
+    font-weight: 100;
+}
