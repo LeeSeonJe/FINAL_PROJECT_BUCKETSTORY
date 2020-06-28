@@ -80,9 +80,6 @@ h2{
 						<a href="adminBill.ad?search=all">결제내역</a>
 					</li>
 					<li>
-						<a href="">통계</a>
-					</li>
-					<li>
 						<a href="cautionlist.ad">신고</a>
 					</li>
 					<li>
@@ -270,8 +267,6 @@ $(function(){
 
 /* 회원 경고 주기 */
 function chk_warning(){
- 	
-
 
 	var chk_Arr = []; // 배열 초가화
 	$("input[name='chk_box']:checked").each(function(i){

@@ -371,8 +371,6 @@ public class AdminController {
 			Nlist.add(i, n.get(i).getPigouser());
 		}
 		
-//		System.out.println("n 값 확인 " + n );
-		
 		int result = bService.warningMember(Nlist,no);
 		
 		System.out.println("result " + result);
