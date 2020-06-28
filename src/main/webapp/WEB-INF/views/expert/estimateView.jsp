@@ -137,7 +137,7 @@
 				<c:forEach var="op" items="${ option }" varStatus="status" >
 					<tr class="optionAdd">
 						<td>
-							<c:if test="${ not empty sessionScope.loginUser }">
+							<c:if test="${ not empty sessionScope.loginUser && es.status == 1 }">
 								<input type="checkbox" id="optionCheck" name="${op[0] }" onclick="totalprice(this,this.value,this.name);" value="${ op[1] }">
 							</c:if>
 						</td>
@@ -197,19 +197,27 @@
 						</form>
 				</c:if>
 				<c:if test="${es.status ==3 && (es.reviewScore != 0 || es.reviewContent != null)}">
-					<div id="status">
-						<h2>작성한 리뷰</h2>
-						<h3 style="float:left;">별점</h3>
-						<p id="star_grade">
-							<c:forEach var="a" begin="1" end="${es.reviewScore }">
-								<p style="float:left;color:red;font-size: x-large;margin-top: 12px;">★</p>
-							</c:forEach>
-							<c:forEach var="a" begin="${es.reviewScore }" end="4">
-								<p style="float:left;font-size: x-large;margin-top: 12px;">☆</p>
-							</c:forEach>
-						</p>
-						<div id="recontent" style="">${es.reviewContent}</div>
-					</div>
+					<table id="review">
+						<tr>
+							<th colspan="3" style="text-align:left;">작성한 리뷰</th>
+						</tr>
+						<tr>
+							<td style="width: 40px;"><h3 style="float:left;">별점</h3></td>
+							<td>
+								<p id="star_grade">
+									<c:forEach var="a" begin="1" end="${es.reviewScore }">
+										<p style="float:left;color:red;font-size: x-large;margin-top: 12px;">★</p>
+									</c:forEach>
+									<c:forEach var="a" begin="${es.reviewScore }" end="4">
+										<p style="float:left;font-size: x-large;margin-top: 12px;">☆</p>
+									</c:forEach>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3"><div id="recontent" style="">${es.reviewContent}</div><td>
+						</tr>
+						</table>
 				</c:if>
 			</c:if>
 			<c:if test="${ sessionScope.loginCompany != null }">
