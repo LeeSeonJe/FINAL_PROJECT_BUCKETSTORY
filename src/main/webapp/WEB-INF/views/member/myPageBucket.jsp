@@ -11,6 +11,11 @@
 	<link rel="stylesheet" href="resources/member/css/myPageBucket.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style type="text/css">
+		.link_item.top_item._btnFloating:hover {
+			text-decoration: none;
+		}
+	</style>
 </head>
 <body>
 	<header>
@@ -104,25 +109,27 @@
 			</c:forEach>
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
-		<div id="BLikeList-area">
-			<ul>
-				<li id="BlikeList-header">게시글 좋아요 리스트</li>
-				<c:forEach items="${ getBLikeList }" var="gbl" varStatus="status">
-					<li>
-						<span>${ status.index + 1 }</span>
-						<c:if test="${ empty gbl.b_member.prImage }">
-							<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/basicProfile.jpg" alt="" />
-						</c:if>
-						<c:if test="${ !empty gbl.b_member.prImage }">
-							<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/${ gbl.b_member.prImage }" alt="" />
-						</c:if>
-						<span>${ gbl.b_member.nickName }</span>
-						<span id="BLikeCon" onclick="location.href='myBlog.me?nickName=${ gbl.b_member.nickName }&bkNo=${ gbl.board.bkNo }&bNo=${ gbl.bNo }'">${ gbl.board.bTitle }</span>
-						<span>${ gbl.board.enrollDate }</span>	
-					</li>
-				</c:forEach>		
-			</ul>			
-		</div>
+		<c:if test="${ !empty getBLikeList }">
+			<div id="BLikeList-area">
+				<ul>
+					<li id="BlikeList-header">게시글 좋아요 리스트</li>
+					<c:forEach items="${ getBLikeList }" var="gbl" varStatus="status">
+						<li>
+							<span>${ status.index + 1 }</span>
+							<c:if test="${ empty gbl.b_member.prImage }">
+								<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/basicProfile.jpg" alt="" />
+							</c:if>
+							<c:if test="${ !empty gbl.b_member.prImage }">
+								<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/${ gbl.b_member.prImage }" alt="" />
+							</c:if>
+							<span>${ gbl.b_member.nickName }</span>
+							<span id="BLikeCon" onclick="location.href='myBlog.me?nickName=${ gbl.b_member.nickName }&bkNo=${ gbl.board.bkNo }&bNo=${ gbl.bNo }'">${ gbl.board.bTitle }</span>
+							<span>${ gbl.board.enrollDate }</span>	
+						</li>
+					</c:forEach>		
+				</ul>			
+			</div>
+		</c:if>
 		<section>
 			<c:if test="${ empty myBucketList }">
 				<div style="text-align: center; margin: 200px;">등록된 버킷리스트가 없습니다.</div>
@@ -333,6 +340,7 @@
 				$(f).attr("id", "unFollowBtn");
 				$(f).attr("onclick", "unfollow(this);")
 				$('#follower').text(parseInt(followCount)+1);
+				location.reload();
 			}
 		})
 	}
@@ -351,6 +359,7 @@
 				$(f).attr("id", "followBtn");
 				$(f).attr("onclick", "follow(this);")
 				$('#follower').text(followCount-1);
+				location.reload();
 			}
 		})
 	}

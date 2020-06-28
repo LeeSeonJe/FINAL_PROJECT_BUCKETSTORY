@@ -676,7 +676,7 @@
 				var busiemail = $('#busiemail_1');
 				
 				if(!re44.test(email.val())){
-					alert('이메일을 올바르게 입력해 주십시오');
+//					alert('이메일을 올바르게 입력해 주십시오');
 //		 			$('#nickResult').text('사용 불가능 합니다.');
 //		 			$('#nickResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
 					busiemail.focus();
