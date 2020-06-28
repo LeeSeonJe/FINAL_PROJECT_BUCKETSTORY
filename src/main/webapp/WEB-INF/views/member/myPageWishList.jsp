@@ -261,6 +261,7 @@
 				$(f).attr("id", "unFollowBtn");
 				$(f).attr("onclick", "unfollow(this);")
 				$('#follower').text(parseInt(followCount)+1);
+				location.reload();
 			}
 		})
 	}
@@ -279,6 +280,7 @@
 				$(f).attr("id", "followBtn");
 				$(f).attr("onclick", "follow(this);")
 				$('#follower').text(followCount-1);
+				location.reload();
 			}
 		})
 	}

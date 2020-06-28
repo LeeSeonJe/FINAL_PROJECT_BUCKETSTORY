@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<link rel="stylesheet" href="resources/layout/css/header.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -24,7 +24,7 @@
 		<div id="logo-wrap">
 			<div id="logo"><a href="main.ho?menuNum=1&category=0"><img src="resources/layout/images/mainlogo.png"></a></div>
 		</div>
-		<div id="alertCount">1</div>
+		<div id="alertCount">0</div>
 		<div id="alertDiv">
 			<div><span>sdsa</span><label>X</label></div>
 		</div>
@@ -44,7 +44,7 @@
 	
 	// 웹소켓 실행
 // 	var wsUri = "ws://localhost:9480/BucketStory/count";
-	var wsUri = "ws://172.30.1.33:9480/BucketStory/count";
+	var wsUri = "ws://220.117.72.96:9480/BucketStory/count";
 	var websocket = null;
 
 	function send_message(data) {
@@ -166,6 +166,42 @@
 	$(window).scroll(function(event){ 
 		$('#alertDiv').css('display', 'none')
 	});	
+	
+	
+	
+	
+	//팔로우
+	var flag = false;
+	$('#alertBtn').click(function(){
+		$('#alertDiv').css('display', 'block');
+	})
+	
+	$('#alertBtn').mouseenter(function(){
+// 		event.stopPropagation();
+		event.preventDefault();
+		flag = true;
+	})
+	
+	$('#alertBtn').mouseleave(function(){
+		flag = true;
+		if(!flag){
+			$('#alertDiv').css({"display": "none"});
+		}
+	})
+	
+	$('#alertDiv').mouseenter(function(){
+		event.stopPropagation();
+		event.preventDefault();
+		flag = true;
+	})
+	
+	$('#alertDiv').mouseleave(function(){
+		flag = false;
+		if(!flag){
+			$('#alertDiv').css({"display": "none"});
+		}
+	})
+	
 
 </script>
 </html>

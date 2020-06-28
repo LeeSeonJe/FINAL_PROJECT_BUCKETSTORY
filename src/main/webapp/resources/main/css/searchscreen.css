@@ -75,5 +75,5 @@ ul>li{
 	cursor: pointer;
 }
 #searchresult li:hover{
-	background:rgba(0,0,0,0.5);
+	background:rgba(0,0,0,0.3);
 }
