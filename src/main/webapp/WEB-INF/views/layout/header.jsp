@@ -25,7 +25,7 @@
 			<div id="logo"><a href="main.ho?menuNum=1&category=0"><img src="resources/layout/images/mainlogo.png"></a></div>
 		</div>
 		<div id="alertDiv">
-			<div></div>
+			<div><span>sdsa</span><label>X</label></div>
 		</div>
 	</header>
 	
@@ -126,7 +126,7 @@
 
     $(document).ready(function(){
     	send_message();
-    	alarm();
+    	//alarm();
     });
 
 
