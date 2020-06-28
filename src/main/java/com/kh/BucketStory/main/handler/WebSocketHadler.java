@@ -34,6 +34,7 @@ public class WebSocketHadler extends TextWebSocketHandler{
 		System.out.println("웹소켓 연결성공");
 		sessions.add(session);
 		String userId = getUserId(session);
+		System.out.println(userId);
 		userSessionsMap.put(userId, session);
 		
 	}

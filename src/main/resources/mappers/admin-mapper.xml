@@ -300,4 +300,15 @@
 	<result property="status" column="STATUS"/>
 	</resultMap>
 	
+	<select id="selectWarningId" resultType="string">
+		select pigouser
+		from notify
+		where no_no = #{no}
+	</select>
+	
+	<select id="selectQna" resultMap="QnAResultSet">
+		select *
+		from qna
+		where q_no = #{q_no}
+	</select>
 </mapper >

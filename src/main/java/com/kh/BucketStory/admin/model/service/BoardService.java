@@ -63,6 +63,10 @@ public interface BoardService {
 
 	ArrayList<Notify> replyCautiontList(PageInfo pi);
 
+	String selectWarningId(List<String> no);
+
+	adminQnA selectQna(int q_no);
+
 
 
 

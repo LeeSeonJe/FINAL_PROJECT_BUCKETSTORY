@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,6 +29,7 @@ import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
+import com.kh.BucketStory.bucket.model.vo.Alarm;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.Pagination;
 import com.kh.BucketStory.expert.model.exception.ExpertException;
@@ -35,6 +37,7 @@ import com.kh.BucketStory.expert.model.service.ExpertService2;
 import com.kh.BucketStory.expert.model.vo.Company;
 import com.kh.BucketStory.expert.model.vo.Pay;
 import com.kh.BucketStory.expert.model.vo.pagination;
+import com.kh.BucketStory.main.model.service.MainService;
 
 @Controller
 public class AdminController {
@@ -44,6 +47,9 @@ public class AdminController {
 	
 	@Autowired
 	private ExpertService2 ExService2;
+	
+	@Autowired
+	private MainService mainService;
 	
 	
 	@RequestMapping("adminwrite.ad")
@@ -167,7 +173,6 @@ public class AdminController {
 			mv.addObject("adminQnA", adminQnA)
 			  .addObject("page", page)
 			  .setViewName("adminQnAinsert");
-
 			return mv;
 		} else {
 			throw new BoardException("상세페이지 요청에 실패했습니다.");
@@ -333,8 +338,13 @@ public class AdminController {
 	
 	/* 신고된 회원 경고  */
 	@RequestMapping("warning.ad")
+	@ResponseBody
 	public String waringmember(@RequestParam(value="Notify[]") List<String> no) {
 		
+		String aLink;
+		String aContent;
+		
+		// 게시글, 댓글, 답글 bno
 		
 		System.out.println("no 값 보기 " + no);
 		
@@ -343,7 +353,8 @@ public class AdminController {
 		System.out.println("result 값 보기 " + result);
 		
 		if(result > 0) {
-			return "redirect:cautionlist.ad";
+			String userId = bService.selectWarningId(no);
+			return userId;
 		} else {
 			throw new BoardException("경고 받은 회원 실패");
 		}
@@ -543,5 +554,30 @@ public class AdminController {
 	      return mv;
 	   }
 	   
+	   @RequestMapping("addAnsInsertAlarm.ad")
+	   @ResponseBody
+	   public String  addAnsInsertAlarm(@RequestParam("qNo") int qNo) {
+		   
+		   adminQnA aq = bService.selectQna(qNo);
+			
+			Alarm alert = new Alarm();
+			String aContent = "QnA답변등록되었습니다.";
+			alert.setaContent(aContent);
+			if(aq.getUserid() != null) {
+				String aLink = "helperMQnaList.ex?search=Y";
+				String userId = aq.getUserid();
+				alert.setaLink(aLink);
+				alert.setUserId(userId);
+				mainService.insertAlert(alert);
+			} else if(aq.getCoid() != null) {
+				String aLink = "helperQnaList.ex?search=Y";
+				String coId = aq.getCoid();
+				alert.setaLink(aLink);
+				alert.setCoId(coId);
+				mainService.insertCAlert(alert);
+			}
+		   
+		   return "success";
+	   }
 	
 }

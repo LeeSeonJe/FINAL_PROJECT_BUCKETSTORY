@@ -517,8 +517,6 @@ public class MainController {
 			list = mainService.selectCAlert(coId);
 		}
 		
-		System.out.println(list);
-//		
 //		String aLink = "aLink";
 //		String acontent = "acontent";
 //		Alarm alert = new Alarm();

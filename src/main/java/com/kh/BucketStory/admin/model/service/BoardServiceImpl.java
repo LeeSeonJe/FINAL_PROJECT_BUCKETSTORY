@@ -156,6 +156,16 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.replyCautiontList(sqlSession, pi);
 	}
 
+	@Override
+	public String selectWarningId(List<String> no) {
+		return bDAO.selectWarningId(sqlSession, no);
+	}
+
+	@Override
+	public adminQnA selectQna(int q_no) {
+		return bDAO.selectQna(sqlSession, q_no);
+	}
+
 
 
 
