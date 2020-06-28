@@ -657,12 +657,12 @@ section {
 	z-index:9999;
 	opacity: 0;
 	position: fixed;
-    width: 115px;
-    height: auto;
     margin-left: 29.8%;
     background: white;
     border-radius: 10px;
     box-shadow: 1px 1px 8px #ebceeb;
+    width: 300px;
+    overflow: scroll;
 }
 
 #following-area {
@@ -670,11 +670,12 @@ section {
 	opacity: 0;
 	position: fixed;
     width: 115px;
-    height: auto;
     margin-left: 40.4%;
     background: white;
     border-radius: 10px;
     box-shadow: 1px 1px 8px #ebceeb;
+    width: 300px;
+    overflow: scroll;
 }
 
 #follower-area>div, #following-area>div{

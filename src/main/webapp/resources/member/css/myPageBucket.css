@@ -630,12 +630,12 @@ section {
 	z-index:9999;
 	opacity: 0;
 	position: fixed;
-    width: 115px;
-    height: auto;
     margin-left: 29.8%;
     background: white;
     border-radius: 10px;
     box-shadow: 1px 1px 8px #ebceeb;
+    width: 300px;
+    overflow: scroll;
 }
 
 #following-area {
@@ -643,11 +643,12 @@ section {
 	opacity: 0;
 	position: fixed;
     width: 115px;
-    height: auto;
     margin-left: 40.4%;
     background: white;
     border-radius: 10px;
     box-shadow: 1px 1px 8px #ebceeb;
+    width: 300px;
+    overflow: scroll;
 }
 
 #follower-area>div, #following-area>div{
@@ -663,4 +664,43 @@ section {
 	font-size: 11px;
     vertical-align: 7.5px;
     cursor: pointer;
+}
+
+
+#BLikeList-area {
+	font-size: 12px;
+    position: fixed;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 8px #ebceeb;
+    z-index: 999;
+    width: 300px;
+    overflow: scroll;
+    left: 33px;
+}
+
+#BLikeList-area img {
+	border-radius: 100px;
+}
+#BLikeList-area img {
+	border-radius: 100px;
+}
+#BLikeList-area span {
+	vertical-align: 7.5px;
+}
+
+#BLikeCon {
+	cursor: pointer;
+	vertical-align: 7.5px;
+    display: inline-block;
+    width: 109px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    transform: translateY(3px);
+}
+
+#BLikeList-area ul>li {
+	margin: 13px;
 }
