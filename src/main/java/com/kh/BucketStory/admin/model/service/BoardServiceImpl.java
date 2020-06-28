@@ -11,6 +11,7 @@ import com.kh.BucketStory.admin.model.dao.BoardDAO;
 import com.kh.BucketStory.admin.model.vo.Festival;
 import com.kh.BucketStory.admin.model.vo.Notify;
 import com.kh.BucketStory.admin.model.vo.PageInfo;
+import com.kh.BucketStory.admin.model.vo.Warning;
 import com.kh.BucketStory.admin.model.vo.adminQnA;
 import com.kh.BucketStory.bucket.model.vo.Media;
 import com.kh.BucketStory.common.model.vo.Member;
@@ -156,14 +157,15 @@ public class BoardServiceImpl implements BoardService {
 		return bDAO.replyCautiontList(sqlSession, pi);
 	}
 
-	@Override
-	public String selectWarningId(List<String> no) {
-		return bDAO.selectWarningId(sqlSession, no);
-	}
 
 	@Override
 	public adminQnA selectQna(int q_no) {
 		return bDAO.selectQna(sqlSession, q_no);
+	}
+
+	@Override
+	public ArrayList<Warning> selectWarning(List<String> no) {
+		return bDAO.selectWarning(sqlSession, no);
 	}
 
 

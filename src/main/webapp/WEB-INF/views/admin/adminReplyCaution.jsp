@@ -270,22 +270,22 @@ $(function(){
 
 /* 회원 경고 주기 */
 	function chk_warning(){
-	 	alert("경고를 주었습니다.");
+ 	alert("경고를 주었습니다.");
 
-	
+
 	var chk_Arr = []; // 배열 초가화
 	$("input[name='chk_box']:checked").each(function(i){
 		chk_Arr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
 	});
-	
+
 	$.ajax({
 		url: 'warning.ad',
 		data: {Notify : chk_Arr},
 		success: function(data){
-			
-		console.log("data 값 보자 " + data);
-			
-		 location.reload();
+			for(var i in data){
+				send_message(data[i].userId);
+			}
+		 //location.reload();
 		
 		}			
 			

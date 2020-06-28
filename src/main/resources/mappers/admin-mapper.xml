@@ -300,15 +300,51 @@
 	<result property="status" column="STATUS"/>
 	</resultMap>
 	
-	<select id="selectWarningId" resultType="string">
-		select pigouser
-		from notify
-		where no_no = #{no}
-	</select>
 	
 	<select id="selectQna" resultMap="QnAResultSet">
 		select *
 		from qna
 		where q_no = #{q_no}
 	</select>
+	
+	<select id="selectNotify" resultMap="notifyResultSet" parameterType="java.util.List">
+		select *
+		from notify
+		where no_no  in 
+		<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+		 		#{item}
+		 </foreach>
+	</select>
+	
+	<select id="selectWarning" resultMap="WarningResultSet">
+		select bkNo, nickName, bNo, pigouser
+		from notify n
+		join board b using(bno)
+		join member m on(m.userid = pigouser)
+		where no_no = #{no_no}
+	</select>
+	<select id="selectWarning2" resultMap="WarningResultSet">
+		select bkNo, nickName, bNo, pigouser
+		from notify n
+		join boardcomment bc using (cmno)
+		join board b on (b.bno = bc.bno)
+		join member m on(bc.userid = m.userid)
+		where no_no = #{no_no}
+	</select>
+	<select id="selectWarning3" resultMap="WarningResultSet">
+		select bkNo, nickName, bNo, pigouser
+		from notify n
+		join reply r using (rpno)
+		join BOARDCOMMENT bc on (bc.cmno = r.cmno)
+		join board b on (bc.bno = b.bno)
+        join member m on(r.userid = m.userid)
+		where no_no = #{no_no}
+	</select>
+	
+	<resultMap type="Warning" id="WarningResultSet">
+		<result property="bkNo" column="bkNo"/>
+		<result property="nickName" column="nickName"/>
+		<result property="bNo" column="bNo"/>
+		<result property="userId" column="pigouser"/>
+	</resultMap>
 </mapper >
