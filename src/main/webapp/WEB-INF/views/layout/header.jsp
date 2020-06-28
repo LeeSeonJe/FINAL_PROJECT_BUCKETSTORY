@@ -43,7 +43,8 @@
 	});
 	
 	// 웹소켓 실행
-	var wsUri = "ws://localhost:9480/BucketStory/count";
+// 	var wsUri = "ws://localhost:9480/BucketStory/count";
+	var wsUri = "ws://172.30.1.33:9480/BucketStory/count";
 	var websocket = null;
 
 	function send_message(data) {
@@ -161,7 +162,10 @@
 		}
 	});
 	
-
+	// 스크롤시 안보이기
+	$(window).scroll(function(event){ 
+		$('#alertDiv').css('display', 'none')
+	});	
 
 </script>
 </html>

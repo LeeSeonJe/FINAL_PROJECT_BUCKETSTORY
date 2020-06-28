@@ -26,6 +26,7 @@
     height: 70.2px;
     border: 1px solid #10ccc3;
     background: #ffffff;
+    margin-bottom: -2px;
 }
 #searchtext{
 	font-size: 30px;
@@ -41,11 +42,11 @@
 	width: 70px;
     height: 100%;
     border: 0px;
-    background: #10ccc3;
+    background: #ffeded;
     outline: none;
     float: right;
-    color: #ffffff;
-    font-size: 50px;
+    color: #ca9191;
+    font-size: 29px;
     cursor: pointer;
 }
 #searchresult{
