@@ -55,13 +55,22 @@
 	background:#B95AFF;
 }
 #sidemenuhoverbar{
-	width: 30px;
-    height: 110px;
-    background: green;
+	width: 17.4px;
+    height: 189.6px;
+    background: lightslategray;
     position: fixed;
-    top: 500px;
+    top: 480px;
     z-index: 1;
-	left:0;
+    left: 0;
+    overflow-wrap: break-word;
+    border: 5px solid black;
+    font-size: 17.3px;
+    color: blanchedalmond;
+    font-weight: bolder;
+    text-align: center;
+}
+
+
 }
 .categoryname{
 	width:70px;
