@@ -50,7 +50,7 @@
 		</div>
 		<div class="categoryname">Lifestyle</div>
 	</div>
-	<div id="sidemenuhoverbar"></div>
+	<div id="sidemenuhoverbar">CATEGORY</div>
 </body>
 <script>
 	$(function(){
