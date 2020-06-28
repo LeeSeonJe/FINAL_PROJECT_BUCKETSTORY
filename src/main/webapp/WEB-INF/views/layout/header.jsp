@@ -80,7 +80,7 @@
     function onMessage(evt) {
     	console.log(evt.data);
     	if(evt.data == 'reload'){
-    		alert();
+    		alarm();
     	}
     }
 
@@ -89,7 +89,7 @@
     }
     
     // 알람창 불러오기
-    function alert(){
+    function alarm(){
     	$.ajax({
     		url:'selectAlert.ho',
     		async:false,
@@ -118,7 +118,7 @@
     		},
     		async:false,
     		success:function(){
-    			alert();
+    			alarm();
     		}
     	});
     }
@@ -126,7 +126,7 @@
 
     $(document).ready(function(){
     	send_message();
-    	alert();
+    	alarm();
     });
 
 

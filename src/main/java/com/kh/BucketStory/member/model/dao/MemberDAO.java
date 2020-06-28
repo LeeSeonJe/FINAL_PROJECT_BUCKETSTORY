@@ -229,4 +229,7 @@ public class MemberDAO {
 		return result;
 	}
 
+	public ArrayList<BLike> getBLikeList(SqlSessionTemplate sqlSession, String nickName) {
+		return (ArrayList) sqlSession.selectList("memberMapper.getBLikeList", nickName);
+	}
 }

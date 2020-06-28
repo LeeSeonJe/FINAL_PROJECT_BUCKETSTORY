@@ -49,10 +49,38 @@
 				</tr>
 				<tr>
 					<td>게시물 ${ memberWishList.size() }</td>
-					<td onclick="follower(this);" style="cursor: pointer;" >팔로워 <span id="follower">${ followerList.size() }</span></td>
-					<td onclick="following(this);" style="cursor: pointer;">팔로잉 ${ followingList.size() }</td>
+					<td id="follower-td" style="cursor: pointer;" >팔로워 <span id="follower">${ followerList.size() }</span></td>
+					<td id="following-td" style="cursor: pointer;">팔로잉 ${ followingList.size() }</td>
 				</tr>
 			</table>
+			<div id="follower-area">
+				<c:forEach items="${ followerList }" var="fwl" varStatus="status">
+					<div>
+						<c:if test="${ empty fwl.member.prImage }">
+							<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/basicProfile.jpg" alt="" />
+						</c:if>
+						<c:if test="${ !empty fwl.member.prImage }">
+							<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/${ fwl.member.prImage }" alt="" />
+						</c:if>
+						<span onclick="location.href='myBucket.me?nickName=${ fwl.member.nickName }'">${ fwl.member.nickName }</span>
+					</div>
+					<br>
+				</c:forEach>
+			</div>
+			<div id="following-area">
+				<c:forEach items="${ followingList }" var="fwl" varStatus="status">
+					<div>
+						<c:if test="${ empty fwl.member.prImage }">
+							<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/basicProfile.jpg" alt="" />
+						</c:if>
+						<c:if test="${ !empty fwl.member.prImage }">
+							<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/${ fwl.member.prImage }" alt="" />
+						</c:if>
+						<span onclick="location.href='myBucket.me?nickName=${ fwl.member.nickName }'">${ fwl.member.nickName }</span>
+					</div>
+					<br>
+				</c:forEach>
+			</div>
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<section>
@@ -764,4 +792,5 @@
 		}
 	}
 </script>
+<script type="text/javascript" src="resources/member/js/myPageWishList.js"></script>
 </html>

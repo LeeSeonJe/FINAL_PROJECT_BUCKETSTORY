@@ -28,6 +28,8 @@
 		<typeAlias type="com.kh.BucketStory.expert.model.vo.C_event" alias="C_event"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.C_eventNBucketList" alias="C_eventNBucketList"/>
 		<typeAlias type="com.kh.BucketStory.bucket.model.vo.Alarm" alias="Alarm"/>
+		<typeAlias type="com.kh.BucketStory.bucket.model.vo.BLike" alias="BLike"/>
+		
 	</typeAliases>
 	
 	<mappers>

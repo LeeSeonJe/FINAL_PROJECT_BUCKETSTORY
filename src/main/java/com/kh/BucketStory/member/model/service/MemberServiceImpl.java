@@ -215,4 +215,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.getUserId(sqlSession, nickName);
 	}
 
+	@Override
+	public ArrayList<BLike> getBLikeList(String nickName) {
+		return mDAO.getBLikeList(sqlSession, nickName);
+	}
+
+
 }

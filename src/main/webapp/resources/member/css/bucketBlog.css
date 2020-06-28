@@ -447,3 +447,42 @@ button {
 .blogBucket>.selBtn {
 	text-align: center;
 }
+
+#follower-area {
+	z-index:9999;
+	opacity: 0;
+	position: fixed;
+    width: 115px;
+    height: auto;
+    margin-left: 29.8%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 8px #ebceeb;
+}
+
+#following-area {
+	z-index:9999;
+	opacity: 0;
+	position: fixed;
+    width: 115px;
+    height: auto;
+    margin-left: 40.4%;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 8px #ebceeb;
+}
+
+#follower-area>div, #following-area>div{
+	display: inline-block;
+    margin: 20px;
+    margin-top: 11px;
+    margin-bottom: 4px;
+}
+#follower-area>div>img, #following-area>div>img {
+	border-radius: 100px;
+}
+#follower-area>div>span, #following-area>div>span {
+	font-size: 11px;
+    vertical-align: 7.5px;
+    cursor: pointer;
+}
