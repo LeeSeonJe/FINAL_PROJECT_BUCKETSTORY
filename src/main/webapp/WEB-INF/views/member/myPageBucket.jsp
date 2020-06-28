@@ -74,6 +74,7 @@
 				</tr>
 			</table>
 		</div>
+		
 		<div id="follower-area">
 			<c:forEach items="${ followerList }" var="fwl" varStatus="status">
 				<div>
@@ -103,6 +104,27 @@
 			</c:forEach>
 		</div>
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
+		<div id="BLikeList-area">
+			<ul>
+				<c:forEach items="${ getBLikeList }" var="gbl" varStatus="status">
+					<li>
+					<span>${ status.index + 1 }</span>
+					<c:if test="${ empty gbl.b_member.prImage }">
+						<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/basicProfile.jpg" alt="" />
+					</c:if>
+					<c:if test="${ !empty gbl.b_member.prImage }">
+						<img style="width: 24px; height: 24px;" src="resources/member/images/profiles/${ gbl.b_member.prImage }" alt="" />
+					</c:if>
+					<span>${ gbl.b_member.nickName }</span>
+					<span onclick="myBlog.me?nickName=${ gbl.b_member.nickName }&bkNo=${ gbl.board.bkNo }&bNo=${ gbl.bNo }">${ gbl.board.bTitle }</span>
+					<span>${ gbl.board.enrollDate }</span>
+					
+					</li>
+				</c:forEach>		
+			</ul>
+			
+		</div>
+		${ getBLikeList }
 		<section>
 			<c:if test="${ empty myBucketList }">
 				<div style="text-align: center; margin: 200px;">등록된 버킷리스트가 없습니다.</div>
@@ -258,7 +280,7 @@
 			</div>
 		</div>
 	</div>
-	${ getBLikeList }
+	
 </body>
 <script>		
 

@@ -203,7 +203,7 @@
 		select BNO, BTITLE, BCONTENT, BLIKE, BCOUNT, b.ENROLLDATE, b.STATUS, NICKNAME, BKNO
 		from board b
 		join member using(userid)
-		where bkno = #{bkNo} and NICKNAME = #{nickName} and status ='Y'	
+		where bkno = #{bkNo} and NICKNAME = #{nickName} and b.status ='Y'	
 	</select>
 	
 	<!-- 메인블로그숫자표시 -->

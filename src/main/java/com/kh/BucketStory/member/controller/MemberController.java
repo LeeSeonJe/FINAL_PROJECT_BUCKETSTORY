@@ -667,6 +667,7 @@ public class MemberController {
 			if (profileImg != null) {
 				mb.setUserId(loginUser.getUserId());
 				mb.setPrImage(profileImg);
+				loginUser.setPrImage(profileImg);
 			}
 		} else {
 			System.out.println("이건?");

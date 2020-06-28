@@ -902,7 +902,7 @@
 							if(nickName1 == data[i].userid && nickName1 == nickName2) {
 								$div = $('<div class="reply_profile_area">');
 								$input = $('<input type="hidden">').val(data[i].rpNo);
-								if(data[i].rmember.prImage.trim() != "") {
+								if(data[i].rmember != null) {
 									$prImg = $('<img src="resources/member/images/profiles/'+ data[i].rmember.prImage+'" style="width: 23px; height: 23px; border-radius: 100px;">');											
 								} else {
 									$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
@@ -916,7 +916,7 @@
 							} else if(nickName1 == data[i].userid) {
 								$div = $('<div class="reply_profile_area">');
 								$input = $('<input type="hidden">').val(data[i].rpNo);
-								if(data[i].rmember.prImage.trim() != "") {
+								if(data[i].rmember != null) {
 									$prImg = $('<img src="resources/member/images/profiles/'+ data[i].rmember.prImage+'" style="width: 23px; height: 23px; border-radius: 100px;">');											
 								} else {
 									$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
@@ -929,7 +929,7 @@
 							} else if(nickName1 != data[i].userid && data[i].userid == nickName2) {
 								$div = $('<div class="reply_profile_area">');
 								$input = $('<input type="hidden">').val(data[i].rpNo);
-								if(data[i].rmember.prImage.trim() != "") {
+								if(data[i].rmember != null) {
 									$prImg = $('<img src="resources/member/images/profiles/'+ data[i].rmember.prImage+'" style="width: 23px; height: 23px; border-radius: 100px;">');								
 								} else {
 									$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								
@@ -942,7 +942,7 @@
 							} else {
 								$div = $('<div class="reply_profile_area">');
 								$input = $('<input type="hidden">').val(data[i].rpNo);
-								if(data[i].rmember.prImage.trim() != "") {
+								if(data[i].rmember != null) {
 									$prImg = $('<img src="resources/member/images/profiles/'+ data[i].rmember.prImage+'" style="width: 23px; height: 23px; border-radius: 100px;">');											
 								} else {
 									$prImg = $('<img src="resources/member/images/profiles/basicProfile.jpg" style="width: 23px; height: 23px; border-radius: 100px;">');								

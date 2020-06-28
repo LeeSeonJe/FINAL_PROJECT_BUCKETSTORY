@@ -549,7 +549,7 @@
 	</update>
 	
 	<select id="getBLikeList" resultMap="BLikeResultMap">
-		select LOVENO, LOVEDATE, BL.USERID BL_USERID, m.NICKNAME BL_NICKNAME, BTITLE, b.STATUS B_STATUS, BKNO, mm.nickname B_NICKNAME
+		select LOVENO, LOVEDATE, BNO BL_BNO, BL.USERID BL_USERID, m.NICKNAME BL_NICKNAME, BTITLE, b.STATUS B_STATUS,b.ENROLLDATE B_ENROLLDATE, bkno, mm.PR_IMAGE B_PROFILE,mm.nickname B_NICKNAME
 		from blike bl
 		join member m on (bl.userid = m.userid)
 		join board b using (bno)
@@ -576,9 +576,11 @@
 		<result property="bTitle" column="BTITLE"/>
 		<result property="status" column="B_STATUS"/>
 		<result property="bkNo" column="BKNO"/>
+		<result property="enrollDate" column="B_ENROLLDATE"/>
 	</resultMap>
 	
 	<resultMap type="Member" id="b_memberResultSet">
 		<result property="nickName" column="B_NICKNAME"/>
+		<result property="prImage" column="B_PROFILE"/>
 	</resultMap>
 </mapper>
