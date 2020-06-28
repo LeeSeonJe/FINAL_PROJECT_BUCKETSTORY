@@ -89,4 +89,7 @@ public interface MemberService{
 
 	String getUserId(String nickName);
 
+	ArrayList<BLike> getBLikeList(String nickName);
+
+
 }

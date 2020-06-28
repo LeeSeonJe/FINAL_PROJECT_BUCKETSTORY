@@ -136,9 +136,11 @@ public class MemberController {
 			getMember = mService.getMember(nickName);
 		} 
 		getMember = mService.getMember(nickName);
-		
+		ArrayList<BLike> getBLikeList = mService.getBLikeList(nickName);
 		ArrayList<Follow> followingList = mService.getFollowingList(nickName);
 		ArrayList<Follow> followerList = mService.getFollowerList(nickName);
+		
+		
 		session.setAttribute("followingList", followingList);
 		session.setAttribute("followerList", followerList);
 		
@@ -173,7 +175,9 @@ public class MemberController {
 		session.setAttribute("list", list);
 
 		if (myBucketList != null) {
-			m.addAttribute("myBucketList", myBucketList).addAttribute("flag", flag).addAttribute("followingList", followingList).addAttribute("followerList", followerList).addAttribute("followCheck", followCheck).addAttribute("wishList", wishList).addAttribute("shareList", shareList);
+			m.addAttribute("myBucketList", myBucketList).addAttribute("flag", flag).addAttribute("followingList", followingList)
+			.addAttribute("followerList", followerList).addAttribute("followCheck", followCheck).addAttribute("wishList", wishList)
+			.addAttribute("shareList", shareList).addAttribute("getBLikeList", getBLikeList);
 			return "myPageBucket";
 		} else {
 			return "myPageBucket";

@@ -41,8 +41,8 @@
 				<span>▤견적서</span>
 				</a>
 				<script type="text/javascript">
-				function tt(t){
-					alert("페이지 주인만 접근할 수 있습니다.");					
+					function tt(t){
+						alert("페이지 주인만 접근할 수 있습니다.");					
 					}
 				</script>
 			</c:when>	

@@ -547,4 +547,38 @@
 		set ENROLLDATE = SYSDATE
 		where bkno = #{ bkNo }
 	</update>
+	
+	<select id="getBLikeList" resultMap="BLikeResultMap">
+		select LOVENO, LOVEDATE, BL.USERID BL_USERID, m.NICKNAME BL_NICKNAME, BTITLE, b.STATUS B_STATUS, BKNO, mm.nickname B_NICKNAME
+		from blike bl
+		join member m on (bl.userid = m.userid)
+		join board b using (bno)
+		join member mm on (b.userid = mm.userid)
+		where m.NICKNAME = #{ nickName } and b.status = 'Y'
+		order by lovedate desc
+	</select>
+	
+	<resultMap type="BLike" id="BLikeResultMap">
+		<id property="loveNo" column="LOVENO"/>
+		<result property="loveDate" column="LOVEDATE"/>
+		<result property="bNo" column="BL_BNO"/>
+		<result property="userId" column="BL_USERID"/>
+		<association property="bl_member" resultMap="bl_memberResultSet"></association>
+		<association property="board" resultMap="boardResultSet"></association>
+		<association property="b_member" resultMap="b_memberResultSet"></association>
+	</resultMap>
+	
+	<resultMap type="Member" id="bl_memberResultSet">
+		<result property="nickName" column="BL_NICKNAME"/>
+	</resultMap>
+	
+	<resultMap type="Board" id="boardResultSet">
+		<result property="bTitle" column="BTITLE"/>
+		<result property="status" column="B_STATUS"/>
+		<result property="bkNo" column="BKNO"/>
+	</resultMap>
+	
+	<resultMap type="Member" id="b_memberResultSet">
+		<result property="nickName" column="B_NICKNAME"/>
+	</resultMap>
 </mapper>
