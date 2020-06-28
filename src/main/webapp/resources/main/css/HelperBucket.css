@@ -101,6 +101,7 @@ section{
 	width:100%;
 	bottom: 0;
 	text-align: center;
+    background: linear-gradient(0deg, black, #9a484800);
 }
 .c-category{
 	width: 100%;
@@ -119,6 +120,7 @@ section{
 	width:240px;
 	height:100%;
 	margin:0 auto;
+    font-size: 16px;
 }
 .c-Add{
 	width: 100%;
@@ -257,7 +259,7 @@ section{
     font-size: 30px;
     color: white;
     font-weight: 700;
-    font-family: cursive;
+/*     font-family: cursive; */
 }
 #bucketleft{
 	position: absolute;
