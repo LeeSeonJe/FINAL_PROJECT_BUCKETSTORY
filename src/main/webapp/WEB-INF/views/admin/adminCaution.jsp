@@ -270,7 +270,7 @@ $(function(){
 
 /* 회원 경고 주기 */
 function chk_warning(){
- 	alert("경고를 주었습니다.");
+ 	
 
 
 	var chk_Arr = []; // 배열 초가화
@@ -283,16 +283,14 @@ function chk_warning(){
 		data: {Notify : chk_Arr},
 		async:false,
 		success: function(data){
+			alert("경고를 주었습니다.");
 			for(var key in data){
 				var asdf = data[key].userId;
 				console.log(asdf);
 				send_message(data[key].userId);
 			}
 		 location.reload();
-		
 		}			
-			
-		
 	});
 }
 
@@ -310,14 +308,9 @@ function chk_warning(){
 		url: 'delectMember.ad',
 		data: {Notify : chk_Arr},
 		success: function(data){
-			
 		console.log("data 값 보자 " + data);
-			
-		 location.reload();
-		
+		location.reload();
 		}			
-			
-		
 	});
 }
 	

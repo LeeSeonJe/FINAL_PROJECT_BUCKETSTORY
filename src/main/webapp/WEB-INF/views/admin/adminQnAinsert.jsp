@@ -130,6 +130,8 @@ nav{
 	</div>
 </body>
 <script>
+
+// 알람 보내기
 	function addAns(qNo){
 		$.ajax({
 			url:'addAnsInsertAlarm.ad',
@@ -143,6 +145,7 @@ nav{
 				} else if('${adminQnA.coid}' != ""){
 					send_message('${adminQnA.coid}');
 				}
+				location.reload();
 			}
 		});
 	}
