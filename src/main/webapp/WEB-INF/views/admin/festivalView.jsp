@@ -98,9 +98,6 @@ form>div>div>ul>li{
 						<a href="adminBill.ad?search=all">결제내역</a>
 					</li>
 					<li>
-						<a href="">통계</a>
-					</li>
-					<li>
 						<a href="cautionlist.ad">신고</a>
 					</li>
 					<li>

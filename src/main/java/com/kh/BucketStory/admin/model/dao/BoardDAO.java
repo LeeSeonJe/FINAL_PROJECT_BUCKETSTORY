@@ -117,8 +117,6 @@ public class BoardDAO {
 		
 		int result =  sqlSession.update("adminMapper.warningandcaution", Nlist);
 		
-//		System.out.println("DAO 결과 값 " + result );
-		
 		if(result > 0) {
 			return sqlSession.update("adminMapper.warningMember", no);
 		} else {
