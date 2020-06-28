@@ -19,8 +19,8 @@
 	<!-- 	<video id="video" preload="auto" autoplay="true" loop="loop" muted="muted" volume="0">
       <source src="SmokeFire.mp4">
 	</video> -->
-	<div id="back">
-        <h1>
+	<div id="back"style="background-repeat:no-repeat">
+        <h1 style="background-repeat:no-repeat">
             <span>B</span>
             <span>U</span>
             <span>C</span>

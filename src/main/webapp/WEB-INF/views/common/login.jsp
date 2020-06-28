@@ -483,7 +483,7 @@
 						<input type="text" id="email_injeung3" class="user" placeholder="인증번호를 입력하세요.">
 							<span>
 								<button type="button" class="btn btn-info2" id="emailBtn3" style='cursor:pointer;'>이메일 발송</button>
-								<button type="button" class="btn btn-info" id="emailAuthBtn3" style='cursor:pointer; display: none;'>이메일 인증</button>
+								<button type="button" class="btn btn-info" id="emailAuthBtn3" style='cursor:pointer; display: none;'>이메일 인증</button><br>
 								<img id="emailChkResult_check"  style="display:none;" src="resources/common/images/GreenCheck.png" width="15px" height="15px" /> 
 								<img id="emailChkResult_checked" style="display:none;" src="resources/common/images/RedX.png" width="15px" height="15px" />
 							</span>
