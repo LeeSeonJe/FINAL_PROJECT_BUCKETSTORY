@@ -707,4 +707,19 @@ public class MemberController {
 
 		return renameFileName;
 	}
+	
+	@RequestMapping("shareCheck.me")
+	@ResponseBody
+	public String shareCheck(@RequestParam String userId, @RequestParam Integer bkNo ) {
+		System.out.println(userId);
+		System.out.println(bkNo);
+		int result = mService.shareCheck(userId, bkNo);
+		System.out.println(result);
+		if(result > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+		
+	}
 }

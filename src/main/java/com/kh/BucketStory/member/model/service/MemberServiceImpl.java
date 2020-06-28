@@ -220,5 +220,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.getBLikeList(sqlSession, nickName);
 	}
 
+	@Override
+	public int shareCheck(String userId, Integer bkNo) {
+		return mDAO.shareCheck(sqlSession, userId, bkNo);
+	}
+
 
 }

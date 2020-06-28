@@ -232,4 +232,11 @@ public class MemberDAO {
 	public ArrayList<BLike> getBLikeList(SqlSessionTemplate sqlSession, String nickName) {
 		return (ArrayList) sqlSession.selectList("memberMapper.getBLikeList", nickName);
 	}
+
+	public int shareCheck(SqlSessionTemplate sqlSession, String userId, Integer bkNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userid", userId);
+		map.put("bkNo", bkNo);
+		return sqlSession.selectOne("memberMapper.shareCheck", map);
+	}
 }

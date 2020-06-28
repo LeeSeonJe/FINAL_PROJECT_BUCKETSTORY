@@ -106,6 +106,7 @@
 		<jsp:include page="/WEB-INF/views/layout/MyPageNav.jsp"/>
 		<div id="BLikeList-area">
 			<ul>
+				<li id="BlikeList-header">게시글 좋아요 리스트</li>
 				<c:forEach items="${ getBLikeList }" var="gbl" varStatus="status">
 					<li>
 						<span>${ status.index + 1 }</span>

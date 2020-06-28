@@ -1026,7 +1026,23 @@
 		})
 	}
 	
-
+	$(function(){
+		console.log('${getMember.userId}')
+		console.log($('#bucketNum').val())
+		$.ajax({
+			url: "shareCheck.me",
+			data: {
+				userId:'${getMember.userId}',
+				bkNo: $('#bucketNum').val()
+			},
+			success: function(data) {
+				console.log(data)
+				if(data == "success") {
+					$('#bucketUpdateBtn').hide()
+				}
+			}
+		})
+	})
 	
 	////////////////////////
 	// Make the DIV element draggable:

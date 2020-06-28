@@ -583,4 +583,10 @@
 		<result property="nickName" column="B_NICKNAME"/>
 		<result property="prImage" column="B_PROFILE"/>
 	</resultMap>
+	
+	<select id="shareCheck" resultType="_int">
+		select count(*)
+		from SHAREBUCKET
+		where BKNO = #{ bkNo } and USERID = #{ userid }
+	</select>
 </mapper>
