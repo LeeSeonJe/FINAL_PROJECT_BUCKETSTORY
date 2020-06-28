@@ -666,6 +666,28 @@
 		</section>
 	</div>
 <script>
+	$(function(){
+		$('#img_area').on('click',function(){
+			$('#imgInput').click();
+		})
+		$('#imgInput').css('display','none');
+		$('#img_area>img').attr('src', "resources/main/images/loginback.jpg");
+		$('#img_area>img').css('width', '100%');
+		
+		var list_table = $('.bucketList-area>table').hide()
+		var list_page = $('.pagingBtn-area').hide();
+		
+		var bNo = '${ bNo }'
+		if(bNo != "") {
+			var length = $('.blogBucket').children('input[type=hidden]').length
+			for(var i = 0; i < length; i++) {
+				if($('.blogBucket').children('input[type=hidden]').eq(i).val() == bNo){
+					console.log(i);
+					$('.blogBucket').children('input[type=hidden]').eq(i).next().children().focus();
+				}
+			}
+		}	
+	});
 
 	$(function(){
 		var length = ${ myBucketList.size() };
