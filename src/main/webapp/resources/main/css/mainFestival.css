@@ -33,7 +33,7 @@ header {
 section{
 	width: 100%;
     min-height: 500px;
-    background: rgba(243, 180, 255, 0.8);
+    background: rgb(248, 219, 254);
     overflow: hidden;
     padding-bottom: 50px;
 }

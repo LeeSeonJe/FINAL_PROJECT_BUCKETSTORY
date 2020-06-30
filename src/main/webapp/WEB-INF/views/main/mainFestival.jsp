@@ -98,8 +98,8 @@ $(function(){
 
 	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	        map.setCenter(coords);
+		     $("#map2").children().next().next().next().children().children().next().children('img').hide();
 	    } 
-	    
 	});
 });
 
@@ -177,10 +177,15 @@ function mapAPI(feno, feplace){
 
 	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	        map.setCenter(coords);
+			$("#map2").children().next().next().next().children().children().next().children('img').hide();
 	    } 
 	    
 	});
 }
+
+$(function(){
+	
+})
 </script>
 
 </html>

@@ -42,7 +42,7 @@
 							<c:if test="${ member.prImage != null }">
 								<img src="resources/member/images/profiles/${ member.prImage }" id="profileImage" >
 							</c:if>
-							<c:if test="${ member.prImage == null }">
+							<c:if test="${ member.prImage eq null }">
 								<img src="resources/expert/images/photo.jpg" id="profileImage" >
 							</c:if>
 								<h1 style="margin-top: 40px;"> ${ member.nickName } </h1>
