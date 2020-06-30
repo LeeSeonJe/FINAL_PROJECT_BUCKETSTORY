@@ -232,6 +232,9 @@ public class ExpertController2 {
 		
 		// Company 에 보유포인트 갱신
 		int result2 = ExService2.updateCompanyPoint(c);
+		Company loginCom = (Company)session.getAttribute("loginCompany");
+		loginCom.setPoint(getPoint(coId));
+		session.setAttribute("loginCompany", loginCom);
 		if (result > 0 && result2 > 0) {
 			return "redirect:point.ex?search=all";
 		} else {
