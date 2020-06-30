@@ -154,7 +154,7 @@
 								+"<table style='width: 780px;'>"
 								+"<tr>"
 								+"<td rowspan='3' style='width:100px;'>"
-								if(er[i].userId == m[er[i].userId].userId){
+								if(m[er[i].userId].prImage != null){
 								text += "<img id='requestImage' src='resources/member/images/profiles/"+m[er[i].userId].prImage+"' id='profileImage'>"
 								}else{
 								text += "<img id='requestImage' src='resources/expert/images/photo.jpg' id='profileImage'>"
