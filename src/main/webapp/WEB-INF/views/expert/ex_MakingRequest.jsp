@@ -33,10 +33,10 @@
 				
 					<tr>
 						<td rowspan="3" style="width:100px;">
-							<c:if test="${es.userId != m.get(es.userId).userId }">
+							<c:if test="${m.get(es.userId).prImage == null }">
 									<img id="requestImage" src="resources/expert/images/photo.jpg" id="profileImage">
 								</c:if>
-								<c:if test="${es.userId == m.get(es.userId).userId }">
+								<c:if test="${m.get(es.userId).prImage != null }">
 									<img id="requestImage" src="resources/member/images/profiles/${m.get(es.userId).prImage }" id="profileImage">
 								</c:if>
 						</td>
