@@ -130,12 +130,11 @@
 									console.log(data.prImg)
 									for( var i in data.list){
 										
-										console.log(data.prImg[data.list[i].coId].coid)
 										 text +="<div id='requestMember'>"
 											+"<table style='width: 780px;''>"
 											+"<tr>"
 											+"<td rowspan='3' style='width:100px;''>"
-											if(data.list[i].coId == data.prImg[data.list[i].coId].coid){
+											if(data.prImg[data.list[i].coId] != null){
 												text += "<img id='requestImage' src='resources/muploadFiles/"+data.prImg[data.list[i].coId].mweb+"' id='profileImage'>"
 											}else{
 												text += "<img id='requestImage' src='resources/expert/images/photo.jpg' id='profileImage'>"
