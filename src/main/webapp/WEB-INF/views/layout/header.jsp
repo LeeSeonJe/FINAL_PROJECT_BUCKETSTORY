@@ -44,8 +44,8 @@
 	
 	// 웹소켓 실행
 // 	var wsUri = "ws://localhost:9480/BucketStory/count";
-	var wsUri = "ws://220.117.72.96:9480/BucketStory/count";
-	var wsUri = "ws://192.168.40.4:9480/BucketStory/count";
+// 	var wsUri = "ws://220.117.72.96:9480/BucketStory/count";
+	var wsUri = "ws://192.168.10.2:9480/BucketStory/count";
 	var websocket = null;
 
 	function send_message(data) {

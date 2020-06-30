@@ -31,6 +31,7 @@
 		<c:forEach var="c" items="${cList}">
 		<c:if test="${c.coId eq m.coid }">
 		<div id="bucket${c.coId}" class="bucket" onclick="cpDetail('${c.coId}', '${c.coName}', '${c.compaName}', '${c.apName}', '${c.homePage}', '${c.coTel}', '${c.busiEmail}', ${c.cpCheck}, ${c.cateNum}, '${c.coIntro}', '${c.coInfo}', '${m.mweb}');">
+			<img id="bucketimg${c.coId}" style="width:100%;height:100%;">
 			<div class="bucketContent">
 				<div class="c-category">
 					<c:choose>
@@ -50,7 +51,7 @@
 			</div>
 		</div>
 <script>
-	$('#bucket${c.coId}').css('background-image', 'url("resources/muploadFiles/${m.mweb}")');
+	$('#bucketimg${c.coId}').attr('src', 'resources/muploadFiles/${m.mweb}');
 </script>
 		</c:if>
 		</c:forEach>

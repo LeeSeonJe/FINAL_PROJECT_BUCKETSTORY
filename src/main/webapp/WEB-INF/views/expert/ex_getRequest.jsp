@@ -128,7 +128,7 @@
 					dataType:'json',
 					success(data){
 						
-						
+						console.log(data)
 						var bucket = data.bucket;
 						var pi = data.pi;
 						page = pi.currentPage +1;
@@ -142,10 +142,11 @@
 								+"<table style='width: 780px;'>"
 								+"<tr>"
 								+"<td rowspan='3' style='width:100px;'>"
-								if(er[i].userId == m[er[i].userId].userId){
-								text += "<img id='requestImage' src='resources/member/images/profiles/"+m[er[i].userId].prImage+"' id='profileImage'>"
-								}else{
-								text += "<img id='requestImage' src='resources/expert/images/photo.jpg' id='profileImage'>"
+								if(m[er[i].userId].prImage == null){
+									text += "<img id='requestImage' src='resources/expert/images/photo.jpg' id='profileImage'>"
+								}
+								else if(m[er[i].userId] != null ){
+									text += "<img id='requestImage' src='resources/member/images/profiles/"+m[er[i].userId].prImage+"' id='profileImage'>"
 								}
 									text += "</td>"
 										+"<td>"
