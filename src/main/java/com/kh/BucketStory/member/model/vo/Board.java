@@ -18,6 +18,7 @@ public class Board {
 	private ArrayList<BoardComment> boardCommnet;
 
 	public Board() {
+		
 	}
 
 	public Board(String userid, int bkNo) {

@@ -241,7 +241,7 @@ section{
     height: 20px;
     font-weight: 800;
     color: orange;
-    font-family: -webkit-pictograph;
+/*     font-family: -webkit-pictograph; */
 }
 #buckettitle{
 	position: absolute;
@@ -514,7 +514,7 @@ section{
     line-height: 24px;
     margin-top: 12px;
     font-weight: bold;
-    font-family: 'Myriad Pro', sans-serif;
+/*     font-family: 'Myriad Pro', sans-serif; */
 }
 #bucketwithBN-a2{
 	right: 30px;

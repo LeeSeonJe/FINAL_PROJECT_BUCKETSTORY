@@ -45,6 +45,7 @@
 	// 웹소켓 실행
 // 	var wsUri = "ws://localhost:9480/BucketStory/count";
 	var wsUri = "ws://220.117.72.96:9480/BucketStory/count";
+	var wsUri = "ws://192.168.40.4:9480/BucketStory/count";
 	var websocket = null;
 
 	function send_message(data) {
@@ -170,37 +171,37 @@
 	
 	
 	
-	//팔로우
-	var flag = false;
-	$('#alertBtn').click(function(){
-		$('#alertDiv').css('display', 'block');
-	})
+// 	//팔로우
+// 	var flag = false;
+// 	$('#alertBtn').click(function(){
+// 		$('#alertDiv').css('display', 'block');
+// 	})
 	
-	$('#alertBtn').mouseenter(function(){
+// 	$('#alertBtn').mouseenter(function(){
+// // 		event.stopPropagation();
+// 		event.preventDefault();
+// 		flag = true;
+// 	})
+	
+// 	$('#alertBtn').mouseleave(function(){
+// 		flag = true;
+// 		if(!flag){
+// 			$('#alertDiv').css({"display": "none"});
+// 		}
+// 	})
+	
+// 	$('#alertDiv').mouseenter(function(){
 // 		event.stopPropagation();
-		event.preventDefault();
-		flag = true;
-	})
+// 		event.preventDefault();
+// 		flag = true;
+// 	})
 	
-	$('#alertBtn').mouseleave(function(){
-		flag = true;
-		if(!flag){
-			$('#alertDiv').css({"display": "none"});
-		}
-	})
-	
-	$('#alertDiv').mouseenter(function(){
-		event.stopPropagation();
-		event.preventDefault();
-		flag = true;
-	})
-	
-	$('#alertDiv').mouseleave(function(){
-		flag = false;
-		if(!flag){
-			$('#alertDiv').css({"display": "none"});
-		}
-	})
+// 	$('#alertDiv').mouseleave(function(){
+// 		flag = false;
+// 		if(!flag){
+// 			$('#alertDiv').css({"display": "none"});
+// 		}
+// 	})
 	
 
 </script>
